@@ -3,7 +3,7 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DIST="$ROOT/dist"
-VERSION="${NERV_VERSION:-0.1.0}"
+VERSION="${NERV_VERSION:-0.1.1}"
 
 usage() {
 	printf 'Usage: %s --bundle | --split | --clean\n' "$0"
@@ -86,4 +86,3 @@ case "${1:-}" in
 		exit 1
 		;;
 esac
-
