@@ -130,12 +130,12 @@ function nerv_terminal_core_notice(): string {
 function nerv_terminal_nav_items(): array {
 	return array(
 		array( 'label' => nerv_terminal_string( 'nav_home' ), 'url' => home_url( '/' ), 'active' => is_front_page() && ! nerv_terminal_is_more_view(), 'new_window' => false ),
-		array( 'label' => nerv_terminal_string( 'nav_about' ), 'url' => home_url( '/about/' ), 'active' => nerv_terminal_is_view( 'about' ) || is_author(), 'new_window' => true ),
-		array( 'label' => nerv_terminal_string( 'nav_projects' ), 'url' => home_url( '/projects/' ), 'active' => nerv_terminal_is_view( 'projects' ) || is_post_type_archive( 'project' ), 'new_window' => true ),
-		array( 'label' => nerv_terminal_string( 'nav_blog' ), 'url' => home_url( '/blog/' ), 'active' => nerv_terminal_is_view( 'blog' ) || ( is_home() && ! is_front_page() ), 'new_window' => true ),
+		array( 'label' => nerv_terminal_string( 'nav_about' ), 'url' => home_url( '/about/' ), 'active' => nerv_terminal_is_view( 'about' ) || is_author(), 'new_window' => false ),
+		array( 'label' => nerv_terminal_string( 'nav_projects' ), 'url' => home_url( '/projects/' ), 'active' => nerv_terminal_is_view( 'projects' ) || is_post_type_archive( 'project' ), 'new_window' => false ),
+		array( 'label' => nerv_terminal_string( 'nav_blog' ), 'url' => home_url( '/blog/' ), 'active' => nerv_terminal_is_view( 'blog' ) || ( is_home() && ! is_front_page() ), 'new_window' => false ),
 		array( 'label' => nerv_terminal_string( 'nav_partners' ), 'url' => home_url( '/partners/' ), 'active' => nerv_terminal_is_view( 'partners' ) || is_post_type_archive( 'partner' ) || is_singular( 'partner' ), 'new_window' => true ),
-		array( 'label' => nerv_terminal_string( 'nav_gallery' ), 'url' => home_url( '/gallery/' ), 'active' => nerv_terminal_is_view( 'gallery' ), 'new_window' => true ),
-		array( 'label' => nerv_terminal_string( 'nav_contact' ), 'url' => home_url( '/contact/' ), 'active' => nerv_terminal_is_view( 'contact' ), 'new_window' => true ),
+		array( 'label' => nerv_terminal_string( 'nav_gallery' ), 'url' => home_url( '/gallery/' ), 'active' => nerv_terminal_is_view( 'gallery' ), 'new_window' => false ),
+		array( 'label' => nerv_terminal_string( 'nav_contact' ), 'url' => home_url( '/contact/' ), 'active' => nerv_terminal_is_view( 'contact' ), 'new_window' => false ),
 	);
 }
 
@@ -334,8 +334,8 @@ function nerv_terminal_render_center_content(): string {
 		return nerv_terminal_panel_partners();
 	}
 
-	if ( nerv_terminal_is_view( 'projects' ) || nerv_terminal_is_missing_post_type_request( 'project' ) ) {
-		return nerv_terminal_panel_archive( nerv_terminal_string( 'content_archive_title' ), nerv_terminal_string( 'latest_title' ) );
+	if ( is_post_type_archive( 'project' ) || nerv_terminal_is_view( 'projects' ) || nerv_terminal_is_missing_post_type_request( 'project' ) || is_page( 'projects' ) ) {
+		return nerv_terminal_panel_projects_archive();
 	}
 
 	$queried_object = get_queried_object();
@@ -428,7 +428,7 @@ function nerv_terminal_prepare_entry_content( string $content ): string {
 				$lang = strtoupper( $lang_match[1] );
 			}
 
-			return '<div class="code-shell wp-block-code"><div class="codebar"><span class="filename">ARTICLE</span><span class="language">' . esc_html( $lang ) . '</span></div><pre' . $pre_attrs . '><code' . $code_attrs . '>' . $code . '</code></pre></div>';
+			return '<div class="code-shell wp-block-code"><div class="codebar"><span class="filename">ARTICLE</span><span class="language">' . esc_html( $lang ) . '</span><button class="code-copy" type="button">COPY</button></div><pre' . $pre_attrs . '><code' . $code_attrs . '>' . $code . '</code></pre></div>';
 		},
 		$content
 	) ?: $content;
@@ -564,7 +564,7 @@ function nerv_terminal_panel_hero(): string {
 		'<h1>' . esc_html( nerv_terminal_string( 'hero_title' ) ) . '</h1>' .
 		'<p>' . esc_html( nerv_terminal_string( 'hero_desc_1' ) ) . '</p>' .
 		'<p>' . esc_html( nerv_terminal_string( 'hero_desc_2' ) ) . '</p>' .
-		'<a class="nerv-button exo-button" href="' . esc_url( home_url( '/about/' ) ) . '"' . nerv_terminal_new_window_attrs() . '>' . esc_html( nerv_terminal_string( 'hero_button' ) ) . '</a></div>' .
+		'<a class="nerv-button exo-button" href="' . esc_url( home_url( '/about/' ) ) . '">' . esc_html( nerv_terminal_string( 'hero_button' ) ) . '</a></div>' .
 		'<div class="nerv-watermark" aria-hidden="true">NERV</div>'
 	);
 }
@@ -629,6 +629,35 @@ function nerv_terminal_panel_archive( string $title, string $subtitle ): string 
 	);
 }
 
+function nerv_terminal_panel_projects_archive(): string {
+	$paged = max( 1, absint( get_query_var( 'paged' ) ?: get_query_var( 'page' ) ) );
+	$query = new WP_Query(
+		array(
+			'post_type'      => post_type_exists( 'project' ) ? 'project' : 'post',
+			'post_status'    => 'publish',
+			'posts_per_page' => 12,
+			'paged'          => $paged,
+		)
+	);
+
+	$cards = '';
+	if ( $query->have_posts() ) {
+		while ( $query->have_posts() ) {
+			$query->the_post();
+			$cards .= nerv_terminal_project_card( get_the_ID() );
+		}
+		wp_reset_postdata();
+	} else {
+		$cards = '<p class="nerv-empty">' . esc_html( nerv_terminal_string( 'no_entries' ) ) . '</p>';
+	}
+
+	return nerv_terminal_panel(
+		'nerv-panel--archive nerv-panel--projects-archive',
+		'<div class="nerv-panel__heading nerv-panel__heading--split"><div><h2>' . esc_html( nerv_terminal_string( 'latest_title' ) ) . '</h2><span>' . esc_html( nerv_terminal_string( 'content_archive_title' ) ) . '</span></div></div>' .
+		'<div class="nerv-project-grid nerv-project-grid--archive">' . $cards . '</div>' . nerv_terminal_pagination( $query )
+	);
+}
+
 function nerv_terminal_panel_blog_archive(): string {
 	$paged = max( 1, absint( get_query_var( 'paged' ) ?: get_query_var( 'page' ) ) );
 	$query = new WP_Query(
@@ -665,10 +694,9 @@ function nerv_terminal_archive_card( int $post_id ): string {
 	$image = function_exists( 'nerv_core_cover_url' ) ? nerv_core_cover_url( $post_id, '5x2' ) : get_the_post_thumbnail_url( $post_id, 'nerv-cover' );
 	$style = $image ? ' style="background-image:url(' . esc_url( $image ) . ')"' : '';
 	$title = get_the_title( $post_id );
-	$link_attrs = nerv_terminal_new_window_attrs();
 	return '<article class="nerv-archive-card exo-card">' .
-		'<a class="nerv-card-image"' . $style . ' href="' . esc_url( get_permalink( $post_id ) ) . '" aria-label="' . esc_attr( sprintf( __( 'Open %s', 'nerv-terminal' ), $title ) ) . '"' . $link_attrs . '></a>' .
-		'<div><time>' . esc_html( get_the_date( 'Y-m-d', $post_id ) ) . '</time><h3><a href="' . esc_url( get_permalink( $post_id ) ) . '"' . $link_attrs . '>' . esc_html( $title ) . '</a></h3><p>' . esc_html( nerv_terminal_excerpt( $post_id, 26 ) ) . '</p></div>' .
+		'<a class="nerv-card-image"' . $style . ' href="' . esc_url( get_permalink( $post_id ) ) . '" aria-label="' . esc_attr( sprintf( __( 'Open %s', 'nerv-terminal' ), $title ) ) . '"></a>' .
+		'<div><time>' . esc_html( get_the_date( 'Y-m-d', $post_id ) ) . '</time><h3><a href="' . esc_url( get_permalink( $post_id ) ) . '">' . esc_html( $title ) . '</a></h3><p>' . esc_html( nerv_terminal_excerpt( $post_id, 26 ) ) . '</p></div>' .
 		'</article>';
 }
 
@@ -703,7 +731,7 @@ function nerv_terminal_panel_author_card( int $post_id ): string {
 		'<div class="nerv-author-card">' . $avatar . '<div><h3>' . esc_html( $name ) . '</h3>' .
 		( $title ? '<p class="nerv-author-title">' . esc_html( $title ) . '</p>' : '' ) .
 		'<p>' . esc_html( $bio ?: nerv_terminal_string( 'pilot_bio' ) ) . '</p>' . $social_html .
-		'<a class="nerv-button nerv-button--small exo-button" href="' . esc_url( get_author_posts_url( $author_id ) ) . '"' . nerv_terminal_new_window_attrs() . '>' . esc_html( nerv_terminal_string( 'author_more_entries' ) ) . '</a></div></div>'
+		'<a class="nerv-button nerv-button--small exo-button" href="' . esc_url( get_author_posts_url( $author_id ) ) . '">' . esc_html( nerv_terminal_string( 'author_more_entries' ) ) . '</a></div></div>'
 	);
 }
 
@@ -812,9 +840,13 @@ function nerv_terminal_partner_card( int $post_id ): string {
 	$target = ' target="_blank"';
 	$tone   = 'offline' === $status ? 'danger' : ( 'slow' === $status ? 'signal' : 'success' );
 	$href   = $url ?: get_permalink( $post_id );
+	$logo   = get_the_post_thumbnail( $post_id, 'nerv-thumb-square' );
+	if ( ! $logo && function_exists( 'nerv_core_cover_image' ) ) {
+		$logo = nerv_core_cover_image( $post_id, '1x1', 'nerv-partner-thumb' );
+	}
 
 	return '<article class="nerv-partner-card exo-card">' .
-		'<div class="nerv-partner-logo">' . ( get_the_post_thumbnail( $post_id, 'thumbnail' ) ?: nerv_terminal_icon_svg( 'grid' ) ) . '</div>' .
+		'<div class="nerv-partner-logo">' . ( $logo ?: '<span>' . esc_html( get_the_title( $post_id ) ) . '</span>' ) . '</div>' .
 		'<h3>' . esc_html( get_the_title( $post_id ) ) . '</h3>' .
 		'<p>' . esc_html( nerv_terminal_excerpt( $post_id, 18 ) ) . '</p>' .
 		'<span class="nerv-partner-status exo-badge nerv-partner-status--' . esc_attr( $status ) . '" data-tone="' . esc_attr( $tone ) . '" title="' . esc_attr( (string) ( $health['message'] ?? '' ) ) . '"><i></i>' . esc_html( $label ) . '</span>' .
@@ -941,25 +973,24 @@ function nerv_terminal_panel_latest_projects(): string {
 
 	return nerv_terminal_panel(
 		'nerv-panel--projects',
-		'<div class="nerv-panel__heading nerv-panel__heading--split"><div><h2>' . esc_html( nerv_terminal_string( 'latest_title' ) ) . '</h2><span>' . esc_html( nerv_terminal_string( 'latest_subtitle' ) ) . '</span></div><a href="' . esc_url( nerv_terminal_post_type_url( 'project' ) ) . '"' . nerv_terminal_new_window_attrs() . '>' . esc_html( nerv_terminal_string( 'view_all' ) ) . '</a></div>' .
+		'<div class="nerv-panel__heading nerv-panel__heading--split"><div><h2>' . esc_html( nerv_terminal_string( 'latest_title' ) ) . '</h2><span>' . esc_html( nerv_terminal_string( 'latest_subtitle' ) ) . '</span></div><a href="' . esc_url( nerv_terminal_post_type_url( 'project' ) ) . '">' . esc_html( nerv_terminal_string( 'view_all' ) ) . '</a></div>' .
 		'<div class="nerv-project-grid">' . $cards . '</div>'
 	);
 }
 
 function nerv_terminal_project_card( int $post_id ): string {
-	$image = function_exists( 'nerv_core_cover_url' ) ? nerv_core_cover_url( $post_id, '5x2' ) : get_the_post_thumbnail_url( $post_id, 'nerv-cover' );
+	$image = function_exists( 'nerv_core_cover_url' ) ? nerv_core_cover_url( $post_id, '1x1' ) : get_the_post_thumbnail_url( $post_id, 'nerv-thumb-square' );
 	$style = $image ? ' style="background-image:url(' . esc_url( $image ) . ')"' : '';
 	$cat   = get_the_category( $post_id );
 	$cat_name = $cat ? $cat[0]->name : __( 'WordPress', 'nerv-terminal' );
 	$title = get_the_title( $post_id );
-	$link_attrs = nerv_terminal_new_window_attrs();
 
 	return '<article class="nerv-project-card exo-card">' .
-		'<a class="nerv-card-image"' . $style . ' href="' . esc_url( get_permalink( $post_id ) ) . '" aria-label="' . esc_attr( sprintf( __( 'Open project %s', 'nerv-terminal' ), $title ) ) . '"' . $link_attrs . '></a>' .
+		'<a class="nerv-card-image"' . $style . ' href="' . esc_url( get_permalink( $post_id ) ) . '" aria-label="' . esc_attr( sprintf( __( 'Open project %s', 'nerv-terminal' ), $title ) ) . '"></a>' .
 		'<h3>' . esc_html( nerv_terminal_string( 'project_prefix' ) . ' ' . $title ) . '</h3>' .
 		'<p class="nerv-card-cat">' . esc_html( nerv_terminal_string( 'category_label' ) . ' ' . $cat_name ) . '</p>' .
 		'<p>' . esc_html( nerv_terminal_excerpt( $post_id, 18 ) ) . '</p>' .
-		'<a class="nerv-button nerv-button--small exo-button" href="' . esc_url( get_permalink( $post_id ) ) . '"' . $link_attrs . '>' . esc_html( nerv_terminal_string( 'detail_button' ) ) . '</a>' .
+		'<a class="nerv-button nerv-button--small exo-button" href="' . esc_url( get_permalink( $post_id ) ) . '">' . esc_html( nerv_terminal_string( 'detail_button' ) ) . '</a>' .
 		'</article>';
 }
 
@@ -1026,7 +1057,7 @@ function nerv_terminal_placeholder_card( int $index ): string {
 		'<h3>' . esc_html( nerv_terminal_string( 'project_prefix' ) . ' ' . $titles[ $index - 1 ] ) . '</h3>' .
 		'<p class="nerv-card-cat">' . esc_html( nerv_terminal_string( 'category_label' ) . ' ' . $cats[ $index - 1 ] ) . '</p>' .
 		'<p>' . esc_html__( 'WordPress terminal operation record initialized.', 'nerv-terminal' ) . '</p>' .
-		'<a class="nerv-button nerv-button--small exo-button" href="' . esc_url( nerv_terminal_post_type_url( 'project' ) ) . '"' . nerv_terminal_new_window_attrs() . '>' . esc_html( nerv_terminal_string( 'detail_button' ) ) . '</a>' .
+		'<a class="nerv-button nerv-button--small exo-button" href="' . esc_url( nerv_terminal_post_type_url( 'project' ) ) . '">' . esc_html( nerv_terminal_string( 'detail_button' ) ) . '</a>' .
 		'</article>';
 }
 
@@ -1042,7 +1073,7 @@ function nerv_terminal_panel_system_log(): string {
 			)
 		);
 		foreach ( $posts as $offset => $post ) {
-			$rows .= '<li><time datetime="' . esc_attr( get_the_date( DATE_W3C, $post ) ) . '">' . esc_html( get_the_date( 'H:i:s', $post ) ) . '</time> <strong>[POST]</strong> <a href="' . esc_url( get_permalink( $post ) ) . '"' . nerv_terminal_new_window_attrs() . '>' . esc_html( get_the_title( $post ) ) . '</a></li>';
+			$rows .= '<li><time datetime="' . esc_attr( get_the_date( DATE_W3C, $post ) ) . '">' . esc_html( get_the_date( 'H:i:s', $post ) ) . '</time> <strong>[POST]</strong> <a href="' . esc_url( get_permalink( $post ) ) . '">' . esc_html( get_the_title( $post ) ) . '</a></li>';
 		}
 	}
 
@@ -1055,7 +1086,7 @@ function nerv_terminal_panel_system_log(): string {
 	return nerv_terminal_panel(
 		'nerv-panel--log',
 		'<div class="nerv-panel__heading nerv-panel__heading--split"><div><h2>' . esc_html( nerv_terminal_string( 'log_title' ) ) . '</h2><span>' . esc_html( nerv_terminal_string( 'log_subtitle' ) ) . '</span></div><small>' . esc_html( nerv_terminal_string( 'log_level' ) ) . '</small></div>' .
-		'<ul class="nerv-log-list">' . $rows . '</ul><a class="nerv-log-more" href="' . esc_url( get_post_type_archive_link( 'post' ) ?: home_url( '/blog/' ) ) . '"' . nerv_terminal_new_window_attrs() . '>' . esc_html( nerv_terminal_string( 'more_logs' ) ) . '</a>'
+		'<ul class="nerv-log-list">' . $rows . '</ul><a class="nerv-log-more" href="' . esc_url( get_post_type_archive_link( 'post' ) ?: home_url( '/blog/' ) ) . '">' . esc_html( nerv_terminal_string( 'more_logs' ) ) . '</a>'
 	);
 }
 

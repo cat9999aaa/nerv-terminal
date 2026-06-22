@@ -14,7 +14,7 @@ function nerv_core_cover_default_options(): array {
 		'endpoint'         => '',
 		'api_key'          => '',
 		'model'            => '',
-		'prompt_template'  => __( 'Create an EVA terminal style cover for "{title}". Subtitle: {subtitle}. Category: {category}. Excerpt: {excerpt}.', 'nerv-core' ),
+		'prompt_template'  => __( 'Create an original square editorial thumbnail for "{title}". Use a refined retro terminal interface mood, crisp typography space, no logos, no franchise references, no triangles. Subtitle: {subtitle}. Category: {category}. Excerpt: {excerpt}.', 'nerv-core' ),
 		'auto_generate'    => false,
 		'key_points_auto'  => false,
 		'dry_run'          => true,
@@ -686,7 +686,7 @@ function nerv_core_cover_request_image( string $prompt, array $options ) {
 		'model'  => (string) $options['model'],
 		'prompt' => $prompt,
 		'n'      => 1,
-		'size'   => '1536x1024',
+		'size'   => '1024x1024',
 	);
 
 	$response = wp_remote_post(
@@ -903,7 +903,7 @@ function nerv_core_cover_import_base64_image( int $post_id, string $base64, stri
 }
 
 function nerv_core_cover_url( int $post_id, string $ratio = '5x2' ): string {
-	$size = '2x1' === $ratio ? 'nerv-og' : 'nerv-cover';
+	$size = '1x1' === $ratio ? 'nerv-thumb-square' : ( '2x1' === $ratio ? 'nerv-og' : 'nerv-cover' );
 	$uploaded = get_the_post_thumbnail_url( $post_id, $size );
 	if ( $uploaded ) {
 		return $uploaded;
@@ -987,6 +987,10 @@ function nerv_core_cover_render_prompt( WP_Post $post ): string {
 }
 
 function nerv_core_cover_dimensions( string $ratio ): array {
+	if ( '1x1' === $ratio ) {
+		return array( 1200, 1200 );
+	}
+
 	return '2x1' === $ratio ? array( 1200, 600 ) : array( 1500, 600 );
 }
 
@@ -1010,15 +1014,14 @@ function nerv_core_cover_output_svg( int $post_id, string $ratio ): void {
 	header( 'Content-Type: image/svg+xml; charset=UTF-8' );
 	echo '<svg xmlns="http://www.w3.org/2000/svg" width="' . esc_attr( (string) $width ) . '" height="' . esc_attr( (string) $height ) . '" viewBox="0 0 ' . esc_attr( (string) $width ) . ' ' . esc_attr( (string) $height ) . '" role="img" aria-label="' . esc_attr( $title ) . '">';
 	echo '<rect width="100%" height="100%" fill="#050403"/>';
-	echo '<defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#142118"/><stop offset=".52" stop-color="#090706"/><stop offset="1" stop-color="#2a0808"/></linearGradient><pattern id="scan" width="28" height="28" patternUnits="userSpaceOnUse"><path d="M0 27H28M27 0V28" stroke="#4ade80" stroke-opacity=".16"/></pattern></defs>';
+	echo '<defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#111827"/><stop offset=".54" stop-color="#090706"/><stop offset="1" stop-color="#17210f"/></linearGradient><pattern id="scan" width="28" height="28" patternUnits="userSpaceOnUse"><path d="M0 27H28M27 0V28" stroke="#4ade80" stroke-opacity=".14"/></pattern></defs>';
 	echo '<rect width="100%" height="100%" fill="url(#g)"/><rect width="100%" height="100%" fill="url(#scan)"/>';
-	echo '<path d="M' . esc_attr( (string) ( $width * 0.08 ) ) . ' ' . esc_attr( (string) ( $height * 0.84 ) ) . ' L' . esc_attr( (string) ( $width * 0.24 ) ) . ' ' . esc_attr( (string) ( $height * 0.18 ) ) . ' L' . esc_attr( (string) ( $width * 0.40 ) ) . ' ' . esc_attr( (string) ( $height * 0.84 ) ) . ' Z" fill="none" stroke="#ff3b30" stroke-width="10" stroke-opacity=".82"/>';
-	echo '<text x="' . esc_attr( (string) ( $width * 0.46 ) ) . '" y="' . esc_attr( (string) ( $height * 0.32 ) ) . '" fill="#ff3b30" font-family="monospace" font-size="28">NERV COVER: 0x' . esc_html( $code ) . '</text>';
-	echo '<text x="' . esc_attr( (string) ( $width * 0.46 ) ) . '" y="' . esc_attr( (string) ( $height * 0.50 ) ) . '" fill="#4ade80" font-family="monospace" font-size="44" font-weight="700">' . esc_html( wp_html_excerpt( $title, 42, '...' ) ) . '</text>';
+	echo '<text x="' . esc_attr( (string) ( $width * 0.08 ) ) . '" y="' . esc_attr( (string) ( $height * 0.22 ) ) . '" fill="#ffb000" font-family="monospace" font-size="' . esc_attr( (string) max( 18, (int) ( $width * 0.024 ) ) ) . '">NERV COVER: 0x' . esc_html( $code ) . '</text>';
+	echo '<text x="' . esc_attr( (string) ( $width * 0.08 ) ) . '" y="' . esc_attr( (string) ( $height * 0.46 ) ) . '" fill="#e8e4dc" font-family="monospace" font-size="' . esc_attr( (string) max( 38, (int) ( $width * 0.052 ) ) ) . '" font-weight="700">' . esc_html( wp_html_excerpt( $title, '1x1' === $ratio ? 28 : 42, '...' ) ) . '</text>';
 	if ( $subtitle ) {
-		echo '<text x="' . esc_attr( (string) ( $width * 0.46 ) ) . '" y="' . esc_attr( (string) ( $height * 0.62 ) ) . '" fill="#ffb000" font-family="monospace" font-size="22">' . esc_html( wp_html_excerpt( $subtitle, 58, '...' ) ) . '</text>';
+		echo '<text x="' . esc_attr( (string) ( $width * 0.08 ) ) . '" y="' . esc_attr( (string) ( $height * 0.58 ) ) . '" fill="#4ade80" font-family="monospace" font-size="' . esc_attr( (string) max( 20, (int) ( $width * 0.026 ) ) ) . '">' . esc_html( wp_html_excerpt( $subtitle, '1x1' === $ratio ? 38 : 62, '...' ) ) . '</text>';
 	}
-	echo '<text x="' . esc_attr( (string) ( $width - 42 ) ) . '" y="' . esc_attr( (string) ( $height - 34 ) ) . '" fill="#4ade80" fill-opacity=".62" font-family="monospace" font-size="18" text-anchor="end">UPLOAD &gt; AI &gt; SVG FALLBACK</text>';
+	echo '<text x="' . esc_attr( (string) ( $width * 0.08 ) ) . '" y="' . esc_attr( (string) ( $height * 0.82 ) ) . '" fill="#4ade80" fill-opacity=".62" font-family="monospace" font-size="' . esc_attr( (string) max( 16, (int) ( $width * 0.018 ) ) ) . '">TEXT ONLY FALLBACK</text>';
 	echo '</svg>';
 	exit;
 }

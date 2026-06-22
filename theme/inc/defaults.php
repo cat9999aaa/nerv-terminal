@@ -139,6 +139,16 @@ function nerv_terminal_locale_default_overrides(): array {
 	if ( str_starts_with( $lang, 'zh' ) ) {
 		return array(
 			'clock_timezone'         => __( 'CST', 'nerv-terminal' ),
+			'nav_home'               => __( '首页', 'nerv-terminal' ),
+			'nav_about'              => __( '关于', 'nerv-terminal' ),
+			'nav_projects'           => __( '项目', 'nerv-terminal' ),
+			'nav_blog'               => __( '文章', 'nerv-terminal' ),
+			'nav_partners'           => __( '合作伙伴', 'nerv-terminal' ),
+			'nav_gallery'            => __( '图库', 'nerv-terminal' ),
+			'nav_contact'            => __( '联系', 'nerv-terminal' ),
+			'latest_title'           => __( '最新项目', 'nerv-terminal' ),
+			'view_all'               => __( '> 查看全部', 'nerv-terminal' ),
+			'project_prefix'         => __( '项目：', 'nerv-terminal' ),
 			'mission_purpose'        => __( '目的：个人网站', 'nerv-terminal' ),
 			'mission_state'          => __( '状态：待命', 'nerv-terminal' ),
 			'all_systems_sub'        => __( '所有系统运行正常。', 'nerv-terminal' ),
@@ -163,9 +173,18 @@ function nerv_terminal_locale_default_overrides(): array {
 			'emergency_jp'           => __( '紧急联系网络', 'nerv-terminal' ),
 			'mobile_more_title'      => __( '更多 / 扩展面板', 'nerv-terminal' ),
 			'author_card_title'      => __( '作者 / 操作者', 'nerv-terminal' ),
+			'content_entry_title'    => __( '文章详情', 'nerv-terminal' ),
+			'content_page_title'     => __( '页面详情', 'nerv-terminal' ),
+			'content_archive_title'  => __( '归档索引', 'nerv-terminal' ),
+			'content_search_title'   => __( '搜索结果', 'nerv-terminal' ),
 			'related_title'          => __( '相关文章', 'nerv-terminal' ),
+			'partners_title'         => __( '合作伙伴', 'nerv-terminal' ),
 			'partners_subtitle'      => __( '合作伙伴链接', 'nerv-terminal' ),
+			'partner_visit'          => __( '> 访问站点', 'nerv-terminal' ),
+			'partner_apply_title'    => __( '友情链接申请', 'nerv-terminal' ),
 			'partner_apply_subtitle' => __( '友情链接申请', 'nerv-terminal' ),
+			'partner_apply_button'   => __( '> 发送申请', 'nerv-terminal' ),
+			'footer_partners_label'  => __( '伙伴：', 'nerv-terminal' ),
 		);
 	}
 

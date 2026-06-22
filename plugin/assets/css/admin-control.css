@@ -1860,3 +1860,204 @@
 	background: #f6f7f7;
 	font-family: inherit;
 }
+
+/* WordPress admin surface: settings pages stay light and scannable. */
+.nerv-control-wrap {
+	max-width: 1240px;
+}
+
+.nerv-control-page-description {
+	max-width: 780px;
+	color: #50575e;
+	font-size: 14px;
+	line-height: 1.6;
+}
+
+.nerv-control-page-nav {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin: 16px 0;
+	padding: 12px;
+	border: 1px solid #dcdcde;
+	border-radius: 6px;
+	background: #fff;
+}
+
+.nerv-control-page-nav a {
+	padding: 6px 10px;
+	border: 1px solid #dcdcde;
+	border-radius: 4px;
+	background: #f6f7f7;
+	color: #1d2327;
+	text-decoration: none;
+}
+
+.nerv-control-page-nav a:hover,
+.nerv-control-page-nav a:focus,
+.nerv-control-page-nav a.is-current {
+	border-color: #2271b1;
+	background: #f0f6fc;
+	color: #135e96;
+}
+
+.nerv-control-wrap .nerv-control-app {
+	max-width: 1180px;
+	margin: 18px 0 28px;
+}
+
+.nerv-control-wrap .nerv-control-shell {
+	border: 1px solid #dcdcde;
+	border-radius: 6px;
+	background: #fff;
+	color: #1d2327;
+	box-shadow: none;
+}
+
+.nerv-control-wrap .nerv-control-shell--loading {
+	color: #2271b1;
+	font-family: inherit;
+}
+
+.nerv-control-wrap .nerv-control-hero {
+	border-bottom: 1px solid #dcdcde;
+	background: #f6f7f7;
+}
+
+.nerv-control-wrap .nerv-control-kicker,
+.nerv-control-wrap .nerv-control-identity span,
+.nerv-control-wrap .nerv-control-metric span,
+.nerv-control-wrap .nerv-control-tab em {
+	color: #646970;
+	font-family: inherit;
+	text-transform: none;
+}
+
+.nerv-control-wrap .nerv-control-hero h2,
+.nerv-control-wrap .nerv-control-panel h3,
+.nerv-control-wrap .nerv-control-health strong,
+.nerv-control-wrap .nerv-control-activity strong,
+.nerv-control-wrap .nerv-control-steps strong,
+.nerv-control-wrap .nerv-control-mode-card strong {
+	color: #1d2327;
+}
+
+.nerv-control-wrap .nerv-control-hero p,
+.nerv-control-wrap .nerv-control-health p,
+.nerv-control-wrap .nerv-control-empty,
+.nerv-control-wrap .nerv-control-form-note,
+.nerv-control-wrap .nerv-control-card-note,
+.nerv-control-wrap .nerv-control-palette-swatch span,
+.nerv-control-wrap .nerv-control-mode-card span {
+	color: #50575e;
+}
+
+.nerv-control-wrap .nerv-control-identity,
+.nerv-control-wrap .nerv-control-panel,
+.nerv-control-wrap .nerv-control-health__item,
+.nerv-control-wrap .nerv-control-steps li,
+.nerv-control-wrap .nerv-control-activity li,
+.nerv-control-wrap .nerv-control-fieldset,
+.nerv-control-wrap .nerv-control-card,
+.nerv-control-wrap .nerv-control-repeat-row,
+.nerv-control-wrap .nerv-control-custom-panel,
+.nerv-control-wrap .nerv-control-tools-card {
+	border-color: #dcdcde;
+	background: #fff;
+	color: #1d2327;
+}
+
+.nerv-control-wrap .nerv-control-fieldset,
+.nerv-control-wrap .nerv-control-card,
+.nerv-control-wrap .nerv-control-tools-card {
+	border-radius: 6px;
+}
+
+.nerv-control-wrap .nerv-control-metrics,
+.nerv-control-wrap .nerv-control-tabs {
+	border-bottom: 1px solid #dcdcde;
+	background: #dcdcde;
+}
+
+.nerv-control-wrap .nerv-control-metric,
+.nerv-control-wrap .nerv-control-tab {
+	background: #fff;
+	color: #1d2327;
+}
+
+.nerv-control-wrap .nerv-control-tab {
+	cursor: pointer;
+}
+
+.nerv-control-wrap .nerv-control-tab.is-selected {
+	outline: 2px solid #2271b1;
+	background: #f0f6fc;
+}
+
+.nerv-control-wrap .nerv-control-metric strong,
+.nerv-control-wrap .nerv-control-health em,
+.nerv-control-wrap .nerv-control-panel a,
+.nerv-control-wrap .nerv-control-inline-link {
+	color: #135e96;
+}
+
+.nerv-control-wrap .nerv-control-status-pill {
+	border-color: #dcdcde;
+	background: #f6f7f7;
+	color: #1d2327;
+}
+
+.nerv-control-wrap .nerv-control-status-pill--green {
+	border-color: #00a32a;
+	background: #edfaef;
+	color: #006800;
+}
+
+.nerv-control-wrap .nerv-control-status-pill--red {
+	border-color: #d63638;
+	background: #fcf0f1;
+	color: #8a2424;
+}
+
+.nerv-control-wrap .nerv-control-status-pill--amber {
+	border-color: #dba617;
+	background: #fcf9e8;
+	color: #755100;
+}
+
+.nerv-control-wrap input[type="text"],
+.nerv-control-wrap input[type="url"],
+.nerv-control-wrap input[type="email"],
+.nerv-control-wrap input[type="password"],
+.nerv-control-wrap input[type="number"],
+.nerv-control-wrap textarea,
+.nerv-control-wrap select {
+	border-color: #8c8f94;
+	background: #fff;
+	color: #1d2327;
+}
+
+.nerv-control-wrap .nerv-control-palette-swatch,
+.nerv-control-wrap .nerv-control-mode-card {
+	border-color: #dcdcde;
+	background: #fff;
+	color: #1d2327;
+}
+
+.nerv-control-wrap .nerv-control-palette-swatch.is-selected,
+.nerv-control-wrap .nerv-control-mode-card.is-selected {
+	border-color: #2271b1;
+	background: #f0f6fc;
+	box-shadow: inset 0 0 0 1px #2271b1;
+}
+
+.nerv-control-wrap .nerv-control-appearance-preview {
+	border-color: #dcdcde;
+	background: #1d2327;
+	color: #fff;
+}
+
+.nerv-control-wrap .nerv-control-appearance-preview[data-mode="paper"] {
+	background: #fff;
+	color: #1d2327;
+}

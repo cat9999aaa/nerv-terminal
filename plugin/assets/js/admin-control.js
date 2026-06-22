@@ -57,6 +57,10 @@
 	function stepItem( step, index, handlers ) {
 		handlers = handlers || {};
 		const actionLabel = step.button || ( step.action ? __( 'Run step', 'nerv-core' ) : __( 'Open step', 'nerv-core' ) );
+		const sectionLinks = window.nervCoreControl && window.nervCoreControl.sectionLinks ? window.nervCoreControl.sectionLinks : [];
+		const targetLink = step.tab ? sectionLinks.find( function ( item ) {
+			return item.id === step.tab;
+		} ) : null;
 		return el(
 			'li',
 			{ className: step.done ? 'is-done' : 'is-open', key: index },
@@ -69,7 +73,14 @@
 				el(
 					'div',
 					{ className: 'nerv-control-step-actions' },
-					step.tab ? el(
+					step.tab && targetLink ? el(
+						'a',
+						{
+							className: 'button button-secondary button-small',
+							href: targetLink.url,
+						},
+						actionLabel
+					) : step.tab ? el(
 						Button,
 						{
 							variant: 'secondary',
@@ -81,7 +92,7 @@
 								}
 							},
 						},
-						step.action ? __( 'Open Tab', 'nerv-core' ) : actionLabel
+						actionLabel
 					) : null,
 					step.action ? el(
 						Button,
@@ -473,7 +484,7 @@
 				el(
 					'div',
 					{ className: 'nerv-control-panel__title' },
-					el( 'h3', null, __( 'TAB 09 · AI Services', 'nerv-core' ) ),
+					el( 'h3', null, __( 'NERV主题 · AI服务', 'nerv-core' ) ),
 					el(
 						'span',
 						{ className: 'nerv-control-status-pill nerv-control-status-pill--' + ( status.ready ? 'green' : 'red' ) },
@@ -594,11 +605,6 @@
 						Button,
 						{ variant: 'primary', isBusy: saving, disabled: saving, onClick: saveSettings },
 						saving ? __( 'Saving...', 'nerv-core' ) : __( 'Save AI Services', 'nerv-core' )
-					),
-					el(
-						Button,
-						{ variant: 'secondary', onClick: function () { props.onSelectTab( 'dashboard' ); } },
-						__( 'Back to dashboard', 'nerv-core' )
 					)
 				)
 			)
@@ -787,7 +793,7 @@
 				el(
 					'div',
 					{ className: 'nerv-control-panel__title' },
-					el( 'h3', null, __( 'TAB 01 · Brand', 'nerv-core' ) ),
+					el( 'h3', null, __( 'NERV主题 · 品牌', 'nerv-core' ) ),
 					el( 'span', { className: 'nerv-control-status-pill nerv-control-status-pill--green' }, __( 'White-label active', 'nerv-core' ) )
 				),
 				el( 'p', { className: 'nerv-control-form-note' }, __( 'Control the first-viewport brand signal, header clock labels, and PWA install metadata used by the terminal shell.', 'nerv-core' ) ),
@@ -1047,11 +1053,6 @@
 						Button,
 						{ variant: 'primary', isBusy: saving, disabled: saving, onClick: saveSettings },
 						saving ? __( 'Saving...', 'nerv-core' ) : __( 'Save Brand Settings', 'nerv-core' )
-					),
-					el(
-						Button,
-						{ variant: 'secondary', onClick: function () { props.onSelectTab( 'dashboard' ); } },
-						__( 'Back to dashboard', 'nerv-core' )
 					)
 				)
 			)
@@ -1132,7 +1133,7 @@
 				el(
 					'div',
 					{ className: 'nerv-control-panel__title' },
-					el( 'h3', null, __( 'TAB 02 · SEO', 'nerv-core' ) ),
+					el( 'h3', null, __( 'NERV主题 · SEO', 'nerv-core' ) ),
 					el(
 						'span',
 						{ className: 'nerv-control-status-pill nerv-control-status-pill--' + ( form.enabled ? 'green' : 'red' ) },
@@ -1229,11 +1230,6 @@
 						Button,
 						{ variant: 'primary', isBusy: saving, disabled: saving, onClick: saveSettings },
 						saving ? __( 'Saving...', 'nerv-core' ) : __( 'Save SEO Settings', 'nerv-core' )
-					),
-					el(
-						Button,
-						{ variant: 'secondary', onClick: function () { props.onSelectTab( 'dashboard' ); } },
-						__( 'Back to dashboard', 'nerv-core' )
 					)
 				)
 			)
@@ -1299,7 +1295,7 @@
 				el(
 					'div',
 					{ className: 'nerv-control-panel__title' },
-					el( 'h3', null, __( 'TAB 05 · Articles', 'nerv-core' ) ),
+					el( 'h3', null, __( 'NERV主题 · 文章', 'nerv-core' ) ),
 					el(
 						'span',
 						{ className: 'nerv-control-status-pill nerv-control-status-pill--' + ( form.enabled ? 'green' : 'red' ) },
@@ -1451,11 +1447,6 @@
 						Button,
 						{ variant: 'primary', isBusy: saving, disabled: saving, onClick: saveSettings },
 						saving ? __( 'Saving...', 'nerv-core' ) : __( 'Save Article Settings', 'nerv-core' )
-					),
-					el(
-						Button,
-						{ variant: 'secondary', onClick: function () { props.onSelectTab( 'dashboard' ); } },
-						__( 'Back to dashboard', 'nerv-core' )
 					)
 				)
 			)
@@ -1542,7 +1533,7 @@
 				el(
 					'div',
 					{ className: 'nerv-control-panel__title' },
-					el( 'h3', null, __( 'TAB 06 · GEO', 'nerv-core' ) ),
+					el( 'h3', null, __( 'NERV主题 · GEO', 'nerv-core' ) ),
 					el(
 						'span',
 						{ className: 'nerv-control-status-pill nerv-control-status-pill--green' },
@@ -1737,11 +1728,6 @@
 						Button,
 						{ variant: 'primary', isBusy: saving, disabled: saving, onClick: saveSettings },
 						saving ? __( 'Saving...', 'nerv-core' ) : __( 'Save GEO Settings', 'nerv-core' )
-					),
-					el(
-						Button,
-						{ variant: 'secondary', onClick: function () { props.onSelectTab( 'dashboard' ); } },
-						__( 'Back to dashboard', 'nerv-core' )
 					)
 				)
 			)
@@ -1806,7 +1792,7 @@
 				el(
 					'div',
 					{ className: 'nerv-control-panel__title' },
-					el( 'h3', null, __( 'TAB 03 · Mobile App', 'nerv-core' ) ),
+					el( 'h3', null, __( 'NERV主题 · 移动端', 'nerv-core' ) ),
 					el( 'span', { className: 'nerv-control-status-pill nerv-control-status-pill--' + ( form.enabled ? 'green' : 'red' ) }, form.enabled ? __( 'App shell enabled', 'nerv-core' ) : __( 'App shell disabled', 'nerv-core' ) )
 				),
 				el( 'p', { className: 'nerv-control-form-note' }, __( 'Configure the fixed mobile Tab Bar, MORE screen content, and app-style navigation contract. Keep 3 to 5 enabled tabs for thumb-safe mobile use.', 'nerv-core' ) ),
@@ -1943,11 +1929,6 @@
 						Button,
 						{ variant: 'primary', isBusy: saving, disabled: saving, onClick: saveSettings },
 						saving ? __( 'Saving...', 'nerv-core' ) : __( 'Save Mobile App Settings', 'nerv-core' )
-					),
-					el(
-						Button,
-						{ variant: 'secondary', onClick: function () { props.onSelectTab( 'dashboard' ); } },
-						__( 'Back to dashboard', 'nerv-core' )
 					)
 				)
 			)
@@ -2185,7 +2166,7 @@
 				el(
 					'div',
 					{ className: 'nerv-control-panel__title' },
-					el( 'h3', null, __( 'TAB 02 · Panels', 'nerv-core' ) ),
+					el( 'h3', null, __( 'NERV主题 · 面板', 'nerv-core' ) ),
 					el(
 						'span',
 						{ className: 'nerv-control-status-pill nerv-control-status-pill--green' },
@@ -2565,11 +2546,6 @@
 						Button,
 						{ variant: 'primary', isBusy: saving, disabled: saving, onClick: saveSettings },
 						saving ? __( 'Saving...', 'nerv-core' ) : __( 'Save Panel Settings', 'nerv-core' )
-					),
-					el(
-						Button,
-						{ variant: 'secondary', onClick: function () { props.onSelectTab( 'dashboard' ); } },
-						__( 'Back to dashboard', 'nerv-core' )
 					)
 				)
 			)
@@ -2666,7 +2642,7 @@
 				el(
 					'div',
 					{ className: 'nerv-control-panel__title' },
-					el( 'h3', null, __( 'TAB 07 · Effects', 'nerv-core' ) ),
+					el( 'h3', null, __( 'NERV主题 · 特效', 'nerv-core' ) ),
 					el(
 						'span',
 						{ className: 'nerv-control-status-pill ' + ( form.enabled ? 'nerv-control-status-pill--green' : 'nerv-control-status-pill--amber' ) },
@@ -2840,7 +2816,7 @@
 					'div',
 					{ className: 'nerv-control-effect-preset-box' },
 					el( 'h4', null, __( 'Effect Preset JSON', 'nerv-core' ) ),
-					el( 'p', null, __( 'Export or import only TAB 07 effect settings. Imported JSON updates this form first; save when the preview looks right.', 'nerv-core' ) ),
+					el( 'p', null, __( 'Export or import only the effect settings. Imported JSON updates this form first; save when the preview looks right.', 'nerv-core' ) ),
 					el( TextareaControl, {
 						label: __( 'Effect preset JSON', 'nerv-core' ),
 						value: effectPresetText,
@@ -2873,11 +2849,6 @@
 						Button,
 						{ variant: 'primary', isBusy: saving, disabled: saving, onClick: saveSettings },
 						saving ? __( 'Saving...', 'nerv-core' ) : __( 'Save Effect Settings', 'nerv-core' )
-					),
-					el(
-						Button,
-						{ variant: 'secondary', onClick: function () { props.onSelectTab( 'dashboard' ); } },
-						__( 'Back to dashboard', 'nerv-core' )
 					)
 				)
 			)
@@ -2932,7 +2903,7 @@
 				el(
 					'div',
 					{ className: 'nerv-control-panel__title' },
-					el( 'h3', null, __( 'TAB 08 · Appearance', 'nerv-core' ) ),
+					el( 'h3', null, __( 'NERV主题 · 配色', 'nerv-core' ) ),
 					el( 'span', { className: 'nerv-control-status-pill nerv-control-status-pill--green' }, form.mode + ' / ' + form.palette )
 				),
 				el( 'p', { className: 'nerv-control-form-note' }, __( 'Choose the frontend palette and day/night mode. The block editor remains white background with black text for writing clarity.', 'nerv-core' ) ),
@@ -3005,11 +2976,6 @@
 						Button,
 						{ variant: 'primary', isBusy: saving, disabled: saving, onClick: saveSettings },
 						saving ? __( 'Saving...', 'nerv-core' ) : __( 'Save Appearance Settings', 'nerv-core' )
-					),
-					el(
-						Button,
-						{ variant: 'secondary', onClick: function () { props.onSelectTab( 'dashboard' ); } },
-						__( 'Back to dashboard', 'nerv-core' )
 					)
 				)
 			)
@@ -3082,7 +3048,7 @@
 				el(
 					'div',
 					{ className: 'nerv-control-panel__title' },
-					el( 'h3', null, __( 'TAB 04 · Social', 'nerv-core' ) ),
+					el( 'h3', null, __( 'NERV主题 · 社交', 'nerv-core' ) ),
 					el(
 						'span',
 						{ className: 'nerv-control-status-pill nerv-control-status-pill--' + ( form.enabled ? 'green' : 'red' ) },
@@ -3211,11 +3177,6 @@
 						Button,
 						{ variant: 'primary', isBusy: saving, disabled: saving, onClick: saveSettings },
 						saving ? __( 'Saving...', 'nerv-core' ) : __( 'Save Social Settings', 'nerv-core' )
-					),
-					el(
-						Button,
-						{ variant: 'secondary', onClick: function () { props.onSelectTab( 'dashboard' ); } },
-						__( 'Back to dashboard', 'nerv-core' )
 					)
 				)
 			)
@@ -3298,7 +3259,7 @@
 				el(
 					'div',
 					{ className: 'nerv-control-panel__title' },
-					el( 'h3', null, __( 'TAB 10 · Partners', 'nerv-core' ) ),
+					el( 'h3', null, __( 'NERV主题 · 合作伙伴', 'nerv-core' ) ),
 					el(
 						'span',
 						{ className: 'nerv-control-status-pill nerv-control-status-pill--green' },
@@ -3457,11 +3418,6 @@
 						Button,
 						{ variant: 'primary', isBusy: saving, disabled: saving, onClick: saveSettings },
 						saving ? __( 'Saving...', 'nerv-core' ) : __( 'Save Partner Settings', 'nerv-core' )
-					),
-					el(
-						Button,
-						{ variant: 'secondary', onClick: function () { props.onSelectTab( 'dashboard' ); } },
-						__( 'Back to dashboard', 'nerv-core' )
 					)
 				)
 			)
@@ -3525,7 +3481,7 @@
 				el(
 					'div',
 					{ className: 'nerv-control-panel__title' },
-					el( 'h3', null, __( 'TAB 08 · Tools', 'nerv-core' ) ),
+					el( 'h3', null, __( 'NERV主题 · 工具', 'nerv-core' ) ),
 					el(
 						'span',
 						{ className: 'nerv-control-status-pill nerv-control-status-pill--green' },
@@ -3706,12 +3662,7 @@
 				),
 				el(
 					'div',
-					{ className: 'nerv-control-actions' },
-					el(
-						Button,
-						{ variant: 'secondary', onClick: function () { props.onSelectTab( 'dashboard' ); } },
-						__( 'Back to dashboard', 'nerv-core' )
-					)
+					{ className: 'nerv-control-actions' }
 				)
 			)
 		);
@@ -3725,13 +3676,8 @@
 			el(
 				'section',
 				{ className: 'nerv-control-panel' },
-				el( 'h3', null, tab.label || __( 'Theme Control Tab', 'nerv-core' ) ),
-				el( 'p', { className: 'nerv-control-form-note' }, __( 'This React tab shell is ready; its editable controls will be migrated from the current settings forms in a later pass.', 'nerv-core' ) ),
-				el(
-					Button,
-					{ variant: 'secondary', onClick: function () { props.onSelectTab( 'dashboard' ); } },
-					__( 'Back to dashboard', 'nerv-core' )
-				)
+				el( 'h3', null, tab.label || __( 'Theme Control Page', 'nerv-core' ) ),
+				el( 'p', { className: 'nerv-control-form-note' }, __( 'This React tab shell is ready; its editable controls will be migrated from the current settings forms in a later pass.', 'nerv-core' ) )
 			)
 		);
 	}
@@ -3739,6 +3685,9 @@
 	function Dashboard( props ) {
 		const data = props.data;
 		const activeTab = props.activeTab;
+		const singlePageMode = !! ( window.nervCoreControl && window.nervCoreControl.singlePageMode );
+		const currentTitle = window.nervCoreControl && window.nervCoreControl.currentTitle ? window.nervCoreControl.currentTitle : '';
+		const currentDescription = window.nervCoreControl && window.nervCoreControl.currentDescription ? window.nervCoreControl.currentDescription : '';
 		const [ wizardRunning, setWizardRunning ] = useState( '' );
 		const [ wizardNotice, setWizardNotice ] = useState( '' );
 		const [ wizardError, setWizardError ] = useState( '' );
@@ -3868,16 +3817,16 @@
 
 		return el(
 			'div',
-			{ className: 'nerv-control-shell' },
+			{ className: 'nerv-control-shell' + ( singlePageMode ? ' nerv-control-single-page' : '' ) },
 			el(
 				'header',
 				{ className: 'nerv-control-hero' },
 				el(
 					'div',
 					null,
-					el( 'span', { className: 'nerv-control-kicker' }, __( 'Theme Dashboard', 'nerv-core' ) ),
-					el( 'h2', null, data.site.name || __( 'NERV Terminal', 'nerv-core' ) ),
-					el( 'p', null, __( 'GEO, AI services, crawler visibility, partners, and theme operations in one control surface.', 'nerv-core' ) )
+					el( 'span', { className: 'nerv-control-kicker' }, singlePageMode ? __( 'Theme Settings Page', 'nerv-core' ) : __( 'Theme Dashboard', 'nerv-core' ) ),
+					el( 'h2', null, currentTitle || data.site.name || __( 'NERV Terminal', 'nerv-core' ) ),
+					el( 'p', null, currentDescription || __( 'GEO, AI services, crawler visibility, partners, and theme operations in one control surface.', 'nerv-core' ) )
 				),
 				el(
 					'div',
@@ -3887,13 +3836,13 @@
 					el( 'small', null, 'WP ' + data.site.wpVersion + ' / Core ' + data.site.core )
 				)
 			),
-			el(
+			singlePageMode ? null : el(
 				'nav',
-				{ className: 'nerv-control-tabs', 'aria-label': __( 'Theme Control tabs', 'nerv-core' ) },
+				{ className: 'nerv-control-tabs', 'aria-label': __( 'Theme Control pages', 'nerv-core' ) },
 				data.tabs.map( function ( tab ) {
 					return tabButton( tab, activeTab, props.onSelectTab );
-					} )
-				),
+				} )
+			),
 				el( 'section', { className: 'nerv-control-metrics' }, data.metrics.map( metricCard ) ),
 				tabContent
 			);
@@ -3902,7 +3851,7 @@
 	function App() {
 		const [ data, setData ] = useState( null );
 		const [ error, setError ] = useState( '' );
-		const [ activeTab, setActiveTab ] = useState( 'dashboard' );
+		const [ activeTab, setActiveTab ] = useState( window.nervCoreControl && window.nervCoreControl.initialTab ? window.nervCoreControl.initialTab : 'dashboard' );
 
 		useEffect( function () {
 			if ( window.nervCoreControl && window.nervCoreControl.nonce ) {

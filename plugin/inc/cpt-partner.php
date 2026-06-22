@@ -15,11 +15,11 @@ function nerv_core_register_partner_cpt(): void {
 		'partner',
 		array(
 			'labels'       => array(
-				'name'          => __( 'NERV Theme · Partners', 'nerv-core' ),
-				'singular_name' => __( 'NERV Theme · Partner', 'nerv-core' ),
-				'add_new_item'  => __( 'Add New NERV Theme Partner', 'nerv-core' ),
-				'edit_item'     => __( 'Edit NERV Theme Partner', 'nerv-core' ),
-				'menu_name'     => __( 'NERV Theme · Partners', 'nerv-core' ),
+				'name'          => 'NERV主题 · 合作伙伴',
+				'singular_name' => 'NERV主题 · 合作伙伴',
+				'add_new_item'  => '添加 NERV主题 · 合作伙伴',
+				'edit_item'     => '编辑 NERV主题 · 合作伙伴',
+				'menu_name'     => 'NERV主题 · 合作伙伴',
 			),
 			'public'       => true,
 			'has_archive'  => true,

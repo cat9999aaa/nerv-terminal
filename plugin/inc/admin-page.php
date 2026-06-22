@@ -11,22 +11,65 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 add_action( 'admin_menu', 'nerv_core_register_admin_page' );
 function nerv_core_register_admin_page(): void {
-	add_menu_page(
-		__( 'NERV Theme · Control', 'nerv-core' ),
-		__( 'NERV Theme · Control', 'nerv-core' ),
+	$GLOBALS['nerv_core_admin_hooks'] = array();
+	$pages = nerv_core_admin_pages();
+	$first = reset( $pages );
+	$hook  = add_menu_page(
+		(string) ( $first['title'] ?? 'NERV主题 · 总览' ),
+		'NERV主题',
 		'manage_options',
 		'nerv-control',
-		'nerv_core_render_admin_page',
+		static function (): void {
+			nerv_core_render_admin_page( 'dashboard' );
+		},
 		'dashicons-admin-appearance',
 		58
+	);
+	$GLOBALS['nerv_core_admin_hooks'][ $hook ] = 'dashboard';
+
+	foreach ( $pages as $section => $page ) {
+		$slug = 'dashboard' === $section ? 'nerv-control' : 'nerv-control-' . $section;
+		$submenu_hook = add_submenu_page(
+			'nerv-control',
+			(string) $page['title'],
+			(string) $page['menu'],
+			'manage_options',
+			$slug,
+			static function () use ( $section ): void {
+				nerv_core_render_admin_page( $section );
+			}
+		);
+		$GLOBALS['nerv_core_admin_hooks'][ $submenu_hook ] = $section;
+	}
+}
+
+function nerv_core_admin_pages(): array {
+	return array(
+		'dashboard'  => array( 'title' => 'NERV主题 · 总览', 'menu' => 'NERV主题 · 总览', 'description' => '查看主题健康状态、机器可读资源、发布工具和上线步骤。' ),
+		'brand'      => array( 'title' => 'NERV主题 · 品牌', 'menu' => 'NERV主题 · 品牌', 'description' => '设置站点标题、Logo、PWA 图标、字体和页头时钟。' ),
+		'appearance' => array( 'title' => 'NERV主题 · 配色', 'menu' => 'NERV主题 · 配色', 'description' => '单独设置 10 套配色和白天/夜间模式。' ),
+		'layout'     => array( 'title' => 'NERV主题 · 面板', 'menu' => 'NERV主题 · 面板', 'description' => '控制首页展示面板、排序、列位置、自定义内容和面板文案。' ),
+		'articles'   => array( 'title' => 'NERV主题 · 文章', 'menu' => 'NERV主题 · 文章', 'description' => '设置相关文章、缓存、分类排除和文章语义链接。' ),
+		'partners'   => array( 'title' => 'NERV主题 · 合作伙伴', 'menu' => 'NERV主题 · 合作伙伴', 'description' => '管理合作伙伴展示、页脚推荐、申请区块和健康检测。' ),
+		'social'     => array( 'title' => 'NERV主题 · 社交', 'menu' => 'NERV主题 · 社交', 'description' => '设置全局社交链接、二维码和外链打开方式。' ),
+		'mobile'     => array( 'title' => 'NERV主题 · 移动端', 'menu' => 'NERV主题 · 移动端', 'description' => '配置移动端底部导航、更多页和移动端展示模块。' ),
+		'seo'        => array( 'title' => 'NERV主题 · SEO', 'menu' => 'NERV主题 · SEO', 'description' => '设置主题 Meta、Open Graph 图片、SEO 插件接管和 Markdown 索引。' ),
+		'geo'        => array( 'title' => 'NERV主题 · GEO', 'menu' => 'NERV主题 · GEO', 'description' => '管理 llms.txt、IndexNow、AI 爬虫监控和机器可读资源。' ),
+		'effects'    => array( 'title' => 'NERV主题 · 特效', 'menu' => 'NERV主题 · 特效', 'description' => '调整前端网格、扫描线、辉光、动效和移动端特效强度。' ),
+		'ai'         => array( 'title' => 'NERV主题 · AI服务', 'menu' => 'NERV主题 · AI服务', 'description' => '设置 AI 封面接口、提示词、自动生成和试运行模式。' ),
+		'tools'      => array( 'title' => 'NERV主题 · 工具', 'menu' => 'NERV主题 · 工具', 'description' => '运行缓存刷新、演示数据导入、发布审计和设置预设工具。' ),
 	);
 }
 
 add_action( 'admin_enqueue_scripts', 'nerv_core_enqueue_admin_control_assets' );
 function nerv_core_enqueue_admin_control_assets( string $hook_suffix ): void {
-	if ( 'toplevel_page_nerv-control' !== $hook_suffix ) {
+	$hooks = is_array( $GLOBALS['nerv_core_admin_hooks'] ?? null ) ? $GLOBALS['nerv_core_admin_hooks'] : array();
+	if ( ! isset( $hooks[ $hook_suffix ] ) ) {
 		return;
 	}
+	$section = sanitize_key( (string) $hooks[ $hook_suffix ] );
+	$pages   = nerv_core_admin_pages();
+	$page    = $pages[ $section ] ?? $pages['dashboard'];
 
 	wp_enqueue_media();
 
@@ -75,8 +118,26 @@ function nerv_core_enqueue_admin_control_assets( string $hook_suffix ): void {
 			'partnerTestPath'=> '/nerv-core/v1/control-partner-health-test',
 			'toolsActionPath'=> '/nerv-core/v1/control-tools-action',
 			'nonce'          => wp_create_nonce( 'wp_rest' ),
+			'initialTab'     => $section,
+			'singlePageMode' => 'dashboard' !== $section,
+			'currentTitle'   => (string) $page['title'],
+			'currentDescription' => (string) $page['description'],
+			'sectionLinks'   => nerv_core_admin_section_links(),
 		)
 	);
+}
+
+function nerv_core_admin_section_links(): array {
+	$links = array();
+	foreach ( nerv_core_admin_pages() as $section => $page ) {
+		$links[] = array(
+			'id'    => $section,
+			'label' => (string) $page['menu'],
+			'url'   => admin_url( 'admin.php?page=' . ( 'dashboard' === $section ? 'nerv-control' : 'nerv-control-' . $section ) ),
+		);
+	}
+
+	return $links;
 }
 
 add_action( 'rest_api_init', 'nerv_core_register_control_rest' );
@@ -1664,19 +1725,19 @@ function nerv_core_control_first_post_url(): string {
 
 function nerv_core_control_tabs(): array {
 	return array(
-		array( 'id' => 'dashboard', 'label' => __( '00 Dashboard', 'nerv-core' ), 'status' => 'active' ),
-		array( 'id' => 'brand', 'label' => __( '01 Brand', 'nerv-core' ), 'status' => 'partial' ),
-		array( 'id' => 'seo', 'label' => __( '02 SEO', 'nerv-core' ), 'status' => 'partial' ),
-		array( 'id' => 'layout', 'label' => __( '03 Panels', 'nerv-core' ), 'status' => 'partial' ),
-		array( 'id' => 'mobile', 'label' => __( '04 Mobile App', 'nerv-core' ), 'status' => 'partial' ),
-		array( 'id' => 'social', 'label' => __( '05 Social', 'nerv-core' ), 'status' => 'partial' ),
-		array( 'id' => 'articles', 'label' => __( '06 Articles', 'nerv-core' ), 'status' => 'partial' ),
-		array( 'id' => 'geo', 'label' => __( '07 GEO', 'nerv-core' ), 'status' => 'partial' ),
-		array( 'id' => 'appearance', 'label' => __( '08 Appearance', 'nerv-core' ), 'status' => 'partial' ),
-		array( 'id' => 'effects', 'label' => __( '09 Effects', 'nerv-core' ), 'status' => 'partial' ),
-		array( 'id' => 'tools', 'label' => __( '10 Tools', 'nerv-core' ), 'status' => 'partial' ),
-		array( 'id' => 'ai', 'label' => __( '11 AI Services', 'nerv-core' ), 'status' => 'partial' ),
-		array( 'id' => 'partners', 'label' => __( '12 Partners', 'nerv-core' ), 'status' => 'partial' ),
+		array( 'id' => 'dashboard', 'label' => '总览', 'status' => 'active' ),
+		array( 'id' => 'brand', 'label' => '品牌', 'status' => 'partial' ),
+		array( 'id' => 'appearance', 'label' => '配色', 'status' => 'partial' ),
+		array( 'id' => 'layout', 'label' => '面板', 'status' => 'partial' ),
+		array( 'id' => 'articles', 'label' => '文章', 'status' => 'partial' ),
+		array( 'id' => 'partners', 'label' => '合作伙伴', 'status' => 'partial' ),
+		array( 'id' => 'social', 'label' => '社交', 'status' => 'partial' ),
+		array( 'id' => 'mobile', 'label' => '移动端', 'status' => 'partial' ),
+		array( 'id' => 'seo', 'label' => 'SEO', 'status' => 'partial' ),
+		array( 'id' => 'geo', 'label' => 'GEO', 'status' => 'partial' ),
+		array( 'id' => 'effects', 'label' => '特效', 'status' => 'partial' ),
+		array( 'id' => 'ai', 'label' => 'AI服务', 'status' => 'partial' ),
+		array( 'id' => 'tools', 'label' => '工具', 'status' => 'partial' ),
 	);
 }
 
@@ -1840,590 +1901,32 @@ function nerv_core_control_markdown_stats(): array {
 	);
 }
 
-function nerv_core_render_admin_page(): void {
+function nerv_core_render_admin_page( string $section = 'dashboard' ): void {
 	if ( ! current_user_can( 'manage_options' ) ) {
 		return;
 	}
 
-	$related_options = function_exists( 'nerv_core_related_options' ) ? nerv_core_related_options() : array();
-	$indexnow_options = function_exists( 'nerv_core_indexnow_options' ) ? nerv_core_indexnow_options() : array();
-	$indexnow_log     = function_exists( 'nerv_core_indexnow_log' ) ? nerv_core_indexnow_log() : array();
-	$crawler_options  = function_exists( 'nerv_core_geo_crawler_options' ) ? nerv_core_geo_crawler_options() : array();
-	$crawler_bots     = function_exists( 'nerv_core_geo_crawler_default_bots' ) ? nerv_core_geo_crawler_default_bots() : array();
-	$crawler_summary  = function_exists( 'nerv_core_geo_crawler_summary' ) ? nerv_core_geo_crawler_summary( 7 ) : array( 'total' => 0, 'window' => array(), 'totals' => array(), 'recent' => array() );
-	$ai_policy_exists = function_exists( 'nerv_core_ai_policy_exists' ) && nerv_core_ai_policy_exists();
-	$ai_policy_url    = function_exists( 'nerv_core_ai_policy_url' ) ? nerv_core_ai_policy_url() : home_url( '/ai-policy/' );
-	$partner_health_options = function_exists( 'nerv_core_partner_health_options' ) ? nerv_core_partner_health_options() : array();
-	$partner_health_summary = function_exists( 'nerv_core_partner_health_summary' ) ? nerv_core_partner_health_summary() : array( 'online' => 0, 'slow' => 0, 'offline' => 0, 'total' => 0 );
-	$partner_display_options = function_exists( 'nerv_core_partner_display_options' ) ? nerv_core_partner_display_options() : array();
-	$cover_options = function_exists( 'nerv_core_cover_options' ) ? nerv_core_cover_options() : array();
-	$cover_status  = function_exists( 'nerv_core_cover_status' ) ? nerv_core_cover_status() : array( 'ready' => false, 'label' => __( 'Not configured', 'nerv-core' ), 'message' => '' );
-	$partner_health_posts = get_posts(
-		array(
-			'post_type'      => 'partner',
-			'post_status'    => 'publish',
-			'posts_per_page' => 12,
-		)
-	);
-	$categories      = get_categories(
-		array(
-			'hide_empty' => false,
-			'orderby'   => 'name',
-			'order'     => 'ASC',
-		)
-	);
+	$section = sanitize_key( $section );
+	$pages   = nerv_core_admin_pages();
+	if ( ! isset( $pages[ $section ] ) ) {
+		$section = 'dashboard';
+	}
+	$page = $pages[ $section ];
 	?>
-	<div class="wrap">
-		<h1><?php esc_html_e( 'NERV Theme · Control', 'nerv-core' ); ?></h1>
-		<p><?php esc_html_e( 'Manage theme identity, SEO, publishing resources, partners, and release tools from one WordPress-friendly dashboard.', 'nerv-core' ); ?></p>
+	<div class="wrap nerv-control-wrap">
+		<h1><?php echo esc_html( (string) $page['title'] ); ?></h1>
+		<p class="nerv-control-page-description"><?php echo esc_html( (string) $page['description'] ); ?></p>
 		<?php settings_errors( 'nerv_core_settings' ); ?>
-		<?php if ( isset( $_GET['nerv_ai_policy_status'] ) ) : ?>
-			<?php if ( 'generated' === (string) wp_unslash( $_GET['nerv_ai_policy_status'] ) ) : ?>
-				<div class="notice notice-success is-dismissible"><p><?php esc_html_e( 'AI usage policy page generated.', 'nerv-core' ); ?></p></div>
-			<?php else : ?>
-				<div class="notice notice-error is-dismissible"><p><?php esc_html_e( 'AI usage policy page could not be generated.', 'nerv-core' ); ?></p></div>
-			<?php endif; ?>
-		<?php endif; ?>
-		<?php if ( isset( $_GET['nerv_indexnow_status'] ) ) : ?>
-			<?php $indexnow_status = sanitize_key( (string) wp_unslash( $_GET['nerv_indexnow_status'] ) ); ?>
-			<div class="notice <?php echo in_array( $indexnow_status, array( 'success', 'dry-run' ), true ) ? 'notice-success' : 'notice-warning'; ?> is-dismissible">
-				<p>
-					<?php
-					printf(
-						/* translators: %s: IndexNow test status. */
-						esc_html__( 'IndexNow TEST completed with status: %s. See the log below.', 'nerv-core' ),
-						esc_html( $indexnow_status )
-					);
-					?>
-				</p>
-			</div>
-		<?php endif; ?>
-		<?php if ( isset( $_GET['nerv_partner_health_status'] ) ) : ?>
-			<div class="notice notice-success is-dismissible"><p><?php esc_html_e( 'Partner health TEST completed. See the partner status table below.', 'nerv-core' ); ?></p></div>
-		<?php endif; ?>
-		<div id="nerv-control-app" class="nerv-control-app">
+		<nav class="nerv-control-page-nav" aria-label="NERV主题设置页面">
+			<?php foreach ( nerv_core_admin_section_links() as $link ) : ?>
+				<a class="<?php echo esc_attr( $section === $link['id'] ? 'is-current' : '' ); ?>" href="<?php echo esc_url( $link['url'] ); ?>"><?php echo esc_html( $link['label'] ); ?></a>
+			<?php endforeach; ?>
+		</nav>
+		<div id="nerv-control-app" class="nerv-control-app" data-section="<?php echo esc_attr( $section ); ?>">
 			<div class="nerv-control-shell nerv-control-shell--loading">
-				<p><?php esc_html_e( 'Loading NERV Theme control dashboard...', 'nerv-core' ); ?></p>
+				<p>正在加载 NERV 主题设置...</p>
 			</div>
 		</div>
-		<div id="nerv-control-legacy-settings" class="nerv-control-legacy-settings">
-			<h2><?php esc_html_e( 'Current Settings Forms', 'nerv-core' ); ?></h2>
-			<p><?php esc_html_e( 'These server-rendered forms remain the authoritative save surface while the React control center is expanded tab by tab.', 'nerv-core' ); ?></p>
-		</div>
-		<table class="widefat striped" style="max-width: 760px;">
-			<tbody>
-				<tr>
-					<th><?php esc_html_e( 'Theme layer', 'nerv-core' ); ?></th>
-					<td><?php esc_html_e( 'NERV Terminal visual shell is expected to be active.', 'nerv-core' ); ?></td>
-				</tr>
-				<tr>
-					<th><?php esc_html_e( 'Project CPT', 'nerv-core' ); ?></th>
-					<td><?php esc_html_e( 'Registered as projects archive.', 'nerv-core' ); ?></td>
-				</tr>
-				<tr>
-					<th><?php esc_html_e( 'Partner CPT', 'nerv-core' ); ?></th>
-					<td><?php esc_html_e( 'Registered as partners archive.', 'nerv-core' ); ?></td>
-				</tr>
-				<tr>
-					<th><?php esc_html_e( 'Partner health', 'nerv-core' ); ?></th>
-					<td>
-						<?php
-						printf(
-							/* translators: 1: online count, 2: slow count, 3: offline count, 4: total count. */
-							esc_html__( 'ONLINE %1$d / SLOW %2$d / OFFLINE %3$d / TOTAL %4$d', 'nerv-core' ),
-							absint( $partner_health_summary['online'] ?? 0 ),
-							absint( $partner_health_summary['slow'] ?? 0 ),
-							absint( $partner_health_summary['offline'] ?? 0 ),
-							absint( $partner_health_summary['total'] ?? 0 )
-						);
-						?>
-					</td>
-				</tr>
-				<tr>
-					<th><?php esc_html_e( 'AI usage policy', 'nerv-core' ); ?></th>
-					<td>
-						<?php if ( $ai_policy_exists ) : ?>
-							<span style="color:#008a20;"><?php esc_html_e( 'Published', 'nerv-core' ); ?></span>
-							&mdash;
-							<a href="<?php echo esc_url( $ai_policy_url ); ?>"><?php echo esc_html( $ai_policy_url ); ?></a>
-						<?php else : ?>
-							<span style="color:#b32d2e;"><?php esc_html_e( 'Missing', 'nerv-core' ); ?></span>
-						<?php endif; ?>
-					</td>
-				</tr>
-				<tr>
-					<th><?php esc_html_e( 'AI cover API', 'nerv-core' ); ?></th>
-					<td>
-						<span style="color:<?php echo ! empty( $cover_status['ready'] ) ? '#008a20' : '#b32d2e'; ?>;"><?php echo esc_html( (string) ( $cover_status['label'] ?? '' ) ); ?></span>
-						&mdash;
-						<?php echo esc_html( (string) ( $cover_status['message'] ?? '' ) ); ?>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-
-		<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" style="max-width: 920px; margin-top: 24px;">
-			<input type="hidden" name="action" value="nerv_core_generate_ai_policy">
-			<?php wp_nonce_field( 'nerv_core_generate_ai_policy' ); ?>
-			<h2><?php esc_html_e( 'AI Usage Policy', 'nerv-core' ); ?></h2>
-			<p><?php esc_html_e( 'Generate or refresh the /ai-policy/ page so llms.txt can declare licensing, citation, and contact rules for AI systems.', 'nerv-core' ); ?></p>
-			<?php submit_button( $ai_policy_exists ? __( 'Refresh AI Policy Page', 'nerv-core' ) : __( 'Generate AI Policy Page', 'nerv-core' ), 'secondary' ); ?>
-		</form>
-
-		<form method="post" action="options.php" style="max-width: 920px; margin-top: 24px;">
-			<?php settings_fields( 'nerv_core_settings' ); ?>
-			<h2><?php esc_html_e( 'Related Entries', 'nerv-core' ); ?></h2>
-			<p><?php esc_html_e( 'Tune the semantic link engine used by article pages and hidden GEO resource links.', 'nerv-core' ); ?></p>
-			<table class="form-table" role="presentation">
-				<tbody>
-					<tr>
-						<th scope="row"><?php esc_html_e( 'Status', 'nerv-core' ); ?></th>
-						<td>
-							<label>
-								<input type="checkbox" name="nerv_core_related_options[enabled]" value="1" <?php checked( ! empty( $related_options['enabled'] ) ); ?>>
-								<?php esc_html_e( 'Enable related entries panel and GEO related links', 'nerv-core' ); ?>
-							</label>
-						</td>
-					</tr>
-					<tr>
-						<th scope="row">
-							<label for="nerv-core-related-title"><?php esc_html_e( 'Panel title', 'nerv-core' ); ?></label>
-						</th>
-						<td>
-							<input id="nerv-core-related-title" class="regular-text" type="text" name="nerv_core_related_options[title]" value="<?php echo esc_attr( (string) ( $related_options['title'] ?? '' ) ); ?>">
-						</td>
-					</tr>
-					<tr>
-						<th scope="row">
-							<label for="nerv-core-related-limit"><?php esc_html_e( 'Entries count', 'nerv-core' ); ?></label>
-						</th>
-						<td>
-							<input id="nerv-core-related-limit" class="small-text" type="number" min="1" max="12" name="nerv_core_related_options[limit]" value="<?php echo esc_attr( (string) ( $related_options['limit'] ?? 3 ) ); ?>">
-						</td>
-					</tr>
-					<tr>
-						<th scope="row"><?php esc_html_e( 'Algorithm weights', 'nerv-core' ); ?></th>
-						<td>
-							<label for="nerv-core-related-category-weight"><?php esc_html_e( 'Same category', 'nerv-core' ); ?></label>
-							<input id="nerv-core-related-category-weight" class="small-text" type="number" min="0" max="20" name="nerv_core_related_options[category_weight]" value="<?php echo esc_attr( (string) ( $related_options['category_weight'] ?? 2 ) ); ?>">
-							&nbsp;
-							<label for="nerv-core-related-tag-weight"><?php esc_html_e( 'Shared tag', 'nerv-core' ); ?></label>
-							<input id="nerv-core-related-tag-weight" class="small-text" type="number" min="0" max="20" name="nerv_core_related_options[tag_weight]" value="<?php echo esc_attr( (string) ( $related_options['tag_weight'] ?? 1 ) ); ?>">
-							&nbsp;
-							<label for="nerv-core-related-recent-weight"><?php esc_html_e( 'Recent post', 'nerv-core' ); ?></label>
-							<input id="nerv-core-related-recent-weight" class="small-text" type="number" min="0" max="20" name="nerv_core_related_options[recent_weight]" value="<?php echo esc_attr( (string) ( $related_options['recent_weight'] ?? 1 ) ); ?>">
-						</td>
-					</tr>
-					<tr>
-						<th scope="row"><?php esc_html_e( 'Time windows', 'nerv-core' ); ?></th>
-						<td>
-							<label for="nerv-core-related-recent-days"><?php esc_html_e( 'Recent days', 'nerv-core' ); ?></label>
-							<input id="nerv-core-related-recent-days" class="small-text" type="number" min="1" max="3650" name="nerv_core_related_options[recent_days]" value="<?php echo esc_attr( (string) ( $related_options['recent_days'] ?? 180 ) ); ?>">
-							&nbsp;
-							<label for="nerv-core-related-cache-hours"><?php esc_html_e( 'Cache hours', 'nerv-core' ); ?></label>
-							<input id="nerv-core-related-cache-hours" class="small-text" type="number" min="1" max="168" name="nerv_core_related_options[cache_hours]" value="<?php echo esc_attr( (string) ( $related_options['cache_hours'] ?? 12 ) ); ?>">
-						</td>
-					</tr>
-					<tr>
-						<th scope="row"><?php esc_html_e( 'Excluded categories', 'nerv-core' ); ?></th>
-						<td>
-							<?php if ( $categories ) : ?>
-								<fieldset>
-									<?php foreach ( $categories as $category ) : ?>
-										<label style="display: inline-block; min-width: 180px; margin: 0 16px 8px 0;">
-											<input type="checkbox" name="nerv_core_related_options[excluded_categories][]" value="<?php echo esc_attr( (string) $category->term_id ); ?>" <?php checked( in_array( (int) $category->term_id, (array) ( $related_options['excluded_categories'] ?? array() ), true ) ); ?>>
-											<?php echo esc_html( $category->name ); ?>
-										</label>
-									<?php endforeach; ?>
-								</fieldset>
-							<?php else : ?>
-								<p><?php esc_html_e( 'No categories available yet.', 'nerv-core' ); ?></p>
-							<?php endif; ?>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-			<?php submit_button( __( 'Save NERV Settings', 'nerv-core' ) ); ?>
-		</form>
-
-		<form method="post" action="options.php" style="max-width: 920px; margin-top: 28px;">
-			<?php settings_fields( 'nerv_core_settings' ); ?>
-			<h2><?php esc_html_e( 'AI Services / Cover Pipeline', 'nerv-core' ); ?></h2>
-			<p><?php esc_html_e( 'Configure an OpenAI images-compatible service. Without credentials, uploaded covers and SVG fallback remain active and publishing is never blocked.', 'nerv-core' ); ?></p>
-			<table class="form-table" role="presentation">
-				<tbody>
-					<tr>
-						<th scope="row">
-							<label for="nerv-core-cover-endpoint"><?php esc_html_e( 'API endpoint', 'nerv-core' ); ?></label>
-						</th>
-						<td>
-							<input id="nerv-core-cover-endpoint" class="regular-text code" type="url" name="nerv_core_cover_options[endpoint]" value="<?php echo esc_url( (string) ( $cover_options['endpoint'] ?? '' ) ); ?>" placeholder="https://api.openai.com/v1/images/generations">
-						</td>
-					</tr>
-					<tr>
-						<th scope="row">
-							<label for="nerv-core-cover-key"><?php esc_html_e( 'API key', 'nerv-core' ); ?></label>
-						</th>
-						<td>
-							<input id="nerv-core-cover-key" class="regular-text code" type="password" name="nerv_core_cover_options[api_key]" value="" autocomplete="new-password" placeholder="<?php echo ! empty( $cover_options['api_key'] ) ? esc_attr__( 'Saved; leave blank to keep current key.', 'nerv-core' ) : ''; ?>">
-						</td>
-					</tr>
-					<tr>
-						<th scope="row">
-							<label for="nerv-core-cover-model"><?php esc_html_e( 'Model', 'nerv-core' ); ?></label>
-						</th>
-						<td>
-							<input id="nerv-core-cover-model" class="regular-text code" type="text" name="nerv_core_cover_options[model]" value="<?php echo esc_attr( (string) ( $cover_options['model'] ?? '' ) ); ?>" placeholder="gpt-image-1">
-						</td>
-					</tr>
-					<tr>
-						<th scope="row">
-							<label for="nerv-core-cover-prompt"><?php esc_html_e( 'Prompt template', 'nerv-core' ); ?></label>
-						</th>
-						<td>
-							<textarea id="nerv-core-cover-prompt" class="large-text code" rows="4" name="nerv_core_cover_options[prompt_template]"><?php echo esc_textarea( (string) ( $cover_options['prompt_template'] ?? '' ) ); ?></textarea>
-							<p class="description"><?php esc_html_e( 'Available placeholders: {title}, {subtitle}, {excerpt}, {category}.', 'nerv-core' ); ?></p>
-						</td>
-					</tr>
-					<tr>
-						<th scope="row"><?php esc_html_e( 'Automation', 'nerv-core' ); ?></th>
-						<td>
-							<label style="display:block;margin-bottom:8px;">
-								<input type="checkbox" name="nerv_core_cover_options[auto_generate]" value="1" <?php checked( ! empty( $cover_options['auto_generate'] ) ); ?>>
-								<?php esc_html_e( 'Auto-generate covers when no featured image exists', 'nerv-core' ); ?>
-							</label>
-							<label style="display:block;margin-bottom:8px;">
-								<input type="checkbox" name="nerv_core_cover_options[key_points_auto]" value="1" <?php checked( ! empty( $cover_options['key_points_auto'] ) ); ?>>
-								<?php esc_html_e( 'Enable KEY POINTS AI generation', 'nerv-core' ); ?>
-							</label>
-							<label style="display:block;">
-								<input type="checkbox" name="nerv_core_cover_options[dry_run]" value="1" <?php checked( ! empty( $cover_options['dry_run'] ) ); ?>>
-								<?php esc_html_e( 'Dry-run AI calls until production credentials are ready', 'nerv-core' ); ?>
-							</label>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-			<?php submit_button( __( 'Save AI Service Settings', 'nerv-core' ) ); ?>
-		</form>
-
-		<form method="post" action="options.php" style="max-width: 920px; margin-top: 28px;">
-			<?php settings_fields( 'nerv_core_settings' ); ?>
-			<h2><?php esc_html_e( 'IndexNow', 'nerv-core' ); ?></h2>
-			<p><?php esc_html_e( 'Ping search engines when public posts and projects are published or updated. Localhost runs are recorded as dry-run logs.', 'nerv-core' ); ?></p>
-			<table class="form-table" role="presentation">
-				<tbody>
-					<tr>
-						<th scope="row"><?php esc_html_e( 'Status', 'nerv-core' ); ?></th>
-						<td>
-							<label>
-								<input type="checkbox" name="nerv_core_indexnow_options[enabled]" value="1" <?php checked( ! empty( $indexnow_options['enabled'] ) ); ?>>
-								<?php esc_html_e( 'Enable IndexNow pings on publish/update', 'nerv-core' ); ?>
-							</label>
-						</td>
-					</tr>
-					<tr>
-						<th scope="row">
-							<label for="nerv-core-indexnow-key"><?php esc_html_e( 'Key', 'nerv-core' ); ?></label>
-						</th>
-						<td>
-							<input id="nerv-core-indexnow-key" class="regular-text code" type="text" name="nerv_core_indexnow_options[key]" value="<?php echo esc_attr( (string) ( $indexnow_options['key'] ?? '' ) ); ?>">
-							<?php if ( function_exists( 'nerv_core_indexnow_key_url' ) ) : ?>
-								<p class="description"><?php echo esc_html( nerv_core_indexnow_key_url() ); ?></p>
-							<?php endif; ?>
-						</td>
-					</tr>
-					<tr>
-						<th scope="row">
-							<label for="nerv-core-indexnow-endpoint"><?php esc_html_e( 'Endpoint', 'nerv-core' ); ?></label>
-						</th>
-						<td>
-							<input id="nerv-core-indexnow-endpoint" class="regular-text code" type="url" name="nerv_core_indexnow_options[endpoint]" value="<?php echo esc_url( (string) ( $indexnow_options['endpoint'] ?? '' ) ); ?>">
-						</td>
-					</tr>
-					<tr>
-						<th scope="row"><?php esc_html_e( 'Local safety', 'nerv-core' ); ?></th>
-						<td>
-							<label>
-								<input type="checkbox" name="nerv_core_indexnow_options[dry_run]" value="1" <?php checked( ! empty( $indexnow_options['dry_run'] ) ); ?>>
-								<?php esc_html_e( 'Dry-run only; record logs without external submission', 'nerv-core' ); ?>
-							</label>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-			<?php submit_button( __( 'Save IndexNow Settings', 'nerv-core' ) ); ?>
-		</form>
-
-		<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" style="max-width: 920px;">
-			<input type="hidden" name="action" value="nerv_core_indexnow_test">
-			<?php wp_nonce_field( 'nerv_core_indexnow_test' ); ?>
-			<p><?php esc_html_e( 'Send a manual IndexNow TEST ping for the AI policy URL when available, otherwise the site home URL. Localhost remains dry-run only.', 'nerv-core' ); ?></p>
-			<?php submit_button( __( 'Run IndexNow TEST', 'nerv-core' ), 'secondary' ); ?>
-		</form>
-
-		<form method="post" action="options.php" style="max-width: 920px; margin-top: 28px;">
-			<?php settings_fields( 'nerv_core_settings' ); ?>
-			<h2><?php esc_html_e( 'AI Crawler Monitor', 'nerv-core' ); ?></h2>
-			<p><?php esc_html_e( 'Count known AI crawler user agents and show the latest pages they requested. This proves GEO discovery is happening.', 'nerv-core' ); ?></p>
-			<p><?php esc_html_e( 'Checked bots are monitored and allowed in robots.txt; unchecked bots are blocked with Disallow: /.', 'nerv-core' ); ?></p>
-			<table class="form-table" role="presentation">
-				<tbody>
-					<tr>
-						<th scope="row"><?php esc_html_e( 'Status', 'nerv-core' ); ?></th>
-						<td>
-							<label>
-								<input type="checkbox" name="nerv_core_geo_crawler_options[enabled]" value="1" <?php checked( ! empty( $crawler_options['enabled'] ) ); ?>>
-								<?php esc_html_e( 'Enable AI crawler monitoring', 'nerv-core' ); ?>
-							</label>
-						</td>
-					</tr>
-					<tr>
-						<th scope="row">
-							<label for="nerv-core-crawler-retention-days"><?php esc_html_e( 'Data retention', 'nerv-core' ); ?></label>
-						</th>
-						<td>
-							<input id="nerv-core-crawler-retention-days" class="small-text" type="number" min="1" max="365" name="nerv_core_geo_crawler_options[retention_days]" value="<?php echo esc_attr( (string) ( $crawler_options['retention_days'] ?? 30 ) ); ?>">
-							<?php esc_html_e( 'days', 'nerv-core' ); ?>
-						</td>
-					</tr>
-					<tr>
-						<th scope="row"><?php esc_html_e( 'Tracked bots', 'nerv-core' ); ?></th>
-						<td>
-							<fieldset>
-								<?php foreach ( $crawler_bots as $key => $bot ) : ?>
-									<label style="display: inline-block; min-width: 180px; margin: 0 16px 8px 0;">
-										<input type="checkbox" name="nerv_core_geo_crawler_options[bots][<?php echo esc_attr( (string) $key ); ?>]" value="1" <?php checked( ! empty( $crawler_options['bots'][ $key ] ) ); ?>>
-										<?php echo esc_html( (string) ( $bot['label'] ?? $key ) ); ?>
-									</label>
-								<?php endforeach; ?>
-							</fieldset>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-			<?php submit_button( __( 'Save Crawler Monitor Settings', 'nerv-core' ) ); ?>
-		</form>
-
-		<h2 style="margin-top: 28px;"><?php esc_html_e( 'AI Crawler Stats', 'nerv-core' ); ?></h2>
-		<table class="widefat striped" style="max-width: 920px;">
-			<thead>
-				<tr>
-					<th><?php esc_html_e( 'Bot', 'nerv-core' ); ?></th>
-					<th><?php esc_html_e( 'Last 7 Days', 'nerv-core' ); ?></th>
-					<th><?php esc_html_e( 'Total', 'nerv-core' ); ?></th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php foreach ( $crawler_bots as $key => $bot ) : ?>
-					<tr>
-						<td><?php echo esc_html( (string) ( $bot['label'] ?? $key ) ); ?></td>
-						<td><?php echo esc_html( (string) absint( $crawler_summary['window'][ $key ] ?? 0 ) ); ?></td>
-						<td><?php echo esc_html( (string) absint( $crawler_summary['totals'][ $key ] ?? 0 ) ); ?></td>
-					</tr>
-				<?php endforeach; ?>
-				<tr>
-					<th><?php esc_html_e( 'All tracked bots', 'nerv-core' ); ?></th>
-					<th><?php echo esc_html( (string) absint( $crawler_summary['total'] ?? 0 ) ); ?></th>
-					<th><?php echo esc_html( (string) array_sum( array_map( 'absint', (array) ( $crawler_summary['totals'] ?? array() ) ) ) ); ?></th>
-				</tr>
-			</tbody>
-		</table>
-
-		<h2 style="margin-top: 28px;"><?php esc_html_e( 'Recent AI Crawls', 'nerv-core' ); ?></h2>
-		<table class="widefat striped" style="max-width: 920px;">
-			<thead>
-				<tr>
-					<th><?php esc_html_e( 'Time', 'nerv-core' ); ?></th>
-					<th><?php esc_html_e( 'Bot', 'nerv-core' ); ?></th>
-					<th><?php esc_html_e( 'Page', 'nerv-core' ); ?></th>
-					<th><?php esc_html_e( 'User Agent', 'nerv-core' ); ?></th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php if ( ! empty( $crawler_summary['recent'] ) ) : ?>
-					<?php foreach ( array_slice( (array) $crawler_summary['recent'], 0, 8 ) as $entry ) : ?>
-						<tr>
-							<td><?php echo esc_html( (string) ( $entry['time'] ?? '' ) ); ?></td>
-							<td><?php echo esc_html( (string) ( $entry['label'] ?? $entry['bot'] ?? '' ) ); ?></td>
-							<td>
-								<a href="<?php echo esc_url( (string) ( $entry['url'] ?? '' ) ); ?>">
-									<?php echo esc_html( (string) ( $entry['title'] ?? $entry['url'] ?? '' ) ); ?>
-								</a>
-							</td>
-							<td><code><?php echo esc_html( (string) ( $entry['ua'] ?? '' ) ); ?></code></td>
-						</tr>
-					<?php endforeach; ?>
-				<?php else : ?>
-					<tr><td colspan="4"><?php esc_html_e( 'No AI crawler visits recorded yet.', 'nerv-core' ); ?></td></tr>
-				<?php endif; ?>
-			</tbody>
-		</table>
-
-		<form method="post" action="options.php" style="max-width: 920px; margin-top: 28px;">
-			<?php settings_fields( 'nerv_core_settings' ); ?>
-			<h2><?php esc_html_e( 'Partner Display', 'nerv-core' ); ?></h2>
-			<p><?php esc_html_e( 'Control the partner footer row, shortcode panel, application block, and llms.txt partner index.', 'nerv-core' ); ?></p>
-			<table class="form-table" role="presentation">
-				<tbody>
-					<tr>
-						<th scope="row"><?php esc_html_e( 'Footer featured row', 'nerv-core' ); ?></th>
-						<td>
-							<label>
-								<input type="checkbox" name="nerv_core_partner_display_options[footer_enabled]" value="1" <?php checked( ! empty( $partner_display_options['footer_enabled'] ) ); ?>>
-								<?php esc_html_e( 'Show featured partners in the terminal footer', 'nerv-core' ); ?>
-							</label>
-						</td>
-					</tr>
-					<tr>
-						<th scope="row">
-							<label for="nerv-core-partner-footer-limit"><?php esc_html_e( 'Footer count', 'nerv-core' ); ?></label>
-						</th>
-						<td>
-							<input id="nerv-core-partner-footer-limit" class="small-text" type="number" min="1" max="12" name="nerv_core_partner_display_options[footer_limit]" value="<?php echo esc_attr( (string) ( $partner_display_options['footer_limit'] ?? 4 ) ); ?>">
-						</td>
-					</tr>
-					<tr>
-						<th scope="row"><?php esc_html_e( 'Application block', 'nerv-core' ); ?></th>
-						<td>
-							<label>
-								<input type="checkbox" name="nerv_core_partner_display_options[application_enabled]" value="1" <?php checked( ! empty( $partner_display_options['application_enabled'] ) ); ?>>
-								<?php esc_html_e( 'Show an allied-link application block on the partners page', 'nerv-core' ); ?>
-							</label>
-						</td>
-					</tr>
-					<tr>
-						<th scope="row">
-							<label for="nerv-core-partner-application-email"><?php esc_html_e( 'Application email', 'nerv-core' ); ?></label>
-						</th>
-						<td>
-							<input id="nerv-core-partner-application-email" class="regular-text" type="email" name="nerv_core_partner_display_options[application_email]" value="<?php echo esc_attr( (string) ( $partner_display_options['application_email'] ?? get_option( 'admin_email' ) ) ); ?>">
-						</td>
-					</tr>
-					<tr>
-						<th scope="row">
-							<label for="nerv-core-partner-application-text"><?php esc_html_e( 'Application text', 'nerv-core' ); ?></label>
-						</th>
-						<td>
-							<textarea id="nerv-core-partner-application-text" class="large-text" rows="3" name="nerv_core_partner_display_options[application_text]"><?php echo esc_textarea( (string) ( $partner_display_options['application_text'] ?? '' ) ); ?></textarea>
-						</td>
-					</tr>
-					<tr>
-						<th scope="row"><?php esc_html_e( 'GEO partner index', 'nerv-core' ); ?></th>
-						<td>
-							<label>
-								<input type="checkbox" name="nerv_core_partner_display_options[llms_include]" value="1" <?php checked( ! empty( $partner_display_options['llms_include'] ) ); ?>>
-								<?php esc_html_e( 'Include partners in llms.txt', 'nerv-core' ); ?>
-							</label>
-							<p class="description"><?php esc_html_e( 'Default is off so llms.txt stays focused on owned content unless you opt in.', 'nerv-core' ); ?></p>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-			<p>
-				<code>[nerv_partners]</code>
-				<code>[nerv_partners limit="4" featured="1"]</code>
-			</p>
-			<?php submit_button( __( 'Save Partner Display Settings', 'nerv-core' ) ); ?>
-		</form>
-
-		<form method="post" action="options.php" style="max-width: 920px; margin-top: 28px;">
-			<?php settings_fields( 'nerv_core_settings' ); ?>
-			<h2><?php esc_html_e( 'Partner Health', 'nerv-core' ); ?></h2>
-			<p><?php esc_html_e( 'Probe partner URLs and show ONLINE, SLOW, or OFFLINE status lights on the partner grid.', 'nerv-core' ); ?></p>
-			<table class="form-table" role="presentation">
-				<tbody>
-					<tr>
-						<th scope="row"><?php esc_html_e( 'Status', 'nerv-core' ); ?></th>
-						<td>
-							<label>
-								<input type="checkbox" name="nerv_core_partner_health_options[enabled]" value="1" <?php checked( ! empty( $partner_health_options['enabled'] ) ); ?>>
-								<?php esc_html_e( 'Enable scheduled partner health checks', 'nerv-core' ); ?>
-							</label>
-						</td>
-					</tr>
-					<tr>
-						<th scope="row">
-							<label for="nerv-core-partner-health-timeout"><?php esc_html_e( 'Timeout', 'nerv-core' ); ?></label>
-						</th>
-						<td>
-							<input id="nerv-core-partner-health-timeout" class="small-text" type="number" min="1" max="20" name="nerv_core_partner_health_options[timeout]" value="<?php echo esc_attr( (string) ( $partner_health_options['timeout'] ?? 5 ) ); ?>">
-							<?php esc_html_e( 'seconds', 'nerv-core' ); ?>
-						</td>
-					</tr>
-					<tr>
-						<th scope="row">
-							<label for="nerv-core-partner-health-slow"><?php esc_html_e( 'Slow threshold', 'nerv-core' ); ?></label>
-						</th>
-						<td>
-							<input id="nerv-core-partner-health-slow" class="small-text" type="number" min="0.5" max="10" step="0.5" name="nerv_core_partner_health_options[slow_seconds]" value="<?php echo esc_attr( (string) ( $partner_health_options['slow_seconds'] ?? 2.5 ) ); ?>">
-							<?php esc_html_e( 'seconds', 'nerv-core' ); ?>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-			<?php submit_button( __( 'Save Partner Health Settings', 'nerv-core' ) ); ?>
-		</form>
-
-		<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" style="max-width: 920px;">
-			<input type="hidden" name="action" value="nerv_core_partner_health_test">
-			<?php wp_nonce_field( 'nerv_core_partner_health_test' ); ?>
-			<p><?php esc_html_e( 'Run a partner health TEST now and refresh the status lights.', 'nerv-core' ); ?></p>
-			<?php submit_button( __( 'Run Partner Health TEST', 'nerv-core' ), 'secondary' ); ?>
-		</form>
-
-		<h2 style="margin-top: 28px;"><?php esc_html_e( 'Partner Health Status', 'nerv-core' ); ?></h2>
-		<table class="widefat striped" style="max-width: 920px;">
-			<thead>
-				<tr>
-					<th><?php esc_html_e( 'Partner', 'nerv-core' ); ?></th>
-					<th><?php esc_html_e( 'Status', 'nerv-core' ); ?></th>
-					<th><?php esc_html_e( 'Message', 'nerv-core' ); ?></th>
-					<th><?php esc_html_e( 'Checked', 'nerv-core' ); ?></th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php if ( $partner_health_posts ) : ?>
-					<?php foreach ( $partner_health_posts as $partner ) : ?>
-						<?php $health = function_exists( 'nerv_core_partner_health_status' ) ? nerv_core_partner_health_status( (int) $partner->ID ) : array(); ?>
-						<tr>
-							<td><?php echo esc_html( get_the_title( $partner ) ); ?></td>
-							<td><?php echo esc_html( function_exists( 'nerv_core_partner_health_status_label' ) ? nerv_core_partner_health_status_label( (string) ( $health['status'] ?? 'online' ) ) : (string) ( $health['status'] ?? '' ) ); ?></td>
-							<td><?php echo esc_html( (string) ( $health['message'] ?? '' ) ); ?></td>
-							<td><?php echo esc_html( (string) ( $health['checked'] ?? '' ) ); ?></td>
-						</tr>
-					<?php endforeach; ?>
-				<?php else : ?>
-					<tr><td colspan="4"><?php esc_html_e( 'No partners available yet.', 'nerv-core' ); ?></td></tr>
-				<?php endif; ?>
-			</tbody>
-		</table>
-
-		<h2 style="margin-top: 28px;"><?php esc_html_e( 'IndexNow Log', 'nerv-core' ); ?></h2>
-		<table class="widefat striped" style="max-width: 920px;">
-			<thead>
-				<tr>
-					<th><?php esc_html_e( 'Time', 'nerv-core' ); ?></th>
-					<th><?php esc_html_e( 'Status', 'nerv-core' ); ?></th>
-					<th><?php esc_html_e( 'Message', 'nerv-core' ); ?></th>
-					<th><?php esc_html_e( 'URLs', 'nerv-core' ); ?></th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php if ( $indexnow_log ) : ?>
-					<?php foreach ( array_slice( $indexnow_log, 0, 8 ) as $entry ) : ?>
-						<tr>
-							<td><?php echo esc_html( (string) ( $entry['time'] ?? '' ) ); ?></td>
-							<td><?php echo esc_html( (string) ( $entry['status'] ?? '' ) ); ?></td>
-							<td><?php echo esc_html( (string) ( $entry['message'] ?? '' ) ); ?></td>
-							<td><?php echo esc_html( implode( ', ', (array) ( $entry['urls'] ?? array() ) ) ); ?></td>
-						</tr>
-					<?php endforeach; ?>
-				<?php else : ?>
-					<tr><td colspan="4"><?php esc_html_e( 'No IndexNow events recorded yet.', 'nerv-core' ); ?></td></tr>
-				<?php endif; ?>
-			</tbody>
-		</table>
 	</div>
 	<?php
 }

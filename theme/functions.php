@@ -23,6 +23,7 @@ function nerv_terminal_setup(): void {
 	add_theme_support( 'editor-styles' );
 	add_editor_style( 'assets/css/frontend.css' );
 	add_theme_support( 'post-thumbnails' );
+	add_image_size( 'nerv-thumb-square', 900, 900, true );
 	add_image_size( 'nerv-cover', 1500, 600, true );
 	add_image_size( 'nerv-og', 1200, 600, true );
 }
@@ -37,9 +38,9 @@ function nerv_terminal_enqueue_assets(): void {
 
 	wp_enqueue_style(
 		'nerv-terminal-frontend',
-		NERV_TERMINAL_URI . '/assets/css/frontend.css',
+		NERV_TERMINAL_URI . '/assets/css/frontend.bundle.css',
 		array(),
-		nerv_terminal_asset_version( NERV_TERMINAL_DIR . '/assets/css' )
+		nerv_terminal_asset_version( NERV_TERMINAL_DIR . '/assets/css/frontend.bundle.css' )
 	);
 
 	if ( $font_css_url && wp_http_validate_url( $font_css_url ) ) {

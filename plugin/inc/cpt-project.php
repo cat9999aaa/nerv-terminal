@@ -15,11 +15,11 @@ function nerv_core_register_project_cpt(): void {
 		'project',
 		array(
 			'labels'       => array(
-				'name'          => __( 'NERV Theme · Projects', 'nerv-core' ),
-				'singular_name' => __( 'NERV Theme · Project', 'nerv-core' ),
-				'add_new_item'  => __( 'Add New NERV Theme Project', 'nerv-core' ),
-				'edit_item'     => __( 'Edit NERV Theme Project', 'nerv-core' ),
-				'menu_name'     => __( 'NERV Theme · Projects', 'nerv-core' ),
+				'name'          => 'NERV主题 · 项目',
+				'singular_name' => 'NERV主题 · 项目',
+				'add_new_item'  => '添加 NERV主题 · 项目',
+				'edit_item'     => '编辑 NERV主题 · 项目',
+				'menu_name'     => 'NERV主题 · 项目',
 			),
 			'public'       => true,
 			'has_archive'  => true,
