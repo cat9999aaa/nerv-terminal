@@ -27,6 +27,7 @@ add_check( $checks, 'slug batch controls', str_contains( (string) $js, '每批�
 add_check( $checks, 'model chip fallback picker', str_contains( (string) $js, 'nerv-control-model-chip' ) && str_contains( (string) $js, '全部加入备用' ), 'AI fallback models can be selected from cached model chips.' );
 add_check( $checks, 'partner redirect data', str_contains( (string) $admin, "'redirects'" ) && str_contains( (string) $admin, "'finalUrl'" ), 'Partner health rows expose redirect count and final URL.' );
 add_check( $checks, 'social webp batch tool', str_contains( (string) $js, 'refresh_social_covers' ) && str_contains( (string) $admin, 'nerv_core_tools_refresh_social_covers' ) && str_contains( (string) $admin, 'nerv_core_image_optimizer_social_cover_queue_status' ), 'Tools page can pre-generate WebP social sharing images and show queue status.' );
+add_check( $checks, 'media webp batch tool', str_contains( (string) $js, 'refresh_media_webp' ) && str_contains( (string) $admin, 'nerv_core_tools_refresh_media_webp' ) && str_contains( (string) $admin, 'nerv_core_image_optimizer_media_webp_queue_status' ), 'Tools page can backfill uploaded JPEG/PNG media WebP files and show queue status.' );
 
 $dark_rules = preg_match_all( '/background\s*:\s*(#0[0-9a-f]{2,6}|#1[0-9a-f]{2,6}|black|rgba\(\s*0\s*,\s*0\s*,\s*0)/i', (string) $css, $matches );
 $late_light_override = strpos( (string) $css, '.nerv-control-wrap :where(' );

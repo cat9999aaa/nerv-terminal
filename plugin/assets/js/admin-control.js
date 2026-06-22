@@ -463,7 +463,7 @@
 			demo: Object.assign( { available: false, command: '', counts: { projects: 0, posts: 0, partners: 0 }, ready: false, summary: { created: 0, updated: 0, failed: 0 }, steps: [] }, source.demo || {} ),
 			preset: Object.assign( { schema: '', optionGroups: [] }, source.preset || {} ),
 			themeCheck: Object.assign( { available: false, status: 'pending', summary: { pass: 0, warning: 0, fail: 0 }, checks: [], message: '' }, source.themeCheck || {} ),
-			images: Object.assign( { webpEnabled: false, webpQuality: 0, socialDir: '', queue: {} }, source.images || {} ),
+			images: Object.assign( { webpEnabled: false, webpQuality: 0, socialDir: '', queue: {}, mediaQueue: {} }, source.images || {} ),
 		};
 	}
 
@@ -3739,8 +3739,15 @@
 							el( 'span', null, __( 'WebP 图片优化', 'nerv-core' ) ),
 							el( 'strong', null, form.images.webpEnabled ? __( 'Enabled', 'nerv-core' ) : __( 'Disabled', 'nerv-core' ) ),
 							el( 'small', null, __( '上传 JPEG/PNG 后自动生成 WebP，分享卡片优先使用真实媒体图。', 'nerv-core' ) + ' Q' + String( form.images.webpQuality || 0 ) ),
-							el( 'small', null, 'QUEUE ' + String( ( form.images.queue && form.images.queue.status ) || 'idle' ) + ' / PENDING ' + String( ( form.images.queue && form.images.queue.pending ) || 0 ) ),
+							el( 'small', null, 'MEDIA ' + String( ( form.images.mediaQueue && form.images.mediaQueue.status ) || 'idle' ) + ' / PENDING ' + String( ( form.images.mediaQueue && form.images.mediaQueue.pending ) || 0 ) ),
+							form.images.mediaQueue && form.images.mediaQueue.lastError ? el( 'small', null, String( form.images.mediaQueue.lastError ) ) : null,
+							el( 'small', null, 'SOCIAL ' + String( ( form.images.queue && form.images.queue.status ) || 'idle' ) + ' / PENDING ' + String( ( form.images.queue && form.images.queue.pending ) || 0 ) ),
 							el( 'small', null, form.images.socialDir || __( 'Social cover directory unavailable.', 'nerv-core' ) ),
+							el(
+								Button,
+								{ variant: 'secondary', isBusy: 'refresh_media_webp' === running, disabled: !! running, onClick: function () { runAction( 'refresh_media_webp' ); } },
+								__( '补齐媒体 WebP', 'nerv-core' )
+							),
 							el(
 								Button,
 								{ variant: 'secondary', isBusy: 'refresh_social_covers' === running, disabled: !! running, onClick: function () { runAction( 'refresh_social_covers' ); } },

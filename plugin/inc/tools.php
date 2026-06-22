@@ -103,6 +103,38 @@ function nerv_core_tools_refresh_social_covers(): array {
 	);
 }
 
+function nerv_core_tools_refresh_media_webp(): array {
+	if ( ! function_exists( 'nerv_core_image_optimizer_queue_media_webp' ) || ! function_exists( 'nerv_core_image_optimizer_run_media_webp_queue' ) || ! function_exists( 'nerv_core_image_optimizer_media_webp_queue_status' ) ) {
+		return array(
+			'generated' => 0,
+			'skipped'   => 0,
+			'failed'    => 0,
+			'message'   => __( 'Media WebP tools are unavailable.', 'nerv-core' ),
+		);
+	}
+
+	nerv_core_image_optimizer_queue_media_webp( true );
+	nerv_core_image_optimizer_run_media_webp_queue();
+	$status = nerv_core_image_optimizer_media_webp_queue_status();
+
+	return array(
+		'generated' => absint( $status['generated'] ?? 0 ),
+		'skipped'   => absint( $status['skipped'] ?? 0 ),
+		'failed'    => absint( $status['failed'] ?? 0 ),
+		'pending'   => absint( $status['pending'] ?? 0 ),
+		'status'    => sanitize_key( (string) ( $status['status'] ?? 'idle' ) ),
+		'lastError' => sanitize_text_field( (string) ( $status['lastError'] ?? '' ) ),
+		'message'   => sprintf(
+			/* translators: 1: generated count, 2: skipped count, 3: failed count, 4: pending count. */
+			__( 'Media WebP queue started: %1$d generated, %2$d already existed, %3$d failed, %4$d pending.', 'nerv-core' ),
+			absint( $status['generated'] ?? 0 ),
+			absint( $status['skipped'] ?? 0 ),
+			absint( $status['failed'] ?? 0 ),
+			absint( $status['pending'] ?? 0 )
+		),
+	);
+}
+
 function nerv_core_tools_apply_geo_recommended_defaults(): array {
 	$steps = array();
 
