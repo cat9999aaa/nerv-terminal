@@ -12,8 +12,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 add_action( 'admin_menu', 'nerv_core_register_admin_page' );
 function nerv_core_register_admin_page(): void {
 	add_menu_page(
-		__( 'Theme Control', 'nerv-core' ),
-		__( 'Theme Control', 'nerv-core' ),
+		__( 'NERV Theme · Control', 'nerv-core' ),
+		__( 'NERV Theme · Control', 'nerv-core' ),
 		'manage_options',
 		'nerv-control',
 		'nerv_core_render_admin_page',
@@ -66,9 +66,10 @@ function nerv_core_enqueue_admin_control_assets( string $hook_suffix ): void {
 			'articlesPath'   => '/nerv-core/v1/control-articles',
 			'mobilePath'     => '/nerv-core/v1/control-mobile',
 			'socialPath'     => '/nerv-core/v1/control-social',
-			'geoPath'        => '/nerv-core/v1/control-geo',
-			'effectsPath'    => '/nerv-core/v1/control-effects',
-			'partnersPath'   => '/nerv-core/v1/control-partners',
+				'geoPath'        => '/nerv-core/v1/control-geo',
+				'effectsPath'    => '/nerv-core/v1/control-effects',
+				'appearancePath' => '/nerv-core/v1/control-appearance',
+				'partnersPath'   => '/nerv-core/v1/control-partners',
 			'aiPolicyPath'   => '/nerv-core/v1/control-ai-policy-generate',
 			'indexnowPath'   => '/nerv-core/v1/control-indexnow-test',
 			'partnerTestPath'=> '/nerv-core/v1/control-partner-health-test',
@@ -194,6 +195,18 @@ function nerv_core_register_control_rest(): void {
 		array(
 			'methods'             => WP_REST_Server::CREATABLE,
 			'callback'            => 'nerv_core_rest_control_effects_save',
+			'permission_callback' => static function (): bool {
+				return current_user_can( 'manage_options' );
+			},
+		)
+	);
+
+	register_rest_route(
+		'nerv-core/v1',
+		'/control-appearance',
+		array(
+			'methods'             => WP_REST_Server::CREATABLE,
+			'callback'            => 'nerv_core_rest_control_appearance_save',
 			'permission_callback' => static function (): bool {
 				return current_user_can( 'manage_options' );
 			},
@@ -671,6 +684,35 @@ function nerv_core_rest_control_effects_save( WP_REST_Request $request ): WP_RES
 	);
 }
 
+function nerv_core_rest_control_appearance_save( WP_REST_Request $request ): WP_REST_Response {
+	if ( ! function_exists( 'nerv_terminal_appearance_sanitize_options' ) ) {
+		return new WP_REST_Response( array( 'message' => __( 'Appearance settings are unavailable.', 'nerv-core' ) ), 500 );
+	}
+
+	$params = $request->get_json_params();
+	if ( ! is_array( $params ) ) {
+		$params = $request->get_params();
+	}
+
+	update_option(
+		'nerv_terminal_appearance_options',
+		nerv_terminal_appearance_sanitize_options(
+			array(
+				'palette' => sanitize_key( (string) ( $params['palette'] ?? 'hazard' ) ),
+				'mode'    => sanitize_key( (string) ( $params['mode'] ?? 'void' ) ),
+			)
+		),
+		false
+	);
+
+	return new WP_REST_Response(
+		array(
+			'message'   => __( 'Appearance settings saved.', 'nerv-core' ),
+			'dashboard' => nerv_core_control_dashboard_data(),
+		)
+	);
+}
+
 function nerv_core_rest_control_partners_save( WP_REST_Request $request ): WP_REST_Response {
 	if ( ! function_exists( 'nerv_core_partner_display_sanitize_options' ) || ! function_exists( 'nerv_core_partner_health_sanitize_options' ) ) {
 		return new WP_REST_Response( array( 'message' => __( 'Partner settings are unavailable.', 'nerv-core' ) ), 500 );
@@ -835,6 +877,7 @@ function nerv_core_control_dashboard_data(): array {
 	$related_options = function_exists( 'nerv_core_related_options' ) ? nerv_core_related_options() : array();
 	$seo_options = nerv_core_seo_options();
 	$effect_options = function_exists( 'nerv_terminal_effect_options' ) ? nerv_terminal_effect_options() : array();
+	$appearance_options = function_exists( 'nerv_terminal_appearance_options' ) ? nerv_terminal_appearance_options() : array();
 	$brand_options = get_option( 'nerv_terminal_strings', array() );
 	if ( ! is_array( $brand_options ) ) {
 		$brand_options = array();
@@ -912,6 +955,7 @@ function nerv_core_control_dashboard_data(): array {
 			'social'     => nerv_core_control_social_form_data(),
 			'geo'        => nerv_core_control_geo_form_data( $indexnow_options, $crawler_options, $crawler_summary, $policy_exists, $markdown_stats ),
 			'effects'    => nerv_core_control_effects_form_data( $effect_options ),
+			'appearance' => nerv_core_control_appearance_form_data( $appearance_options ),
 			'partners'   => nerv_core_control_partners_form_data( $partner_display_options, $partner_health_options, $partner_summary ),
 			'tools'      => nerv_core_control_tools_form_data( $markdown_stats, $partner_summary ),
 		),
@@ -1480,6 +1524,39 @@ function nerv_core_control_effects_form_data( array $effect_options ): array {
 	);
 }
 
+function nerv_core_control_appearance_form_data( array $appearance_options ): array {
+	$options = function_exists( 'nerv_terminal_appearance_sanitize_options' ) ? nerv_terminal_appearance_sanitize_options( $appearance_options ) : array(
+		'palette' => 'hazard',
+		'mode'    => 'void',
+	);
+	$palette_choices = function_exists( 'nerv_terminal_appearance_palette_choices' ) ? nerv_terminal_appearance_palette_choices() : array( 'hazard' => __( '09 Hazard', 'nerv-core' ) );
+	$mode_choices    = function_exists( 'nerv_terminal_appearance_mode_choices' ) ? nerv_terminal_appearance_mode_choices() : array( 'void' => __( 'Night / Void', 'nerv-core' ), 'paper' => __( 'Day / Paper', 'nerv-core' ) );
+
+	$palettes = array();
+	foreach ( $palette_choices as $value => $label ) {
+		$palettes[] = array(
+			'value' => sanitize_key( (string) $value ),
+			'label' => sanitize_text_field( (string) $label ),
+		);
+	}
+
+	$modes = array();
+	foreach ( $mode_choices as $value => $label ) {
+		$modes[] = array(
+			'value' => sanitize_key( (string) $value ),
+			'label' => sanitize_text_field( (string) $label ),
+		);
+	}
+
+	return array(
+		'palette'    => sanitize_key( (string) ( $options['palette'] ?? 'hazard' ) ),
+		'mode'       => sanitize_key( (string) ( $options['mode'] ?? 'void' ) ),
+		'palettes'   => $palettes,
+		'modes'      => $modes,
+		'previewUrl' => home_url( '/' ),
+	);
+}
+
 function nerv_core_control_tools_form_data( array $markdown_stats, array $partner_summary ): array {
 	$root = dirname( dirname( NERV_CORE_DIR ) );
 	if ( false === $root || '' === $root ) {
@@ -1595,10 +1672,11 @@ function nerv_core_control_tabs(): array {
 		array( 'id' => 'social', 'label' => __( '05 Social', 'nerv-core' ), 'status' => 'partial' ),
 		array( 'id' => 'articles', 'label' => __( '06 Articles', 'nerv-core' ), 'status' => 'partial' ),
 		array( 'id' => 'geo', 'label' => __( '07 GEO', 'nerv-core' ), 'status' => 'partial' ),
-		array( 'id' => 'effects', 'label' => __( '08 Effects', 'nerv-core' ), 'status' => 'partial' ),
-		array( 'id' => 'tools', 'label' => __( '09 Tools', 'nerv-core' ), 'status' => 'partial' ),
-		array( 'id' => 'ai', 'label' => __( '10 AI Services', 'nerv-core' ), 'status' => 'partial' ),
-		array( 'id' => 'partners', 'label' => __( '11 Partners', 'nerv-core' ), 'status' => 'partial' ),
+		array( 'id' => 'appearance', 'label' => __( '08 Appearance', 'nerv-core' ), 'status' => 'partial' ),
+		array( 'id' => 'effects', 'label' => __( '09 Effects', 'nerv-core' ), 'status' => 'partial' ),
+		array( 'id' => 'tools', 'label' => __( '10 Tools', 'nerv-core' ), 'status' => 'partial' ),
+		array( 'id' => 'ai', 'label' => __( '11 AI Services', 'nerv-core' ), 'status' => 'partial' ),
+		array( 'id' => 'partners', 'label' => __( '12 Partners', 'nerv-core' ), 'status' => 'partial' ),
 	);
 }
 
@@ -1796,7 +1874,7 @@ function nerv_core_render_admin_page(): void {
 	);
 	?>
 	<div class="wrap">
-		<h1><?php esc_html_e( 'Theme Control', 'nerv-core' ); ?></h1>
+		<h1><?php esc_html_e( 'NERV Theme · Control', 'nerv-core' ); ?></h1>
 		<p><?php esc_html_e( 'Manage theme identity, SEO, publishing resources, partners, and release tools from one WordPress-friendly dashboard.', 'nerv-core' ); ?></p>
 		<?php settings_errors( 'nerv_core_settings' ); ?>
 		<?php if ( isset( $_GET['nerv_ai_policy_status'] ) ) : ?>
@@ -1825,7 +1903,7 @@ function nerv_core_render_admin_page(): void {
 		<?php endif; ?>
 		<div id="nerv-control-app" class="nerv-control-app">
 			<div class="nerv-control-shell nerv-control-shell--loading">
-				<p><?php esc_html_e( 'Loading Theme Control dashboard...', 'nerv-core' ); ?></p>
+				<p><?php esc_html_e( 'Loading NERV Theme control dashboard...', 'nerv-core' ); ?></p>
 			</div>
 		</div>
 		<div id="nerv-control-legacy-settings" class="nerv-control-legacy-settings">

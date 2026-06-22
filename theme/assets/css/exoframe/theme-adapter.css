@@ -29,6 +29,14 @@ body.nerv-terminal-theme {
 	-webkit-tap-highlight-color: transparent;
 }
 
+html[data-theme="paper"] body.nerv-terminal-theme {
+	background:
+		linear-gradient(color-mix(in srgb, var(--color-line) 62%, transparent) 1px, transparent 1px),
+		linear-gradient(90deg, color-mix(in srgb, var(--color-line) 58%, transparent) 1px, transparent 1px),
+		var(--color-bg);
+	color: var(--color-text);
+}
+
 body.nerv-terminal-theme::before {
 	content: "";
 	position: fixed;
@@ -93,18 +101,29 @@ body.nerv-terminal-theme:not(.nerv-effect-motion) *::after {
 	padding: 16px 0;
 }
 
+.nerv-main--reading {
+	grid-template-columns: minmax(0, 1fr);
+	width: min(100%, 1080px);
+	margin-inline: auto;
+}
+
 .nerv-column {
 	min-height: 0;
 	overflow-y: auto;
 	display: flex;
 	flex-direction: column;
-	gap: 12px;
+	gap: 18px;
+	padding-top: 8px;
 	scrollbar-width: thin;
 	scrollbar-color: var(--color-primary) transparent;
 }
 
 .nerv-column::-webkit-scrollbar {
 	width: 4px;
+}
+
+.nerv-column--reading {
+	width: 100%;
 }
 
 .nerv-column::-webkit-scrollbar-thumb {
@@ -243,7 +262,7 @@ body.nerv-terminal-theme:not(.nerv-effect-motion) *::after {
 
 .nerv-panel {
 	position: relative;
-	padding: 20px 18px 18px;
+	padding: 24px 18px 18px;
 	border: 1px solid var(--color-line);
 	background:
 		linear-gradient(color-mix(in srgb, var(--color-line) 32%, transparent) 1px, transparent 1px),
@@ -258,7 +277,7 @@ body.nerv-terminal-theme:not(.nerv-effect-motion) *::after {
 .nerv-panel::before {
 	content: attr(data-label);
 	position: absolute;
-	top: -8px;
+	top: -10px;
 	left: 16px;
 	width: auto;
 	height: auto;
@@ -502,6 +521,36 @@ body.nerv-terminal-theme:not(.nerv-effect-motion) *::after {
 	gap: 12px;
 }
 
+.nerv-pagination {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin-top: 18px;
+	padding-top: 14px;
+	border-top: 1px solid var(--color-line);
+}
+
+.nerv-pagination :where(a, span) {
+	min-width: 34px;
+	min-height: 32px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	border: 1px solid var(--color-line);
+	color: var(--color-muted);
+	background: color-mix(in srgb, var(--color-surface) 88%, transparent);
+	font-family: var(--font-mono);
+	font-size: 0.75rem;
+	text-decoration: none;
+}
+
+.nerv-pagination .current,
+.nerv-pagination a:hover {
+	border-color: var(--color-primary);
+	color: var(--color-primary-glow);
+	box-shadow: 0 0 16px -8px var(--color-primary-glow);
+}
+
 .nerv-archive-card {
 	display: grid;
 	grid-template-columns: 180px 1fr;
@@ -707,7 +756,7 @@ body.nerv-terminal-theme:not(.nerv-effect-motion) *::after {
 }
 
 .nerv-entry {
-	max-width: 42.5rem;
+	max-width: min(100%, 52rem);
 	margin-inline: auto;
 }
 
@@ -731,6 +780,20 @@ body.nerv-terminal-theme:not(.nerv-effect-motion) *::after {
 	line-height: 1.75;
 }
 
+.nerv-panel--reading {
+	padding-inline: clamp(18px, 4vw, 44px);
+}
+
+.nerv-app-shell--reading .nerv-panel--archive,
+.nerv-app-shell--reading .nerv-panel--partners,
+.nerv-app-shell--reading .nerv-panel--partner-apply {
+	max-width: 100%;
+}
+
+.nerv-panel--reading .nerv-panel__heading {
+	margin-bottom: 20px;
+}
+
 .nerv-entry-content h2,
 .nerv-entry-content h3 {
 	color: var(--color-text);
@@ -742,10 +805,41 @@ body.nerv-terminal-theme:not(.nerv-effect-motion) *::after {
 	text-underline-offset: 3px;
 }
 
+.nerv-entry-content :where(.wp-block-heading, h2, h3, h4) {
+	scroll-margin-top: 24px;
+}
+
+.nerv-entry-content :where(pre, .wp-block-code, .code-shell) {
+	max-width: 100%;
+}
+
+.nerv-entry-content .wp-block-table {
+	overflow-x: auto;
+}
+
+.nerv-entry-content .wp-block-table table,
+.nerv-entry-content table {
+	min-width: min(100%, 560px);
+}
+
+.nerv-entry-content .code-shell {
+	margin: 1.4em 0;
+}
+
+.nerv-entry-content .code-shell pre {
+	background: transparent;
+}
+
+.nerv-entry-content img {
+	max-width: 100%;
+	height: auto;
+}
+
 .nerv-entry-cover,
 .nerv-entry-cover-fallback {
 	display: block;
 	width: 100%;
+	max-height: 320px;
 	aspect-ratio: 5 / 2;
 	object-fit: cover;
 	border: 1px solid var(--color-line);
@@ -904,6 +998,11 @@ body.nerv-terminal-theme:not(.nerv-effect-motion) *::after {
 		grid-template-columns: 220px minmax(0, 1fr) 300px;
 	}
 
+	.nerv-main--reading {
+		grid-template-columns: minmax(0, 1fr);
+		width: min(100%, 1000px);
+	}
+
 	.nerv-header {
 		grid-template-columns: 220px 90px 1fr 250px;
 	}
@@ -934,6 +1033,11 @@ body.nerv-terminal-theme:not(.nerv-effect-motion) *::after {
 
 	.nerv-main {
 		grid-template-columns: minmax(0, 1fr) 300px;
+	}
+
+	.nerv-main--reading {
+		grid-template-columns: minmax(0, 1fr);
+		width: min(100%, 840px);
 	}
 
 	.nerv-column--left {
@@ -1014,6 +1118,11 @@ body.nerv-terminal-theme:not(.nerv-effect-motion) *::after {
 		padding: 12px;
 	}
 
+	.nerv-main--reading {
+		width: 100%;
+		margin-inline: 0;
+	}
+
 	.nerv-column {
 		overflow: visible;
 		display: contents;
@@ -1036,7 +1145,7 @@ body.nerv-terminal-theme:not(.nerv-effect-motion) *::after {
 
 	.nerv-panel {
 		margin-bottom: 12px;
-		padding: 20px 16px 16px;
+		padding: 24px 16px 16px;
 	}
 
 	.nerv-panel--hero {

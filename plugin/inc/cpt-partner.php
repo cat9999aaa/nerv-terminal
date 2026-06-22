@@ -15,10 +15,11 @@ function nerv_core_register_partner_cpt(): void {
 		'partner',
 		array(
 			'labels'       => array(
-				'name'          => __( 'Partners', 'nerv-core' ),
-				'singular_name' => __( 'Partner', 'nerv-core' ),
-				'add_new_item'  => __( 'Add New Partner', 'nerv-core' ),
-				'edit_item'     => __( 'Edit Partner', 'nerv-core' ),
+				'name'          => __( 'NERV Theme · Partners', 'nerv-core' ),
+				'singular_name' => __( 'NERV Theme · Partner', 'nerv-core' ),
+				'add_new_item'  => __( 'Add New NERV Theme Partner', 'nerv-core' ),
+				'edit_item'     => __( 'Edit NERV Theme Partner', 'nerv-core' ),
+				'menu_name'     => __( 'NERV Theme · Partners', 'nerv-core' ),
 			),
 			'public'       => true,
 			'has_archive'  => true,

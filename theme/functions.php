@@ -66,7 +66,10 @@ function nerv_terminal_language_attributes( string $output ): string {
 		return $output;
 	}
 
-	return trim( $output . ' data-theme="void" data-palette="hazard"' );
+	$theme   = function_exists( 'nerv_terminal_appearance_theme_attribute' ) ? nerv_terminal_appearance_theme_attribute() : 'void';
+	$palette = function_exists( 'nerv_terminal_appearance_palette_attribute' ) ? nerv_terminal_appearance_palette_attribute() : 'hazard';
+
+	return trim( $output . ' data-theme="' . esc_attr( $theme ) . '" data-palette="' . esc_attr( $palette ) . '"' );
 }
 
 function nerv_terminal_asset_version( string $path ): string {

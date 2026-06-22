@@ -284,6 +284,17 @@
 		};
 	}
 
+	function cloneAppearanceForm( source ) {
+		source = source || {};
+		return {
+			palette: source.palette || 'hazard',
+			mode: source.mode || 'void',
+			palettes: source.palettes || [],
+			modes: source.modes || [],
+			previewUrl: source.previewUrl || '',
+		};
+	}
+
 	function effectsSettingsPayload( form ) {
 		return {
 			enabled: form.enabled !== false,
@@ -2873,6 +2884,138 @@
 		);
 	}
 
+	function AppearancePanel( props ) {
+		const data = props.data;
+		const formData = data.forms && data.forms.appearance ? data.forms.appearance : {};
+		const [ form, setForm ] = useState( cloneAppearanceForm( formData ) );
+		const [ saving, setSaving ] = useState( false );
+		const [ notice, setNotice ] = useState( '' );
+		const [ error, setError ] = useState( '' );
+
+		function setField( key, value ) {
+			setForm( Object.assign( {}, form, { [ key ]: value } ) );
+		}
+
+		function saveSettings() {
+			setSaving( true );
+			setNotice( '' );
+			setError( '' );
+			apiFetch( {
+				path: window.nervCoreControl ? window.nervCoreControl.appearancePath : '/nerv-core/v1/control-appearance',
+				method: 'POST',
+				data: {
+					palette: form.palette,
+					mode: form.mode,
+				},
+			} )
+				.then( function ( response ) {
+					if ( response.dashboard ) {
+						props.onDashboardUpdate( response.dashboard );
+						setForm( cloneAppearanceForm( response.dashboard.forms.appearance ) );
+					}
+					setNotice( response.message || __( 'Appearance settings saved.', 'nerv-core' ) );
+				} )
+				.catch( function ( response ) {
+					setError( response && response.message ? response.message : __( 'Appearance settings could not be saved.', 'nerv-core' ) );
+				} )
+				.finally( function () {
+					setSaving( false );
+				} );
+		}
+
+		return el(
+			'div',
+			{ className: 'nerv-control-tab-view' },
+			el(
+				'section',
+				{ className: 'nerv-control-panel nerv-control-panel--form nerv-control-panel--appearance' },
+				el(
+					'div',
+					{ className: 'nerv-control-panel__title' },
+					el( 'h3', null, __( 'TAB 08 · Appearance', 'nerv-core' ) ),
+					el( 'span', { className: 'nerv-control-status-pill nerv-control-status-pill--green' }, form.mode + ' / ' + form.palette )
+				),
+				el( 'p', { className: 'nerv-control-form-note' }, __( 'Choose the frontend palette and day/night mode. The block editor remains white background with black text for writing clarity.', 'nerv-core' ) ),
+				notice ? el( Notice, { status: 'success', isDismissible: true, onRemove: function () { setNotice( '' ); } }, notice ) : null,
+				error ? el( Notice, { status: 'warning', isDismissible: false }, error ) : null,
+				el(
+					'div',
+					{ className: 'nerv-control-appearance-grid' },
+					el(
+						'div',
+						{ className: 'nerv-control-fieldset' },
+						el( 'h4', null, __( 'Color Palette', 'nerv-core' ) ),
+						el(
+							'div',
+							{ className: 'nerv-control-palette-grid' },
+							( form.palettes || [] ).map( function ( palette ) {
+								return el(
+									'button',
+									{
+										type: 'button',
+										key: palette.value,
+										className: 'nerv-control-palette-swatch nerv-control-palette-swatch--' + palette.value + ( form.palette === palette.value ? ' is-selected' : '' ),
+										onClick: function () {
+											setField( 'palette', palette.value );
+										},
+									},
+									el( 'span', null, palette.label ),
+									el( 'i', null )
+								);
+							} )
+						)
+					),
+					el(
+						'div',
+						{ className: 'nerv-control-fieldset' },
+						el( 'h4', null, __( 'Day / Night Mode', 'nerv-core' ) ),
+						el(
+							'div',
+							{ className: 'nerv-control-mode-grid' },
+							( form.modes || [] ).map( function ( mode ) {
+								return el(
+									'button',
+									{
+										type: 'button',
+										key: mode.value,
+										className: 'nerv-control-mode-card nerv-control-mode-card--' + mode.value + ( form.mode === mode.value ? ' is-selected' : '' ),
+										onClick: function () {
+											setField( 'mode', mode.value );
+										},
+									},
+									el( 'strong', null, mode.label ),
+									el( 'span', null, mode.value )
+								);
+							} )
+						),
+						el(
+							'div',
+							{ className: 'nerv-control-appearance-preview', 'data-palette': form.palette, 'data-mode': form.mode },
+							el( 'span', null, __( 'Preview token', 'nerv-core' ) ),
+							el( 'strong', null, form.palette.toUpperCase() ),
+							el( 'small', null, form.mode.toUpperCase() )
+						)
+					)
+				),
+				el(
+					'div',
+					{ className: 'nerv-control-actions' },
+					form.previewUrl ? el( 'a', { className: 'nerv-control-inline-link', href: form.previewUrl, target: '_blank', rel: 'noreferrer' }, __( 'Preview homepage', 'nerv-core' ) ) : null,
+					el(
+						Button,
+						{ variant: 'primary', isBusy: saving, disabled: saving, onClick: saveSettings },
+						saving ? __( 'Saving...', 'nerv-core' ) : __( 'Save Appearance Settings', 'nerv-core' )
+					),
+					el(
+						Button,
+						{ variant: 'secondary', onClick: function () { props.onSelectTab( 'dashboard' ); } },
+						__( 'Back to dashboard', 'nerv-core' )
+					)
+				)
+			)
+		);
+	}
+
 	function SocialPanel( props ) {
 		const data = props.data;
 		const formData = data.forms && data.forms.social ? data.forms.social : {};
@@ -3711,6 +3854,8 @@
 			tabContent = el( ArticlesPanel, { data: data, onDashboardUpdate: props.onDashboardUpdate, onSelectTab: props.onSelectTab } );
 		} else if ( 'geo' === activeTab ) {
 			tabContent = el( GeoPanel, { data: data, onDashboardUpdate: props.onDashboardUpdate, onSelectTab: props.onSelectTab } );
+		} else if ( 'appearance' === activeTab ) {
+			tabContent = el( AppearancePanel, { data: data, onDashboardUpdate: props.onDashboardUpdate, onSelectTab: props.onSelectTab } );
 		} else if ( 'effects' === activeTab ) {
 			tabContent = el( EffectsPanel, { data: data, onDashboardUpdate: props.onDashboardUpdate, onSelectTab: props.onSelectTab } );
 		} else if ( 'tools' === activeTab ) {

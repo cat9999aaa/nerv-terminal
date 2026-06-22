@@ -680,6 +680,71 @@ function nerv_terminal_effect_view_options( string $context = 'desktop' ): array
 	return $options;
 }
 
+function nerv_terminal_appearance_palette_choices(): array {
+	return array(
+		'amethyst'   => __( '01 Amethyst', 'nerv-terminal' ),
+		'azure'      => __( '02 Azure', 'nerv-terminal' ),
+		'scarlet'    => __( '03 Scarlet', 'nerv-terminal' ),
+		'obsidian'   => __( '04 Obsidian', 'nerv-terminal' ),
+		'argent'     => __( '05 Argent', 'nerv-terminal' ),
+		'osseous'    => __( '06 Osseous', 'nerv-terminal' ),
+		'amber'      => __( '07 Amber', 'nerv-terminal' ),
+		'phosphor'   => __( '08 Phosphor', 'nerv-terminal' ),
+		'hazard'     => __( '09 Hazard', 'nerv-terminal' ),
+		'monochrome' => __( '10 Monochrome', 'nerv-terminal' ),
+	);
+}
+
+function nerv_terminal_appearance_mode_choices(): array {
+	return array(
+		'void'  => __( 'Night / Void', 'nerv-terminal' ),
+		'paper' => __( 'Day / Paper', 'nerv-terminal' ),
+	);
+}
+
+function nerv_terminal_appearance_default_options(): array {
+	return array(
+		'palette' => 'hazard',
+		'mode'    => 'void',
+	);
+}
+
+function nerv_terminal_appearance_options(): array {
+	$options = get_option( 'nerv_terminal_appearance_options', array() );
+	if ( ! is_array( $options ) ) {
+		$options = array();
+	}
+
+	return nerv_terminal_appearance_sanitize_options( $options );
+}
+
+function nerv_terminal_appearance_sanitize_options( $input ): array {
+	if ( ! is_array( $input ) ) {
+		$input = array();
+	}
+
+	$defaults = nerv_terminal_appearance_default_options();
+	$palette  = sanitize_key( (string) ( $input['palette'] ?? $defaults['palette'] ) );
+	$mode     = sanitize_key( (string) ( $input['mode'] ?? $defaults['mode'] ) );
+
+	return array(
+		'palette' => array_key_exists( $palette, nerv_terminal_appearance_palette_choices() ) ? $palette : $defaults['palette'],
+		'mode'    => array_key_exists( $mode, nerv_terminal_appearance_mode_choices() ) ? $mode : $defaults['mode'],
+	);
+}
+
+function nerv_terminal_appearance_theme_attribute(): string {
+	$options = nerv_terminal_appearance_options();
+
+	return (string) ( $options['mode'] ?? 'void' );
+}
+
+function nerv_terminal_appearance_palette_attribute(): string {
+	$options = nerv_terminal_appearance_options();
+
+	return (string) ( $options['palette'] ?? 'hazard' );
+}
+
 function nerv_terminal_mobile_default_options(): array {
 	return array(
 		'enabled'       => true,

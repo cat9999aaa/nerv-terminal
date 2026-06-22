@@ -432,6 +432,97 @@
 	text-transform: uppercase;
 }
 
+.nerv-control-appearance-grid {
+	display: grid;
+	grid-template-columns: minmax(0, 1.4fr) minmax(260px, 0.8fr);
+	gap: 12px;
+}
+
+.nerv-control-palette-grid,
+.nerv-control-mode-grid {
+	display: grid;
+	gap: 8px;
+}
+
+.nerv-control-palette-grid {
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.nerv-control-palette-swatch,
+.nerv-control-mode-card {
+	display: grid;
+	gap: 7px;
+	min-width: 0;
+	border: 1px solid rgba(232, 228, 220, 0.14);
+	background: #100c0a;
+	color: #e8e4dc;
+	padding: 9px;
+	text-align: left;
+	cursor: pointer;
+}
+
+.nerv-control-palette-swatch.is-selected,
+.nerv-control-mode-card.is-selected {
+	border-color: #4ade80;
+	box-shadow: inset 0 0 0 1px rgba(74, 222, 128, 0.34);
+}
+
+.nerv-control-palette-swatch span,
+.nerv-control-mode-card span {
+	color: #c8c2b8;
+	font-family: monospace;
+	font-size: 11px;
+	text-transform: uppercase;
+}
+
+.nerv-control-palette-swatch i {
+	display: block;
+	height: 14px;
+	border: 1px solid rgba(255, 255, 255, 0.12);
+	background: linear-gradient(90deg, #f5d13d, #ff9f1c 50%, #e71d36);
+}
+
+.nerv-control-palette-swatch--amethyst i { background: linear-gradient(90deg, #d8b4fe, #a855f7 50%, #6d28d9); }
+.nerv-control-palette-swatch--azure i { background: linear-gradient(90deg, #79c9f5, #1881c8 50%, #0d4b7a); }
+.nerv-control-palette-swatch--scarlet i { background: linear-gradient(90deg, #fca5a5, #ef4444 50%, #991b1b); }
+.nerv-control-palette-swatch--obsidian i { background: linear-gradient(90deg, #d4d4d8, #52525b 50%, #111116); }
+.nerv-control-palette-swatch--argent i { background: linear-gradient(90deg, #f8fafc, #94a3b8 50%, #334155); }
+.nerv-control-palette-swatch--osseous i { background: linear-gradient(90deg, #f5f0df, #b6a275 50%, #51452f); }
+.nerv-control-palette-swatch--amber i { background: linear-gradient(90deg, #fde68a, #f59e0b 50%, #92400e); }
+.nerv-control-palette-swatch--phosphor i { background: linear-gradient(90deg, #bbf7d0, #22c55e 50%, #166534); }
+.nerv-control-palette-swatch--hazard i { background: linear-gradient(90deg, #fff000, #ff9f1c 50%, #e71d36); }
+.nerv-control-palette-swatch--monochrome i { background: linear-gradient(90deg, #ffffff, #737373 50%, #050509); }
+
+.nerv-control-mode-card strong {
+	color: #e8e4dc;
+	font-family: monospace;
+	font-size: 13px;
+}
+
+.nerv-control-appearance-preview {
+	display: grid;
+	gap: 8px;
+	margin-top: 10px;
+	padding: 14px;
+	border: 1px solid rgba(74, 222, 128, 0.28);
+	background: #080706;
+}
+
+.nerv-control-appearance-preview[data-mode="paper"] {
+	background: #f8fafc;
+	color: #111116;
+}
+
+.nerv-control-appearance-preview strong {
+	color: #4ade80;
+	font-size: 22px;
+	line-height: 1;
+}
+
+.nerv-control-appearance-preview[data-mode="paper"] strong {
+	color: #111116;
+}
+
 .nerv-control-fieldset--wide {
 	grid-column: 1 / -1;
 }

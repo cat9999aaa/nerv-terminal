@@ -23,6 +23,40 @@
 		});
 	}
 
+	function escapeHtml(value) {
+		return String(value)
+			.replace(/&/g, '&amp;')
+			.replace(/</g, '&lt;')
+			.replace(/>/g, '&gt;');
+	}
+
+	function highlightCode() {
+		document.querySelectorAll('.code-shell code').forEach(function (node) {
+			if (node.dataset.nervHighlighted) {
+				return;
+			}
+			var source = node.textContent || '';
+			var pattern = /(\/\*[\s\S]*?\*\/|\/\/[^\n]*|#[^\n]*)|(".*?"|'.*?'|`.*?`)|\b(function|return|const|let|var|if|else|for|foreach|while|class|new|public|private|protected|static|true|false|null|array|echo|import|from|export|async|await)\b|\b(\d+(?:\.\d+)?)\b/g;
+			var html = escapeHtml(source).replace(pattern, function (match, comment, string, keyword, number) {
+				if (comment) {
+					return '<span class="token comment">' + comment + '</span>';
+				}
+				if (string) {
+					return '<span class="token string">' + string + '</span>';
+				}
+				if (keyword) {
+					return '<span class="token keyword">' + keyword + '</span>';
+				}
+				if (number) {
+					return '<span class="token number">' + number + '</span>';
+				}
+				return match;
+			});
+			node.innerHTML = html;
+			node.dataset.nervHighlighted = '1';
+		});
+	}
+
 	var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 	if (!reduceMotion && 'startViewTransition' in document) {
@@ -39,5 +73,6 @@
 	}
 
 	updateClock();
+	highlightCode();
 	setInterval(updateClock, 1000);
 })();
