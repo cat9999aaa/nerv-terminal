@@ -22,7 +22,7 @@ $editor_js = file_get_contents( $root . '/plugin/assets/js/blocks.js' );
 
 add_check( $checks, 'view pagination rewrite', is_string( $theme_functions ) && str_contains( $theme_functions, "'^' . \$view . '/page/([0-9]+)/?$'" ), 'Runtime views register /page/N rewrite rules.' );
 add_check( $checks, 'overflow pagination redirect', is_string( $theme_functions ) && str_contains( $theme_functions, 'nerv_terminal_maybe_redirect_overflow_view_page' ), 'Overflow view pages redirect to the last valid page.' );
-add_check( $checks, 'pagination base uses view urls', is_string( $dashboard ) && str_contains( $dashboard, 'nerv_terminal_pagination_base' ) && str_contains( $dashboard, "'format'    => 'page/%#%/'" ), 'Pagination links use stable /view/page/N URLs.' );
+add_check( $checks, 'pagination base uses view urls', is_string( $dashboard ) && str_contains( $dashboard, 'nerv_terminal_pagination_base' ) && str_contains( $dashboard, 'nerv_terminal_pagination_format' ), 'Pagination links use stable /view/page/N URLs and respect permalink trailing slash rules.' );
 
 foreach ( array( 'theme adapter' => $adapter, 'frontend bundle' => $bundle ) as $label => $css ) {
 	add_check( $checks, $label . ' archive 5x2', is_string( $css ) && preg_match( '/\\.nerv-card-image\\s*\\{[^}]*aspect-ratio:\\s*5\\s*\\/\\s*2/s', $css ), 'Default card image ratio remains 5:2.' );

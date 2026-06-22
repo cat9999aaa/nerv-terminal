@@ -400,7 +400,7 @@ function nerv_terminal_pagination( ?WP_Query $query = null ): string {
 			'total'     => (int) $query->max_num_pages,
 			'current'   => $current,
 			'base'      => nerv_terminal_pagination_base(),
-			'format'    => 'page/%#%/',
+			'format'    => nerv_terminal_pagination_format(),
 			'type'      => 'array',
 			'prev_text' => __( 'Prev', 'nerv-terminal' ),
 			'next_text' => __( 'Next', 'nerv-terminal' ),
@@ -421,6 +421,15 @@ function nerv_terminal_pagination_base(): string {
 	}
 
 	return str_replace( 999999999, '%#%', esc_url_raw( get_pagenum_link( 999999999 ) ) );
+}
+
+function nerv_terminal_pagination_format(): string {
+	$permalink_structure = (string) get_option( 'permalink_structure' );
+	if ( '' !== $permalink_structure && ! str_ends_with( $permalink_structure, '/' ) ) {
+		return 'page/%#%';
+	}
+
+	return 'page/%#%/';
 }
 
 function nerv_terminal_prepare_entry_content( string $content ): string {

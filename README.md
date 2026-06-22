@@ -41,6 +41,12 @@ Run focused frontend checks against `http://127.0.0.1`:
 php bin/audit-frontend.php
 ```
 
+Run rewrite-sensitive route checks against the local site:
+
+```bash
+php bin/audit-rewrite-routes.php
+```
+
 Run runtime acceptance checks against the local WordPress install:
 
 ```bash
@@ -55,8 +61,44 @@ bash build.sh --split
 
 The split build produces:
 
-- `dist/nerv-terminal-theme-0.1.4.zip`
-- `dist/nerv-core-plugin-0.1.4.zip`
+- `dist/nerv-terminal-theme-0.1.5.zip`
+- `dist/nerv-core-plugin-0.1.5.zip`
+
+## Baota / Nginx Rewrite
+
+Baota's WordPress pseudo-static rule should pass unknown pretty URLs to
+WordPress. Do not add separate Nginx rules for `/blog/page/N`, `/projects/page/N`,
+`/partners/page/N`, `llms.txt`, or article `.md` mirrors unless another site-level
+rule intercepts them first.
+
+Use this rule in the site's pseudo-static panel:
+
+```nginx
+location /
+{
+    try_files $uri $uri/ /index.php?$args;
+}
+
+rewrite /wp-admin$ $scheme://$host$uri/ permanent;
+```
+
+The theme and plugin register the WordPress rewrite rules for:
+
+- `/blog/page/N`
+- `/projects/page/N`
+- `/partners/page/N`
+- `/llms.txt`
+- `/llms-full.txt`
+- `/feed/json`
+- `/{post-slug}.md`
+
+After changing pseudo-static rules, activating the theme/plugin, or importing a
+new package, refresh WordPress rewrite rules by opening **Settings ->
+Permalinks -> Save Changes** once, or run `flush_rewrite_rules()` from WP-CLI.
+If `.md` URLs still return 404, check that Baota's sensitive-file rules are not
+blocking every `.md` file before the request reaches WordPress. Blocking
+repository files such as `README.md` is fine; blocking all public `*.md` routes
+will break Markdown mirrors.
 
 ## Online Updates
 

@@ -129,9 +129,38 @@
 		);
 	}
 
-	function cloneAiServicesForm( source ) {
+	function aiProviderDefaults( index ) {
+		return {
+			id: 'provider-' + String( Date.now() ) + '-' + String( index || 0 ),
+			name: '供应商 ' + String( ( index || 0 ) + 1 ),
+			type: 'openai_compatible',
+			baseUrl: '',
+			apiKey: '',
+			hasApiKey: false,
+			enabled: true,
+			modelCache: [],
+			modelCacheTime: '',
+		};
+	}
+
+	function cloneAiFeature( source ) {
 		source = source || {};
 		return {
+			provider_id: source.provider_id || source.providerId || 'default',
+			model: source.model || '',
+			fallback_models: Array.isArray( source.fallback_models ) ? source.fallback_models : ( Array.isArray( source.fallbackModels ) ? source.fallbackModels : [] ),
+		};
+	}
+
+	function cloneAiServicesForm( source ) {
+		source = source || {};
+		const providers = Array.isArray( source.providers ) && source.providers.length ? source.providers.map( function ( provider, index ) {
+			return Object.assign( aiProviderDefaults( index ), provider || {}, { apiKey: '' } );
+		} ) : [ Object.assign( aiProviderDefaults( 0 ), { id: 'default', name: '默认供应商', baseUrl: source.endpoint || '', modelCache: source.modelCache || [], modelCacheTime: source.modelCacheTime || '', hasApiKey: !! source.hasApiKey } ) ];
+		return {
+			providers: providers,
+			textFeature: cloneAiFeature( source.textFeature || { provider_id: providers[0].id, model: source.model || '', fallback_models: source.fallbackModels || [] } ),
+			imageFeature: cloneAiFeature( source.imageFeature || { provider_id: providers[0].id, model: source.model || '', fallback_models: source.fallbackModels || [] } ),
 			endpoint: source.endpoint || '',
 			apiKey: '',
 			model: source.model || '',
@@ -442,7 +471,7 @@
 		const formData = data.forms && data.forms.aiServices ? data.forms.aiServices : {};
 		const [ form, setForm ] = useState( cloneAiServicesForm( formData ) );
 		const [ saving, setSaving ] = useState( false );
-		const [ fetchingModels, setFetchingModels ] = useState( false );
+		const [ fetchingModels, setFetchingModels ] = useState( '' );
 		const [ notice, setNotice ] = useState( '' );
 		const [ error, setError ] = useState( '' );
 		const status = formData.status || {};
@@ -455,39 +484,81 @@
 			setForm( Object.assign( {}, form, { [ key ]: value } ) );
 		}
 
-		function fallbackText() {
-			return ( form.fallbackModels || [] ).join( '\n' );
+		function updateProvider( index, key, value ) {
+			const providers = form.providers.slice();
+			providers[ index ] = Object.assign( {}, providers[ index ], { [ key ]: value } );
+			setField( 'providers', providers );
 		}
 
-		function setFallbackText( value ) {
-			setField( 'fallbackModels', String( value || '' ).split( /[\r\n,]+/ ).map( function ( item ) {
+		function addProvider() {
+			setField( 'providers', form.providers.concat( [ aiProviderDefaults( form.providers.length ) ] ) );
+		}
+
+		function removeProvider( index ) {
+			if ( form.providers.length <= 1 ) {
+				return;
+			}
+			const removed = form.providers[ index ];
+			const providers = form.providers.filter( function ( provider, providerIndex ) {
+				return providerIndex !== index;
+			} );
+			const fallbackProvider = providers[0] ? providers[0].id : 'default';
+			setForm( Object.assign( {}, form, {
+				providers: providers,
+				textFeature: Object.assign( {}, form.textFeature, { provider_id: form.textFeature.provider_id === removed.id ? fallbackProvider : form.textFeature.provider_id } ),
+				imageFeature: Object.assign( {}, form.imageFeature, { provider_id: form.imageFeature.provider_id === removed.id ? fallbackProvider : form.imageFeature.provider_id } ),
+			} ) );
+		}
+
+		function updateFeature( featureKey, key, value ) {
+			setField( featureKey, Object.assign( {}, form[ featureKey ], { [ key ]: value } ) );
+		}
+
+		function featureFallbackText( feature ) {
+			return ( feature.fallback_models || [] ).join( '\n' );
+		}
+
+		function setFeatureFallbackText( featureKey, value ) {
+			updateFeature( featureKey, 'fallback_models', String( value || '' ).split( /[\r\n,]+/ ).map( function ( item ) {
 				return item.trim();
 			} ).filter( Boolean ) );
 		}
 
-		function fetchModels() {
-			setFetchingModels( true );
+		function providerOptions() {
+			return form.providers.map( function ( provider ) {
+				return el( 'option', { value: provider.id, key: provider.id }, provider.name || provider.id );
+			} );
+		}
+
+		function findProvider( providerId ) {
+			return form.providers.find( function ( provider ) { return provider.id === providerId; } ) || form.providers[0] || {};
+		}
+
+		function fetchModels( providerIndex ) {
+			const provider = form.providers[ providerIndex ];
+			if ( ! provider ) {
+				return;
+			}
+			setFetchingModels( provider.id );
 			setNotice( '' );
 			setError( '' );
 			apiFetch( {
 				path: window.nervCoreControl ? window.nervCoreControl.aiModelsPath : '/nerv-core/v1/control-ai-models',
 				method: 'POST',
-				data: { endpoint: form.endpoint, apiKey: form.apiKey },
+				data: { providerId: provider.id, providers: form.providers, features: { text: form.textFeature, image: form.imageFeature }, apiKey: provider.apiKey },
 			} )
 				.then( function ( response ) {
 					if ( response.dashboard ) {
 						props.onDashboardUpdate( response.dashboard );
 						setForm( cloneAiServicesForm( response.dashboard.forms.aiServices ) );
-					} else {
-						setField( 'modelCache', response.models || [] );
 					}
-					setNotice( response.message || __( 'Model list fetched and cached.', 'nerv-core' ) );
+					setNotice( response.message || __( '模型列表已获取并缓存。', 'nerv-core' ) );
 				} )
 				.catch( function ( response ) {
-					setError( response && response.message ? response.message : __( 'Model list could not be fetched.', 'nerv-core' ) );
+					setError( response && response.message ? response.message : __( '模型列表获取失败。', 'nerv-core' ) );
 				} )
 				.finally( function () {
-					setFetchingModels( false );
+					setFetchingModels( '' );
 				} );
 		}
 
@@ -505,14 +576,47 @@
 						props.onDashboardUpdate( response.dashboard );
 						setForm( cloneAiServicesForm( response.dashboard.forms.aiServices ) );
 					}
-					setNotice( response.message || __( 'AI Services settings saved.', 'nerv-core' ) );
+					setNotice( response.message || __( 'AI供应商设置已保存。', 'nerv-core' ) );
 				} )
 				.catch( function ( response ) {
-					setError( response && response.message ? response.message : __( 'AI Services settings could not be saved.', 'nerv-core' ) );
+					setError( response && response.message ? response.message : __( 'AI供应商设置保存失败。', 'nerv-core' ) );
 				} )
 				.finally( function () {
 					setSaving( false );
 				} );
+		}
+
+		function featurePanel( title, featureKey, note ) {
+			const feature = form[ featureKey ];
+			const provider = findProvider( feature.provider_id );
+			const cache = provider.modelCache || [];
+			return el(
+				'div',
+				{ className: 'nerv-control-fieldset' },
+				el( 'h4', null, title ),
+				el( 'p', { className: 'nerv-control-mini' }, note ),
+				el( 'label', { className: 'nerv-control-select-field' },
+					el( 'span', null, __( '供应商', 'nerv-core' ) ),
+					el( 'select', { value: feature.provider_id, onChange: function ( event ) { updateFeature( featureKey, 'provider_id', event.target.value ); } }, providerOptions() )
+				),
+				el( TextControl, {
+					label: __( '主模型', 'nerv-core' ),
+					value: feature.model,
+					__next40pxDefaultSize: true,
+					onChange: function ( value ) { updateFeature( featureKey, 'model', value ); },
+				} ),
+				cache.length ? el( 'div', { className: 'nerv-control-model-cache__list' }, cache.slice( 0, 20 ).map( function ( model ) {
+					return el( 'button', { type: 'button', className: 'button button-small', key: featureKey + model, onClick: function () { updateFeature( featureKey, 'model', model ); } }, model );
+				} ) ) : null,
+				el( TextareaControl, {
+					label: __( '备用模型', 'nerv-core' ),
+					value: featureFallbackText( feature ),
+					rows: 4,
+					help: __( '每行一个。主模型失败、429、超时或返回格式错误时会立即切换。', 'nerv-core' ),
+					__nextHasNoMarginBottom: true,
+					onChange: function ( value ) { setFeatureFallbackText( featureKey, value ); },
+				} )
+			);
 		}
 
 		return el(
@@ -521,164 +625,43 @@
 			el(
 				'section',
 				{ className: 'nerv-control-panel nerv-control-panel--form' },
-				el(
-					'div',
-					{ className: 'nerv-control-panel__title' },
-					el( 'h3', null, __( 'NERV主题 · AI供应商', 'nerv-core' ) ),
-					el(
-						'span',
-						{ className: 'nerv-control-status-pill nerv-control-status-pill--' + ( status.ready ? 'green' : 'red' ) },
-						status.label || __( 'Not configured', 'nerv-core' )
-					)
-				),
-				el( 'p', { className: 'nerv-control-form-note' }, __( '统一设置 OpenAI 兼容 API 供应商。封面、摘要和 GEO 功能会使用这里的主模型与备用模型链。', 'nerv-core' ) ),
-				el(
-					'div',
-					{ className: 'nerv-control-ai-usage' },
-					el(
-						'div',
-						null,
-						el( 'span', null, __( 'This month', 'nerv-core' ) ),
-						el( 'strong', null, String( usage.month || '-' ) )
-					),
-					el(
-						'div',
-						null,
-						el( 'span', null, __( 'AI actions', 'nerv-core' ) ),
-						el( 'strong', null, String( usage.total || 0 ) )
-					),
-					el(
-						'div',
-						null,
-						el( 'span', null, __( 'External calls', 'nerv-core' ) ),
-						el( 'strong', null, String( usage.external || 0 ) )
-					),
-					el(
-						'div',
-						null,
-						el( 'span', null, __( 'Covers / KEY POINTS', 'nerv-core' ) ),
-						el( 'strong', null, String( coverUsage.total || 0 ) + ' / ' + String( keyPointsUsage.total || 0 ) )
-					),
-					el(
-						'div',
-						null,
-						el( 'span', null, __( 'Last AI action', 'nerv-core' ) ),
-						el( 'strong', null, usage.last || __( 'None', 'nerv-core' ) )
-					)
+				el( 'div', { className: 'nerv-control-panel__title' }, el( 'h3', null, __( 'NERV主题 · AI供应商', 'nerv-core' ) ), el( 'span', { className: 'nerv-control-status-pill nerv-control-status-pill--' + ( status.ready ? 'green' : 'red' ) }, status.label || __( 'Not configured', 'nerv-core' ) ) ),
+				el( 'p', { className: 'nerv-control-form-note' }, __( '可以添加多个 OpenAI 兼容供应商。文本模型和图片模型分开设置，模型列表获取后会缓存到对应供应商。', 'nerv-core' ) ),
+				el( 'div', { className: 'nerv-control-ai-usage' },
+					el( 'div', null, el( 'span', null, __( 'This month', 'nerv-core' ) ), el( 'strong', null, String( usage.month || '-' ) ) ),
+					el( 'div', null, el( 'span', null, __( 'AI actions', 'nerv-core' ) ), el( 'strong', null, String( usage.total || 0 ) ) ),
+					el( 'div', null, el( 'span', null, __( 'External calls', 'nerv-core' ) ), el( 'strong', null, String( usage.external || 0 ) ) ),
+					el( 'div', null, el( 'span', null, __( 'Covers / KEY POINTS', 'nerv-core' ) ), el( 'strong', null, String( coverUsage.total || 0 ) + ' / ' + String( keyPointsUsage.total || 0 ) ) )
 				),
 				notice ? el( Notice, { status: 'success', isDismissible: true, onRemove: function () { setNotice( '' ); } }, notice ) : null,
 				error ? el( Notice, { status: 'warning', isDismissible: false }, error ) : null,
-				el(
-					'div',
-					{ className: 'nerv-control-form-grid' },
-					el( TextControl, {
-						label: __( 'API endpoint', 'nerv-core' ),
-						value: form.endpoint,
-						placeholder: 'https://api.openai.com/v1/images/generations',
-						__next40pxDefaultSize: true,
-						onChange: function ( value ) {
-							setField( 'endpoint', value );
-						},
+				el( 'div', { className: 'nerv-control-provider-list' },
+					form.providers.map( function ( provider, index ) {
+						return el( 'div', { className: 'nerv-control-provider-card', key: provider.id },
+							el( 'div', { className: 'nerv-control-provider-card__head' }, el( 'strong', null, provider.name || provider.id ), el( Button, { variant: 'secondary', isDestructive: true, disabled: form.providers.length <= 1, onClick: function () { removeProvider( index ); } }, __( '删除', 'nerv-core' ) ) ),
+							el( TextControl, { label: __( '供应商名称', 'nerv-core' ), value: provider.name, __next40pxDefaultSize: true, onChange: function ( value ) { updateProvider( index, 'name', value ); } } ),
+							el( TextControl, { label: __( 'Base URL', 'nerv-core' ), value: provider.baseUrl, placeholder: 'https://one.dashen.wang', __next40pxDefaultSize: true, onChange: function ( value ) { updateProvider( index, 'baseUrl', value ); } } ),
+							el( TextControl, { label: provider.hasApiKey ? __( 'API Key 已保存，输入新值可替换', 'nerv-core' ) : __( 'API Key', 'nerv-core' ), type: 'password', value: provider.apiKey || '', autoComplete: 'new-password', __next40pxDefaultSize: true, onChange: function ( value ) { updateProvider( index, 'apiKey', value ); } } ),
+							el( CheckboxControl, { label: __( '启用供应商', 'nerv-core' ), checked: provider.enabled !== false, __nextHasNoMarginBottom: true, onChange: function ( value ) { updateProvider( index, 'enabled', value ); } } ),
+							el( 'div', { className: 'nerv-control-model-cache' },
+								el( Button, { variant: 'secondary', isBusy: fetchingModels === provider.id, disabled: !! fetchingModels || ! provider.baseUrl, onClick: function () { fetchModels( index ); } }, fetchingModels === provider.id ? __( '正在获取模型...', 'nerv-core' ) : __( '获取模型列表并缓存', 'nerv-core' ) ),
+								el( 'p', null, provider.modelCache && provider.modelCache.length ? __( '已缓存模型数量：', 'nerv-core' ) + String( provider.modelCache.length ) + ( provider.modelCacheTime ? ' / ' + provider.modelCacheTime : '' ) : __( '还没有缓存模型列表。', 'nerv-core' ) )
+							)
+						);
 					} ),
-					el( TextControl, {
-						label: __( 'Model', 'nerv-core' ),
-						value: form.model,
-						placeholder: 'gpt-image-1',
-						__next40pxDefaultSize: true,
-						onChange: function ( value ) {
-							setField( 'model', value );
-						},
-					} ),
-					el( TextareaControl, {
-						label: __( '备用模型', 'nerv-core' ),
-						value: fallbackText(),
-						rows: 4,
-						help: __( '每行一个备用模型。主模型失败、429、超时或返回格式错误时会立即切换。', 'nerv-core' ),
-						__nextHasNoMarginBottom: true,
-						onChange: setFallbackText,
-					} ),
-					el( TextControl, {
-						label: formData.hasApiKey ? __( 'API key · saved; enter a new value to replace', 'nerv-core' ) : __( 'API key', 'nerv-core' ),
-						type: 'password',
-						value: form.apiKey,
-						autoComplete: 'new-password',
-						__next40pxDefaultSize: true,
-						onChange: function ( value ) {
-							setField( 'apiKey', value );
-						},
-					} ),
-					el(
-						'div',
-						{ className: 'nerv-control-model-cache' },
-						el(
-							Button,
-							{ variant: 'secondary', isBusy: fetchingModels, disabled: fetchingModels || ! form.endpoint, onClick: fetchModels },
-							fetchingModels ? __( '正在获取模型...', 'nerv-core' ) : __( '获取模型列表并缓存', 'nerv-core' )
-						),
-						el( 'p', null, form.modelCache && form.modelCache.length ? __( '已缓存模型数量：', 'nerv-core' ) + String( form.modelCache.length ) + ( form.modelCacheTime ? ' / ' + form.modelCacheTime : '' ) : __( '还没有缓存模型列表。', 'nerv-core' ) ),
-						form.modelCache && form.modelCache.length ? el(
-							'div',
-							{ className: 'nerv-control-model-cache__list' },
-							form.modelCache.slice( 0, 24 ).map( function ( model ) {
-								return el( 'button', {
-									type: 'button',
-									className: 'button button-small',
-									key: model,
-									onClick: function () {
-										setField( 'model', model );
-									},
-								}, model );
-							} )
-						) : null
-					),
-					el( TextareaControl, {
-						label: __( 'Prompt template', 'nerv-core' ),
-						value: form.promptTemplate,
-						rows: 4,
-						help: __( 'Available placeholders: {title}, {subtitle}, {excerpt}, {category}.', 'nerv-core' ),
-						__nextHasNoMarginBottom: true,
-						onChange: function ( value ) {
-							setField( 'promptTemplate', value );
-						},
-					} )
+					el( Button, { variant: 'secondary', onClick: addProvider }, __( '新增供应商', 'nerv-core' ) )
 				),
-				el(
-					'div',
-					{ className: 'nerv-control-switches' },
-					el( CheckboxControl, {
-						label: __( 'Dry-run AI calls until production credentials are ready', 'nerv-core' ),
-						checked: form.dryRun,
-						__nextHasNoMarginBottom: true,
-						onChange: function ( value ) {
-							setField( 'dryRun', value );
-						},
-					} ),
-					el( CheckboxControl, {
-						label: __( 'Auto-generate covers when no featured image exists', 'nerv-core' ),
-						checked: form.autoGenerate,
-						__nextHasNoMarginBottom: true,
-						onChange: function ( value ) {
-							setField( 'autoGenerate', value );
-						},
-					} ),
-					el( CheckboxControl, {
-						label: __( 'Enable KEY POINTS AI generation', 'nerv-core' ),
-						checked: form.keyPointsAuto,
-						__nextHasNoMarginBottom: true,
-						onChange: function ( value ) {
-							setField( 'keyPointsAuto', value );
-						},
-					} )
+				el( 'div', { className: 'nerv-control-form-grid' },
+					featurePanel( __( '文本模型', 'nerv-core' ), 'textFeature', __( '用于 KEY POINTS、GEO 标题、后续文本类 AI 功能。', 'nerv-core' ) ),
+					featurePanel( __( '图片模型', 'nerv-core' ), 'imageFeature', __( '用于 AI 封面生成。', 'nerv-core' ) ),
+					el( TextareaControl, { label: __( '封面 Prompt 模板', 'nerv-core' ), value: form.promptTemplate, rows: 4, help: __( 'Available placeholders: {title}, {subtitle}, {excerpt}, {category}.', 'nerv-core' ), __nextHasNoMarginBottom: true, onChange: function ( value ) { setField( 'promptTemplate', value ); } } )
 				),
-				el(
-					'div',
-					{ className: 'nerv-control-actions' },
-					el(
-						Button,
-						{ variant: 'primary', isBusy: saving, disabled: saving, onClick: saveSettings },
-						saving ? __( 'Saving...', 'nerv-core' ) : __( 'Save AI Services', 'nerv-core' )
-					)
-				)
+				el( 'div', { className: 'nerv-control-switches' },
+					el( CheckboxControl, { label: __( 'Dry-run AI calls until production credentials are ready', 'nerv-core' ), checked: form.dryRun, __nextHasNoMarginBottom: true, onChange: function ( value ) { setField( 'dryRun', value ); } } ),
+					el( CheckboxControl, { label: __( 'Auto-generate covers when no featured image exists', 'nerv-core' ), checked: form.autoGenerate, __nextHasNoMarginBottom: true, onChange: function ( value ) { setField( 'autoGenerate', value ); } } ),
+					el( CheckboxControl, { label: __( 'Enable KEY POINTS AI generation', 'nerv-core' ), checked: form.keyPointsAuto, __nextHasNoMarginBottom: true, onChange: function ( value ) { setField( 'keyPointsAuto', value ); } } )
+				),
+				el( 'div', { className: 'nerv-control-actions' }, el( Button, { variant: 'primary', isBusy: saving, disabled: saving, onClick: saveSettings }, saving ? __( 'Saving...', 'nerv-core' ) : __( '保存 AI 供应商', 'nerv-core' ) ) )
 			)
 		);
 	}

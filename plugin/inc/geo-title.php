@@ -114,7 +114,7 @@ function nerv_core_geo_title_suggest_next() {
 
 	$row = $candidates[0];
 	$options = nerv_core_geo_title_options();
-	$cover_options = function_exists( 'nerv_core_cover_options' ) ? nerv_core_cover_options() : array();
+	$cover_options = function_exists( 'nerv_core_ai_feature_options' ) ? nerv_core_ai_feature_options( 'text' ) : ( function_exists( 'nerv_core_cover_options' ) ? nerv_core_cover_options() : array() );
 	$prompt = strtr( (string) ( $options['prompt_template'] ?? '' ), array( '{title}' => (string) $row['title'] ) );
 	$system = 'You convert WordPress titles into clean English URL slugs. Output only the slug.';
 	$response = function_exists( 'nerv_core_ai_chat_request' ) ? nerv_core_ai_chat_request( $system, $prompt, $cover_options ) : new WP_Error( 'nerv_geo_title_ai_missing', 'AI 路由不可用。' );

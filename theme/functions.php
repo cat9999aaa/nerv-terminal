@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'NERV_TERMINAL_VERSION', '0.1.4' );
+define( 'NERV_TERMINAL_VERSION', '0.1.5' );
 define( 'NERV_TERMINAL_DIR', get_template_directory() );
 define( 'NERV_TERMINAL_URI', get_template_directory_uri() );
 
@@ -386,10 +386,20 @@ function nerv_terminal_view_from_request_path(): string {
 function nerv_terminal_maybe_redirect_overflow_view_page(): void {
 	$view = nerv_terminal_current_view();
 	if ( ! in_array( $view, array( 'blog', 'projects', 'partners' ), true ) ) {
-		return;
+		$view = nerv_terminal_view_from_request_path();
+		if ( ! in_array( $view, array( 'blog', 'projects', 'partners' ), true ) ) {
+			return;
+		}
 	}
 
 	$paged = max( 1, absint( get_query_var( 'paged' ) ?: get_query_var( 'page' ) ) );
+	if ( $paged < 2 ) {
+		$request_path = trim( (string) wp_parse_url( (string) ( $_SERVER['REQUEST_URI'] ?? '' ), PHP_URL_PATH ), '/' );
+		if ( preg_match( '~^(?:blog|projects|partners)/page/([0-9]+)$~', $request_path, $matches ) ) {
+			$paged = absint( $matches[1] );
+		}
+	}
+
 	if ( $paged < 2 ) {
 		return;
 	}
@@ -432,7 +442,13 @@ function nerv_terminal_view_page_url( string $view, int $page ): string {
 		return $base;
 	}
 
-	return user_trailingslashit( trailingslashit( $base ) . 'page/' . $page );
+	$url = trailingslashit( $base ) . 'page/' . $page;
+	$permalink_structure = (string) get_option( 'permalink_structure' );
+	if ( '' !== $permalink_structure && ! str_ends_with( $permalink_structure, '/' ) ) {
+		return untrailingslashit( $url );
+	}
+
+	return user_trailingslashit( $url );
 }
 
 function nerv_terminal_output_manifest(): void {

@@ -432,7 +432,7 @@ function nerv_core_rest_control_dashboard(): WP_REST_Response {
 }
 
 function nerv_core_rest_control_ai_services_save( WP_REST_Request $request ): WP_REST_Response {
-	if ( ! function_exists( 'nerv_core_cover_sanitize_options' ) ) {
+	if ( ! function_exists( 'nerv_core_ai_sanitize_options' ) || ! function_exists( 'nerv_core_cover_sanitize_options' ) ) {
 		return new WP_REST_Response( array( 'message' => __( 'AI services settings are unavailable.', 'nerv-core' ) ), 500 );
 	}
 
@@ -441,18 +441,31 @@ function nerv_core_rest_control_ai_services_save( WP_REST_Request $request ): WP
 		$params = $request->get_params();
 	}
 
-	$input = array(
-		'endpoint'        => (string) ( $params['endpoint'] ?? '' ),
-		'api_key'         => (string) ( $params['apiKey'] ?? '' ),
-		'model'           => (string) ( $params['model'] ?? '' ),
-		'fallback_models' => (array) ( $params['fallbackModels'] ?? array() ),
-		'prompt_template' => (string) ( $params['promptTemplate'] ?? '' ),
-		'auto_generate'   => ! empty( $params['autoGenerate'] ),
-		'key_points_auto' => ! empty( $params['keyPointsAuto'] ),
-		'dry_run'         => ! empty( $params['dryRun'] ),
+	$ai_input = array(
+		'providers' => is_array( $params['providers'] ?? null ) ? $params['providers'] : array(),
+		'features'  => array(
+			'text'  => is_array( $params['textFeature'] ?? null ) ? $params['textFeature'] : array(),
+			'image' => is_array( $params['imageFeature'] ?? null ) ? $params['imageFeature'] : array(),
+		),
 	);
+	update_option( 'nerv_core_ai_options', nerv_core_ai_sanitize_options( $ai_input ), false );
 
-	update_option( 'nerv_core_cover_options', nerv_core_cover_sanitize_options( $input ) );
+	update_option(
+		'nerv_core_cover_options',
+		nerv_core_cover_sanitize_options(
+			array(
+				'endpoint'        => (string) ( $params['endpoint'] ?? '' ),
+				'api_key'         => (string) ( $params['apiKey'] ?? '' ),
+				'model'           => (string) ( $params['imageFeature']['model'] ?? $params['model'] ?? '' ),
+				'fallback_models' => (array) ( $params['imageFeature']['fallback_models'] ?? $params['fallbackModels'] ?? array() ),
+				'prompt_template' => (string) ( $params['promptTemplate'] ?? '' ),
+				'auto_generate'   => ! empty( $params['autoGenerate'] ),
+				'key_points_auto' => ! empty( $params['keyPointsAuto'] ),
+				'dry_run'         => ! empty( $params['dryRun'] ),
+			)
+		),
+		false
+	);
 
 	return new WP_REST_Response(
 		array(
@@ -463,7 +476,7 @@ function nerv_core_rest_control_ai_services_save( WP_REST_Request $request ): WP
 }
 
 function nerv_core_rest_control_ai_models_fetch( WP_REST_Request $request ): WP_REST_Response {
-	if ( ! function_exists( 'nerv_core_cover_options' ) || ! function_exists( 'nerv_core_ai_fetch_models' ) ) {
+	if ( ! function_exists( 'nerv_core_ai_options' ) || ! function_exists( 'nerv_core_ai_fetch_models' ) ) {
 		return new WP_REST_Response( array( 'message' => __( 'AI model fetcher is unavailable.', 'nerv-core' ) ), 500 );
 	}
 
@@ -472,16 +485,30 @@ function nerv_core_rest_control_ai_models_fetch( WP_REST_Request $request ): WP_
 		$params = $request->get_params();
 	}
 
-	$options = nerv_core_cover_options();
-	$endpoint = esc_url_raw( (string) ( $params['endpoint'] ?? $options['endpoint'] ?? '' ) );
-	$api_key = sanitize_text_field( (string) ( $params['apiKey'] ?? '' ) );
-	if ( '' === $api_key ) {
-		$api_key = (string) ( $options['api_key'] ?? '' );
+	$provider_id = sanitize_key( (string) ( $params['providerId'] ?? '' ) );
+	$options = nerv_core_ai_options();
+	$providers = is_array( $params['providers'] ?? null ) ? (array) $params['providers'] : (array) ( $options['providers'] ?? array() );
+	$target = array();
+	foreach ( $providers as $provider ) {
+		if ( is_array( $provider ) && $provider_id === sanitize_key( (string) ( $provider['id'] ?? '' ) ) ) {
+			$target = $provider;
+			break;
+		}
 	}
-	$options['endpoint'] = $endpoint;
-	$options['api_key'] = $api_key;
+	if ( ! $target && $providers && is_array( $providers[0] ?? null ) ) {
+		$target = $providers[0];
+		$provider_id = sanitize_key( (string) ( $target['id'] ?? '' ) );
+	}
 
-	$models = nerv_core_ai_fetch_models( $options );
+	$endpoint = esc_url_raw( (string) ( $target['base_url'] ?? $target['baseUrl'] ?? $params['endpoint'] ?? '' ) );
+	$api_key = sanitize_text_field( (string) ( $params['apiKey'] ?? $target['api_key'] ?? $target['apiKey'] ?? '' ) );
+	if ( '' === $api_key ) {
+		$stored = nerv_core_ai_provider_by_id( $provider_id );
+		$api_key = (string) ( $stored['api_key'] ?? '' );
+	}
+	$request_options = array( 'endpoint' => $endpoint, 'api_key' => $api_key );
+
+	$models = nerv_core_ai_fetch_models( $request_options );
 	if ( is_wp_error( $models ) ) {
 		return new WP_REST_Response(
 			array(
@@ -492,23 +519,28 @@ function nerv_core_rest_control_ai_models_fetch( WP_REST_Request $request ): WP_
 		);
 	}
 
-	$raw = get_option( 'nerv_core_cover_options', array() );
-	if ( ! is_array( $raw ) ) {
-		$raw = array();
+	foreach ( $providers as $index => $provider ) {
+		if ( ! is_array( $provider ) ) {
+			continue;
+		}
+		if ( $provider_id === sanitize_key( (string) ( $provider['id'] ?? '' ) ) ) {
+			$providers[ $index ]['base_url'] = $endpoint;
+			$providers[ $index ]['model_cache'] = $models;
+			$providers[ $index ]['model_cache_time'] = current_time( 'mysql' );
+			if ( '' !== (string) ( $params['apiKey'] ?? '' ) ) {
+				$providers[ $index ]['api_key'] = $api_key;
+			}
+		}
 	}
-	$raw['endpoint'] = $endpoint;
-	$raw['model_cache'] = $models;
-	$raw['model_cache_time'] = current_time( 'mysql' );
-	if ( '' !== (string) ( $params['apiKey'] ?? '' ) ) {
-		$raw['api_key'] = nerv_core_cover_encrypt_secret( $api_key );
-	}
-	update_option( 'nerv_core_cover_options', nerv_core_cover_sanitize_options( $raw ), false );
+	$features = is_array( $params['features'] ?? null ) ? (array) $params['features'] : (array) ( $options['features'] ?? array() );
+	update_option( 'nerv_core_ai_options', nerv_core_ai_sanitize_options( array( 'providers' => $providers, 'features' => $features ) ), false );
 
 	return new WP_REST_Response(
 		array(
 			'message'   => sprintf( __( 'Fetched and cached %d models.', 'nerv-core' ), count( $models ) ),
 			'models'    => $models,
-			'cachedAt'  => $raw['model_cache_time'],
+			'providerId'=> $provider_id,
+			'cachedAt'  => current_time( 'mysql' ),
 			'dashboard' => nerv_core_control_dashboard_data(),
 		)
 	);
@@ -1484,8 +1516,52 @@ function nerv_core_control_sanitize_font_stack( string $value ): string {
 
 function nerv_core_control_ai_services_form_data( array $cover_options, array $cover_status ): array {
 	$usage = function_exists( 'nerv_core_ai_usage_summary' ) ? nerv_core_ai_usage_summary() : array();
+	$ai_options = function_exists( 'nerv_core_ai_options' ) ? nerv_core_ai_options() : array( 'providers' => array(), 'features' => array() );
+	$providers = array();
+	foreach ( (array) ( $ai_options['providers'] ?? array() ) as $provider ) {
+		if ( ! is_array( $provider ) ) {
+			continue;
+		}
+		$providers[] = array(
+			'id'             => sanitize_key( (string) ( $provider['id'] ?? '' ) ),
+			'name'           => sanitize_text_field( (string) ( $provider['name'] ?? '' ) ),
+			'type'           => sanitize_key( (string) ( $provider['type'] ?? 'openai_compatible' ) ),
+			'baseUrl'        => esc_url_raw( (string) ( $provider['base_url'] ?? '' ) ),
+			'apiKey'         => '',
+			'hasApiKey'      => '' !== (string) ( $provider['api_key'] ?? '' ),
+			'enabled'        => ! empty( $provider['enabled'] ),
+			'modelCache'     => function_exists( 'nerv_core_ai_sanitize_model_list' ) ? nerv_core_ai_sanitize_model_list( $provider['model_cache'] ?? array() ) : array(),
+			'modelCacheTime' => sanitize_text_field( (string) ( $provider['model_cache_time'] ?? '' ) ),
+		);
+	}
+	if ( ! $providers ) {
+		$providers[] = array(
+			'id'             => 'default',
+			'name'           => '默认供应商',
+			'type'           => 'openai_compatible',
+			'baseUrl'        => esc_url_raw( (string) ( $cover_options['endpoint'] ?? '' ) ),
+			'apiKey'         => '',
+			'hasApiKey'      => '' !== (string) ( $cover_options['api_key'] ?? '' ),
+			'enabled'        => true,
+			'modelCache'     => function_exists( 'nerv_core_ai_sanitize_model_list' ) ? nerv_core_ai_sanitize_model_list( $cover_options['model_cache'] ?? array() ) : array(),
+			'modelCacheTime' => sanitize_text_field( (string) ( $cover_options['model_cache_time'] ?? '' ) ),
+		);
+	}
+	$text_feature = is_array( $ai_options['features']['text'] ?? null ) ? $ai_options['features']['text'] : array();
+	$image_feature = is_array( $ai_options['features']['image'] ?? null ) ? $ai_options['features']['image'] : array();
 
 	return array(
+		'providers'      => $providers,
+		'textFeature'    => array(
+			'provider_id'     => sanitize_key( (string) ( $text_feature['provider_id'] ?? 'default' ) ),
+			'model'           => sanitize_text_field( (string) ( $text_feature['model'] ?? ( $cover_options['model'] ?? '' ) ) ),
+			'fallback_models' => function_exists( 'nerv_core_ai_sanitize_model_list' ) ? nerv_core_ai_sanitize_model_list( $text_feature['fallback_models'] ?? ( $cover_options['fallback_models'] ?? array() ) ) : array(),
+		),
+		'imageFeature'   => array(
+			'provider_id'     => sanitize_key( (string) ( $image_feature['provider_id'] ?? 'default' ) ),
+			'model'           => sanitize_text_field( (string) ( $image_feature['model'] ?? ( $cover_options['model'] ?? '' ) ) ),
+			'fallback_models' => function_exists( 'nerv_core_ai_sanitize_model_list' ) ? nerv_core_ai_sanitize_model_list( $image_feature['fallback_models'] ?? ( $cover_options['fallback_models'] ?? array() ) ) : array(),
+		),
 		'endpoint'       => esc_url_raw( (string) ( $cover_options['endpoint'] ?? '' ) ),
 		'model'          => sanitize_text_field( (string) ( $cover_options['model'] ?? '' ) ),
 		'fallbackModels' => function_exists( 'nerv_core_ai_sanitize_model_list' ) ? nerv_core_ai_sanitize_model_list( $cover_options['fallback_models'] ?? array() ) : array(),

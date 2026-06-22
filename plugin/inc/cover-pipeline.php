@@ -24,6 +24,155 @@ function nerv_core_cover_default_options(): array {
 	);
 }
 
+function nerv_core_ai_default_provider( string $id = 'default' ): array {
+	return array(
+		'id'               => sanitize_key( $id ?: 'default' ),
+		'name'             => '默认供应商',
+		'type'             => 'openai_compatible',
+		'base_url'         => '',
+		'api_key'          => '',
+		'enabled'          => true,
+		'model_cache'      => array(),
+		'model_cache_time' => '',
+	);
+}
+
+function nerv_core_ai_default_options(): array {
+	return array(
+		'providers' => array(),
+		'features'  => array(
+			'text'  => array(
+				'provider_id'     => 'default',
+				'model'           => '',
+				'fallback_models' => array(),
+			),
+			'image' => array(
+				'provider_id'     => 'default',
+				'model'           => '',
+				'fallback_models' => array(),
+			),
+		),
+	);
+}
+
+function nerv_core_ai_options(): array {
+	$options = get_option( 'nerv_core_ai_options', array() );
+	if ( ! is_array( $options ) ) {
+		$options = array();
+	}
+	$options = wp_parse_args( $options, nerv_core_ai_default_options() );
+
+	$providers = array();
+	foreach ( (array) ( $options['providers'] ?? array() ) as $provider ) {
+		if ( ! is_array( $provider ) ) {
+			continue;
+		}
+		$provider = wp_parse_args( $provider, nerv_core_ai_default_provider() );
+		$id = sanitize_key( (string) ( $provider['id'] ?? '' ) );
+		if ( '' === $id ) {
+			$id = 'provider-' . ( count( $providers ) + 1 );
+		}
+		$provider['id'] = $id;
+		$provider['name'] = sanitize_text_field( (string) ( $provider['name'] ?? $id ) );
+		$provider['type'] = 'openai_compatible';
+		$provider['base_url'] = esc_url_raw( (string) ( $provider['base_url'] ?? '' ) );
+		$provider['api_key'] = nerv_core_cover_decrypt_secret( (string) ( $provider['api_key'] ?? '' ) );
+		$provider['enabled'] = ! empty( $provider['enabled'] );
+		$provider['model_cache'] = nerv_core_ai_sanitize_model_list( $provider['model_cache'] ?? array() );
+		$provider['model_cache_time'] = sanitize_text_field( (string) ( $provider['model_cache_time'] ?? '' ) );
+		$providers[] = $provider;
+	}
+
+	if ( ! $providers ) {
+		$legacy = nerv_core_cover_options();
+		if ( '' !== (string) ( $legacy['endpoint'] ?? '' ) || '' !== (string) ( $legacy['api_key'] ?? '' ) ) {
+			$providers[] = array_merge(
+				nerv_core_ai_default_provider(),
+				array(
+					'name'             => '旧版供应商',
+					'base_url'         => (string) ( $legacy['endpoint'] ?? '' ),
+					'api_key'          => (string) ( $legacy['api_key'] ?? '' ),
+					'model_cache'      => (array) ( $legacy['model_cache'] ?? array() ),
+					'model_cache_time' => (string) ( $legacy['model_cache_time'] ?? '' ),
+				)
+			);
+		}
+	}
+
+	$features = is_array( $options['features'] ?? null ) ? $options['features'] : array();
+	foreach ( array( 'text', 'image' ) as $feature ) {
+		$row = is_array( $features[ $feature ] ?? null ) ? $features[ $feature ] : array();
+		$legacy = nerv_core_cover_options();
+		$features[ $feature ] = array(
+			'provider_id'     => sanitize_key( (string) ( $row['provider_id'] ?? 'default' ) ),
+			'model'           => sanitize_text_field( (string) ( $row['model'] ?? ( $legacy['model'] ?? '' ) ) ),
+			'fallback_models' => nerv_core_ai_sanitize_model_list( $row['fallback_models'] ?? ( $legacy['fallback_models'] ?? array() ) ),
+		);
+	}
+
+	return array(
+		'providers' => array_values( $providers ),
+		'features'  => $features,
+	);
+}
+
+function nerv_core_ai_sanitize_options( $input ): array {
+	if ( ! is_array( $input ) ) {
+		$input = array();
+	}
+	$old = get_option( 'nerv_core_ai_options', array() );
+	if ( ! is_array( $old ) ) {
+		$old = array();
+	}
+
+	$old_providers = array();
+	foreach ( (array) ( $old['providers'] ?? array() ) as $old_provider ) {
+		if ( is_array( $old_provider ) && ! empty( $old_provider['id'] ) ) {
+			$old_providers[ sanitize_key( (string) $old_provider['id'] ) ] = $old_provider;
+		}
+	}
+
+	$providers = array();
+	foreach ( (array) ( $input['providers'] ?? array() ) as $index => $provider ) {
+		if ( ! is_array( $provider ) ) {
+			continue;
+		}
+		$id = sanitize_key( (string) ( $provider['id'] ?? '' ) );
+		if ( '' === $id ) {
+			$id = 'provider-' . ( $index + 1 ) . '-' . substr( md5( (string) microtime( true ) . $index ), 0, 6 );
+		}
+		$old_provider = $old_providers[ $id ] ?? array();
+		$api_key = sanitize_text_field( (string) ( $provider['api_key'] ?? $provider['apiKey'] ?? '' ) );
+		if ( '' === $api_key && ! empty( $old_provider['api_key'] ) ) {
+			$api_key = (string) $old_provider['api_key'];
+		} elseif ( '' !== $api_key ) {
+			$api_key = nerv_core_cover_encrypt_secret( $api_key );
+		}
+		$providers[] = array(
+			'id'               => $id,
+			'name'             => sanitize_text_field( (string) ( $provider['name'] ?? $id ) ),
+			'type'             => 'openai_compatible',
+			'base_url'         => esc_url_raw( (string) ( $provider['base_url'] ?? $provider['baseUrl'] ?? '' ) ),
+			'api_key'          => $api_key,
+			'enabled'          => array_key_exists( 'enabled', $provider ) ? ! empty( $provider['enabled'] ) : true,
+			'model_cache'      => nerv_core_ai_sanitize_model_list( $provider['model_cache'] ?? $provider['modelCache'] ?? ( $old_provider['model_cache'] ?? array() ) ),
+			'model_cache_time' => sanitize_text_field( (string) ( $provider['model_cache_time'] ?? $provider['modelCacheTime'] ?? ( $old_provider['model_cache_time'] ?? '' ) ) ),
+		);
+	}
+
+	$features = array();
+	foreach ( array( 'text', 'image' ) as $feature ) {
+		$row = is_array( $input['features'][ $feature ] ?? null ) ? $input['features'][ $feature ] : array();
+		$features[ $feature ] = array(
+			'provider_id'     => sanitize_key( (string) ( $row['provider_id'] ?? $row['providerId'] ?? 'default' ) ),
+			'model'           => sanitize_text_field( (string) ( $row['model'] ?? '' ) ),
+			'fallback_models' => nerv_core_ai_sanitize_model_list( $row['fallback_models'] ?? $row['fallbackModels'] ?? array() ),
+		);
+	}
+
+	return array( 'providers' => $providers, 'features' => $features );
+}
+
 function nerv_core_cover_options(): array {
 	$options = get_option( 'nerv_core_cover_options', array() );
 	if ( ! is_array( $options ) ) {
@@ -161,6 +310,76 @@ function nerv_core_ai_model_chain( array $options ): array {
 	);
 }
 
+function nerv_core_ai_provider_by_id( string $provider_id ): array {
+	$options = nerv_core_ai_options();
+	foreach ( (array) ( $options['providers'] ?? array() ) as $provider ) {
+		if ( is_array( $provider ) && $provider_id === (string) ( $provider['id'] ?? '' ) ) {
+			return $provider;
+		}
+	}
+
+	return array();
+}
+
+function nerv_core_ai_feature_options( string $feature ): array {
+	$feature = in_array( $feature, array( 'text', 'image' ), true ) ? $feature : 'text';
+	$options = nerv_core_ai_options();
+	$row = is_array( $options['features'][ $feature ] ?? null ) ? $options['features'][ $feature ] : array();
+	$provider = nerv_core_ai_provider_by_id( sanitize_key( (string) ( $row['provider_id'] ?? '' ) ) );
+	if ( ! $provider && ! empty( $options['providers'][0] ) && is_array( $options['providers'][0] ) ) {
+		$provider = $options['providers'][0];
+	}
+
+	$legacy = nerv_core_cover_options();
+	$base_url = (string) ( $provider['base_url'] ?? '' );
+	$model = (string) ( $row['model'] ?? '' );
+	if ( '' === $base_url ) {
+		$base_url = (string) ( $legacy['endpoint'] ?? '' );
+	}
+	if ( '' === $model ) {
+		$model = (string) ( $legacy['model'] ?? '' );
+	}
+
+	return array(
+		'endpoint'        => nerv_core_ai_endpoint_for_feature( $base_url, $feature ),
+		'api_key'         => (string) ( $provider['api_key'] ?? ( $legacy['api_key'] ?? '' ) ),
+		'model'           => $model,
+		'fallback_models' => nerv_core_ai_sanitize_model_list( $row['fallback_models'] ?? ( $legacy['fallback_models'] ?? array() ) ),
+		'provider_id'     => sanitize_key( (string) ( $provider['id'] ?? '' ) ),
+	);
+}
+
+function nerv_core_ai_endpoint_for_feature( string $base_url, string $feature ): string {
+	$base_url = nerv_core_ai_base_url( $base_url );
+	if ( '' === $base_url ) {
+		return '';
+	}
+	if ( preg_match( '#/(chat/completions|images/generations|responses)$#', $base_url ) ) {
+		return $base_url;
+	}
+
+	return rtrim( $base_url, '/' ) . ( 'image' === $feature ? '/images/generations' : '/chat/completions' );
+}
+
+function nerv_core_ai_base_url( string $base_url ): string {
+	$base_url = trim( $base_url );
+	if ( '' === $base_url ) {
+		return '';
+	}
+	$base_url = rtrim( $base_url, '/' );
+	$base_url = preg_replace( '#/(chat/completions|images/generations|responses|models)$#', '', $base_url ) ?: $base_url;
+	if ( ! preg_match( '#/v[0-9]+$#', $base_url ) ) {
+		$base_url .= '/v1';
+	}
+
+	return esc_url_raw( $base_url );
+}
+
+function nerv_core_ai_models_endpoint( string $base_url ): string {
+	$base_url = nerv_core_ai_base_url( $base_url );
+	return '' === $base_url ? '' : rtrim( $base_url, '/' ) . '/models';
+}
+
 add_action( 'admin_init', 'nerv_core_cover_register_settings' );
 function nerv_core_cover_register_settings(): void {
 	register_setting(
@@ -217,7 +436,7 @@ function nerv_core_cover_post_types(): array {
 }
 
 function nerv_core_cover_status(): array {
-	$options = nerv_core_cover_options();
+	$options = array_merge( nerv_core_cover_options(), nerv_core_ai_feature_options( 'image' ) );
 	$ready = '' !== $options['endpoint'] && '' !== $options['api_key'] && '' !== $options['model'];
 
 	return array(
@@ -353,7 +572,7 @@ function nerv_core_cover_generate( int $post_id, string $source = 'manual', stri
 		return nerv_core_cover_generation_result( 'error', __( 'You are not allowed to generate this cover.', 'nerv-core' ) );
 	}
 
-	$options = nerv_core_cover_options();
+	$options = array_merge( nerv_core_cover_options(), nerv_core_ai_feature_options( 'text' ) );
 	$ratio = $ratio ? nerv_core_cover_normalize_ratio( $ratio ) : nerv_core_cover_default_ratio_for_post( $post );
 	$prompt = nerv_core_cover_render_prompt( $post, $ratio );
 
@@ -968,9 +1187,9 @@ function nerv_core_ai_fetch_models( array $options ) {
 		return new WP_Error( 'nerv_ai_models_no_endpoint', __( 'API endpoint is not configured.', 'nerv-core' ) );
 	}
 
-	$model_endpoint = preg_replace( '#/(chat/completions|images/generations|responses)$#', '/models', rtrim( $endpoint, '/' ) );
-	if ( $model_endpoint === rtrim( $endpoint, '/' ) ) {
-		$model_endpoint = trailingslashit( preg_replace( '#/v1/?$#', '/v1', rtrim( $endpoint, '/' ) ) ) . 'models';
+	$model_endpoint = nerv_core_ai_models_endpoint( $endpoint );
+	if ( '' === $model_endpoint ) {
+		return new WP_Error( 'nerv_ai_models_no_endpoint', __( 'API endpoint is not configured.', 'nerv-core' ) );
 	}
 
 	$headers = array( 'Content-Type' => 'application/json' );
