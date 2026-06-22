@@ -994,6 +994,60 @@ function nerv_core_cover_dimensions( string $ratio ): array {
 	return '2x1' === $ratio ? array( 1200, 600 ) : array( 1500, 600 );
 }
 
+function nerv_core_cover_svg_text_lines( string $text, int $max_chars, int $max_lines ): array {
+	$text = trim( preg_replace( '/\s+/u', ' ', wp_strip_all_tags( $text ) ) ?: '' );
+	if ( '' === $text ) {
+		return array();
+	}
+
+	$words = preg_split( '/\s+/u', $text ) ?: array();
+	if ( count( $words ) > 1 && function_exists( 'mb_strlen' ) ) {
+		$lines = array();
+		$line  = '';
+		foreach ( $words as $word ) {
+			$next = '' === $line ? $word : $line . ' ' . $word;
+			if ( mb_strlen( $next ) > $max_chars && '' !== $line ) {
+				$lines[] = $line;
+				$line = $word;
+				if ( count( $lines ) >= $max_lines ) {
+					break;
+				}
+				continue;
+			}
+			$line = $next;
+		}
+		if ( count( $lines ) < $max_lines && '' !== trim( $line ) ) {
+			$lines[] = trim( $line );
+		}
+
+		return array_slice( array_filter( $lines ), 0, $max_lines );
+	}
+
+	if ( function_exists( 'mb_str_split' ) && function_exists( 'mb_strlen' ) ) {
+		$chars = mb_str_split( $text );
+		$lines = array();
+		$line  = '';
+		foreach ( $chars as $char ) {
+			if ( mb_strlen( $line . $char ) > $max_chars ) {
+				$lines[] = trim( $line );
+				$line = $char;
+				if ( count( $lines ) >= $max_lines ) {
+					break;
+				}
+				continue;
+			}
+			$line .= $char;
+		}
+		if ( count( $lines ) < $max_lines && '' !== trim( $line ) ) {
+			$lines[] = trim( $line );
+		}
+
+		return array_slice( array_filter( $lines ), 0, $max_lines );
+	}
+
+	return array_slice( explode( "\n", wordwrap( $text, $max_chars, "\n", true ) ), 0, $max_lines );
+}
+
 function nerv_core_cover_output_svg( int $post_id, string $ratio ): void {
 	$post = get_post( $post_id );
 	if ( ! $post instanceof WP_Post || 'publish' !== $post->post_status || ! in_array( $post->post_type, nerv_core_cover_post_types(), true ) ) {
@@ -1017,9 +1071,14 @@ function nerv_core_cover_output_svg( int $post_id, string $ratio ): void {
 	echo '<defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#111827"/><stop offset=".54" stop-color="#090706"/><stop offset="1" stop-color="#17210f"/></linearGradient><pattern id="scan" width="28" height="28" patternUnits="userSpaceOnUse"><path d="M0 27H28M27 0V28" stroke="#4ade80" stroke-opacity=".14"/></pattern></defs>';
 	echo '<rect width="100%" height="100%" fill="url(#g)"/><rect width="100%" height="100%" fill="url(#scan)"/>';
 	echo '<text x="' . esc_attr( (string) ( $width * 0.08 ) ) . '" y="' . esc_attr( (string) ( $height * 0.22 ) ) . '" fill="#ffb000" font-family="monospace" font-size="' . esc_attr( (string) max( 18, (int) ( $width * 0.024 ) ) ) . '">NERV COVER: 0x' . esc_html( $code ) . '</text>';
-	echo '<text x="' . esc_attr( (string) ( $width * 0.08 ) ) . '" y="' . esc_attr( (string) ( $height * 0.46 ) ) . '" fill="#e8e4dc" font-family="monospace" font-size="' . esc_attr( (string) max( 38, (int) ( $width * 0.052 ) ) ) . '" font-weight="700">' . esc_html( wp_html_excerpt( $title, '1x1' === $ratio ? 28 : 42, '...' ) ) . '</text>';
-	if ( $subtitle ) {
-		echo '<text x="' . esc_attr( (string) ( $width * 0.08 ) ) . '" y="' . esc_attr( (string) ( $height * 0.58 ) ) . '" fill="#4ade80" font-family="monospace" font-size="' . esc_attr( (string) max( 20, (int) ( $width * 0.026 ) ) ) . '">' . esc_html( wp_html_excerpt( $subtitle, '1x1' === $ratio ? 38 : 62, '...' ) ) . '</text>';
+	$title_size = max( 38, (int) ( $width * 0.046 ) );
+	$title_lines = nerv_core_cover_svg_text_lines( $title, '1x1' === $ratio ? 20 : 34, 3 );
+	foreach ( $title_lines as $index => $line ) {
+		echo '<text x="' . esc_attr( (string) ( $width * 0.08 ) ) . '" y="' . esc_attr( (string) ( $height * 0.42 + ( $index * $title_size * 1.15 ) ) ) . '" fill="#e8e4dc" font-family="monospace" font-size="' . esc_attr( (string) $title_size ) . '" font-weight="700">' . esc_html( $line ) . '</text>';
+	}
+	$subtitle_lines = nerv_core_cover_svg_text_lines( $subtitle, '1x1' === $ratio ? 26 : 52, 2 );
+	foreach ( $subtitle_lines as $index => $line ) {
+		echo '<text x="' . esc_attr( (string) ( $width * 0.08 ) ) . '" y="' . esc_attr( (string) ( $height * 0.68 + ( $index * max( 20, (int) ( $width * 0.026 ) ) * 1.2 ) ) ) . '" fill="#4ade80" font-family="monospace" font-size="' . esc_attr( (string) max( 20, (int) ( $width * 0.026 ) ) ) . '">' . esc_html( $line ) . '</text>';
 	}
 	echo '<text x="' . esc_attr( (string) ( $width * 0.08 ) ) . '" y="' . esc_attr( (string) ( $height * 0.82 ) ) . '" fill="#4ade80" fill-opacity=".62" font-family="monospace" font-size="' . esc_attr( (string) max( 16, (int) ( $width * 0.018 ) ) ) . '">TEXT ONLY FALLBACK</text>';
 	echo '</svg>';
