@@ -26,6 +26,7 @@ add_check( $checks, 'loading shell override', str_contains( (string) $css, '.ner
 add_check( $checks, 'slug batch controls', str_contains( (string) $js, '每批数量' ) && str_contains( (string) $js, '并发线程' ) && str_contains( (string) $js, "runSlugBatch( 'pause' )" ), 'GEO slug batch exposes batch size, concurrency, pause, resume, and stop controls.' );
 add_check( $checks, 'model chip fallback picker', str_contains( (string) $js, 'nerv-control-model-chip' ) && str_contains( (string) $js, '全部加入备用' ), 'AI fallback models can be selected from cached model chips.' );
 add_check( $checks, 'partner redirect data', str_contains( (string) $admin, "'redirects'" ) && str_contains( (string) $admin, "'finalUrl'" ), 'Partner health rows expose redirect count and final URL.' );
+add_check( $checks, 'social webp batch tool', str_contains( (string) $js, 'refresh_social_covers' ) && str_contains( (string) $admin, 'nerv_core_tools_refresh_social_covers' ), 'Tools page can pre-generate WebP social sharing images.' );
 
 $dark_rules = preg_match_all( '/background\s*:\s*(#0[0-9a-f]{2,6}|#1[0-9a-f]{2,6}|black|rgba\(\s*0\s*,\s*0\s*,\s*0)/i', (string) $css, $matches );
 $late_light_override = strpos( (string) $css, '.nerv-control-wrap :where(' );

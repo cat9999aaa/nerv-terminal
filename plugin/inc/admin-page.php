@@ -1093,6 +1093,9 @@ function nerv_core_rest_control_tools_action( WP_REST_Request $request ): WP_RES
 		case 'flush_related':
 			$result = function_exists( 'nerv_core_tools_flush_related_cache' ) ? nerv_core_tools_flush_related_cache() : array( 'message' => __( 'Related cache flushing is unavailable.', 'nerv-core' ) );
 			break;
+		case 'refresh_social_covers':
+			$result = function_exists( 'nerv_core_tools_refresh_social_covers' ) ? nerv_core_tools_refresh_social_covers() : array( 'message' => __( 'Social WebP cover refresh is unavailable.', 'nerv-core' ) );
+			break;
 		case 'apply_geo_defaults':
 			$result = function_exists( 'nerv_core_tools_apply_geo_recommended_defaults' ) ? nerv_core_tools_apply_geo_recommended_defaults() : array( 'message' => __( 'Recommended GEO setup is unavailable.', 'nerv-core' ) );
 			break;
@@ -1907,6 +1910,7 @@ function nerv_core_control_tools_form_data( array $markdown_stats, array $partne
 		'images'   => array(
 			'webpEnabled' => function_exists( 'nerv_core_image_optimizer_options' ) && ! empty( nerv_core_image_optimizer_options()['enabled'] ),
 			'webpQuality' => function_exists( 'nerv_core_image_optimizer_options' ) ? absint( nerv_core_image_optimizer_options()['quality'] ?? 82 ) : 0,
+			'socialDir'   => sanitize_text_field( trailingslashit( (string) ( wp_get_upload_dir()['basedir'] ?? '' ) ) . 'nerv-social-covers' ),
 		),
 		'build'    => array(
 			'available' => is_file( $build_script ),

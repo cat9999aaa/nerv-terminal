@@ -161,29 +161,49 @@ function nerv_core_image_optimizer_attachment_url( int $attachment_id, string $s
 }
 
 function nerv_core_image_optimizer_social_cover_url( int $post_id ): string {
+	$target = nerv_core_image_optimizer_social_cover_target( $post_id );
+	if ( ! $target ) {
+		return '';
+	}
+
+	if ( ! is_file( $target['path'] ) && ! nerv_core_image_optimizer_render_social_cover( $target['post'], $target['path'] ) ) {
+		return '';
+	}
+
+	return esc_url_raw( $target['url'] );
+}
+
+function nerv_core_image_optimizer_social_cover_target( int $post_id ): array {
 	$post = get_post( $post_id );
 	if ( ! $post instanceof WP_Post ) {
-		return '';
+		return array();
 	}
 
 	$upload_dir = wp_get_upload_dir();
 	$base_dir = trailingslashit( (string) ( $upload_dir['basedir'] ?? '' ) ) . 'nerv-social-covers';
 	$base_url = trailingslashit( (string) ( $upload_dir['baseurl'] ?? '' ) ) . 'nerv-social-covers';
 	if ( '' === $base_dir || '' === $base_url ) {
-		return '';
+		return array();
 	}
 	if ( ! wp_mkdir_p( $base_dir ) ) {
-		return '';
+		return array();
 	}
 
 	$modified = (string) get_post_modified_time( 'U', true, $post );
 	$filename = 'post-' . $post_id . '-' . substr( md5( $post->post_title . ':' . $modified ), 0, 10 ) . '.webp';
 	$path = trailingslashit( $base_dir ) . $filename;
-	if ( ! is_file( $path ) && ! nerv_core_image_optimizer_render_social_cover( $post, $path ) ) {
-		return '';
-	}
 
-	return esc_url_raw( trailingslashit( $base_url ) . $filename );
+	return array(
+		'post' => $post,
+		'path' => $path,
+		'url'  => trailingslashit( $base_url ) . $filename,
+		'dir'  => $base_dir,
+	);
+}
+
+function nerv_core_image_optimizer_social_cover_exists( int $post_id ): bool {
+	$target = nerv_core_image_optimizer_social_cover_target( $post_id );
+	return ! empty( $target['path'] ) && is_file( (string) $target['path'] );
 }
 
 function nerv_core_image_optimizer_render_social_cover( WP_Post $post, string $path ): bool {

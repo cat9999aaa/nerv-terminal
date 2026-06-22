@@ -72,6 +72,68 @@ function nerv_core_tools_flush_related_cache(): array {
 	);
 }
 
+function nerv_core_tools_refresh_social_covers(): array {
+	if ( ! function_exists( 'nerv_core_image_optimizer_social_cover_url' ) || ! function_exists( 'nerv_core_image_optimizer_social_cover_exists' ) ) {
+		return array(
+			'generated' => 0,
+			'skipped'   => 0,
+			'failed'    => 0,
+			'message'   => __( 'Social WebP cover tools are unavailable.', 'nerv-core' ),
+		);
+	}
+
+	$generated = 0;
+	$skipped   = 0;
+	$failed    = 0;
+	$page      = 1;
+	$post_types = function_exists( 'nerv_core_geo_public_post_types' ) ? nerv_core_geo_public_post_types() : array( 'post', 'project' );
+	do {
+		$posts = get_posts(
+			array(
+				'post_type'              => $post_types,
+				'post_status'            => 'publish',
+				'posts_per_page'         => 250,
+				'paged'                  => $page,
+				'fields'                 => 'ids',
+				'orderby'                => 'ID',
+				'order'                  => 'ASC',
+				'no_found_rows'          => true,
+				'update_post_meta_cache' => false,
+				'update_post_term_cache' => false,
+			)
+		);
+
+		foreach ( $posts as $post_id ) {
+			$post_id = absint( $post_id );
+			if ( nerv_core_image_optimizer_social_cover_exists( $post_id ) ) {
+				++$skipped;
+				continue;
+			}
+
+			$url = nerv_core_image_optimizer_social_cover_url( $post_id );
+			if ( $url ) {
+				++$generated;
+			} else {
+				++$failed;
+			}
+		}
+		++$page;
+	} while ( count( $posts ) >= 250 );
+
+	return array(
+		'generated' => $generated,
+		'skipped'   => $skipped,
+		'failed'    => $failed,
+		'message'   => sprintf(
+			/* translators: 1: generated count, 2: skipped count, 3: failed count. */
+			__( 'Social WebP covers refreshed: %1$d generated, %2$d already existed, %3$d failed.', 'nerv-core' ),
+			$generated,
+			$skipped,
+			$failed
+		),
+	);
+}
+
 function nerv_core_tools_apply_geo_recommended_defaults(): array {
 	$steps = array();
 
