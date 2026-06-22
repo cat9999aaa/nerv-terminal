@@ -57,6 +57,7 @@ function nerv_core_admin_pages(): array {
 		'geo'        => array( 'title' => 'NERV主题 · GEO', 'menu' => 'NERV主题 · GEO', 'description' => '管理 llms.txt、IndexNow、AI 爬虫监控和机器可读资源。' ),
 		'effects'    => array( 'title' => 'NERV主题 · 特效', 'menu' => 'NERV主题 · 特效', 'description' => '调整前端网格、扫描线、辉光、动效和移动端特效强度。' ),
 		'ai'         => array( 'title' => 'NERV主题 · AI服务', 'menu' => 'NERV主题 · AI服务', 'description' => '设置 AI 封面接口、提示词、自动生成和试运行模式。' ),
+		'updates'    => array( 'title' => 'NERV主题 · 在线更新', 'menu' => 'NERV主题 · 在线更新', 'description' => '检查 GitHub Releases，查看更新说明，并使用 WordPress 原生升级主题和插件。' ),
 		'tools'      => array( 'title' => 'NERV主题 · 工具', 'menu' => 'NERV主题 · 工具', 'description' => '运行缓存刷新、演示数据导入、发布审计和设置预设工具。' ),
 	);
 }
@@ -70,6 +71,17 @@ function nerv_core_enqueue_admin_control_assets( string $hook_suffix ): void {
 	$section = sanitize_key( (string) $hooks[ $hook_suffix ] );
 	$pages   = nerv_core_admin_pages();
 	$page    = $pages[ $section ] ?? $pages['dashboard'];
+
+	wp_enqueue_style(
+		'nerv-core-admin-control',
+		NERV_CORE_URL . 'assets/css/admin-control.css',
+		array( 'wp-components' ),
+		NERV_CORE_VERSION . '-' . (string) filemtime( NERV_CORE_DIR . 'assets/css/admin-control.css' )
+	);
+
+	if ( 'updates' === $section ) {
+		return;
+	}
 
 	wp_enqueue_media();
 
@@ -89,13 +101,6 @@ function nerv_core_enqueue_admin_control_assets( string $hook_suffix ): void {
 			'before'
 		);
 	}
-
-	wp_enqueue_style(
-		'nerv-core-admin-control',
-		NERV_CORE_URL . 'assets/css/admin-control.css',
-		array( 'wp-components' ),
-		NERV_CORE_VERSION . '-' . (string) filemtime( NERV_CORE_DIR . 'assets/css/admin-control.css' )
-	);
 
 	wp_localize_script(
 		'nerv-core-admin-control',
@@ -1912,6 +1917,10 @@ function nerv_core_render_admin_page( string $section = 'dashboard' ): void {
 		$section = 'dashboard';
 	}
 	$page = $pages[ $section ];
+	if ( 'updates' === $section && function_exists( 'nerv_core_render_updates_page' ) ) {
+		nerv_core_render_updates_page();
+		return;
+	}
 	?>
 	<div class="wrap nerv-control-wrap">
 		<h1><?php echo esc_html( (string) $page['title'] ); ?></h1>

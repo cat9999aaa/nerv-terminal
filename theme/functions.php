@@ -9,12 +9,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'NERV_TERMINAL_VERSION', '0.1.1' );
+define( 'NERV_TERMINAL_VERSION', '0.1.2' );
 define( 'NERV_TERMINAL_DIR', get_template_directory() );
 define( 'NERV_TERMINAL_URI', get_template_directory_uri() );
 
 require_once NERV_TERMINAL_DIR . '/inc/defaults.php';
 require_once NERV_TERMINAL_DIR . '/inc/dashboard-render.php';
+require_once NERV_TERMINAL_DIR . '/inc/updater.php';
 
 add_action( 'after_setup_theme', 'nerv_terminal_setup' );
 function nerv_terminal_setup(): void {

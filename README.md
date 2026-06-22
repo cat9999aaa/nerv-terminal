@@ -55,8 +55,22 @@ bash build.sh --split
 
 The split build produces:
 
-- `dist/nerv-terminal-theme-0.1.1.zip`
-- `dist/nerv-core-plugin-0.1.1.zip`
+- `dist/nerv-terminal-theme-0.1.2.zip`
+- `dist/nerv-core-plugin-0.1.2.zip`
+
+## Online Updates
+
+NERV Terminal uses GitHub Releases as its public update source. The theme and
+plugin each register with the native WordPress updater, so installed sites can
+see new versions in the WordPress updates screen.
+
+- Release source: `https://github.com/cat9999aaa/nerv-terminal/releases/latest`
+- Theme package asset: `nerv-terminal-theme-x.x.x.zip`
+- Plugin package asset: `nerv-core-plugin-x.x.x.zip`
+- Admin status page: `NERV主题 · 在线更新`
+
+Every release note should clearly describe what changed because the same text is
+shown inside the WordPress admin update page.
 
 ## i18n
 
