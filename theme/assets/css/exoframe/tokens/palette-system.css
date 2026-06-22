@@ -1,0 +1,20 @@
+:root,
+[data-theme="void"] {
+	--color-bg: var(--palette-950, var(--exo-void));
+	--color-surface: color-mix(in srgb, var(--palette-900, var(--exo-elevated)) 84%, #000 16%);
+	--color-card: color-mix(in srgb, var(--palette-900, var(--exo-panel)) 70%, var(--palette-800, var(--exo-panel)) 30%);
+	--color-text: var(--palette-50, var(--exo-fg));
+	--color-muted: var(--palette-200, var(--exo-muted));
+	--color-faint: var(--palette-400, var(--exo-faint));
+	--color-line: color-mix(in srgb, var(--palette-danger, #ff4a52) 38%, transparent);
+	--color-primary: var(--palette-danger, #ff4a52);
+	--color-primary-strong: #ff6a61;
+	--color-primary-glow: color-mix(in srgb, var(--palette-danger, #ff4a52) 72%, #fff 28%);
+	--color-success: var(--palette-active, #ffffff);
+	--color-signal: var(--palette-signal, #b8b8b8);
+	--color-danger: var(--palette-danger, #ff4a52);
+	--color-info: var(--palette-info, #66f0ff);
+	--color-on-primary: var(--palette-on-primary, #050509);
+	--color-on-success: var(--palette-on-active, #050509);
+	--shadow-phosphor: 0 0 1px color-mix(in srgb, var(--color-success) 80%, #fff 20%), 0 0 9px color-mix(in srgb, var(--color-success) 45%, transparent);
+}

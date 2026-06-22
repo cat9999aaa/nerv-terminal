@@ -1,0 +1,20 @@
+:root {
+	--text-glow: var(--shadow-phosphor);
+	--focus-ring: 0 0 0 2px color-mix(in srgb, var(--color-primary) 32%, transparent);
+	--nerv-black: var(--color-bg);
+	--nerv-panel: var(--color-card);
+	--nerv-red: var(--color-danger);
+	--nerv-red-dim: color-mix(in srgb, var(--color-danger) 44%, #000 56%);
+	--nerv-green: var(--color-success);
+	--nerv-green-dim: color-mix(in srgb, var(--color-success) 38%, #000 62%);
+	--nerv-amber: var(--color-signal);
+	--nerv-text: var(--color-text);
+	--nerv-muted: color-mix(in srgb, var(--color-muted) 74%, #000 26%);
+	--nerv-line: var(--color-line);
+	--nerv-green-line: color-mix(in srgb, var(--color-success) 33%, transparent);
+	--nerv-gap: 16px;
+	--nerv-font-body: var(--font-body);
+	--nerv-font-heading: var(--font-mono);
+	--nerv-font-mono: var(--font-mono);
+	color-scheme: dark;
+}

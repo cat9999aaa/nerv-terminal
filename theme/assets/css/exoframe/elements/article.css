@@ -1,0 +1,163 @@
+.nerv-entry h1 {
+	margin: 0 0 10px;
+	color: var(--color-success);
+	font-size: clamp(28px, 4vw, 42px);
+	font-weight: 500;
+	line-height: 1.12;
+	letter-spacing: 0;
+}
+
+.nerv-entry-subtitle {
+	margin-bottom: 16px !important;
+	color: var(--color-signal) !important;
+	font-size: 15px !important;
+}
+
+.nerv-entry-cover-wrap,
+.nerv-entry-cover-fallback {
+	margin: 0 0 18px;
+}
+
+.nerv-entry-cover {
+	display: block;
+	width: 100%;
+	aspect-ratio: 5 / 2;
+	object-fit: cover;
+	border: 1px solid color-mix(in srgb, var(--color-success) 32%, transparent);
+}
+
+.nerv-cover-source--svg {
+	background: var(--color-bg);
+}
+
+.nerv-entry-cover-fallback {
+	display: grid;
+	place-items: center;
+	aspect-ratio: 5 / 2;
+	border: 1px solid color-mix(in srgb, var(--color-primary) 46%, transparent);
+	background:
+		repeating-linear-gradient(135deg, color-mix(in srgb, var(--color-primary) 20%, transparent) 0 8px, transparent 8px 18px),
+		linear-gradient(135deg, color-mix(in srgb, var(--color-success) 16%, transparent), transparent 42%),
+		var(--color-bg);
+	color: var(--color-primary);
+	font-size: 28px;
+}
+
+.nerv-entry-content {
+	color: var(--color-text);
+	font-family: var(--font-body);
+	font-size: 15px;
+	line-height: 1.75;
+}
+
+.nerv-entry-content > * {
+	margin-top: 0;
+}
+
+.nerv-entry-content h2,
+.nerv-entry-content h3 {
+	color: var(--color-success);
+	font-family: var(--font-mono);
+	font-weight: 500;
+	letter-spacing: 0;
+}
+
+.nerv-entry-content a {
+	color: var(--color-signal);
+}
+
+.nerv-entry-content img {
+	max-width: 100%;
+	height: auto;
+}
+
+.nerv-geo-block {
+	position: relative;
+	margin: 18px 0;
+	padding: 16px;
+	border: 1px solid color-mix(in srgb, var(--color-success) 38%, transparent);
+	background:
+		linear-gradient(color-mix(in srgb, var(--color-success) 5%, transparent) 1px, transparent 1px),
+		linear-gradient(90deg, color-mix(in srgb, var(--color-primary) 4%, transparent) 1px, transparent 1px),
+		color-mix(in srgb, var(--color-bg) 72%, transparent);
+	background-size: 16px 16px, 16px 16px, auto;
+	color: var(--color-text);
+	clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+}
+
+.nerv-geo-block__heading {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin-bottom: 12px;
+	padding-bottom: 8px;
+	border-bottom: 1px solid color-mix(in srgb, var(--color-success) 24%, transparent);
+	font-family: var(--font-mono);
+}
+
+.nerv-geo-block__heading span {
+	padding: 2px 6px;
+	border: 1px solid var(--color-primary);
+	color: var(--color-primary);
+	font-size: 10px;
+	line-height: 1;
+}
+
+.nerv-geo-block__heading h2 {
+	margin: 0;
+	color: var(--color-success);
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 1.2;
+}
+
+.nerv-key-points ol {
+	display: grid;
+	gap: 8px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	counter-reset: nerv-points;
+}
+
+.nerv-key-points li {
+	position: relative;
+	min-height: 30px;
+	padding-left: 44px;
+	color: var(--color-text);
+	counter-increment: nerv-points;
+}
+
+.nerv-key-points li::before {
+	content: counter(nerv-points, decimal-leading-zero);
+	position: absolute;
+	left: 0;
+	top: 2px;
+	width: 30px;
+	height: 22px;
+	display: grid;
+	place-items: center;
+	border: 1px solid color-mix(in srgb, var(--color-primary) 60%, transparent);
+	color: var(--color-signal);
+	font-family: var(--font-mono);
+	font-size: 11px;
+}
+
+.nerv-faq {
+	display: grid;
+	gap: 10px;
+}
+
+.nerv-faq-item summary {
+	cursor: pointer;
+	padding: 10px 12px;
+	color: var(--color-success);
+	font-family: var(--font-mono);
+	font-size: 13px;
+}
+
+.nerv-faq-item p {
+	margin: 0 !important;
+	padding: 0 12px 12px;
+	color: var(--color-text);
+}

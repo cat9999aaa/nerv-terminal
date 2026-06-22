@@ -1,0 +1,214 @@
+@media (max-width: 767px) {
+	html,
+	body,
+	.wp-site-blocks {
+		height: 100%;
+		overflow: hidden;
+		overscroll-behavior: none;
+	}
+
+	body.admin-bar .wp-site-blocks {
+		height: calc(100dvh - var(--wp-admin--admin-bar--height, 0px));
+	}
+
+	body.nerv-terminal-theme {
+		background: var(--color-bg);
+	}
+
+	.nerv-app-shell {
+		height: calc(100dvh - var(--wp-admin--admin-bar--height, 0px));
+		display: block;
+		padding: 52px 0 calc(56px + env(safe-area-inset-bottom));
+		overflow: hidden;
+	}
+
+	.nerv-header,
+	.nerv-footer {
+		display: none;
+	}
+
+	.nerv-mobile-appbar {
+		position: fixed;
+		z-index: 50;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 52px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 0 14px;
+		border-bottom: 1px solid var(--color-line);
+		background: color-mix(in srgb, var(--color-bg) 96%, transparent);
+		color: var(--color-primary);
+	}
+
+	body.admin-bar .nerv-mobile-appbar {
+		top: var(--wp-admin--admin-bar--height, 0px);
+	}
+
+	.nerv-mobile-appbar span {
+		font-size: 16px;
+	}
+
+	.nerv-mobile-appbar strong {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		color: var(--color-success);
+		font-size: 11px;
+		font-weight: 500;
+	}
+
+	.nerv-mobile-appbar i {
+		width: 7px;
+		height: 7px;
+		border-radius: 50%;
+		background: var(--color-success);
+		box-shadow: 0 0 8px color-mix(in srgb, var(--color-success) 80%, transparent);
+	}
+
+	.nerv-main {
+		height: 100%;
+		display: block;
+		overflow-y: auto;
+		-webkit-overflow-scrolling: touch;
+		overscroll-behavior: contain;
+		padding: 12px;
+	}
+
+	.nerv-column {
+		overflow: visible;
+		display: contents;
+	}
+
+	.nerv-column--left .nerv-panel--user,
+	.nerv-column--left .nerv-panel--status,
+	.nerv-column--left .nerv-panel--mission,
+	.nerv-column--left .nerv-panel--server,
+	.nerv-column--right .nerv-panel--monitor,
+	.nerv-column--right .nerv-panel--alert {
+		display: none;
+	}
+
+	.nerv-column--center > .nerv-panel--status,
+	.nerv-column--center > .nerv-panel--monitor,
+	.nerv-column--center > .nerv-panel--alert {
+		display: block;
+	}
+
+	.nerv-panel {
+		margin-bottom: 12px;
+		padding: 12px;
+	}
+
+	.nerv-panel--hero {
+		min-height: auto;
+		display: block;
+		padding: 18px;
+	}
+
+	.nerv-panel--hero h1 {
+		font-size: 28px;
+	}
+
+	.nerv-watermark {
+		display: none;
+	}
+
+	.nerv-project-grid,
+	.nerv-partner-grid,
+	.nerv-more-links,
+	.nerv-more-search {
+		grid-template-columns: 1fr;
+	}
+
+	.nerv-project-grid {
+		gap: 12px;
+	}
+
+	.nerv-archive-card,
+	.nerv-archive-list--compact .nerv-archive-card,
+	.nerv-author-card {
+		grid-template-columns: 1fr;
+	}
+
+	.nerv-archive-card .nerv-card-image {
+		aspect-ratio: 5 / 2;
+	}
+
+	.nerv-partner-apply {
+		grid-template-columns: 1fr;
+	}
+
+	.nerv-pilot-layout {
+		grid-template-columns: 72px 1fr;
+	}
+
+	.nerv-avatar {
+		width: 72px;
+		height: 72px;
+	}
+
+	.nerv-mobile-tabs {
+		position: fixed;
+		z-index: 50;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		height: calc(56px + env(safe-area-inset-bottom));
+		display: grid;
+		grid-template-columns: repeat(var(--nerv-mobile-tab-count, 5), 1fr);
+		padding-bottom: env(safe-area-inset-bottom);
+		border-top: 1px solid var(--color-line);
+		background: color-mix(in srgb, var(--color-bg) 98%, transparent);
+	}
+
+	.nerv-mobile-tabs a {
+		position: relative;
+		min-width: 0;
+		min-height: 56px;
+		display: grid;
+		place-items: center;
+		align-content: center;
+		gap: 2px;
+		color: color-mix(in srgb, var(--color-primary) 62%, var(--color-text) 38%);
+		text-decoration: none;
+		transition: transform var(--duration-fast), color var(--duration-fast);
+	}
+
+	.nerv-mobile-tabs a::before {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 18%;
+		right: 18%;
+		height: 2px;
+		background: transparent;
+	}
+
+	.nerv-mobile-tabs svg {
+		width: 24px;
+		height: 24px;
+	}
+
+	.nerv-mobile-tabs strong {
+		font-size: 10px;
+		font-weight: 500;
+		line-height: 1;
+	}
+
+	.nerv-mobile-tabs a.is-active,
+	.nerv-mobile-tabs a:hover {
+		color: var(--color-primary);
+		text-shadow: 0 0 8px color-mix(in srgb, var(--color-primary) 50%, transparent);
+	}
+
+	.nerv-mobile-tabs a.is-active::before {
+		background: var(--color-primary);
+	}
+
+	.nerv-mobile-tabs a:active {
+		transform: scale(0.98);
+	}
+}

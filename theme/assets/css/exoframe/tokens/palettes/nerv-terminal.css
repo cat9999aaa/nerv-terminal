@@ -1,0 +1,26 @@
+:root,
+[data-theme="void"] {
+	--palette-50: var(--wp--preset--color--warm-white, #e8e4dc);
+	--palette-100: #cfd6cb;
+	--palette-200: #a5b69f;
+	--palette-300: var(--wp--preset--color--magi-green, #4ade80);
+	--palette-400: #38b768;
+	--palette-500: #2f8f50;
+	--palette-600: var(--wp--preset--color--magi-green-dim, #235c34);
+	--palette-700: #1b3d26;
+	--palette-800: var(--wp--preset--color--nerv-panel, #0a0807);
+	--palette-900: #080706;
+	--palette-950: var(--wp--preset--color--nerv-black, #050403);
+	--palette-active: var(--wp--preset--color--magi-green, #4ade80);
+	--palette-signal: var(--wp--preset--color--amber, #ffb000);
+	--palette-danger: var(--wp--preset--color--nerv-red, #ff3b30);
+	--palette-info: #66f0ff;
+	--palette-on-primary: #050403;
+	--palette-on-active: #050403;
+	--palette-active-paper: #235c34;
+	--palette-signal-paper: #8a5d00;
+	--palette-danger-paper: #a32018;
+	--palette-info-paper: #12616b;
+	--palette-on-primary-paper: #ffffff;
+	--palette-on-active-paper: #ffffff;
+}

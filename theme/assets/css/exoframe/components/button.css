@@ -1,0 +1,35 @@
+.nerv-button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 40px;
+	margin-top: 12px;
+	padding: 0 18px;
+	border: 1px solid var(--color-primary);
+	color: var(--color-success);
+	background: color-mix(in srgb, var(--color-primary) 7%, transparent);
+	text-decoration: none;
+	font-size: 13px;
+	transition: transform var(--duration-fast), border-color var(--duration-fast), color var(--duration-fast), box-shadow var(--duration-fast);
+}
+
+.nerv-button:hover {
+	border-color: var(--color-success);
+	color: var(--color-signal);
+	box-shadow: 0 0 16px -5px var(--color-success);
+}
+
+.nerv-button:focus-visible {
+	outline: none;
+	box-shadow: var(--focus-ring);
+}
+
+.nerv-button:active {
+	transform: scale(0.98);
+}
+
+.nerv-button--small {
+	min-height: 32px;
+	padding: 0 12px;
+	font-size: 11px;
+}

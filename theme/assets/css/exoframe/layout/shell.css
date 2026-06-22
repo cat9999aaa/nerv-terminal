@@ -1,0 +1,173 @@
+html,
+body {
+	min-height: 100%;
+	background: var(--color-bg);
+}
+
+body.nerv-terminal-theme {
+	margin: 0;
+	background:
+		linear-gradient(color-mix(in srgb, var(--color-primary) 8%, transparent) 1px, transparent 1px),
+		linear-gradient(90deg, color-mix(in srgb, var(--color-primary) 7%, transparent) 1px, transparent 1px),
+		radial-gradient(circle at 50% 0%, color-mix(in srgb, var(--color-primary) 16%, transparent), transparent 42%),
+		var(--color-bg);
+	background-size: 26px 26px, 26px 26px, auto, auto;
+	color: var(--color-text);
+	font-family: var(--font-mono);
+	-webkit-tap-highlight-color: transparent;
+}
+
+body.nerv-terminal-theme::before {
+	content: "";
+	position: fixed;
+	inset: 0;
+	z-index: 9999;
+	pointer-events: none;
+	background: repeating-linear-gradient(
+		to bottom,
+		rgba(232, 228, 220, calc(0.025 * var(--nerv-effect-intensity, 0.65))) 0,
+		rgba(232, 228, 220, calc(0.025 * var(--nerv-effect-intensity, 0.65))) 1px,
+		transparent 1px,
+		transparent 4px
+	);
+	opacity: var(--nerv-effect-intensity, 0.65);
+	mix-blend-mode: screen;
+}
+
+body.nerv-effects-disabled,
+body.nerv-terminal-theme:not(.nerv-effect-background-grid) {
+	background: var(--color-bg);
+}
+
+body.nerv-effects-disabled::before,
+body.nerv-terminal-theme:not(.nerv-effect-scanlines)::before {
+	display: none;
+}
+
+body.nerv-terminal-theme:not(.nerv-effect-panel-glow) .nerv-panel,
+body.nerv-terminal-theme:not(.nerv-effect-panel-glow) .nerv-card,
+body.nerv-terminal-theme:not(.nerv-effect-panel-glow) .nerv-clock,
+body.nerv-terminal-theme:not(.nerv-effect-panel-glow) .nerv-mobile-tabs {
+	box-shadow: none;
+	text-shadow: none;
+}
+
+body.nerv-terminal-theme:not(.nerv-effect-motion) *,
+body.nerv-terminal-theme:not(.nerv-effect-motion) *::before,
+body.nerv-terminal-theme:not(.nerv-effect-motion) *::after {
+	scroll-behavior: auto !important;
+	transition-duration: 0.001ms !important;
+	animation-duration: 0.001ms !important;
+}
+
+.wp-site-blocks {
+	min-height: calc(100dvh - var(--wp-admin--admin-bar--height, 0px));
+}
+
+.nerv-app-shell,
+.nerv-app-shell * {
+	box-sizing: border-box;
+}
+
+.nerv-app-shell {
+	width: 100%;
+	height: calc(100dvh - var(--wp-admin--admin-bar--height, 0px));
+	overflow: hidden;
+	display: grid;
+	grid-template-rows: 88px 1fr 36px;
+	grid-template-columns: 1fr;
+	gap: 0;
+	padding: 16px;
+	background: color-mix(in srgb, var(--color-bg) 92%, transparent);
+}
+
+.nerv-main {
+	min-height: 0;
+	display: grid;
+	grid-template-columns: 252px minmax(0, 1fr) 348px;
+	gap: var(--nerv-gap);
+	padding: 16px 0;
+}
+
+.nerv-column {
+	min-height: 0;
+	overflow-y: auto;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	scrollbar-width: thin;
+	scrollbar-color: var(--nerv-red-dim) transparent;
+}
+
+.nerv-column::-webkit-scrollbar {
+	width: 4px;
+}
+
+.nerv-column::-webkit-scrollbar-thumb {
+	background: var(--nerv-red-dim);
+}
+
+.nerv-footer {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	align-items: center;
+	border-top: 1px solid color-mix(in srgb, var(--color-primary) 30%, transparent);
+	color: color-mix(in srgb, var(--color-signal) 55%, transparent);
+	font-size: 10px;
+}
+
+.nerv-footer span:nth-child(2) {
+	text-align: center;
+}
+
+.nerv-footer span:nth-child(3) {
+	text-align: right;
+}
+
+.nerv-footer-partners {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	min-width: 0;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.nerv-footer-partners b {
+	color: var(--color-signal);
+	font-weight: 500;
+}
+
+.nerv-footer-partners a {
+	min-width: 0;
+	max-width: 110px;
+	overflow: hidden;
+	color: var(--color-success);
+	text-decoration: none;
+	text-overflow: ellipsis;
+}
+
+.nerv-footer-partners a:hover {
+	color: var(--color-primary);
+}
+
+@media (max-width: 1279px) and (min-width: 1024px) {
+	.nerv-main {
+		grid-template-columns: 220px minmax(0, 1fr) 300px;
+	}
+}
+
+@media (max-width: 1023px) and (min-width: 768px) {
+	.nerv-app-shell {
+		grid-template-rows: 76px 1fr 32px;
+	}
+
+	.nerv-main {
+		grid-template-columns: minmax(0, 1fr) 300px;
+	}
+
+	.nerv-column--left {
+		display: none;
+	}
+}

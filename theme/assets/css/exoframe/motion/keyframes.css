@@ -1,0 +1,33 @@
+@keyframes exo-blink {
+	50% {
+		opacity: 0;
+	}
+}
+
+@keyframes exo-roll {
+	from {
+		transform: translateY(-120px);
+	}
+	to {
+		transform: translateY(100vh);
+	}
+}
+
+@keyframes exo-flicker {
+	0%,
+	100% {
+		opacity: 0.96;
+	}
+	45% {
+		opacity: 0.9;
+	}
+	46% {
+		opacity: 1;
+	}
+	47% {
+		opacity: 0.86;
+	}
+	48% {
+		opacity: 0.98;
+	}
+}

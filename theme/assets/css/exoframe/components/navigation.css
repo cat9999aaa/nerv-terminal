@@ -1,0 +1,125 @@
+.nerv-header {
+	display: grid;
+	grid-template-columns: 252px 128px 1fr 300px;
+	align-items: start;
+	gap: var(--nerv-gap);
+	border-bottom: 1px solid var(--color-line);
+	position: relative;
+}
+
+.nerv-header::after {
+	content: "";
+	position: absolute;
+	right: 0;
+	bottom: -1px;
+	width: 300px;
+	height: 44px;
+	border-top: 1px solid var(--color-line);
+	border-right: 1px solid var(--color-line);
+	clip-path: polygon(16% 0, 100% 0, 100% 100%, 0 100%, 0 50%);
+	pointer-events: none;
+}
+
+.nerv-brand {
+	color: inherit;
+	display: grid;
+	gap: 2px;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+
+.nerv-brand__title {
+	color: var(--color-primary);
+	font-size: 30px;
+	line-height: 1;
+}
+
+.nerv-brand__subtitle {
+	color: var(--color-success);
+	font-size: 14px;
+}
+
+.nerv-brand::after {
+	content: "";
+	width: 100%;
+	height: 1px;
+	margin-top: 8px;
+	background: var(--nerv-red-dim);
+}
+
+.nerv-mark {
+	width: 76px;
+	height: 76px;
+	display: grid;
+	place-items: center;
+	color: var(--color-primary);
+	border: 1px solid color-mix(in srgb, var(--color-primary) 18%, transparent);
+	border-radius: 50%;
+	font-size: 18px;
+	line-height: 0.9;
+	text-align: center;
+	opacity: 0.78;
+	transform: rotate(-14deg);
+}
+
+.nerv-mark img {
+	display: block;
+	width: 54px;
+	height: 54px;
+	object-fit: var(--nerv-logo-fit, contain);
+	object-position: var(--nerv-logo-position, 50% 50%);
+	transform: rotate(14deg);
+}
+
+.nerv-topnav {
+	display: flex;
+	align-items: start;
+	gap: 8px;
+	height: 64px;
+	flex-wrap: wrap;
+	align-content: start;
+}
+
+.nerv-topnav a {
+	min-height: 34px;
+	padding: 10px 12px;
+	border: 1px solid transparent;
+	color: var(--color-signal);
+	font-size: 12px;
+	line-height: 1;
+	text-decoration: none;
+	text-transform: uppercase;
+	transition: background var(--duration-fast), border-color var(--duration-fast), color var(--duration-fast);
+}
+
+.nerv-topnav a:hover,
+.nerv-topnav a.is-active {
+	border-color: var(--nerv-red-dim);
+	color: var(--color-primary);
+	background: color-mix(in srgb, var(--color-primary) 10%, transparent);
+}
+
+.nerv-mobile-appbar,
+.nerv-mobile-tabs {
+	display: none;
+}
+
+@media (max-width: 1279px) and (min-width: 1024px) {
+	.nerv-header {
+		grid-template-columns: 220px 90px 1fr 250px;
+	}
+}
+
+@media (max-width: 1023px) and (min-width: 768px) {
+	.nerv-header {
+		grid-template-columns: 220px 1fr 240px;
+	}
+
+	.nerv-mark {
+		display: none;
+	}
+
+	.nerv-topnav {
+		overflow-x: auto;
+	}
+}

@@ -1,0 +1,132 @@
+.nerv-author-card {
+	display: grid;
+	grid-template-columns: 96px 1fr;
+	gap: 14px;
+	align-items: start;
+}
+
+.nerv-author-card h3 {
+	margin: 0 0 8px;
+	color: var(--color-success);
+	font-size: 18px;
+	font-weight: 500;
+}
+
+.nerv-author-title {
+	margin-bottom: 8px !important;
+	color: var(--color-signal) !important;
+	font-family: var(--font-mono);
+	font-size: 11px !important;
+	text-transform: uppercase;
+}
+
+.nerv-author-socials {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin: 10px 0 2px;
+}
+
+.nerv-author-socials a {
+	min-width: 34px;
+	min-height: 28px;
+	background: color-mix(in srgb, var(--color-success) 5%, transparent);
+	font-family: var(--font-mono);
+}
+
+.nerv-author-socials a:hover {
+	border-color: var(--color-primary);
+	color: var(--color-signal);
+}
+
+.nerv-lost-code {
+	color: var(--color-primary);
+	font-size: clamp(72px, 14vw, 140px);
+	line-height: 0.9;
+	text-shadow: 0 0 24px color-mix(in srgb, var(--color-primary) 28%, transparent);
+}
+
+.nerv-more-links {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 10px;
+}
+
+.nerv-more-links a {
+	min-width: 0;
+	display: grid;
+	grid-template-columns: 34px 1fr;
+	grid-template-rows: auto auto;
+	gap: 0 10px;
+	padding: 10px;
+	border: 1px solid color-mix(in srgb, var(--color-primary) 42%, transparent);
+	color: var(--color-primary);
+	text-decoration: none;
+	background: color-mix(in srgb, var(--color-bg) 56%, transparent);
+}
+
+.nerv-more-links span {
+	grid-row: 1 / 3;
+	align-self: center;
+	border: 1px solid var(--color-primary);
+	text-align: center;
+	font-size: 18px;
+}
+
+.nerv-more-links strong {
+	color: var(--color-primary);
+	font-size: 13px;
+	font-weight: 500;
+}
+
+.nerv-more-links small {
+	color: var(--color-signal);
+	font-size: 11px;
+}
+
+.nerv-more-search {
+	display: grid;
+	grid-template-columns: 1fr auto;
+	gap: 10px;
+	margin-top: 14px;
+}
+
+.nerv-more-search label {
+	display: grid;
+	gap: 5px;
+	color: var(--color-success);
+	font-size: 11px;
+}
+
+.nerv-more-search input {
+	width: 100%;
+	min-height: 38px;
+	border: 1px solid color-mix(in srgb, var(--color-success) 32%, transparent);
+	background: color-mix(in srgb, var(--color-bg) 72%, transparent);
+	color: var(--color-success);
+	font: inherit;
+	padding: 0 10px;
+}
+
+.nerv-more-search input:focus {
+	outline: none;
+	box-shadow: var(--focus-ring);
+}
+
+.nerv-more-status-heading {
+	margin-top: 16px;
+	color: var(--color-signal);
+	font-size: 11px;
+}
+
+.nerv-more-footer {
+	margin: 0 !important;
+	color: var(--nerv-muted) !important;
+	font-size: 12px !important;
+}
+
+@media (max-width: 1279px) and (min-width: 768px) {
+	.nerv-more-links {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}

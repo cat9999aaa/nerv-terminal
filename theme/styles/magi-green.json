@@ -1,0 +1,38 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
+  "version": 3,
+  "title": "MAGI Green",
+  "settings": {
+    "color": {
+      "palette": [
+        { "slug": "nerv-black", "color": "#030706", "name": "Terminal Black" },
+        { "slug": "nerv-panel", "color": "#07110D", "name": "MAGI Panel" },
+        { "slug": "nerv-red", "color": "#4ADE80", "name": "MAGI Primary" },
+        { "slug": "magi-green", "color": "#7CFFB0", "name": "MAGI Signal" },
+        { "slug": "amber", "color": "#B8F2C5", "name": "Soft Signal" },
+        { "slug": "warm-white", "color": "#DFF8E7", "name": "Cool White" },
+        { "slug": "nerv-red-dim", "color": "#1E6B3D", "name": "MAGI Primary Dim" },
+        { "slug": "magi-green-dim", "color": "#2A7E4E", "name": "MAGI Signal Dim" },
+        { "slug": "nerv-muted", "color": "#84A992", "name": "MAGI Muted" }
+      ]
+    }
+  },
+  "styles": {
+    "color": {
+      "background": "#030706",
+      "text": "#DFF8E7"
+    },
+    "elements": {
+      "link": {
+        "color": {
+          "text": "#B8F2C5"
+        },
+        ":hover": {
+          "color": {
+            "text": "#7CFFB0"
+          }
+        }
+      }
+    }
+  }
+}

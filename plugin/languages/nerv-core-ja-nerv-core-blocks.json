@@ -1,0 +1,13 @@
+{
+    "translation-revision-date": "2026-06-14T13:08:11+00:00",
+    "generator": "nerv-terminal build-js-i18n.php",
+    "domain": "nerv-core",
+    "locale_data": {
+        "nerv-core": {
+            "": {
+                "domain": "nerv-core",
+                "lang": ""
+            }
+        }
+    }
+}

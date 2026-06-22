@@ -1,0 +1,17 @@
+.DS_Store
+Thumbs.db
+
+.codegraph/
+.playwright-mcp/
+node_modules/
+vendor/
+
+dist/*.zip
+*.log
+
+.env
+.env.*
+!.env.example
+
+wp-config.php
+wp-content/uploads/

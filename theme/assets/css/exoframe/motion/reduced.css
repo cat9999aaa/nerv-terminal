@@ -1,0 +1,29 @@
+@media (prefers-reduced-motion: reduce) {
+	body.nerv-terminal-theme::before {
+		display: none !important;
+	}
+
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.001ms !important;
+		scroll-behavior: auto !important;
+		transition-duration: 0.001ms !important;
+		transition-delay: 0s !important;
+	}
+
+	.nerv-button:active,
+	.nerv-mobile-tabs a:active {
+		transform: none !important;
+	}
+
+	.nerv-panel,
+	.nerv-card,
+	.nerv-clock,
+	.nerv-mobile-tabs,
+	.nerv-panel--hero h1,
+	.nerv-watermark {
+		box-shadow: none !important;
+		text-shadow: none !important;
+	}
+}

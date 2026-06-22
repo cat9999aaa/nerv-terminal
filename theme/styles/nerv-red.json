@@ -1,0 +1,38 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
+  "version": 3,
+  "title": "NERV Red",
+  "settings": {
+    "color": {
+      "palette": [
+        { "slug": "nerv-black", "color": "#050403", "name": "NERV Black" },
+        { "slug": "nerv-panel", "color": "#0A0807", "name": "NERV Panel" },
+        { "slug": "nerv-red", "color": "#FF3B30", "name": "NERV Red" },
+        { "slug": "magi-green", "color": "#4ADE80", "name": "MAGI Green" },
+        { "slug": "amber", "color": "#FFB000", "name": "Amber" },
+        { "slug": "warm-white", "color": "#E8E4DC", "name": "Warm White" },
+        { "slug": "nerv-red-dim", "color": "#7F1C16", "name": "NERV Red Dim" },
+        { "slug": "magi-green-dim", "color": "#235C34", "name": "MAGI Green Dim" },
+        { "slug": "nerv-muted", "color": "#7F8F78", "name": "NERV Muted" }
+      ]
+    }
+  },
+  "styles": {
+    "color": {
+      "background": "#050403",
+      "text": "#E8E4DC"
+    },
+    "elements": {
+      "link": {
+        "color": {
+          "text": "#FFB000"
+        },
+        ":hover": {
+          "color": {
+            "text": "#4ADE80"
+          }
+        }
+      }
+    }
+  }
+}

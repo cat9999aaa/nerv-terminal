@@ -1,0 +1,635 @@
+# Japanese translations for nerv-terminal package.
+# Copyright (C) 2026 THE nerv-terminal'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the nerv-terminal package.
+# Automatically generated, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: nerv-terminal\n"
+"Report-Msgid-Bugs-To: https://dashen.wang/\n"
+"POT-Creation-Date: 2026-06-14 21:08+0800\n"
+"PO-Revision-Date: 2026-06-14 21:08+0800\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:48
+msgid "> ABOUT ME: 起動"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:73
+msgid "> EMERGENCY CONTACT"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:95
+msgid "> MORE ENTRIES"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:58
+msgid "> MORE LOGS"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:103
+msgid "> SEND REQUEST"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:51
+msgid "> VIEW ALL"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:100
+msgid "> VISIT SITE"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:44
+msgid "> WELCOME TO MY TERMINAL"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:56
+msgid "> システムログ"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:72
+msgid "> 対応する"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:50
+msgid "> 最新の作戦記録"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:54
+msgid "> 詳細を表示"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:21
+msgid "ABOUT"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:28
+msgid "ACTIVE"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:67
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:235
+msgid "ALERT PANEL"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:38
+msgid "ALL SYSTEMS NOMINAL"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:98
+msgid "ALLIED ORGANIZATIONS"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:104
+msgid "ALLIES:"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:101
+msgid "ALLY REQUEST"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:89
+msgid "ARCHIVE INDEX"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:94
+msgid "AUTHOR / 操縦者"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:32
+msgid "AUTHORIZATION: GUEST"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/dashboard-render.php:404
+msgid "AUTHORIZATION: MEMBER"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/dashboard-render.php:119
+msgid "Activate NERV Core"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/dashboard-render.php:127
+msgid ""
+"Activate NERV Core to restore GEO mirrors, AI cover tools, partners, crawler "
+"monitoring, related entries, and NERV CONTROL."
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:669
+msgid "All systems operational."
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/dashboard-render.php:554
+msgid "Author social links"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:780
+msgid "BLOCKED"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:23
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:78
+msgid "BLOG"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:448
+msgid "Balanced terminal"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:30
+msgid "CLEARANCE LEVEL"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:33
+msgid "CODE: 0x00A1"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:74
+msgid "CODE: 0xEVA007"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:765
+msgid "CONNECTED"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:25
+msgid "CONTACT"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:660
+msgid "CPU USAGE"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:465
+msgid "Calm reader"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/dashboard-render.php:126
+msgid "Companion plugin required"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:348
+#, php-format
+msgid "Custom Panel %d"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:654
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:764
+msgid "DATABASE"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:662
+msgid "DISK SPACE"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:87
+msgid "ENTRY DETAIL"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:93
+msgid "ENTRY META"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:482
+msgid "EVA intense"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:24
+msgid "GALLERY"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:210
+msgid "HERO"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:20
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:77
+msgid "HOME"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:106
+msgid "ICP RECORD"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:770
+msgid "INACTIVE"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:71
+msgid "IP: 192.168.0.99"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/dashboard-render.php:119
+msgid "Install NERV Core"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:27
+msgid "JST"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:42
+msgid "LAT: 35.6895° N"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:49
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:215
+msgid "LATEST PROJECTS"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:57
+msgid "LOG LEVEL: INFO"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:43
+msgid "LON: 139.6917° E"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:784
+msgid "MARKDOWN MIRROR"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:849
+msgid "MD MIRRORS"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:661
+msgid "MEMORY"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:775
+msgid "MISSING"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:35
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:200
+msgid "MISSION STATUS"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:81
+msgid "MORE"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:82
+msgid "MORE / 追加端末"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/dashboard-render.php:54
+msgid "Main terminal panels"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/dashboard-render.php:92
+msgid "Mobile app navigation"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:84
+msgid "NAVIGATION"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:19
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:112
+msgid "NERV"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:774
+msgid "NERV CORE"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/dashboard-render.php:126
+msgid "NERV Core Offline"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:17
+msgid "NERV TERMINAL"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:111
+msgid "NERV Terminal"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:113
+msgid ""
+"NERV Terminal is a WordPress theme for AI-era GEO publishing, portfolio "
+"archives, machine-readable feeds, and terminal-style personal sites."
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:653
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:663
+msgid "NETWORK"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:97
+msgid "No operation records available."
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/dashboard-render.php:63
+msgid "Numbered navigation"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:765
+msgid "OFFLINE"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/dashboard-render.php:527
+#, php-format
+msgid "Open %s"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/dashboard-render.php:793
+#, php-format
+msgid "Open project %s"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:844
+msgid "PARTNERS"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:785
+msgid "PENDING"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:18
+msgid "PERSONAL PORTFOLIO"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:824
+msgid "PHP MEMORY"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:759
+msgid "PHP RUNTIME"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:80
+msgid "PILOT"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:59
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:225
+msgid "PILOT PROFILE"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:834
+msgid "POSTS"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:76
+msgid "POWERED BY WORDPRESS"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:52
+msgid "PROJECT:"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:22
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:79
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:839
+msgid "PROJECTS"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/dashboard-render.php:34
+msgid "Primary navigation"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:780
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:785
+msgid "READY"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:96
+msgid "RELATED ENTRIES / 関連記録"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:92
+msgid "Requested operation record was not found in this terminal."
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:85
+msgid "SEARCH"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:90
+msgid "SEARCH RESULT"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:655
+msgid "SECURITY"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:40
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:205
+msgid "SERVER LOCATION"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:91
+msgid "SIGNAL LOST"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:88
+msgid "STATIC PAGE"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:83
+msgid "STATUS PANELS"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:55
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:220
+msgid "SYSTEM LOG"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:65
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:230
+msgid "SYSTEM MONITOR"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:652
+msgid "SYSTEM ONLINE"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:34
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:195
+msgid "SYSTEM STATUS"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:26
+msgid "SYSTEM TIME"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/dashboard-render.php:942
+msgid "Social links"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:86
+msgid "TERMINAL COPYRIGHT"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:657
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:769
+msgid "THEME ENGINE"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:41
+msgid "TOKYO-3, JAPAN"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:31
+msgid "TOP SECRET"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:666
+msgid "Terminal connection established."
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:668
+msgid "Theme \"NERV Terminal\" initialized."
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/dashboard-render.php:127
+msgid "Theme is running in safe visual mode."
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:830
+msgid "UNKNOWN"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:829
+msgid "UPLOAD DISK"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:779
+msgid "UPLOADS"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:190
+msgid "USER"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:29
+msgid "USER: VISITOR"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:69
+msgid "WARNING LEVEL 2"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:656
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:754
+msgid "WORDPRESS"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/dashboard-render.php:672
+msgid ""
+"Want to establish an allied link? Send your site name, URL, and a short "
+"description for review."
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:670
+msgid "Welcome, Visitor."
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/dashboard-render.php:789
+msgid "WordPress"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:667
+msgid "WordPress core loaded successfully."
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/dashboard-render.php:863
+msgid "WordPress terminal operation record initialized."
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:62
+msgid "WordPress を愛するエンジニア。コードとデザインで未来を構築中。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:46
+msgid "このサイトは WordPress で構築された個人ポートフォリオです。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:39
+msgid "すべてのシステムは正常です"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:45
+msgid "ようこそ、私の作戦領域へ"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:68
+msgid "アラートパネル"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:53
+msgid "カテゴリー:"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:66
+msgid "システム監視"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:60
+msgid "パイロット情報"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:61
+msgid "個人開発者 / ブロガー"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:99
+msgid "同盟組織"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:70
+msgid "外部からの不正アクセスを検知"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:64
+msgid "役職: パイロット候補生"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:47
+msgid "技術、映画、デザイン、そして未来の記録。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:63
+msgid "拠点: TOKYO-3"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:653
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:654
+msgid "接続中"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:652
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:655
+msgid "正常"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:37
+msgid "状態: STANDBY"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:36
+msgid "目的: PERSONAL SITE"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:102
+msgid "相互リンク申請"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:656
+msgid "稼働中"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:75
+msgid "緊急連絡網"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/theme/inc/defaults.php:657
+msgid "起動中"
+msgstr ""

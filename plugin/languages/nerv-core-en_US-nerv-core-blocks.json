@@ -1,0 +1,2179 @@
+{
+    "translation-revision-date": "2026-06-14T13:08:12+00:00",
+    "generator": "nerv-terminal build-js-i18n.php",
+    "domain": "nerv-core",
+    "locale_data": {
+        "nerv-core": {
+            "": {
+                "domain": "nerv-core",
+                "lang": ""
+            },
+            "%1$d created, %2$d updated, %3$d failed.": [
+                "%1$d created, %2$d updated, %3$d failed."
+            ],
+            "%1$d projects, %2$d posts, %3$d partners are published.": [
+                "%1$d projects, %2$d posts, %3$d partners are published."
+            ],
+            "%d / 7D": [
+                "%d / 7D"
+            ],
+            "%d entries per article.": [
+                "%d entries per article."
+            ],
+            "%d hits / 7D": [
+                "%d hits / 7D"
+            ],
+            "%d partner records tracked.": [
+                "%d partner records tracked."
+            ],
+            "%s defines the main operating context for readers and AI systems.": [
+                "%s defines the main operating context for readers and AI systems."
+            ],
+            "00 Dashboard": [
+                "00 Dashboard"
+            ],
+            "01 Brand": [
+                "01 Brand"
+            ],
+            "02 Panels": [
+                "02 Panels"
+            ],
+            "03 Mobile App": [
+                "03 Mobile App"
+            ],
+            "04 Social": [
+                "04 Social"
+            ],
+            "05 Articles": [
+                "05 Articles"
+            ],
+            "06 GEO": [
+                "06 GEO"
+            ],
+            "07 Effects": [
+                "07 Effects"
+            ],
+            "08 Tools": [
+                "08 Tools"
+            ],
+            "09 AI Services": [
+                "09 AI Services"
+            ],
+            "10 Partners": [
+                "10 Partners"
+            ],
+            "404": [
+                "404"
+            ],
+            "A NERV-styled summary panel for GEO-ready article takeaways.": [
+                "A NERV-styled summary panel for GEO-ready article takeaways."
+            ],
+            "AI CRAWLERS": [
+                "AI CRAWLERS"
+            ],
+            "AI Crawler Monitor": [
+                "AI Crawler Monitor"
+            ],
+            "AI Crawler Stats": [
+                "AI Crawler Stats"
+            ],
+            "AI Services / Cover Pipeline": [
+                "AI Services / Cover Pipeline"
+            ],
+            "AI Services settings could not be saved.": [
+                "AI Services settings could not be saved."
+            ],
+            "AI Services settings saved.": [
+                "AI Services settings saved."
+            ],
+            "AI Usage Policy": [
+                "AI Usage Policy"
+            ],
+            "AI actions": [
+                "AI actions"
+            ],
+            "AI cover API": [
+                "AI cover API"
+            ],
+            "AI cover generated and attached.": [
+                "AI cover generated and attached."
+            ],
+            "AI cover mode": [
+                "AI cover mode"
+            ],
+            "AI cover service is not configured.": [
+                "AI cover service is not configured."
+            ],
+            "AI cover settings are present.": [
+                "AI cover settings are present."
+            ],
+            "AI crawler data": [
+                "AI crawler data"
+            ],
+            "AI crawler monitor": [
+                "AI crawler monitor"
+            ],
+            "AI crawler monitoring and the default bot policy are enabled.": [
+                "AI crawler monitoring and the default bot policy are enabled."
+            ],
+            "AI crawler settings are unavailable.": [
+                "AI crawler settings are unavailable."
+            ],
+            "AI crawler visibility": [
+                "AI crawler visibility"
+            ],
+            "AI crawls / 7D": [
+                "AI crawls / 7D"
+            ],
+            "AI not configured": [
+                "AI not configured"
+            ],
+            "AI response did not include an image URL or base64 image.": [
+                "AI response did not include an image URL or base64 image."
+            ],
+            "AI response did not include usable KEY POINTS.": [
+                "AI response did not include usable KEY POINTS."
+            ],
+            "AI service is not configured; generated local KEY POINTS instead.": [
+                "AI service is not configured; generated local KEY POINTS instead."
+            ],
+            "AI service returned HTTP %d.": [
+                "AI service returned HTTP %d."
+            ],
+            "AI service returned invalid JSON.": [
+                "AI service returned invalid JSON."
+            ],
+            "AI services settings are unavailable.": [
+                "AI services settings are unavailable."
+            ],
+            "AI usage policy": [
+                "AI usage policy"
+            ],
+            "AI usage policy generation is unavailable.": [
+                "AI usage policy generation is unavailable."
+            ],
+            "AI usage policy page could not be generated.": [
+                "AI usage policy page could not be generated."
+            ],
+            "AI usage policy page generated.": [
+                "AI usage policy page generated."
+            ],
+            "AI usage policy page is published and linked from machine-readable resources.": [
+                "AI usage policy page is published and linked from machine-readable resources."
+            ],
+            "API endpoint": [
+                "API endpoint"
+            ],
+            "API key": [
+                "API key"
+            ],
+            "API key · saved; enter a new value to replace": [
+                "API key · saved; enter a new value to replace"
+            ],
+            "Activation Wizard": [
+                "Activation Wizard"
+            ],
+            "Activation step completed.": [
+                "Activation step completed."
+            ],
+            "Activation step could not be completed.": [
+                "Activation step could not be completed."
+            ],
+            "Active badge": [
+                "Active badge"
+            ],
+            "Add Custom Panel": [
+                "Add Custom Panel"
+            ],
+            "Add FAQ": [
+                "Add FAQ"
+            ],
+            "Add New Partner": [
+                "Add New Partner"
+            ],
+            "Add New Project": [
+                "Add New Project"
+            ],
+            "Add Row": [
+                "Add Row"
+            ],
+            "Add a FAQ block so FAQPage JSON-LD can be emitted.": [
+                "Add a FAQ block so FAQPage JSON-LD can be emitted."
+            ],
+            "Add a KEY POINTS block with 3-5 concise takeaways near the top.": [
+                "Add a KEY POINTS block with 3-5 concise takeaways near the top."
+            ],
+            "Add a NERV subtitle so search and AI summaries get a compact alternative headline.": [
+                "Add a NERV subtitle so search and AI summaries get a compact alternative headline."
+            ],
+            "Add a supporting paragraph with concrete context, examples, constraints, and next steps so the article can stand alone for human readers and AI crawlers.": [
+                "Add a supporting paragraph with concrete context, examples, constraints, and next steps so the article can stand alone for human readers and AI crawlers."
+            ],
+            "Add at least one H2 section so crawlers can understand the article structure.": [
+                "Add at least one H2 section so crawlers can understand the article structure."
+            ],
+            "Add at least two internal links to strengthen the semantic crawl path.": [
+                "Add at least two internal links to strengthen the semantic crawl path."
+            ],
+            "Add direct answers near the top so AI summaries can extract the article quickly.": [
+                "Add direct answers near the top so AI summaries can extract the article quickly."
+            ],
+            "Add global and author identity links used by pilot cards and Person JSON-LD.": [
+                "Add global and author identity links used by pilot cards and Person JSON-LD."
+            ],
+            "Add partner": [
+                "Add partner"
+            ],
+            "Add point": [
+                "Add point"
+            ],
+            "Add social link": [
+                "Add social link"
+            ],
+            "Add the primary answer in one sentence.": [
+                "Add the primary answer in one sentence."
+            ],
+            "Algorithm Weights": [
+                "Algorithm Weights"
+            ],
+            "Algorithm weights": [
+                "Algorithm weights"
+            ],
+            "All active GEO checks are passing for this draft.": [
+                "All active GEO checks are passing for this draft."
+            ],
+            "All tracked bots": [
+                "All tracked bots"
+            ],
+            "Alternative headline for entries and GEO metadata.": [
+                "Alternative headline for entries and GEO metadata."
+            ],
+            "Amber": [
+                "Amber"
+            ],
+            "Answer": [
+                "Answer"
+            ],
+            "App name": [
+                "App name"
+            ],
+            "App shell disabled": [
+                "App shell disabled"
+            ],
+            "App shell enabled": [
+                "App shell enabled"
+            ],
+            "Apple touch": [
+                "Apple touch"
+            ],
+            "Apple touch icon": [
+                "Apple touch icon"
+            ],
+            "Application Block": [
+                "Application Block"
+            ],
+            "Application block": [
+                "Application block"
+            ],
+            "Application email": [
+                "Application email"
+            ],
+            "Application text": [
+                "Application text"
+            ],
+            "Apply GEO Defaults": [
+                "Apply GEO Defaults"
+            ],
+            "Apply the launch-safe defaults: IndexNow dry-run, AI crawler visibility, AI policy page, and refreshed Markdown mirrors.": [
+                "Apply the launch-safe defaults: IndexNow dry-run, AI crawler visibility, AI policy page, and refreshed Markdown mirrors."
+            ],
+            "Archive link label": [
+                "Archive link label"
+            ],
+            "Article Inventory": [
+                "Article Inventory"
+            ],
+            "Article settings are unavailable.": [
+                "Article settings are unavailable."
+            ],
+            "Article settings could not be saved.": [
+                "Article settings could not be saved."
+            ],
+            "Article settings saved.": [
+                "Article settings saved."
+            ],
+            "Auto-generate covers when no featured image exists": [
+                "Auto-generate covers when no featured image exists"
+            ],
+            "Automation": [
+                "Automation"
+            ],
+            "Available placeholders: {title}, {subtitle}, {excerpt}, {category}.": [
+                "Available placeholders: {title}, {subtitle}, {excerpt}, {category}."
+            ],
+            "Back to dashboard": [
+                "Back to dashboard"
+            ],
+            "Background grid": [
+                "Background grid"
+            ],
+            "Base line": [
+                "Base line"
+            ],
+            "Base64 image payload could not be decoded.": [
+                "Base64 image payload could not be decoded."
+            ],
+            "Base64 image payload is empty.": [
+                "Base64 image payload is empty."
+            ],
+            "Bilibili": [
+                "Bilibili"
+            ],
+            "Bio": [
+                "Bio"
+            ],
+            "Blog": [
+                "Blog"
+            ],
+            "Booting NERV CONTROL dashboard...": [
+                "Booting NERV CONTROL dashboard..."
+            ],
+            "Bot": [
+                "Bot"
+            ],
+            "Brand settings could not be saved.": [
+                "Brand settings could not be saved."
+            ],
+            "Brand settings saved.": [
+                "Brand settings saved."
+            ],
+            "Brand subtitle": [
+                "Brand subtitle"
+            ],
+            "Brand title": [
+                "Brand title"
+            ],
+            "Build script is a local monorepo tool and is not deployed inside wp-content.": [
+                "Build script is a local monorepo tool and is not deployed inside wp-content."
+            ],
+            "Bundle package": [
+                "Bundle package"
+            ],
+            "Bundle, theme, and plugin packages are present in the local dist directory.": [
+                "Bundle, theme, and plugin packages are present in the local dist directory."
+            ],
+            "Button label": [
+                "Button label"
+            ],
+            "CLAUDEBOT": [
+                "CLAUDEBOT"
+            ],
+            "CREATED": [
+                "CREATED"
+            ],
+            "CRT scanlines": [
+                "CRT scanlines"
+            ],
+            "Cache directory unavailable.": [
+                "Cache directory unavailable."
+            ],
+            "Cache hours": [
+                "Cache hours"
+            ],
+            "Center column": [
+                "Center column"
+            ],
+            "Center mark": [
+                "Center mark"
+            ],
+            "Check package artifacts from the local monorepo dist directory.": [
+                "Check package artifacts from the local monorepo dist directory."
+            ],
+            "Checked": [
+                "Checked"
+            ],
+            "Checked bots are monitored and allowed in robots.txt; unchecked bots are blocked with Disallow: /.": [
+                "Checked bots are monitored and allowed in robots.txt; unchecked bots are blocked with Disallow: /."
+            ],
+            "Checked bots are monitored and allowed in robots.txt; unchecked bots are blocked.": [
+                "Checked bots are monitored and allowed in robots.txt; unchecked bots are blocked."
+            ],
+            "Checked categories are excluded from related-entry scoring and fallback queries.": [
+                "Checked categories are excluded from related-entry scoring and fallback queries."
+            ],
+            "Choose the visual intensity, motion budget, and desktop/mobile terminal effects.": [
+                "Choose the visual intensity, motion budget, and desktop/mobile terminal effects."
+            ],
+            "Clear": [
+                "Clear"
+            ],
+            "Clearance label": [
+                "Clearance label"
+            ],
+            "Clearance value": [
+                "Clearance value"
+            ],
+            "Clock Strip": [
+                "Clock Strip"
+            ],
+            "Clock label": [
+                "Clock label"
+            ],
+            "Column": [
+                "Column"
+            ],
+            "Common PWA baseline is 192px.": [
+                "Common PWA baseline is 192px."
+            ],
+            "Common install icon is 512px.": [
+                "Common install icon is 512px."
+            ],
+            "Configure an OpenAI images-compatible service. Without credentials, uploaded covers and SVG fallback remain active and publishing is never blocked.": [
+                "Configure an OpenAI images-compatible service. Without credentials, uploaded covers and SVG fallback remain active and publishing is never blocked."
+            ],
+            "Configure an OpenAI-compatible endpoint for covers and editor KEY POINTS generation. API keys stay server-side and are never returned to this screen.": [
+                "Configure an OpenAI-compatible endpoint for covers and editor KEY POINTS generation. API keys stay server-side and are never returned to this screen."
+            ],
+            "Configure the fixed mobile Tab Bar, MORE screen content, and app-style navigation contract. Keep 3 to 5 enabled tabs for thumb-safe mobile use.": [
+                "Configure the fixed mobile Tab Bar, MORE screen content, and app-style navigation contract. Keep 3 to 5 enabled tabs for thumb-safe mobile use."
+            ],
+            "Configure the global social library used by the Pilot Profile panel and machine-readable identity signals. Author cards can still override links from each user profile.": [
+                "Configure the global social library used by the Pilot Profile panel and machine-readable identity signals. Author cards can still override links from each user profile."
+            ],
+            "Configured": [
+                "Configured"
+            ],
+            "Contain": [
+                "Contain"
+            ],
+            "Content": [
+                "Content"
+            ],
+            "Content licensing and citation rules for AI systems.": [
+                "Content licensing and citation rules for AI systems."
+            ],
+            "Content type": [
+                "Content type"
+            ],
+            "Control allied-link display, application copy, llms.txt inclusion, and partner health probe thresholds.": [
+                "Control allied-link display, application copy, llms.txt inclusion, and partner health probe thresholds."
+            ],
+            "Control center foundation for the NERV Terminal theme. The full React dashboard will expand from these server-rendered settings.": [
+                "Control center foundation for the NERV Terminal theme. The full React dashboard will expand from these server-rendered settings."
+            ],
+            "Control terminal panels without touching code: visibility, columns, saved order, registered copy fields, live rows, and custom content panels.": [
+                "Control terminal panels without touching code: visibility, columns, saved order, registered copy fields, live rows, and custom content panels."
+            ],
+            "Control the AI-readable publishing layer: IndexNow pings, crawler visibility, robots policy, and machine-readable resource status.": [
+                "Control the AI-readable publishing layer: IndexNow pings, crawler visibility, robots policy, and machine-readable resource status."
+            ],
+            "Control the first-viewport brand signal, header clock labels, and PWA install metadata used by the terminal shell.": [
+                "Control the first-viewport brand signal, header clock labels, and PWA install metadata used by the terminal shell."
+            ],
+            "Control the partner footer row, shortcode panel, application block, and llms.txt partner index.": [
+                "Control the partner footer row, shortcode panel, application block, and llms.txt partner index."
+            ],
+            "Core plugin package": [
+                "Core plugin package"
+            ],
+            "Could not create a temporary image file.": [
+                "Could not create a temporary image file."
+            ],
+            "Could not write the generated image file.": [
+                "Could not write the generated image file."
+            ],
+            "Count known AI crawler user agents and show the latest pages they requested. This proves GEO discovery is happening.": [
+                "Count known AI crawler user agents and show the latest pages they requested. This proves GEO discovery is happening."
+            ],
+            "Cover crop": [
+                "Cover crop"
+            ],
+            "Cover generation failed.": [
+                "Cover generation failed."
+            ],
+            "Cover generator is unavailable.": [
+                "Cover generator is unavailable."
+            ],
+            "Cover history item has no reusable image.": [
+                "Cover history item has no reusable image."
+            ],
+            "Cover history item was not found.": [
+                "Cover history item was not found."
+            ],
+            "Cover history restore is unavailable.": [
+                "Cover history restore is unavailable."
+            ],
+            "Cover image": [
+                "Cover image"
+            ],
+            "Cover preview could not be loaded.": [
+                "Cover preview could not be loaded."
+            ],
+            "Cover restore failed.": [
+                "Cover restore failed."
+            ],
+            "Cover restored from history.": [
+                "Cover restored from history."
+            ],
+            "Covers / KEY POINTS": [
+                "Covers / KEY POINTS"
+            ],
+            "Create an EVA terminal style cover for \"{title}\". Subtitle: {subtitle}. Category: {category}. Excerpt: {excerpt}.": [
+                "Create an EVA terminal style cover for \"{title}\". Subtitle: {subtitle}. Category: {category}. Excerpt: {excerpt}."
+            ],
+            "Current Settings Forms": [
+                "Current Settings Forms"
+            ],
+            "Current demo records": [
+                "Current demo records"
+            ],
+            "Custom Panel": [
+                "Custom Panel"
+            ],
+            "Custom Panels": [
+                "Custom Panels"
+            ],
+            "Custom URL": [
+                "Custom URL"
+            ],
+            "Data retention": [
+                "Data retention"
+            ],
+            "Data retention days": [
+                "Data retention days"
+            ],
+            "Decorative rows": [
+                "Decorative rows"
+            ],
+            "Default is off so llms.txt stays focused on owned content unless you opt in.": [
+                "Default is off so llms.txt stays focused on owned content unless you opt in."
+            ],
+            "Default weights restored in this preview. Save to apply globally.": [
+                "Default weights restored in this preview. Save to apply globally."
+            ],
+            "Definition opening": [
+                "Definition opening"
+            ],
+            "Definition paragraph inserted. Move it near the opening if needed.": [
+                "Definition paragraph inserted. Move it near the opening if needed."
+            ],
+            "Demo Content": [
+                "Demo Content"
+            ],
+            "Demo authors": [
+                "Demo authors"
+            ],
+            "Demo content": [
+                "Demo content"
+            ],
+            "Demo import completed: %1$d created, %2$d updated, %3$d failed.": [
+                "Demo import completed: %1$d created, %2$d updated, %3$d failed."
+            ],
+            "Demo import is unavailable.": [
+                "Demo import is unavailable."
+            ],
+            "Demo partners": [
+                "Demo partners"
+            ],
+            "Demo posts": [
+                "Demo posts"
+            ],
+            "Demo projects": [
+                "Demo projects"
+            ],
+            "Demo records are available for frontend validation.": [
+                "Demo records are available for frontend validation."
+            ],
+            "Demo taxonomy": [
+                "Demo taxonomy"
+            ],
+            "Description line 1": [
+                "Description line 1"
+            ],
+            "Description line 2": [
+                "Description line 2"
+            ],
+            "Desktop Override": [
+                "Desktop Override"
+            ],
+            "Desktop intensity": [
+                "Desktop intensity"
+            ],
+            "Detected license: %s.": [
+                "Detected license: %s."
+            ],
+            "Detected text domain: %s.": [
+                "Detected text domain: %s."
+            ],
+            "Disabled": [
+                "Disabled"
+            ],
+            "Dist directory:": [
+                "Dist directory:"
+            ],
+            "Down": [
+                "Down"
+            ],
+            "Drag to reorder": [
+                "Drag to reorder"
+            ],
+            "Dry-run": [
+                "Dry-run"
+            ],
+            "Dry-run AI calls until production credentials are ready": [
+                "Dry-run AI calls until production credentials are ready"
+            ],
+            "Dry-run KEY POINTS generated locally; no external AI request was sent.": [
+                "Dry-run KEY POINTS generated locally; no external AI request was sent."
+            ],
+            "Dry-run only; record logs without external submission": [
+                "Dry-run only; record logs without external submission"
+            ],
+            "Dry-run recorded; no external image request was sent.": [
+                "Dry-run recorded; no external image request was sent."
+            ],
+            "Dry-run safety is on.": [
+                "Dry-run safety is on."
+            ],
+            "Duty line": [
+                "Duty line"
+            ],
+            "Edit Partner": [
+                "Edit Partner"
+            ],
+            "Edit Project": [
+                "Edit Project"
+            ],
+            "Effect Channels": [
+                "Effect Channels"
+            ],
+            "Effect Preset JSON": [
+                "Effect Preset JSON"
+            ],
+            "Effect preset JSON": [
+                "Effect preset JSON"
+            ],
+            "Effect preset JSON could not be imported.": [
+                "Effect preset JSON could not be imported."
+            ],
+            "Effect preset JSON exported.": [
+                "Effect preset JSON exported."
+            ],
+            "Effect preset JSON imported. Save to apply it to the frontend.": [
+                "Effect preset JSON imported. Save to apply it to the frontend."
+            ],
+            "Effect settings are unavailable.": [
+                "Effect settings are unavailable."
+            ],
+            "Effect settings could not be saved.": [
+                "Effect settings could not be saved."
+            ],
+            "Effect settings saved.": [
+                "Effect settings saved."
+            ],
+            "Email": [
+                "Email"
+            ],
+            "Enable AI crawler monitoring": [
+                "Enable AI crawler monitoring"
+            ],
+            "Enable AI crawler monitoring and robots policy output": [
+                "Enable AI crawler monitoring and robots policy output"
+            ],
+            "Enable IndexNow pings on publish/update": [
+                "Enable IndexNow pings on publish/update"
+            ],
+            "Enable KEY POINTS AI generation": [
+                "Enable KEY POINTS AI generation"
+            ],
+            "Enable MORE tab route": [
+                "Enable MORE tab route"
+            ],
+            "Enable effects on desktop": [
+                "Enable effects on desktop"
+            ],
+            "Enable effects on mobile": [
+                "Enable effects on mobile"
+            ],
+            "Enable mobile app shell and fixed Tab Bar": [
+                "Enable mobile app shell and fixed Tab Bar"
+            ],
+            "Enable panel": [
+                "Enable panel"
+            ],
+            "Enable recommended IndexNow safety mode, crawler visibility, AI policy, and Markdown mirrors.": [
+                "Enable recommended IndexNow safety mode, crawler visibility, AI policy, and Markdown mirrors."
+            ],
+            "Enable related entries panel and GEO related links": [
+                "Enable related entries panel and GEO related links"
+            ],
+            "Enable scheduled partner health checks": [
+                "Enable scheduled partner health checks"
+            ],
+            "Enable terminal effects": [
+                "Enable terminal effects"
+            ],
+            "Enabled": [
+                "Enabled"
+            ],
+            "Endpoint": [
+                "Endpoint"
+            ],
+            "Entries count": [
+                "Entries count"
+            ],
+            "Excluded categories": [
+                "Excluded categories"
+            ],
+            "Expand the article toward at least 300 words for stronger standalone context.": [
+                "Expand the article toward at least 300 words for stronger standalone context."
+            ],
+            "Expansion paragraph inserted.": [
+                "Expansion paragraph inserted."
+            ],
+            "Explain the reader outcome or operating context.": [
+                "Explain the reader outcome or operating context."
+            ],
+            "Export Effects JSON": [
+                "Export Effects JSON"
+            ],
+            "Export Preset JSON": [
+                "Export Preset JSON"
+            ],
+            "Export or import only TAB 07 effect settings. Imported JSON updates this form first; save when the preview looks right.": [
+                "Export or import only TAB 07 effect settings. Imported JSON updates this form first; save when the preview looks right."
+            ],
+            "Export or import whitelisted theme/control settings. Secret API keys are excluded.": [
+                "Export or import whitelisted theme/control settings. Secret API keys are excluded."
+            ],
+            "External calls": [
+                "External calls"
+            ],
+            "FAIL": [
+                "FAIL"
+            ],
+            "FAILED": [
+                "FAILED"
+            ],
+            "FAQ / よくある質問": [
+                "FAQ / よくある質問"
+            ],
+            "FAQ block": [
+                "FAQ block"
+            ],
+            "FAQ block inserted with a starter question.": [
+                "FAQ block inserted with a starter question."
+            ],
+            "Fallback": [
+                "Fallback"
+            ],
+            "Featured": [
+                "Featured"
+            ],
+            "Flush Related Cache": [
+                "Flush Related Cache"
+            ],
+            "Flush transient rows used by the weighted related-entry engine.": [
+                "Flush transient rows used by the weighted related-entry engine."
+            ],
+            "Focal X": [
+                "Focal X"
+            ],
+            "Focal Y": [
+                "Focal Y"
+            ],
+            "Follow": [
+                "Follow"
+            ],
+            "Follow the GEO suggestion and refresh the score.": [
+                "Follow the GEO suggestion and refresh the score."
+            ],
+            "Footer count": [
+                "Footer count"
+            ],
+            "Footer featured row": [
+                "Footer featured row"
+            ],
+            "Freshness": [
+                "Freshness"
+            ],
+            "GEO SCORE": [
+                "GEO SCORE"
+            ],
+            "GEO Systems Operator": [
+                "GEO Systems Operator"
+            ],
+            "GEO action could not be completed.": [
+                "GEO action could not be completed."
+            ],
+            "GEO launch": [
+                "GEO launch"
+            ],
+            "GEO partner index": [
+                "GEO partner index"
+            ],
+            "GEO score could not be refreshed.": [
+                "GEO score could not be refreshed."
+            ],
+            "GEO score weights could not be saved.": [
+                "GEO score weights could not be saved."
+            ],
+            "GEO score weights saved.": [
+                "GEO score weights saved."
+            ],
+            "GEO settings are unavailable.": [
+                "GEO settings are unavailable."
+            ],
+            "GEO settings could not be saved.": [
+                "GEO settings could not be saved."
+            ],
+            "GEO settings saved.": [
+                "GEO settings saved."
+            ],
+            "GEO weights could not be loaded.": [
+                "GEO weights could not be loaded."
+            ],
+            "GEO, AI services, crawler visibility, partners, and theme operations in one control surface.": [
+                "GEO, AI services, crawler visibility, partners, and theme operations in one control surface."
+            ],
+            "GLOW": [
+                "GLOW"
+            ],
+            "GPL-compatible license header": [
+                "GPL-compatible license header"
+            ],
+            "GPTBOT": [
+                "GPTBOT"
+            ],
+            "GPTBot, ClaudeBot, PerplexityBot, Google-Extended and more.": [
+                "GPTBot, ClaudeBot, PerplexityBot, Google-Extended and more."
+            ],
+            "GRID": [
+                "GRID"
+            ],
+            "Generate AI Policy Page": [
+                "Generate AI Policy Page"
+            ],
+            "Generate KEY POINTS": [
+                "Generate KEY POINTS"
+            ],
+            "Generate cover": [
+                "Generate cover"
+            ],
+            "Generate or refresh the /ai-policy/ page so llms.txt can declare licensing, citation, and contact rules for AI systems.": [
+                "Generate or refresh the /ai-policy/ page so llms.txt can declare licensing, citation, and contact rules for AI systems."
+            ],
+            "Generated SVG fallback preview. Upload a square bitmap for production app icons.": [
+                "Generated SVG fallback preview. Upload a square bitmap for production app icons."
+            ],
+            "Generating...": [
+                "Generating..."
+            ],
+            "GitHub": [
+                "GitHub"
+            ],
+            "Give a direct answer that can stand alone in search and AI summaries.": [
+                "Give a direct answer that can stand alone in search and AI summaries."
+            ],
+            "Green": [
+                "Green"
+            ],
+            "Guest authorization": [
+                "Guest authorization"
+            ],
+            "Guest code": [
+                "Guest code"
+            ],
+            "H2 heading inserted.": [
+                "H2 heading inserted."
+            ],
+            "H2 structure": [
+                "H2 structure"
+            ],
+            "HTTP %1$d in %2$.2fs": [
+                "HTTP %1$d in %2$.2fs"
+            ],
+            "Header Brand": [
+                "Header Brand"
+            ],
+            "Header logo image": [
+                "Header logo image"
+            ],
+            "Header preview": [
+                "Header preview"
+            ],
+            "Headline": [
+                "Headline"
+            ],
+            "Health Signals": [
+                "Health Signals"
+            ],
+            "History": [
+                "History"
+            ],
+            "Home": [
+                "Home"
+            ],
+            "Icon": [
+                "Icon"
+            ],
+            "Image URL is empty.": [
+                "Image URL is empty."
+            ],
+            "Image payload is invalid.": [
+                "Image payload is invalid."
+            ],
+            "Import / Refresh Demo Content": [
+                "Import / Refresh Demo Content"
+            ],
+            "Import Demo": [
+                "Import Demo"
+            ],
+            "Import Effects JSON": [
+                "Import Effects JSON"
+            ],
+            "Import Preset JSON": [
+                "Import Preset JSON"
+            ],
+            "Include partners in llms.txt": [
+                "Include partners in llms.txt"
+            ],
+            "IndexNow": [
+                "IndexNow"
+            ],
+            "IndexNow Log": [
+                "IndexNow Log"
+            ],
+            "IndexNow TEST": [
+                "IndexNow TEST"
+            ],
+            "IndexNow TEST completed with status: %s.": [
+                "IndexNow TEST completed with status: %s."
+            ],
+            "IndexNow TEST completed with status: %s. See the log below.": [
+                "IndexNow TEST completed with status: %s. See the log below."
+            ],
+            "IndexNow TEST completed.": [
+                "IndexNow TEST completed."
+            ],
+            "IndexNow is disabled.": [
+                "IndexNow is disabled."
+            ],
+            "IndexNow is enabled with dry-run safety on for local validation.": [
+                "IndexNow is enabled with dry-run safety on for local validation."
+            ],
+            "IndexNow safety mode": [
+                "IndexNow safety mode"
+            ],
+            "IndexNow settings are unavailable.": [
+                "IndexNow settings are unavailable."
+            ],
+            "IndexNow testing is unavailable.": [
+                "IndexNow testing is unavailable."
+            ],
+            "Instagram": [
+                "Instagram"
+            ],
+            "Intensity": [
+                "Intensity"
+            ],
+            "Internal links": [
+                "Internal links"
+            ],
+            "Internal-link prompt inserted. Replace the text with real internal links.": [
+                "Internal-link prompt inserted. Replace the text with real internal links."
+            ],
+            "KEY POINTS": [
+                "KEY POINTS"
+            ],
+            "KEY POINTS / 要点提取": [
+                "KEY POINTS / 要点提取"
+            ],
+            "KEY POINTS block inserted. Edit the three draft points.": [
+                "KEY POINTS block inserted. Edit the three draft points."
+            ],
+            "KEY POINTS generated.": [
+                "KEY POINTS generated."
+            ],
+            "KEY POINTS generation failed.": [
+                "KEY POINTS generation failed."
+            ],
+            "KEY POINTS generator is unavailable.": [
+                "KEY POINTS generator is unavailable."
+            ],
+            "Keep each point short enough for AI summaries.": [
+                "Keep each point short enough for AI summaries."
+            ],
+            "Key": [
+                "Key"
+            ],
+            "Kicker": [
+                "Kicker"
+            ],
+            "Label": [
+                "Label"
+            ],
+            "Last 7 Days": [
+                "Last 7 Days"
+            ],
+            "Last AI action": [
+                "Last AI action"
+            ],
+            "Latitude": [
+                "Latitude"
+            ],
+            "Launch-ready": [
+                "Launch-ready"
+            ],
+            "Left column": [
+                "Left column"
+            ],
+            "Level": [
+                "Level"
+            ],
+            "Level badge": [
+                "Level badge"
+            ],
+            "Link attribute": [
+                "Link attribute"
+            ],
+            "Link the article to a concrete operating context.": [
+                "Link the article to a concrete operating context."
+            ],
+            "LinkedIn": [
+                "LinkedIn"
+            ],
+            "Live": [
+                "Live"
+            ],
+            "Live submission mode.": [
+                "Live submission mode."
+            ],
+            "Local safety": [
+                "Local safety"
+            ],
+            "Location": [
+                "Location"
+            ],
+            "Log rows": [
+                "Log rows"
+            ],
+            "Log source": [
+                "Log source"
+            ],
+            "Logo": [
+                "Logo"
+            ],
+            "Longitude": [
+                "Longitude"
+            ],
+            "MOBILE": [
+                "MOBILE"
+            ],
+            "MORE": [
+                "MORE"
+            ],
+            "MORE Screen Sections": [
+                "MORE Screen Sections"
+            ],
+            "MOTION": [
+                "MOTION"
+            ],
+            "Machine resources active": [
+                "Machine resources active"
+            ],
+            "Machine-Readable Resources": [
+                "Machine-Readable Resources"
+            ],
+            "Manage partners": [
+                "Manage partners"
+            ],
+            "Manifest large": [
+                "Manifest large"
+            ],
+            "Manifest large icon": [
+                "Manifest large icon"
+            ],
+            "Manifest small": [
+                "Manifest small"
+            ],
+            "Manifest small icon": [
+                "Manifest small icon"
+            ],
+            "Markdown Mirrors": [
+                "Markdown Mirrors"
+            ],
+            "Markdown mirror tools are unavailable.": [
+                "Markdown mirror tools are unavailable."
+            ],
+            "Markdown mirrors": [
+                "Markdown mirrors"
+            ],
+            "Markdown mirrors refreshed: %1$d written, %2$d failed.": [
+                "Markdown mirrors refreshed: %1$d written, %2$d failed."
+            ],
+            "Markdown refresh is unavailable.": [
+                "Markdown refresh is unavailable."
+            ],
+            "Master Switch": [
+                "Master Switch"
+            ],
+            "Message": [
+                "Message"
+            ],
+            "Minimum runtime versions": [
+                "Minimum runtime versions"
+            ],
+            "Missing": [
+                "Missing"
+            ],
+            "Missing URL": [
+                "Missing URL"
+            ],
+            "Missing required files: %s.": [
+                "Missing required files: %s."
+            ],
+            "Missing style.css headers: %s.": [
+                "Missing style.css headers: %s."
+            ],
+            "Missing; generate the policy page before launch.": [
+                "Missing; generate the policy page before launch."
+            ],
+            "Mobile": [
+                "Mobile"
+            ],
+            "Mobile App settings could not be saved.": [
+                "Mobile App settings could not be saved."
+            ],
+            "Mobile App settings saved.": [
+                "Mobile App settings saved."
+            ],
+            "Mobile Override": [
+                "Mobile Override"
+            ],
+            "Mobile app settings are unavailable.": [
+                "Mobile app settings are unavailable."
+            ],
+            "Mobile intensity": [
+                "Mobile intensity"
+            ],
+            "Model": [
+                "Model"
+            ],
+            "Modified from default.": [
+                "Modified from default."
+            ],
+            "Monitor rows": [
+                "Monitor rows"
+            ],
+            "Monitor source": [
+                "Monitor source"
+            ],
+            "Motion transitions": [
+                "Motion transitions"
+            ],
+            "NERV AI generated cover": [
+                "NERV AI generated cover"
+            ],
+            "NERV Author Signal": [
+                "NERV Author Signal"
+            ],
+            "NERV CONTROL": [
+                "NERV CONTROL"
+            ],
+            "NERV CONTROL Tab": [
+                "NERV CONTROL Tab"
+            ],
+            "NERV CONTROL dashboard data could not be loaded.": [
+                "NERV CONTROL dashboard data could not be loaded."
+            ],
+            "NERV CONTROL tabs": [
+                "NERV CONTROL tabs"
+            ],
+            "NERV COVER": [
+                "NERV COVER"
+            ],
+            "NERV DASHBOARD": [
+                "NERV DASHBOARD"
+            ],
+            "NERV FAQ": [
+                "NERV FAQ"
+            ],
+            "NERV GEO SCORE": [
+                "NERV GEO SCORE"
+            ],
+            "NERV Key Points": [
+                "NERV Key Points"
+            ],
+            "NERV METADATA": [
+                "NERV METADATA"
+            ],
+            "NERV Terminal": [
+                "NERV Terminal"
+            ],
+            "NERV Terminal visual shell is expected to be active.": [
+                "NERV Terminal visual shell is expected to be active."
+            ],
+            "Name the next useful resource or action.": [
+                "Name the next useful resource or action."
+            ],
+            "Next repair": [
+                "Next repair"
+            ],
+            "No AI crawler visits recorded yet.": [
+                "No AI crawler visits recorded yet."
+            ],
+            "No IndexNow events recorded yet.": [
+                "No IndexNow events recorded yet."
+            ],
+            "No URLs or host available.": [
+                "No URLs or host available."
+            ],
+            "No administrator/editor/author account was available for demo ownership.": [
+                "No administrator/editor/author account was available for demo ownership."
+            ],
+            "No categories available yet.": [
+                "No categories available yet."
+            ],
+            "No cover URL available.": [
+                "No cover URL available."
+            ],
+            "No custom panels yet.": [
+                "No custom panels yet."
+            ],
+            "No partners available yet.": [
+                "No partners available yet."
+            ],
+            "No records yet.": [
+                "No records yet."
+            ],
+            "Nofollow": [
+                "Nofollow"
+            ],
+            "Nominal headline": [
+                "Nominal headline"
+            ],
+            "Nominal subline": [
+                "Nominal subline"
+            ],
+            "None": [
+                "None"
+            ],
+            "Not checked yet": [
+                "Not checked yet"
+            ],
+            "Not configured": [
+                "Not configured"
+            ],
+            "ONLINE %1$d / SLOW %2$d / OFFLINE %3$d / TOTAL %4$d": [
+                "ONLINE %1$d / SLOW %2$d / OFFLINE %3$d / TOTAL %4$d"
+            ],
+            "Official Theme Check is not loaded here. This panel is running the built-in release audit only.": [
+                "Official Theme Check is not loaded here. This panel is running the built-in release audit only."
+            ],
+            "Official Theme Check is used when available; otherwise this runs the built-in block-theme release audit.": [
+                "Official Theme Check is used when available; otherwise this runs the built-in block-theme release audit."
+            ],
+            "Official Theme Check runner": [
+                "Official Theme Check runner"
+            ],
+            "Online": [
+                "Online"
+            ],
+            "Open Brand": [
+                "Open Brand"
+            ],
+            "Open Partner Tools": [
+                "Open Partner Tools"
+            ],
+            "Open Social": [
+                "Open Social"
+            ],
+            "Open Tab": [
+                "Open Tab"
+            ],
+            "Open current settings forms": [
+                "Open current settings forms"
+            ],
+            "Open external social links in a new tab": [
+                "Open external social links in a new tab"
+            ],
+            "Open step": [
+                "Open step"
+            ],
+            "Open the Featured image control and set or generate a cover.": [
+                "Open the Featured image control and set or generate a cover."
+            ],
+            "Open the NERV Entry Details panel and fill the subtitle field.": [
+                "Open the NERV Entry Details panel and fill the subtitle field."
+            ],
+            "Open with a direct definition or answer sentence in the first paragraph.": [
+                "Open with a direct definition or answer sentence in the first paragraph."
+            ],
+            "Operational Context": [
+                "Operational Context"
+            ],
+            "Operations category ID %1$d; %2$d tags ready.": [
+                "Operations category ID %1$d; %2$d tags ready."
+            ],
+            "Order": [
+                "Order"
+            ],
+            "PASS": [
+                "PASS"
+            ],
+            "PERPLEXITY": [
+                "PERPLEXITY"
+            ],
+            "PWA Identity": [
+                "PWA Identity"
+            ],
+            "PWA icon image": [
+                "PWA icon image"
+            ],
+            "PWA icon preview": [
+                "PWA icon preview"
+            ],
+            "Package not found in dist.": [
+                "Package not found in dist."
+            ],
+            "Package status is only available from the local monorepo; this deployed wp-content copy keeps the CLI commands for reference.": [
+                "Package status is only available from the local monorepo; this deployed wp-content copy keeps the CLI commands for reference."
+            ],
+            "Page": [
+                "Page"
+            ],
+            "Panel glow": [
+                "Panel glow"
+            ],
+            "Panel settings are unavailable.": [
+                "Panel settings are unavailable."
+            ],
+            "Panel settings could not be saved.": [
+                "Panel settings could not be saved."
+            ],
+            "Panel settings saved.": [
+                "Panel settings saved."
+            ],
+            "Panel title": [
+                "Panel title"
+            ],
+            "Partner": [
+                "Partner"
+            ],
+            "Partner CPT": [
+                "Partner CPT"
+            ],
+            "Partner Display": [
+                "Partner Display"
+            ],
+            "Partner Health": [
+                "Partner Health"
+            ],
+            "Partner Health Status": [
+                "Partner Health Status"
+            ],
+            "Partner Health TEST": [
+                "Partner Health TEST"
+            ],
+            "Partner URL": [
+                "Partner URL"
+            ],
+            "Partner health": [
+                "Partner health"
+            ],
+            "Partner health TEST completed.": [
+                "Partner health TEST completed."
+            ],
+            "Partner health TEST completed. See the partner status table below.": [
+                "Partner health TEST completed. See the partner status table below."
+            ],
+            "Partner health TEST could not be completed.": [
+                "Partner health TEST could not be completed."
+            ],
+            "Partner health testing is unavailable.": [
+                "Partner health testing is unavailable."
+            ],
+            "Partner settings are unavailable.": [
+                "Partner settings are unavailable."
+            ],
+            "Partner settings could not be saved.": [
+                "Partner settings could not be saved."
+            ],
+            "Partner settings saved.": [
+                "Partner settings saved."
+            ],
+            "Partners": [
+                "Partners"
+            ],
+            "Partners online": [
+                "Partners online"
+            ],
+            "Personal Portfolio": [
+                "Personal Portfolio"
+            ],
+            "Pilot / About": [
+                "Pilot / About"
+            ],
+            "Pilot title": [
+                "Pilot title"
+            ],
+            "Ping search engines when public posts and projects are published or updated. Localhost runs are recorded as dry-run logs.": [
+                "Ping search engines when public posts and projects are published or updated. Localhost runs are recorded as dry-run logs."
+            ],
+            "Platform": [
+                "Platform"
+            ],
+            "Point": [
+                "Point"
+            ],
+            "Post is not available for GEO scoring.": [
+                "Post is not available for GEO scoring."
+            ],
+            "Post not found.": [
+                "Post not found."
+            ],
+            "Preset": [
+                "Preset"
+            ],
+            "Preset JSON": [
+                "Preset JSON"
+            ],
+            "Preview MORE screen": [
+                "Preview MORE screen"
+            ],
+            "Preview Pilot Profile": [
+                "Preview Pilot Profile"
+            ],
+            "Preview homepage": [
+                "Preview homepage"
+            ],
+            "Preview latest article": [
+                "Preview latest article"
+            ],
+            "Primary and secondary demo author profiles were prepared.": [
+                "Primary and secondary demo author profiles were prepared."
+            ],
+            "Probe partner URLs and show ONLINE, SLOW, or OFFLINE status lights on the partner grid.": [
+                "Probe partner URLs and show ONLINE, SLOW, or OFFLINE status lights on the partner grid."
+            ],
+            "Project": [
+                "Project"
+            ],
+            "Project CPT": [
+                "Project CPT"
+            ],
+            "Projects": [
+                "Projects"
+            ],
+            "Prompt preview": [
+                "Prompt preview"
+            ],
+            "Prompt template": [
+                "Prompt template"
+            ],
+            "Published": [
+                "Published"
+            ],
+            "Published and linked from machine-readable resources.": [
+                "Published and linked from machine-readable resources."
+            ],
+            "Purpose line": [
+                "Purpose line"
+            ],
+            "QR image URL": [
+                "QR image URL"
+            ],
+            "Question": [
+                "Question"
+            ],
+            "Question and answer block that emits FAQPage JSON-LD.": [
+                "Question and answer block that emits FAQPage JSON-LD."
+            ],
+            "RELATED ENTRIES / 関連記録": [
+                "RELATED ENTRIES / 関連記録"
+            ],
+            "RSS": [
+                "RSS"
+            ],
+            "Readers should understand the direct answer, context, and next action without scanning the whole page.": [
+                "Readers should understand the direct answer, context, and next action without scanning the whole page."
+            ],
+            "Recent AI Crawls": [
+                "Recent AI Crawls"
+            ],
+            "Recent days": [
+                "Recent days"
+            ],
+            "Recent post": [
+                "Recent post"
+            ],
+            "Recent posts": [
+                "Recent posts"
+            ],
+            "Recommended GEO Setup": [
+                "Recommended GEO Setup"
+            ],
+            "Recommended GEO setup completed with %d warnings.": [
+                "Recommended GEO setup completed with %d warnings."
+            ],
+            "Recommended GEO setup completed.": [
+                "Recommended GEO setup completed."
+            ],
+            "Recommended GEO setup is unavailable.": [
+                "Recommended GEO setup is unavailable."
+            ],
+            "Recorded without external submission.": [
+                "Recorded without external submission."
+            ],
+            "Red": [
+                "Red"
+            ],
+            "Refresh AI Policy Page": [
+                "Refresh AI Policy Page"
+            ],
+            "Refresh Markdown Mirrors": [
+                "Refresh Markdown Mirrors"
+            ],
+            "Refresh the article so dateModified stays recent.": [
+                "Refresh the article so dateModified stays recent."
+            ],
+            "Registered as partners archive.": [
+                "Registered as partners archive."
+            ],
+            "Registered as projects archive.": [
+                "Registered as projects archive."
+            ],
+            "Rel": [
+                "Rel"
+            ],
+            "Related Cache": [
+                "Related Cache"
+            ],
+            "Related Entries": [
+                "Related Entries"
+            ],
+            "Related cache flushing is unavailable.": [
+                "Related cache flushing is unavailable."
+            ],
+            "Related engine disabled": [
+                "Related engine disabled"
+            ],
+            "Related engine enabled": [
+                "Related engine enabled"
+            ],
+            "Related entries": [
+                "Related entries"
+            ],
+            "Related resources: add two internal links to relevant posts, projects, or policy pages.": [
+                "Related resources: add two internal links to relevant posts, projects, or policy pages."
+            ],
+            "Related-entry cache flushed.": [
+                "Related-entry cache flushed."
+            ],
+            "Related-entry cache tools are unavailable.": [
+                "Related-entry cache tools are unavailable."
+            ],
+            "Release Packaging": [
+                "Release Packaging"
+            ],
+            "Release audit completed: %1$d pass, %2$d warnings, %3$d failures.": [
+                "Release audit completed: %1$d pass, %2$d warnings, %3$d failures."
+            ],
+            "Remove": [
+                "Remove"
+            ],
+            "Remove FAQ": [
+                "Remove FAQ"
+            ],
+            "Repair": [
+                "Repair"
+            ],
+            "Repair next item": [
+                "Repair next item"
+            ],
+            "Replace icon": [
+                "Replace icon"
+            ],
+            "Replace logo": [
+                "Replace logo"
+            ],
+            "Required block-theme files": [
+                "Required block-theme files"
+            ],
+            "Required theme headers are present.": [
+                "Required theme headers are present."
+            ],
+            "Requires WordPress %1$s and PHP %2$s.": [
+                "Requires WordPress %1$s and PHP %2$s."
+            ],
+            "Restore defaults": [
+                "Restore defaults"
+            ],
+            "Rich text": [
+                "Rich text"
+            ],
+            "Right column": [
+                "Right column"
+            ],
+            "Role": [
+                "Role"
+            ],
+            "Run IndexNow TEST": [
+                "Run IndexNow TEST"
+            ],
+            "Run Partner Health TEST": [
+                "Run Partner Health TEST"
+            ],
+            "Run Theme Check / Release Audit": [
+                "Run Theme Check / Release Audit"
+            ],
+            "Run a local release audit before packaging the theme.": [
+                "Run a local release audit before packaging the theme."
+            ],
+            "Run a manual HEAD probe for published partner links and refresh the status table.": [
+                "Run a manual HEAD probe for published partner links and refresh the status table."
+            ],
+            "Run a partner health TEST now and refresh the status lights.": [
+                "Run a partner health TEST now and refresh the status lights."
+            ],
+            "Run safe WordPress maintenance actions and inspect local build/demo commands. Shell packaging stays in the local CLI instead of the browser admin surface.": [
+                "Run safe WordPress maintenance actions and inspect local build/demo commands. Shell packaging stays in the local CLI instead of the browser admin surface."
+            ],
+            "Run step": [
+                "Run step"
+            ],
+            "Run the release audit before packaging.": [
+                "Run the release audit before packaging."
+            ],
+            "SCANLINES": [
+                "SCANLINES"
+            ],
+            "SOURCE": [
+                "SOURCE"
+            ],
+            "SYSTEM TIME": [
+                "SYSTEM TIME"
+            ],
+            "Safe HTML": [
+                "Safe HTML"
+            ],
+            "Same category": [
+                "Same category"
+            ],
+            "Save AI Service Settings": [
+                "Save AI Service Settings"
+            ],
+            "Save AI Services": [
+                "Save AI Services"
+            ],
+            "Save Article Settings": [
+                "Save Article Settings"
+            ],
+            "Save Brand Settings": [
+                "Save Brand Settings"
+            ],
+            "Save Crawler Monitor Settings": [
+                "Save Crawler Monitor Settings"
+            ],
+            "Save Effect Settings": [
+                "Save Effect Settings"
+            ],
+            "Save GEO Settings": [
+                "Save GEO Settings"
+            ],
+            "Save IndexNow Settings": [
+                "Save IndexNow Settings"
+            ],
+            "Save Mobile App Settings": [
+                "Save Mobile App Settings"
+            ],
+            "Save NERV Settings": [
+                "Save NERV Settings"
+            ],
+            "Save Panel Settings": [
+                "Save Panel Settings"
+            ],
+            "Save Partner Display Settings": [
+                "Save Partner Display Settings"
+            ],
+            "Save Partner Health Settings": [
+                "Save Partner Health Settings"
+            ],
+            "Save Partner Settings": [
+                "Save Partner Settings"
+            ],
+            "Save Social Settings": [
+                "Save Social Settings"
+            ],
+            "Save weights": [
+                "Save weights"
+            ],
+            "Saved; leave blank to keep current key.": [
+                "Saved; leave blank to keep current key."
+            ],
+            "Saving these settings flushes related-entry transients.": [
+                "Saving these settings flushes related-entry transients."
+            ],
+            "Saving...": [
+                "Saving..."
+            ],
+            "Scoring weights": [
+                "Scoring weights"
+            ],
+            "Search": [
+                "Search"
+            ],
+            "Search results": [
+                "Search results"
+            ],
+            "Seed the local demo records used by homepage, archive, and GEO checks.": [
+                "Seed the local demo records used by homepage, archive, and GEO checks."
+            ],
+            "Seed the projects, posts, partner records, authors, taxonomy, and markdown mirrors used for validation.": [
+                "Seed the projects, posts, partner records, authors, taxonomy, and markdown mirrors used for validation."
+            ],
+            "Select PWA icon": [
+                "Select PWA icon"
+            ],
+            "Select header logo": [
+                "Select header logo"
+            ],
+            "Select icon": [
+                "Select icon"
+            ],
+            "Select logo": [
+                "Select logo"
+            ],
+            "Send a manual IndexNow TEST ping for the AI policy URL when available, otherwise the site home URL. Localhost remains dry-run only.": [
+                "Send a manual IndexNow TEST ping for the AI policy URL when available, otherwise the site home URL. Localhost remains dry-run only."
+            ],
+            "Set a featured image so the 5:2 and social cover pipeline has source media.": [
+                "Set a featured image so the 5:2 and social cover pipeline has source media."
+            ],
+            "Set the public site name, terminal mark, logo, PWA color, and app icons.": [
+                "Set the public site name, terminal mark, logo, PWA color, and app icons."
+            ],
+            "Settings Preset JSON": [
+                "Settings Preset JSON"
+            ],
+            "Settings preset export is unavailable.": [
+                "Settings preset export is unavailable."
+            ],
+            "Settings preset exported.": [
+                "Settings preset exported."
+            ],
+            "Settings preset import failed: invalid preset JSON.": [
+                "Settings preset import failed: invalid preset JSON."
+            ],
+            "Settings preset import is unavailable.": [
+                "Settings preset import is unavailable."
+            ],
+            "Settings preset imported: %d option groups updated.": [
+                "Settings preset imported: %d option groups updated."
+            ],
+            "Shared tag": [
+                "Shared tag"
+            ],
+            "Short name": [
+                "Short name"
+            ],
+            "Shortcode": [
+                "Shortcode"
+            ],
+            "Show allied-link application block on the partners page": [
+                "Show allied-link application block on the partners page"
+            ],
+            "Show an allied-link application block on the partners page": [
+                "Show an allied-link application block on the partners page"
+            ],
+            "Show featured partners in the terminal footer": [
+                "Show featured partners in the terminal footer"
+            ],
+            "Show global social links in Pilot Profile": [
+                "Show global social links in Pilot Profile"
+            ],
+            "Show in footer featured row": [
+                "Show in footer featured row"
+            ],
+            "Shown on the NERV author card below the display name.": [
+                "Shown on the NERV author card below the display name."
+            ],
+            "Site identity": [
+                "Site identity"
+            ],
+            "Slow threshold": [
+                "Slow threshold"
+            ],
+            "Slow threshold seconds": [
+                "Slow threshold seconds"
+            ],
+            "Social profile": [
+                "Social profile"
+            ],
+            "Social profile disabled": [
+                "Social profile disabled"
+            ],
+            "Social profile enabled": [
+                "Social profile enabled"
+            ],
+            "Social settings are unavailable.": [
+                "Social settings are unavailable."
+            ],
+            "Social settings could not be saved.": [
+                "Social settings could not be saved."
+            ],
+            "Social settings saved.": [
+                "Social settings saved."
+            ],
+            "Standard": [
+                "Standard"
+            ],
+            "State": [
+                "State"
+            ],
+            "State line": [
+                "State line"
+            ],
+            "State the main answer in one clear sentence.": [
+                "State the main answer in one clear sentence."
+            ],
+            "Status": [
+                "Status"
+            ],
+            "Status rows": [
+                "Status rows"
+            ],
+            "Status source": [
+                "Status source"
+            ],
+            "Submit the AI policy URL when available; localhost remains dry-run only.": [
+                "Submit the AI policy URL when available; localhost remains dry-run only."
+            ],
+            "Subtitle": [
+                "Subtitle"
+            ],
+            "Subtitle field focused. Add a compact alternative headline.": [
+                "Subtitle field focused. Add a compact alternative headline."
+            ],
+            "TAB 01 · Brand": [
+                "TAB 01 · Brand"
+            ],
+            "TAB 02 · Panels": [
+                "TAB 02 · Panels"
+            ],
+            "TAB 03 · Mobile App": [
+                "TAB 03 · Mobile App"
+            ],
+            "TAB 04 · Social": [
+                "TAB 04 · Social"
+            ],
+            "TAB 05 · Articles": [
+                "TAB 05 · Articles"
+            ],
+            "TAB 06 · GEO": [
+                "TAB 06 · GEO"
+            ],
+            "TAB 07 · Effects": [
+                "TAB 07 · Effects"
+            ],
+            "TAB 08 · Tools": [
+                "TAB 08 · Tools"
+            ],
+            "TAB 09 · AI Services": [
+                "TAB 09 · AI Services"
+            ],
+            "TAB 10 · Partners": [
+                "TAB 10 · Partners"
+            ],
+            "THEME": [
+                "THEME"
+            ],
+            "Target": [
+                "Target"
+            ],
+            "Terminal style": [
+                "Terminal style"
+            ],
+            "The spec requires split and bundle packages. Build any missing package from the monorepo root.": [
+                "The spec requires split and bundle packages. Build any missing package from the monorepo root."
+            ],
+            "Theme Check / Release Audit": [
+                "Theme Check / Release Audit"
+            ],
+            "Theme Check plugin code appears to be loaded in this WordPress runtime.": [
+                "Theme Check plugin code appears to be loaded in this WordPress runtime."
+            ],
+            "Theme color": [
+                "Theme color"
+            ],
+            "Theme layer": [
+                "Theme layer"
+            ],
+            "Theme package": [
+                "Theme package"
+            ],
+            "Theme release audit is unavailable.": [
+                "Theme release audit is unavailable."
+            ],
+            "Theme text domain": [
+                "Theme text domain"
+            ],
+            "These server-rendered forms remain the authoritative save surface while the React control center is expanded tab by tab.": [
+                "These server-rendered forms remain the authoritative save surface while the React control center is expanded tab by tab."
+            ],
+            "This React tab shell is ready; its editable controls will be migrated from the current settings forms in a later pass.": [
+                "This React tab shell is ready; its editable controls will be migrated from the current settings forms in a later pass."
+            ],
+            "This article defines the core operating context, key terms, and recommended next actions for readers and AI systems.": [
+                "This article defines the core operating context, key terms, and recommended next actions for readers and AI systems."
+            ],
+            "This month": [
+                "This month"
+            ],
+            "Time": [
+                "Time"
+            ],
+            "Time Windows": [
+                "Time Windows"
+            ],
+            "Time windows": [
+                "Time windows"
+            ],
+            "Timeout": [
+                "Timeout"
+            ],
+            "Timeout seconds": [
+                "Timeout seconds"
+            ],
+            "Timezone badge": [
+                "Timezone badge"
+            ],
+            "Tool action completed.": [
+                "Tool action completed."
+            ],
+            "Tool action could not be completed.": [
+                "Tool action could not be completed."
+            ],
+            "Tools Ready": [
+                "Tools Ready"
+            ],
+            "Total": [
+                "Total"
+            ],
+            "Tracked bots": [
+                "Tracked bots"
+            ],
+            "Tune Effects": [
+                "Tune Effects"
+            ],
+            "Tune article semantic linking, visible related-entry panels, cache behavior, and GEO hidden related links from the React control surface.": [
+                "Tune article semantic linking, visible related-entry panels, cache behavior, and GEO hidden related links from the React control surface."
+            ],
+            "Tune terminal presentation effects for the frontend shell. Reduced-motion visitors still get the browser-level motion override.": [
+                "Tune terminal presentation effects for the frontend shell. Reduced-motion visitors still get the browser-level motion override."
+            ],
+            "Tune the semantic link engine used by article pages and hidden GEO resource links.": [
+                "Tune the semantic link engine used by article pages and hidden GEO resource links."
+            ],
+            "UPDATED": [
+                "UPDATED"
+            ],
+            "URL": [
+                "URL"
+            ],
+            "URLs": [
+                "URLs"
+            ],
+            "Unavailable": [
+                "Unavailable"
+            ],
+            "Unknown tool action.": [
+                "Unknown tool action."
+            ],
+            "Unsupported post.": [
+                "Unsupported post."
+            ],
+            "Up": [
+                "Up"
+            ],
+            "Update the article content and save to refresh the modified date.": [
+                "Update the article content and save to refresh the modified date."
+            ],
+            "Updated": [
+                "Updated"
+            ],
+            "Upload and SVG fallback covers remain active until API settings are completed.": [
+                "Upload and SVG fallback covers remain active until API settings are completed."
+            ],
+            "Upload covers and SVG fallback are available.": [
+                "Upload covers and SVG fallback are available."
+            ],
+            "Uploaded icon with current crop controls.": [
+                "Uploaded icon with current crop controls."
+            ],
+            "Use": [
+                "Use"
+            ],
+            "Use structured headings, internal links, and FAQ content to strengthen GEO visibility.": [
+                "Use structured headings, internal links, and FAQ content to strengthen GEO visibility."
+            ],
+            "Use this image": [
+                "Use this image"
+            ],
+            "Used for WeChat QR popups; leave empty for normal social links.": [
+                "Used for WeChat QR popups; leave empty for normal social links."
+            ],
+            "User Agent": [
+                "User Agent"
+            ],
+            "Using generated SVG fallback.": [
+                "Using generated SVG fallback."
+            ],
+            "Using text mark fallback.": [
+                "Using text mark fallback."
+            ],
+            "Using...": [
+                "Using..."
+            ],
+            "Value": [
+                "Value"
+            ],
+            "View archive": [
+                "View archive"
+            ],
+            "View-all label": [
+                "View-all label"
+            ],
+            "Visitor title": [
+                "Visitor title"
+            ],
+            "WARN": [
+                "WARN"
+            ],
+            "WP-CLI runtime is active; run the official Theme Check command from the shell for the full rule set.": [
+                "WP-CLI runtime is active; run the official Theme Check command from the shell for the full rule set."
+            ],
+            "Want to establish an allied link? Send your site name, URL, and a short description for review.": [
+                "Want to establish an allied link? Send your site name, URL, and a short description for review."
+            ],
+            "Warning IP": [
+                "Warning IP"
+            ],
+            "Warning level": [
+                "Warning level"
+            ],
+            "Warning text": [
+                "Warning text"
+            ],
+            "WeChat": [
+                "WeChat"
+            ],
+            "Website": [
+                "Website"
+            ],
+            "Weibo": [
+                "Weibo"
+            ],
+            "What should readers remember first?": [
+                "What should readers remember first?"
+            ],
+            "What should readers understand first?": [
+                "What should readers understand first?"
+            ],
+            "White-label active": [
+                "White-label active"
+            ],
+            "Word count": [
+                "Word count"
+            ],
+            "WordPress media library is unavailable.": [
+                "WordPress media library is unavailable."
+            ],
+            "WordPress probes": [
+                "WordPress probes"
+            ],
+            "Words": [
+                "Words"
+            ],
+            "Words: %1$d · Internal links: %2$d · Updated: %3$d days ago": [
+                "Words: %1$d · Internal links: %2$d · Updated: %3$d days ago"
+            ],
+            "X / Twitter": [
+                "X / Twitter"
+            ],
+            "You are not allowed to generate KEY POINTS for this post.": [
+                "You are not allowed to generate KEY POINTS for this post."
+            ],
+            "You are not allowed to generate the AI policy page.": [
+                "You are not allowed to generate the AI policy page."
+            ],
+            "You are not allowed to generate this cover.": [
+                "You are not allowed to generate this cover."
+            ],
+            "You are not allowed to restore this cover.": [
+                "You are not allowed to restore this cover."
+            ],
+            "You are not allowed to test IndexNow.": [
+                "You are not allowed to test IndexNow."
+            ],
+            "You are not allowed to test partner health.": [
+                "You are not allowed to test partner health."
+            ],
+            "YouTube": [
+                "YouTube"
+            ],
+            "baseline install": [
+                "baseline install"
+            ],
+            "days": [
+                "days"
+            ],
+            "fit": [
+                "fit"
+            ],
+            "home": [
+                "home"
+            ],
+            "iOS commonly uses 180px.": [
+                "iOS commonly uses 180px."
+            ],
+            "iOS home screen": [
+                "iOS home screen"
+            ],
+            "llms.txt": [
+                "llms.txt"
+            ],
+            "manifest": [
+                "manifest"
+            ],
+            "missing": [
+                "missing"
+            ],
+            "partner records tracked.": [
+                "partner records tracked."
+            ],
+            "seconds": [
+                "seconds"
+            ],
+            "store surface": [
+                "store surface"
+            ],
+            "style.css release headers": [
+                "style.css release headers"
+            ],
+            "style.css, theme.json, functions.php, templates, and template parts are present.": [
+                "style.css, theme.json, functions.php, templates, and template parts are present."
+            ],
+            "theme.json is missing or invalid JSON.": [
+                "theme.json is missing or invalid JSON."
+            ],
+            "theme.json parse": [
+                "theme.json parse"
+            ],
+            "theme.json parsed successfully.": [
+                "theme.json parsed successfully."
+            ]
+        }
+    }
+}

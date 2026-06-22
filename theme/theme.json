@@ -1,0 +1,87 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
+  "version": 3,
+  "settings": {
+    "appearanceTools": true,
+    "layout": {
+      "contentSize": "1180px",
+      "wideSize": "1440px"
+    },
+    "color": {
+      "defaultPalette": false,
+      "defaultGradients": false,
+      "palette": [
+        { "slug": "nerv-black", "color": "#050403", "name": "NERV Black" },
+        { "slug": "nerv-panel", "color": "#0A0807", "name": "NERV Panel" },
+        { "slug": "nerv-red", "color": "#FF3B30", "name": "NERV Red" },
+        { "slug": "magi-green", "color": "#4ADE80", "name": "MAGI Green" },
+        { "slug": "amber", "color": "#FFB000", "name": "Amber" },
+        { "slug": "warm-white", "color": "#E8E4DC", "name": "Warm White" },
+        { "slug": "nerv-red-dim", "color": "#7F1C16", "name": "NERV Red Dim" },
+        { "slug": "magi-green-dim", "color": "#235C34", "name": "MAGI Green Dim" },
+        { "slug": "nerv-muted", "color": "#7F8F78", "name": "NERV Muted" }
+      ]
+    },
+    "typography": {
+      "defaultFontSizes": false,
+      "fontFamilies": [
+        {
+          "fontFamily": "\"JetBrains Mono\", \"Noto Sans SC\", monospace",
+          "slug": "terminal",
+          "name": "Terminal"
+        },
+        {
+          "fontFamily": "\"IBM Plex Sans\", \"Noto Sans SC\", sans-serif",
+          "slug": "sans",
+          "name": "Interface Sans"
+        }
+      ],
+      "fontSizes": [
+        { "slug": "xs", "size": "0.75rem", "name": "XS" },
+        { "slug": "sm", "size": "0.875rem", "name": "SM" },
+        { "slug": "base", "size": "1rem", "name": "Base" },
+        { "slug": "lg", "size": "1.125rem", "name": "LG" },
+        { "slug": "xl", "size": "1.5rem", "name": "XL" },
+        { "slug": "hero", "size": "clamp(1.75rem, 4vw, 2.75rem)", "name": "Hero" }
+      ]
+    },
+    "spacing": {
+      "spacingScale": {
+        "operator": "*",
+        "increment": 0.25,
+        "steps": 8,
+        "mediumStep": 1.5,
+        "unit": "rem"
+      }
+    }
+  },
+  "styles": {
+    "color": {
+      "background": "#050403",
+      "text": "#E8E4DC"
+    },
+    "typography": {
+      "fontFamily": "var:preset|font-family|terminal",
+      "lineHeight": "1.5"
+    },
+    "elements": {
+      "link": {
+        "color": {
+          "text": "#FFB000"
+        },
+        ":hover": {
+          "color": {
+            "text": "#4ADE80"
+          }
+        }
+      }
+    }
+  },
+  "templateParts": [
+    { "name": "header", "title": "Header", "area": "header" },
+    { "name": "footer", "title": "Footer", "area": "footer" }
+  ],
+  "customTemplates": [
+    { "name": "partners", "title": "Partners", "postTypes": ["page"] }
+  ]
+}
