@@ -9,6 +9,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+const NERV_CORE_SOCIAL_COVER_QUEUE_VERSION = '20260623-social-covers-v1';
+const NERV_CORE_SOCIAL_COVER_QUEUE_OPTION  = 'nerv_core_social_cover_queue';
+const NERV_CORE_SOCIAL_COVER_QUEUE_HOOK    = 'nerv_core_social_cover_queue_tick';
+
 function nerv_core_image_optimizer_default_options(): array {
 	return array(
 		'enabled'       => true,
@@ -204,6 +208,119 @@ function nerv_core_image_optimizer_social_cover_target( int $post_id ): array {
 function nerv_core_image_optimizer_social_cover_exists( int $post_id ): bool {
 	$target = nerv_core_image_optimizer_social_cover_target( $post_id );
 	return ! empty( $target['path'] ) && is_file( (string) $target['path'] );
+}
+
+add_action( 'wp_loaded', 'nerv_core_image_optimizer_maybe_queue_social_covers', 30 );
+function nerv_core_image_optimizer_maybe_queue_social_covers(): void {
+	if ( get_option( 'nerv_core_social_cover_queue_version' ) === NERV_CORE_SOCIAL_COVER_QUEUE_VERSION ) {
+		return;
+	}
+
+	nerv_core_image_optimizer_queue_social_covers( false );
+	update_option( 'nerv_core_social_cover_queue_version', NERV_CORE_SOCIAL_COVER_QUEUE_VERSION, false );
+}
+
+function nerv_core_image_optimizer_queue_social_covers( bool $force = false ): array {
+	$post_types = function_exists( 'nerv_core_geo_public_post_types' ) ? nerv_core_geo_public_post_types() : array( 'post', 'project' );
+	$ids = get_posts(
+		array(
+			'post_type'              => $post_types,
+			'post_status'            => 'publish',
+			'posts_per_page'         => 1000,
+			'fields'                 => 'ids',
+			'orderby'                => 'ID',
+			'order'                  => 'ASC',
+			'no_found_rows'          => true,
+			'update_post_meta_cache' => false,
+			'update_post_term_cache' => false,
+		)
+	);
+
+	$pending = array();
+	foreach ( $ids as $post_id ) {
+		$post_id = absint( $post_id );
+		if ( $post_id && ( $force || ! nerv_core_image_optimizer_social_cover_exists( $post_id ) ) ) {
+			$pending[] = $post_id;
+		}
+	}
+
+	$queue = array(
+		'status'    => $pending ? 'running' : 'complete',
+		'created'   => current_time( 'mysql' ),
+		'updated'   => current_time( 'mysql' ),
+		'total'     => count( $pending ),
+		'generated' => 0,
+		'skipped'   => 0,
+		'failed'    => 0,
+		'pending'   => $pending,
+	);
+	update_option( NERV_CORE_SOCIAL_COVER_QUEUE_OPTION, $queue, false );
+	nerv_core_image_optimizer_schedule_social_cover_queue();
+
+	return nerv_core_image_optimizer_social_cover_queue_status();
+}
+
+function nerv_core_image_optimizer_social_cover_queue_status(): array {
+	$queue = get_option( NERV_CORE_SOCIAL_COVER_QUEUE_OPTION, array() );
+	if ( ! is_array( $queue ) ) {
+		$queue = array();
+	}
+
+	$pending = array_values( array_filter( array_map( 'absint', (array) ( $queue['pending'] ?? array() ) ) ) );
+	$total = absint( $queue['total'] ?? count( $pending ) );
+	$generated = absint( $queue['generated'] ?? 0 );
+	$skipped = absint( $queue['skipped'] ?? 0 );
+	$failed = absint( $queue['failed'] ?? 0 );
+
+	return array(
+		'status'    => sanitize_key( (string) ( $queue['status'] ?? 'idle' ) ),
+		'total'     => $total,
+		'pending'   => count( $pending ),
+		'processed' => max( 0, $total - count( $pending ) ),
+		'generated' => $generated,
+		'skipped'   => $skipped,
+		'failed'    => $failed,
+		'updated'   => sanitize_text_field( (string) ( $queue['updated'] ?? '' ) ),
+	);
+}
+
+function nerv_core_image_optimizer_schedule_social_cover_queue(): void {
+	$status = nerv_core_image_optimizer_social_cover_queue_status();
+	if ( 'running' !== $status['status'] || 0 === $status['pending'] ) {
+		return;
+	}
+	if ( ! wp_next_scheduled( NERV_CORE_SOCIAL_COVER_QUEUE_HOOK ) ) {
+		wp_schedule_single_event( time() + 10, NERV_CORE_SOCIAL_COVER_QUEUE_HOOK );
+	}
+}
+
+add_action( NERV_CORE_SOCIAL_COVER_QUEUE_HOOK, 'nerv_core_image_optimizer_run_social_cover_queue' );
+function nerv_core_image_optimizer_run_social_cover_queue(): void {
+	$queue = get_option( NERV_CORE_SOCIAL_COVER_QUEUE_OPTION, array() );
+	if ( ! is_array( $queue ) || 'running' !== (string) ( $queue['status'] ?? '' ) ) {
+		return;
+	}
+
+	$pending = array_values( array_filter( array_map( 'absint', (array) ( $queue['pending'] ?? array() ) ) ) );
+	$batch = array_splice( $pending, 0, 20 );
+	foreach ( $batch as $post_id ) {
+		if ( nerv_core_image_optimizer_social_cover_exists( $post_id ) ) {
+			$queue['skipped'] = absint( $queue['skipped'] ?? 0 ) + 1;
+			continue;
+		}
+
+		if ( nerv_core_image_optimizer_social_cover_url( $post_id ) ) {
+			$queue['generated'] = absint( $queue['generated'] ?? 0 ) + 1;
+		} else {
+			$queue['failed'] = absint( $queue['failed'] ?? 0 ) + 1;
+		}
+	}
+
+	$queue['pending'] = $pending;
+	$queue['updated'] = current_time( 'mysql' );
+	$queue['status'] = $pending ? 'running' : 'complete';
+	update_option( NERV_CORE_SOCIAL_COVER_QUEUE_OPTION, $queue, false );
+	nerv_core_image_optimizer_schedule_social_cover_queue();
 }
 
 function nerv_core_image_optimizer_render_social_cover( WP_Post $post, string $path ): bool {

@@ -1911,6 +1911,7 @@ function nerv_core_control_tools_form_data( array $markdown_stats, array $partne
 			'webpEnabled' => function_exists( 'nerv_core_image_optimizer_options' ) && ! empty( nerv_core_image_optimizer_options()['enabled'] ),
 			'webpQuality' => function_exists( 'nerv_core_image_optimizer_options' ) ? absint( nerv_core_image_optimizer_options()['quality'] ?? 82 ) : 0,
 			'socialDir'   => sanitize_text_field( trailingslashit( (string) ( wp_get_upload_dir()['basedir'] ?? '' ) ) . 'nerv-social-covers' ),
+			'queue'       => function_exists( 'nerv_core_image_optimizer_social_cover_queue_status' ) ? nerv_core_image_optimizer_social_cover_queue_status() : array(),
 		),
 		'build'    => array(
 			'available' => is_file( $build_script ),
