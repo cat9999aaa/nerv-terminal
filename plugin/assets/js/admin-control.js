@@ -135,6 +135,9 @@
 			endpoint: source.endpoint || '',
 			apiKey: '',
 			model: source.model || '',
+			fallbackModels: Array.isArray( source.fallbackModels ) ? source.fallbackModels : [],
+			modelCache: Array.isArray( source.modelCache ) ? source.modelCache : [],
+			modelCacheTime: source.modelCacheTime || '',
 			promptTemplate: source.promptTemplate || '',
 			autoGenerate: !! source.autoGenerate,
 			keyPointsAuto: !! source.keyPointsAuto,
@@ -439,6 +442,7 @@
 		const formData = data.forms && data.forms.aiServices ? data.forms.aiServices : {};
 		const [ form, setForm ] = useState( cloneAiServicesForm( formData ) );
 		const [ saving, setSaving ] = useState( false );
+		const [ fetchingModels, setFetchingModels ] = useState( false );
 		const [ notice, setNotice ] = useState( '' );
 		const [ error, setError ] = useState( '' );
 		const status = formData.status || {};
@@ -449,6 +453,42 @@
 
 		function setField( key, value ) {
 			setForm( Object.assign( {}, form, { [ key ]: value } ) );
+		}
+
+		function fallbackText() {
+			return ( form.fallbackModels || [] ).join( '\n' );
+		}
+
+		function setFallbackText( value ) {
+			setField( 'fallbackModels', String( value || '' ).split( /[\r\n,]+/ ).map( function ( item ) {
+				return item.trim();
+			} ).filter( Boolean ) );
+		}
+
+		function fetchModels() {
+			setFetchingModels( true );
+			setNotice( '' );
+			setError( '' );
+			apiFetch( {
+				path: window.nervCoreControl ? window.nervCoreControl.aiModelsPath : '/nerv-core/v1/control-ai-models',
+				method: 'POST',
+				data: { endpoint: form.endpoint, apiKey: form.apiKey },
+			} )
+				.then( function ( response ) {
+					if ( response.dashboard ) {
+						props.onDashboardUpdate( response.dashboard );
+						setForm( cloneAiServicesForm( response.dashboard.forms.aiServices ) );
+					} else {
+						setField( 'modelCache', response.models || [] );
+					}
+					setNotice( response.message || __( 'Model list fetched and cached.', 'nerv-core' ) );
+				} )
+				.catch( function ( response ) {
+					setError( response && response.message ? response.message : __( 'Model list could not be fetched.', 'nerv-core' ) );
+				} )
+				.finally( function () {
+					setFetchingModels( false );
+				} );
 		}
 
 		function saveSettings() {
@@ -484,14 +524,14 @@
 				el(
 					'div',
 					{ className: 'nerv-control-panel__title' },
-					el( 'h3', null, __( 'NERV主题 · AI服务', 'nerv-core' ) ),
+					el( 'h3', null, __( 'NERV主题 · AI供应商', 'nerv-core' ) ),
 					el(
 						'span',
 						{ className: 'nerv-control-status-pill nerv-control-status-pill--' + ( status.ready ? 'green' : 'red' ) },
 						status.label || __( 'Not configured', 'nerv-core' )
 					)
 				),
-				el( 'p', { className: 'nerv-control-form-note' }, __( 'Configure an OpenAI-compatible endpoint for covers and editor KEY POINTS generation. API keys stay server-side and are never returned to this screen.', 'nerv-core' ) ),
+				el( 'p', { className: 'nerv-control-form-note' }, __( '统一设置 OpenAI 兼容 API 供应商。封面、摘要和 GEO 功能会使用这里的主模型与备用模型链。', 'nerv-core' ) ),
 				el(
 					'div',
 					{ className: 'nerv-control-ai-usage' },
@@ -549,6 +589,14 @@
 							setField( 'model', value );
 						},
 					} ),
+					el( TextareaControl, {
+						label: __( '备用模型', 'nerv-core' ),
+						value: fallbackText(),
+						rows: 4,
+						help: __( '每行一个备用模型。主模型失败、429、超时或返回格式错误时会立即切换。', 'nerv-core' ),
+						__nextHasNoMarginBottom: true,
+						onChange: setFallbackText,
+					} ),
 					el( TextControl, {
 						label: formData.hasApiKey ? __( 'API key · saved; enter a new value to replace', 'nerv-core' ) : __( 'API key', 'nerv-core' ),
 						type: 'password',
@@ -559,6 +607,30 @@
 							setField( 'apiKey', value );
 						},
 					} ),
+					el(
+						'div',
+						{ className: 'nerv-control-model-cache' },
+						el(
+							Button,
+							{ variant: 'secondary', isBusy: fetchingModels, disabled: fetchingModels || ! form.endpoint, onClick: fetchModels },
+							fetchingModels ? __( '正在获取模型...', 'nerv-core' ) : __( '获取模型列表并缓存', 'nerv-core' )
+						),
+						el( 'p', null, form.modelCache && form.modelCache.length ? __( '已缓存模型数量：', 'nerv-core' ) + String( form.modelCache.length ) + ( form.modelCacheTime ? ' / ' + form.modelCacheTime : '' ) : __( '还没有缓存模型列表。', 'nerv-core' ) ),
+						form.modelCache && form.modelCache.length ? el(
+							'div',
+							{ className: 'nerv-control-model-cache__list' },
+							form.modelCache.slice( 0, 24 ).map( function ( model ) {
+								return el( 'button', {
+									type: 'button',
+									className: 'button button-small',
+									key: model,
+									onClick: function () {
+										setField( 'model', model );
+									},
+								}, model );
+							} )
+						) : null
+					),
 					el( TextareaControl, {
 						label: __( 'Prompt template', 'nerv-core' ),
 						value: form.promptTemplate,
@@ -1463,6 +1535,8 @@
 		const [ error, setError ] = useState( '' );
 		const bots = formData.crawler && formData.crawler.bots ? formData.crawler.bots : [];
 		const resources = formData.resources || {};
+		const geoTitle = formData.geoTitle || {};
+		const titleCandidates = geoTitle.candidates || [];
 
 		function updateIndexNow( key, value ) {
 			setForm( Object.assign( {}, form, { indexnow: Object.assign( {}, form.indexnow, { [ key ]: value } ) } ) );
@@ -1642,6 +1716,44 @@
 						);
 					} )
 				),
+				el(
+					'div',
+					{ className: 'nerv-control-command-row' },
+					el(
+						'div',
+						null,
+						el( 'strong', null, __( 'GEO标题 slug 建议', 'nerv-core' ) ),
+						el( 'span', null, titleCandidates.length ? __( '发现需要优化的文章 slug。生成建议后进入文章 meta，等待审阅。', 'nerv-core' ) : __( '没有发现需要优化的文章 slug。', 'nerv-core' ) )
+					),
+					el(
+						Button,
+						{
+							variant: 'secondary',
+							isBusy: 'geo-title' === runningAction,
+							disabled: !! runningAction || saving || ! titleCandidates.length,
+							onClick: function () {
+								runGeoAction(
+									'geo-title',
+									window.nervCoreControl ? window.nervCoreControl.geoTitlePath : '/nerv-core/v1/control-geo-title-suggest',
+									__( 'GEO标题 slug 建议已生成。', 'nerv-core' )
+								);
+							},
+						},
+						__( '生成下一篇建议', 'nerv-core' )
+					)
+				),
+				titleCandidates.length ? el(
+					'ul',
+					{ className: 'nerv-control-geo-title-list' },
+					titleCandidates.slice( 0, 5 ).map( function ( row ) {
+						return el(
+							'li',
+							{ key: row.id },
+							el( 'strong', null, row.title || '' ),
+							el( 'span', null, ( row.reason || '' ) + ' / ' + ( row.slug || '' ) )
+						);
+					} )
+				) : null,
 				el(
 					'div',
 					{ className: 'nerv-control-command-row' },

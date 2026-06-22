@@ -14,6 +14,9 @@ function nerv_core_cover_default_options(): array {
 		'endpoint'         => '',
 		'api_key'          => '',
 		'model'            => '',
+		'fallback_models'  => array(),
+		'model_cache'      => array(),
+		'model_cache_time' => '',
 		'prompt_template'  => __( 'Create an original {ratio_label} editorial cover for "{title}". Use a refined retro terminal interface mood, crisp typography space, no logos, no franchise references, no triangles. Subtitle: {subtitle}. Category: {category}. Excerpt: {excerpt}.', 'nerv-core' ),
 		'auto_generate'    => false,
 		'key_points_auto'  => false,
@@ -31,6 +34,9 @@ function nerv_core_cover_options(): array {
 	$options['endpoint'] = esc_url_raw( (string) ( $options['endpoint'] ?? '' ) );
 	$options['api_key'] = nerv_core_cover_decrypt_secret( (string) ( $options['api_key'] ?? '' ) );
 	$options['model'] = sanitize_text_field( (string) ( $options['model'] ?? '' ) );
+	$options['fallback_models'] = nerv_core_ai_sanitize_model_list( $options['fallback_models'] ?? array() );
+	$options['model_cache'] = nerv_core_ai_sanitize_model_list( $options['model_cache'] ?? array() );
+	$options['model_cache_time'] = sanitize_text_field( (string) ( $options['model_cache_time'] ?? '' ) );
 	$options['prompt_template'] = sanitize_textarea_field( (string) ( $options['prompt_template'] ?? '' ) );
 	$options['auto_generate'] = ! empty( $options['auto_generate'] );
 	$options['key_points_auto'] = ! empty( $options['key_points_auto'] );
@@ -59,6 +65,9 @@ function nerv_core_cover_sanitize_options( $input ): array {
 		'endpoint'         => esc_url_raw( (string) ( $input['endpoint'] ?? '' ) ),
 		'api_key'          => $api_key,
 		'model'            => sanitize_text_field( (string) ( $input['model'] ?? '' ) ),
+		'fallback_models'  => nerv_core_ai_sanitize_model_list( $input['fallback_models'] ?? array() ),
+		'model_cache'      => nerv_core_ai_sanitize_model_list( $input['model_cache'] ?? ( $old_raw['model_cache'] ?? array() ) ),
+		'model_cache_time' => sanitize_text_field( (string) ( $input['model_cache_time'] ?? ( $old_raw['model_cache_time'] ?? '' ) ) ),
 		'prompt_template'  => sanitize_textarea_field( (string) ( $input['prompt_template'] ?? '' ) ),
 		'auto_generate'    => ! empty( $input['auto_generate'] ),
 		'key_points_auto'  => ! empty( $input['key_points_auto'] ),
@@ -118,6 +127,38 @@ function nerv_core_cover_decrypt_secret( string $value ): string {
 	$secret = openssl_decrypt( $ciphertext, 'aes-256-gcm', nerv_core_cover_secret_key(), OPENSSL_RAW_DATA, $iv, $tag );
 
 	return false === $secret ? '' : sanitize_text_field( $secret );
+}
+
+function nerv_core_ai_sanitize_model_list( $models ): array {
+	if ( is_string( $models ) ) {
+		$models = preg_split( '/[\r\n,]+/', $models );
+	}
+	if ( ! is_array( $models ) ) {
+		return array();
+	}
+
+	$clean = array();
+	foreach ( $models as $model ) {
+		$model = sanitize_text_field( (string) $model );
+		if ( '' === $model || in_array( $model, $clean, true ) ) {
+			continue;
+		}
+		$clean[] = $model;
+		if ( count( $clean ) >= 50 ) {
+			break;
+		}
+	}
+
+	return $clean;
+}
+
+function nerv_core_ai_model_chain( array $options ): array {
+	return nerv_core_ai_sanitize_model_list(
+		array_merge(
+			array( (string) ( $options['model'] ?? '' ) ),
+			(array) ( $options['fallback_models'] ?? array() )
+		)
+	);
 }
 
 add_action( 'admin_init', 'nerv_core_cover_register_settings' );
@@ -182,6 +223,7 @@ function nerv_core_cover_status(): array {
 	return array(
 		'ready'   => $ready,
 		'dryRun'  => ! empty( $options['dry_run'] ),
+		'models'  => count( nerv_core_ai_model_chain( $options ) ),
 		'label'   => $ready ? __( 'Configured', 'nerv-core' ) : __( 'Not configured', 'nerv-core' ),
 		'message' => $ready ? __( 'AI cover settings are present.', 'nerv-core' ) : __( 'Upload and SVG fallback covers remain active until API settings are completed.', 'nerv-core' ),
 	);
@@ -332,6 +374,7 @@ function nerv_core_cover_generate( int $post_id, string $source = 'manual', stri
 
 	$response = nerv_core_cover_request_image( $prompt, $options, $ratio );
 	if ( is_wp_error( $response ) ) {
+		nerv_core_ai_retry_maybe_schedule( 'cover', $post_id, array( 'source' => $source, 'ratio' => $ratio ), $response );
 		$result = nerv_core_cover_generation_result( 'error', $response->get_error_message(), '', 0, $prompt, $ratio, (string) $options['model'] );
 		nerv_core_cover_store_history( $post_id, array_merge( $result, array( 'source' => $source ) ) );
 		nerv_core_ai_usage_record( 'cover', 'error', true );
@@ -362,6 +405,76 @@ function nerv_core_cover_generate( int $post_id, string $source = 'manual', stri
 	nerv_core_ai_usage_record( 'cover', 'success', true );
 
 	return $result;
+}
+
+add_action( 'nerv_core_ai_retry_job', 'nerv_core_ai_retry_run_job', 10, 3 );
+function nerv_core_ai_retry_run_job( string $service, int $post_id, array $payload = array() ): void {
+	$service = sanitize_key( $service );
+	if ( 'cover' !== $service ) {
+		return;
+	}
+
+	$lock_key = 'nerv_core_ai_retry_lock_' . $service . '_' . $post_id;
+	if ( get_transient( $lock_key ) ) {
+		return;
+	}
+
+	set_transient( $lock_key, 1, 5 * MINUTE_IN_SECONDS );
+	nerv_core_cover_generate( $post_id, sanitize_key( (string) ( $payload['source'] ?? 'retry' ) ), (string) ( $payload['ratio'] ?? '' ) );
+	delete_transient( $lock_key );
+}
+
+function nerv_core_ai_retry_maybe_schedule( string $service, int $post_id, array $payload, WP_Error $error ): void {
+	$data = $error->get_error_data();
+	$status = is_array( $data ) ? absint( $data['status'] ?? 0 ) : 0;
+	if ( 429 !== $status && $status < 500 ) {
+		return;
+	}
+
+	$retry_after = is_array( $data ) ? (string) ( $data['retry_after'] ?? '' ) : '';
+	$delay = nerv_core_ai_retry_delay_seconds( $retry_after, $post_id );
+	$timestamp = time() + $delay;
+	$args = array( sanitize_key( $service ), $post_id, $payload );
+	if ( wp_next_scheduled( 'nerv_core_ai_retry_job', $args ) ) {
+		return;
+	}
+
+	wp_schedule_single_event( $timestamp, 'nerv_core_ai_retry_job', $args );
+	nerv_core_ai_retry_log( $service, $post_id, $delay, $error );
+}
+
+function nerv_core_ai_retry_delay_seconds( string $retry_after, int $post_id ): int {
+	if ( '' !== $retry_after ) {
+		if ( is_numeric( $retry_after ) ) {
+			return max( 60, min( DAY_IN_SECONDS, absint( $retry_after ) ) );
+		}
+		$time = strtotime( $retry_after );
+		if ( $time && $time > time() ) {
+			return max( 60, min( DAY_IN_SECONDS, $time - time() ) );
+		}
+	}
+
+	return min( 6 * HOUR_IN_SECONDS, 300 + ( $post_id % 180 ) );
+}
+
+function nerv_core_ai_retry_log( string $service, int $post_id, int $delay, WP_Error $error ): void {
+	$log = get_option( 'nerv_core_ai_retry_log', array() );
+	if ( ! is_array( $log ) ) {
+		$log = array();
+	}
+
+	array_unshift(
+		$log,
+		array(
+			'time'     => current_time( 'mysql' ),
+			'service'  => sanitize_key( $service ),
+			'post_id'  => absint( $post_id ),
+			'delay'    => absint( $delay ),
+			'message'  => sanitize_text_field( $error->get_error_message() ),
+		)
+	);
+
+	update_option( 'nerv_core_ai_retry_log', array_slice( $log, 0, 50 ), false );
 }
 
 function nerv_core_cover_restore_history( int $post_id, int $index ): array {
@@ -606,17 +719,52 @@ function nerv_core_key_points_clean_points( array $points ): array {
 }
 
 function nerv_core_key_points_request( string $prompt, array $options ) {
+	return nerv_core_ai_chat_request(
+		'You generate concise article key points. Return only a JSON array of strings.',
+		$prompt,
+		$options,
+		array(
+			'temperature' => 0.2,
+			'error_prefix' => 'nerv_key_points',
+		)
+	);
+}
+
+function nerv_core_ai_chat_request( string $system, string $user, array $options, array $args = array() ) {
+	$models = nerv_core_ai_model_chain( $options );
+	if ( ! $models ) {
+		return new WP_Error( (string) ( $args['error_prefix'] ?? 'nerv_ai' ) . '_no_model', __( 'AI model is not configured.', 'nerv-core' ) );
+	}
+
+	$last_error = null;
+	foreach ( $models as $index => $model ) {
+		$request_options = $options;
+		$request_options['model'] = $model;
+		$response = nerv_core_ai_chat_request_model( $system, $user, $request_options, $args );
+		if ( ! is_wp_error( $response ) ) {
+			if ( $index > 0 ) {
+				nerv_core_ai_fallback_log( (string) ( $args['service'] ?? 'chat' ), $models[0], $model, $last_error );
+			}
+			return $response;
+		}
+		$last_error = $response;
+	}
+
+	return $last_error instanceof WP_Error ? $last_error : new WP_Error( (string) ( $args['error_prefix'] ?? 'nerv_ai' ) . '_all_models_failed', __( 'All configured AI models failed.', 'nerv-core' ) );
+}
+
+function nerv_core_ai_chat_request_model( string $system, string $user, array $options, array $args = array() ) {
 	$body = array(
 		'model'       => (string) $options['model'],
-		'temperature' => 0.2,
+		'temperature' => (float) ( $args['temperature'] ?? 0.2 ),
 		'messages'    => array(
 			array(
 				'role'    => 'system',
-				'content' => 'You generate concise article key points. Return only a JSON array of strings.',
+				'content' => $system,
 			),
 			array(
 				'role'    => 'user',
-				'content' => $prompt,
+				'content' => $user,
 			),
 		),
 	);
@@ -639,12 +787,12 @@ function nerv_core_key_points_request( string $prompt, array $options ) {
 
 	$code = (int) wp_remote_retrieve_response_code( $response );
 	if ( $code < 200 || $code >= 300 ) {
-		return new WP_Error( 'nerv_key_points_http_error', sprintf( __( 'AI service returned HTTP %d.', 'nerv-core' ), $code ) );
+		return new WP_Error( (string) ( $args['error_prefix'] ?? 'nerv_ai' ) . '_http_error', sprintf( __( 'AI service returned HTTP %d.', 'nerv-core' ), $code ), nerv_core_ai_error_data_from_response( $response ) );
 	}
 
 	$data = json_decode( (string) wp_remote_retrieve_body( $response ), true );
 	if ( ! is_array( $data ) ) {
-		return new WP_Error( 'nerv_key_points_bad_json', __( 'AI service returned invalid JSON.', 'nerv-core' ) );
+		return new WP_Error( (string) ( $args['error_prefix'] ?? 'nerv_ai' ) . '_bad_json', __( 'AI service returned invalid JSON.', 'nerv-core' ) );
 	}
 
 	return $data;
@@ -718,6 +866,29 @@ function nerv_core_ai_response_output_text( array $output ): string {
 }
 
 function nerv_core_cover_request_image( string $prompt, array $options, string $ratio = '5x2' ) {
+	$models = nerv_core_ai_model_chain( $options );
+	if ( ! $models ) {
+		return new WP_Error( 'nerv_cover_no_model', __( 'AI model is not configured.', 'nerv-core' ) );
+	}
+
+	$last_error = null;
+	foreach ( $models as $index => $model ) {
+		$request_options = $options;
+		$request_options['model'] = $model;
+		$response = nerv_core_cover_request_image_model( $prompt, $request_options, $ratio );
+		if ( ! is_wp_error( $response ) ) {
+			if ( $index > 0 ) {
+				nerv_core_ai_fallback_log( 'cover', $models[0], $model, $last_error );
+			}
+			return $response;
+		}
+		$last_error = $response;
+	}
+
+	return $last_error instanceof WP_Error ? $last_error : new WP_Error( 'nerv_cover_all_models_failed', __( 'All configured AI models failed.', 'nerv-core' ) );
+}
+
+function nerv_core_cover_request_image_model( string $prompt, array $options, string $ratio = '5x2' ) {
 	$body = array(
 		'model'  => (string) $options['model'],
 		'prompt' => $prompt,
@@ -743,7 +914,7 @@ function nerv_core_cover_request_image( string $prompt, array $options, string $
 
 	$code = (int) wp_remote_retrieve_response_code( $response );
 	if ( $code < 200 || $code >= 300 ) {
-		return new WP_Error( 'nerv_cover_http_error', sprintf( __( 'AI service returned HTTP %d.', 'nerv-core' ), $code ) );
+		return new WP_Error( 'nerv_cover_http_error', sprintf( __( 'AI service returned HTTP %d.', 'nerv-core' ), $code ), nerv_core_ai_error_data_from_response( $response ) );
 	}
 
 	$data = json_decode( (string) wp_remote_retrieve_body( $response ), true );
@@ -752,6 +923,96 @@ function nerv_core_cover_request_image( string $prompt, array $options, string $
 	}
 
 	return $data;
+}
+
+function nerv_core_ai_error_data_from_response( array $response ): array {
+	$headers = wp_remote_retrieve_headers( $response );
+	$retry_after = '';
+	if ( is_object( $headers ) && method_exists( $headers, 'offsetGet' ) ) {
+		$retry_after = (string) ( $headers->offsetGet( 'retry-after' ) ?: '' );
+	} elseif ( is_array( $headers ) ) {
+		$retry_after = (string) ( $headers['retry-after'] ?? $headers['Retry-After'] ?? '' );
+	}
+
+	return array(
+		'status'      => (int) wp_remote_retrieve_response_code( $response ),
+		'retry_after' => sanitize_text_field( $retry_after ),
+		'body'        => wp_strip_all_tags( (string) wp_remote_retrieve_body( $response ) ),
+	);
+}
+
+function nerv_core_ai_fallback_log( string $service, string $primary_model, string $fallback_model, $last_error = null ): void {
+	$log = get_option( 'nerv_core_ai_fallback_log', array() );
+	if ( ! is_array( $log ) ) {
+		$log = array();
+	}
+
+	array_unshift(
+		$log,
+		array(
+			'time'     => current_time( 'mysql' ),
+			'service'  => sanitize_key( $service ),
+			'from'     => sanitize_text_field( $primary_model ),
+			'to'       => sanitize_text_field( $fallback_model ),
+			'message'  => $last_error instanceof WP_Error ? sanitize_text_field( $last_error->get_error_message() ) : '',
+		)
+	);
+
+	update_option( 'nerv_core_ai_fallback_log', array_slice( $log, 0, 50 ), false );
+}
+
+function nerv_core_ai_fetch_models( array $options ) {
+	$endpoint = (string) ( $options['endpoint'] ?? '' );
+	$api_key = (string) ( $options['api_key'] ?? '' );
+	if ( '' === $endpoint ) {
+		return new WP_Error( 'nerv_ai_models_no_endpoint', __( 'API endpoint is not configured.', 'nerv-core' ) );
+	}
+
+	$model_endpoint = preg_replace( '#/(chat/completions|images/generations|responses)$#', '/models', rtrim( $endpoint, '/' ) );
+	if ( $model_endpoint === rtrim( $endpoint, '/' ) ) {
+		$model_endpoint = trailingslashit( preg_replace( '#/v1/?$#', '/v1', rtrim( $endpoint, '/' ) ) ) . 'models';
+	}
+
+	$headers = array( 'Content-Type' => 'application/json' );
+	if ( '' !== $api_key ) {
+		$headers['Authorization'] = 'Bearer ' . $api_key;
+	}
+
+	$response = wp_remote_get(
+		$model_endpoint,
+		array(
+			'timeout' => 30,
+			'headers' => $headers,
+		)
+	);
+
+	if ( is_wp_error( $response ) ) {
+		return $response;
+	}
+
+	$code = (int) wp_remote_retrieve_response_code( $response );
+	$data = json_decode( (string) wp_remote_retrieve_body( $response ), true );
+	if ( $code < 200 || $code >= 300 ) {
+		return new WP_Error( 'nerv_ai_models_http_error', sprintf( __( 'Model list request returned HTTP %d.', 'nerv-core' ), $code ), nerv_core_ai_error_data_from_response( $response ) );
+	}
+	if ( ! is_array( $data ) ) {
+		return new WP_Error( 'nerv_ai_models_bad_json', __( 'Model list response is not valid JSON.', 'nerv-core' ) );
+	}
+
+	$models = array();
+	foreach ( (array) ( $data['data'] ?? $data['models'] ?? array() ) as $row ) {
+		if ( is_string( $row ) ) {
+			$models[] = $row;
+		} elseif ( is_array( $row ) && ! empty( $row['id'] ) ) {
+			$models[] = (string) $row['id'];
+		} elseif ( is_array( $row ) && ! empty( $row['name'] ) ) {
+			$models[] = (string) $row['name'];
+		}
+	}
+	$models = nerv_core_ai_sanitize_model_list( $models );
+	sort( $models );
+
+	return $models;
 }
 
 function nerv_core_cover_extract_image_payload( array $response ) {
@@ -1073,52 +1334,83 @@ function nerv_core_cover_svg_text_lines( string $text, int $max_chars, int $max_
 		return array();
 	}
 
-	$words = preg_split( '/\s+/u', $text ) ?: array();
-	if ( count( $words ) > 1 && function_exists( 'mb_strlen' ) ) {
-		$lines = array();
-		$line  = '';
-		foreach ( $words as $word ) {
-			$next = '' === $line ? $word : $line . ' ' . $word;
-			if ( mb_strlen( $next ) > $max_chars && '' !== $line ) {
-				$lines[] = $line;
-				$line = $word;
-				if ( count( $lines ) >= $max_lines ) {
-					break;
-				}
-				continue;
-			}
-			$line = $next;
-		}
-		if ( count( $lines ) < $max_lines && '' !== trim( $line ) ) {
-			$lines[] = trim( $line );
-		}
-
-		return array_slice( array_filter( $lines ), 0, $max_lines );
+	$tokens = preg_split( '/(\s+|(?<=[\x{4e00}-\x{9fff}])|(?=[\x{4e00}-\x{9fff}]))/u', $text, -1, PREG_SPLIT_NO_EMPTY );
+	if ( ! is_array( $tokens ) || ! $tokens ) {
+		$tokens = array( $text );
 	}
 
-	if ( function_exists( 'mb_str_split' ) && function_exists( 'mb_strlen' ) ) {
-		$chars = mb_str_split( $text );
-		$lines = array();
-		$line  = '';
-		foreach ( $chars as $char ) {
-			if ( mb_strlen( $line . $char ) > $max_chars ) {
-				$lines[] = trim( $line );
-				$line = $char;
-				if ( count( $lines ) >= $max_lines ) {
+	$lines = array();
+	$line  = '';
+	foreach ( $tokens as $token ) {
+		$token = trim( $token );
+		if ( '' === $token ) {
+			continue;
+		}
+		$joiner = ( '' === $line || preg_match( '/^[\x{4e00}-\x{9fff}[:punct:]]$/u', $token ) ) ? '' : ' ';
+		$next = $line . $joiner . $token;
+		if ( nerv_core_cover_svg_text_width( $next ) > $max_chars && '' !== $line ) {
+			$lines[] = trim( $line );
+			$line = $token;
+			if ( count( $lines ) >= $max_lines ) {
+				break;
+			}
+			while ( nerv_core_cover_svg_text_width( $line ) > $max_chars && function_exists( 'mb_substr' ) ) {
+				$cut = nerv_core_cover_svg_fit_prefix( $line, $max_chars );
+				if ( '' === $cut ) {
 					break;
 				}
-				continue;
+				$lines[] = $cut;
+				$line = trim( mb_substr( $line, mb_strlen( $cut ) ) );
+				if ( count( $lines ) >= $max_lines ) {
+					break 2;
+				}
 			}
-			$line .= $char;
+			continue;
 		}
-		if ( count( $lines ) < $max_lines && '' !== trim( $line ) ) {
-			$lines[] = trim( $line );
-		}
-
-		return array_slice( array_filter( $lines ), 0, $max_lines );
+		$line = $next;
+	}
+	if ( count( $lines ) < $max_lines && '' !== trim( $line ) ) {
+		$lines[] = trim( $line );
 	}
 
-	return array_slice( explode( "\n", wordwrap( $text, $max_chars, "\n", true ) ), 0, $max_lines );
+	return array_values( array_slice( array_filter( $lines ), 0, $max_lines ) );
+}
+
+function nerv_core_cover_svg_text_width( string $text ): float {
+	if ( ! function_exists( 'mb_str_split' ) ) {
+		return (float) strlen( $text );
+	}
+
+	$width = 0.0;
+	foreach ( mb_str_split( $text ) as $char ) {
+		if ( preg_match( '/[\x{4e00}-\x{9fff}]/u', $char ) ) {
+			$width += 1.75;
+		} elseif ( preg_match( '/[A-Z0-9@#%&MW]/u', $char ) ) {
+			$width += 1.1;
+		} elseif ( ' ' === $char ) {
+			$width += 0.55;
+		} else {
+			$width += 0.9;
+		}
+	}
+
+	return $width;
+}
+
+function nerv_core_cover_svg_fit_prefix( string $text, int $max_width ): string {
+	if ( ! function_exists( 'mb_str_split' ) ) {
+		return substr( $text, 0, max( 1, $max_width ) );
+	}
+
+	$out = '';
+	foreach ( mb_str_split( $text ) as $char ) {
+		if ( '' !== $out && nerv_core_cover_svg_text_width( $out . $char ) > $max_width ) {
+			break;
+		}
+		$out .= $char;
+	}
+
+	return trim( $out );
 }
 
 function nerv_core_cover_output_svg( int $post_id, string $ratio ): void {
@@ -1144,8 +1436,12 @@ function nerv_core_cover_output_svg( int $post_id, string $ratio ): void {
 	echo '<defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#111827"/><stop offset=".54" stop-color="#090706"/><stop offset="1" stop-color="#17210f"/></linearGradient><pattern id="scan" width="28" height="28" patternUnits="userSpaceOnUse"><path d="M0 27H28M27 0V28" stroke="#4ade80" stroke-opacity=".14"/></pattern></defs>';
 	echo '<rect width="100%" height="100%" fill="url(#g)"/><rect width="100%" height="100%" fill="url(#scan)"/>';
 	echo '<text x="' . esc_attr( (string) ( $width * 0.08 ) ) . '" y="' . esc_attr( (string) ( $height * 0.22 ) ) . '" fill="#ffb000" font-family="monospace" font-size="' . esc_attr( (string) max( 18, (int) ( $width * 0.024 ) ) ) . '">NERV COVER: 0x' . esc_html( $code ) . '</text>';
-	$title_size = max( 38, (int) ( $width * 0.046 ) );
-	$title_lines = nerv_core_cover_svg_text_lines( $title, '1x1' === $ratio ? 20 : 34, 3 );
+	$title_lines = nerv_core_cover_svg_text_lines( $title, '1x1' === $ratio ? 18 : 29, '1x1' === $ratio ? 4 : 3 );
+	$longest_title = 0.0;
+	foreach ( $title_lines as $line ) {
+		$longest_title = max( $longest_title, nerv_core_cover_svg_text_width( $line ) );
+	}
+	$title_size = max( 28, min( (int) ( $width * 0.046 ), (int) ( $width * 0.80 / max( 1, $longest_title ) * 1.45 ) ) );
 	foreach ( $title_lines as $index => $line ) {
 		echo '<text x="' . esc_attr( (string) ( $width * 0.08 ) ) . '" y="' . esc_attr( (string) ( $height * 0.42 + ( $index * $title_size * 1.15 ) ) ) . '" fill="#e8e4dc" font-family="monospace" font-size="' . esc_attr( (string) $title_size ) . '" font-weight="700">' . esc_html( $line ) . '</text>';
 	}

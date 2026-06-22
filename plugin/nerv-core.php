@@ -3,7 +3,7 @@
  * Plugin Name: NERV Core
  * Plugin URI: https://dashen.wang/
  * Description: Data and service layer for the NERV Terminal theme.
- * Version: 0.1.3
+ * Version: 0.1.4
  * Requires at least: 6.7
  * Requires PHP: 8.1
  * Author: Wang Dashen
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'NERV_CORE_VERSION', '0.1.3' );
+define( 'NERV_CORE_VERSION', '0.1.4' );
 define( 'NERV_CORE_DIR', plugin_dir_path( __FILE__ ) );
 define( 'NERV_CORE_URL', plugin_dir_url( __FILE__ ) );
 
@@ -35,6 +35,7 @@ require_once NERV_CORE_DIR . 'inc/cover-pipeline.php';
 require_once NERV_CORE_DIR . 'inc/geo-markdown.php';
 require_once NERV_CORE_DIR . 'inc/geo-score.php';
 require_once NERV_CORE_DIR . 'inc/geo-crawler-stats.php';
+require_once NERV_CORE_DIR . 'inc/geo-title.php';
 require_once NERV_CORE_DIR . 'inc/ai-policy.php';
 require_once NERV_CORE_DIR . 'inc/indexnow.php';
 require_once NERV_CORE_DIR . 'inc/related-engine.php';

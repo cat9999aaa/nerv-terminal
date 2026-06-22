@@ -2153,6 +2153,82 @@
 	background: #f6f7f7;
 }
 
+.nerv-control-wrap,
+.nerv-control-wrap .nerv-control-shell,
+.nerv-control-wrap .nerv-control-hero,
+.nerv-control-wrap .nerv-control-panel,
+.nerv-control-wrap .nerv-control-metric,
+.nerv-control-wrap .nerv-control-identity,
+.nerv-control-wrap .nerv-control-health__item,
+.nerv-control-wrap .nerv-control-activity li,
+.nerv-control-wrap .nerv-control-model-cache {
+	background: #fff;
+	color: #1d2327;
+	border-color: #dcdcde;
+	box-shadow: none;
+}
+
+.nerv-control-wrap .nerv-control-hero {
+	background: #f6f7f7;
+}
+
+.nerv-control-wrap h1,
+.nerv-control-wrap h2,
+.nerv-control-wrap h3,
+.nerv-control-wrap h4,
+.nerv-control-wrap strong,
+.nerv-control-wrap label,
+.nerv-control-wrap .components-base-control__label {
+	color: #1d2327;
+	letter-spacing: 0;
+}
+
+.nerv-control-wrap p,
+.nerv-control-wrap span,
+.nerv-control-wrap small,
+.nerv-control-wrap em,
+.nerv-control-wrap .nerv-control-form-note {
+	color: #50575e;
+}
+
+.nerv-control-wrap input,
+.nerv-control-wrap textarea,
+.nerv-control-wrap select {
+	background: #fff;
+	color: #1d2327;
+	border-color: #8c8f94;
+}
+
+.nerv-control-wrap .nerv-control-model-cache {
+	padding: 12px;
+	border: 1px solid #dcdcde;
+	border-radius: 6px;
+}
+
+.nerv-control-wrap .nerv-control-model-cache__list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+	margin-top: 10px;
+}
+
+.nerv-control-wrap .nerv-control-geo-title-list {
+	display: grid;
+	gap: 8px;
+	margin: 0 0 16px;
+	padding: 0;
+	list-style: none;
+}
+
+.nerv-control-wrap .nerv-control-geo-title-list li {
+	display: grid;
+	gap: 3px;
+	padding: 10px 12px;
+	border: 1px solid #dcdcde;
+	border-radius: 6px;
+	background: #fff;
+}
+
 @media (max-width: 782px) {
 	.nerv-update-grid {
 		grid-template-columns: 1fr;

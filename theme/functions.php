@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'NERV_TERMINAL_VERSION', '0.1.3' );
+define( 'NERV_TERMINAL_VERSION', '0.1.4' );
 define( 'NERV_TERMINAL_DIR', get_template_directory() );
 define( 'NERV_TERMINAL_URI', get_template_directory_uri() );
 
@@ -278,6 +278,61 @@ function nerv_terminal_register_runtime_routes(): void {
 	foreach ( array( 'blog', 'about', 'gallery', 'contact', 'partners', 'projects' ) as $view ) {
 		add_rewrite_rule( '^' . $view . '/?$', 'index.php?nerv_view=' . $view, 'top' );
 		add_rewrite_rule( '^' . $view . '/page/([0-9]+)/?$', 'index.php?nerv_view=' . $view . '&paged=$matches[1]', 'top' );
+	}
+}
+
+add_action( 'pre_get_posts', 'nerv_terminal_prepare_runtime_view_query', 0 );
+function nerv_terminal_prepare_runtime_view_query( WP_Query $query ): void {
+	if ( is_admin() || ! $query->is_main_query() ) {
+		return;
+	}
+
+	$view = sanitize_key( (string) $query->get( 'nerv_view' ) );
+	if ( ! in_array( $view, array( 'blog', 'projects', 'partners' ), true ) ) {
+		return;
+	}
+
+	$paged = max( 1, absint( $query->get( 'paged' ) ?: $query->get( 'page' ) ) );
+	$query->set( 'paged', $paged );
+	$query->set( 'page', 0 );
+	$query->set( 'post_status', 'publish' );
+	$query->set( 'ignore_sticky_posts', 'blog' === $view ? false : true );
+
+	if ( 'blog' === $view ) {
+		$query->set( 'post_type', 'post' );
+		$query->set( 'posts_per_page', max( 1, (int) get_option( 'posts_per_page', 10 ) ) );
+	} elseif ( 'projects' === $view ) {
+		$query->set( 'post_type', post_type_exists( 'project' ) ? 'project' : 'post' );
+		$query->set( 'posts_per_page', 12 );
+	} elseif ( 'partners' === $view ) {
+		$query->set( 'post_type', post_type_exists( 'partner' ) ? 'partner' : 'post' );
+		$query->set( 'posts_per_page', 12 );
+	}
+
+	$query->is_home     = false;
+	$query->is_archive  = true;
+	$query->is_post_type_archive = false;
+	$query->is_page     = false;
+	$query->is_singular = false;
+	$query->is_404      = false;
+}
+
+add_action( 'wp', 'nerv_terminal_clear_runtime_view_404', 0 );
+function nerv_terminal_clear_runtime_view_404(): void {
+	global $wp_query;
+
+	if ( ! $wp_query instanceof WP_Query ) {
+		return;
+	}
+
+	$view = sanitize_key( (string) get_query_var( 'nerv_view' ) );
+	if ( ! in_array( $view, array( 'blog', 'projects', 'partners' ), true ) ) {
+		return;
+	}
+
+	if ( $wp_query->is_404() && ( $wp_query->have_posts() || nerv_terminal_view_max_pages( $view ) > 0 ) ) {
+		$wp_query->is_404 = false;
+		status_header( 200 );
 	}
 }
 

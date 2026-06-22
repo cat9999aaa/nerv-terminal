@@ -56,7 +56,7 @@ function nerv_core_admin_pages(): array {
 		'seo'        => array( 'title' => 'NERV主题 · SEO', 'menu' => 'NERV主题 · SEO', 'description' => '设置主题 Meta、Open Graph 图片、SEO 插件接管和 Markdown 索引。' ),
 		'geo'        => array( 'title' => 'NERV主题 · GEO', 'menu' => 'NERV主题 · GEO', 'description' => '管理 llms.txt、IndexNow、AI 爬虫监控和机器可读资源。' ),
 		'effects'    => array( 'title' => 'NERV主题 · 特效', 'menu' => 'NERV主题 · 特效', 'description' => '调整前端网格、扫描线、辉光、动效和移动端特效强度。' ),
-		'ai'         => array( 'title' => 'NERV主题 · AI服务', 'menu' => 'NERV主题 · AI服务', 'description' => '设置 AI 封面接口、提示词、自动生成和试运行模式。' ),
+		'ai'         => array( 'title' => 'NERV主题 · AI供应商', 'menu' => 'NERV主题 · AI供应商', 'description' => '统一设置 AI API 供应商、模型缓存、备用模型和自动生成模式。' ),
 		'updates'    => array( 'title' => 'NERV主题 · 在线更新', 'menu' => 'NERV主题 · 在线更新', 'description' => '检查 GitHub Releases，查看更新说明，并使用 WordPress 原生升级主题和插件。' ),
 		'tools'      => array( 'title' => 'NERV主题 · 工具', 'menu' => 'NERV主题 · 工具', 'description' => '运行缓存刷新、演示数据导入、发布审计和设置预设工具。' ),
 	);
@@ -111,6 +111,7 @@ function nerv_core_enqueue_admin_control_assets( string $hook_suffix ): void {
 			'seoPath'        => '/nerv-core/v1/control-seo',
 			'panelsPath'     => '/nerv-core/v1/control-panels',
 			'aiServicesPath' => '/nerv-core/v1/control-ai-services',
+			'aiModelsPath'   => '/nerv-core/v1/control-ai-models',
 			'articlesPath'   => '/nerv-core/v1/control-articles',
 			'mobilePath'     => '/nerv-core/v1/control-mobile',
 			'socialPath'     => '/nerv-core/v1/control-social',
@@ -119,6 +120,7 @@ function nerv_core_enqueue_admin_control_assets( string $hook_suffix ): void {
 				'appearancePath' => '/nerv-core/v1/control-appearance',
 				'partnersPath'   => '/nerv-core/v1/control-partners',
 			'aiPolicyPath'   => '/nerv-core/v1/control-ai-policy-generate',
+			'geoTitlePath'   => '/nerv-core/v1/control-geo-title-suggest',
 			'indexnowPath'   => '/nerv-core/v1/control-indexnow-test',
 			'partnerTestPath'=> '/nerv-core/v1/control-partner-health-test',
 			'toolsActionPath'=> '/nerv-core/v1/control-tools-action',
@@ -165,6 +167,18 @@ function nerv_core_register_control_rest(): void {
 		array(
 			'methods'             => WP_REST_Server::CREATABLE,
 			'callback'            => 'nerv_core_rest_control_ai_services_save',
+			'permission_callback' => static function (): bool {
+				return current_user_can( 'manage_options' );
+			},
+		)
+	);
+
+	register_rest_route(
+		'nerv-core/v1',
+		'/control-ai-models',
+		array(
+			'methods'             => WP_REST_Server::CREATABLE,
+			'callback'            => 'nerv_core_rest_control_ai_models_fetch',
 			'permission_callback' => static function (): bool {
 				return current_user_can( 'manage_options' );
 			},
@@ -305,6 +319,18 @@ function nerv_core_register_control_rest(): void {
 
 	register_rest_route(
 		'nerv-core/v1',
+		'/control-geo-title-suggest',
+		array(
+			'methods'             => WP_REST_Server::CREATABLE,
+			'callback'            => 'nerv_core_rest_control_geo_title_suggest',
+			'permission_callback' => static function (): bool {
+				return current_user_can( 'manage_options' );
+			},
+		)
+	);
+
+	register_rest_route(
+		'nerv-core/v1',
 		'/control-indexnow-test',
 		array(
 			'methods'             => WP_REST_Server::CREATABLE,
@@ -419,6 +445,7 @@ function nerv_core_rest_control_ai_services_save( WP_REST_Request $request ): WP
 		'endpoint'        => (string) ( $params['endpoint'] ?? '' ),
 		'api_key'         => (string) ( $params['apiKey'] ?? '' ),
 		'model'           => (string) ( $params['model'] ?? '' ),
+		'fallback_models' => (array) ( $params['fallbackModels'] ?? array() ),
 		'prompt_template' => (string) ( $params['promptTemplate'] ?? '' ),
 		'auto_generate'   => ! empty( $params['autoGenerate'] ),
 		'key_points_auto' => ! empty( $params['keyPointsAuto'] ),
@@ -430,6 +457,58 @@ function nerv_core_rest_control_ai_services_save( WP_REST_Request $request ): WP
 	return new WP_REST_Response(
 		array(
 			'message'   => __( 'AI Services settings saved.', 'nerv-core' ),
+			'dashboard' => nerv_core_control_dashboard_data(),
+		)
+	);
+}
+
+function nerv_core_rest_control_ai_models_fetch( WP_REST_Request $request ): WP_REST_Response {
+	if ( ! function_exists( 'nerv_core_cover_options' ) || ! function_exists( 'nerv_core_ai_fetch_models' ) ) {
+		return new WP_REST_Response( array( 'message' => __( 'AI model fetcher is unavailable.', 'nerv-core' ) ), 500 );
+	}
+
+	$params = $request->get_json_params();
+	if ( ! is_array( $params ) ) {
+		$params = $request->get_params();
+	}
+
+	$options = nerv_core_cover_options();
+	$endpoint = esc_url_raw( (string) ( $params['endpoint'] ?? $options['endpoint'] ?? '' ) );
+	$api_key = sanitize_text_field( (string) ( $params['apiKey'] ?? '' ) );
+	if ( '' === $api_key ) {
+		$api_key = (string) ( $options['api_key'] ?? '' );
+	}
+	$options['endpoint'] = $endpoint;
+	$options['api_key'] = $api_key;
+
+	$models = nerv_core_ai_fetch_models( $options );
+	if ( is_wp_error( $models ) ) {
+		return new WP_REST_Response(
+			array(
+				'message' => $models->get_error_message(),
+				'data'    => $models->get_error_data(),
+			),
+			400
+		);
+	}
+
+	$raw = get_option( 'nerv_core_cover_options', array() );
+	if ( ! is_array( $raw ) ) {
+		$raw = array();
+	}
+	$raw['endpoint'] = $endpoint;
+	$raw['model_cache'] = $models;
+	$raw['model_cache_time'] = current_time( 'mysql' );
+	if ( '' !== (string) ( $params['apiKey'] ?? '' ) ) {
+		$raw['api_key'] = nerv_core_cover_encrypt_secret( $api_key );
+	}
+	update_option( 'nerv_core_cover_options', nerv_core_cover_sanitize_options( $raw ), false );
+
+	return new WP_REST_Response(
+		array(
+			'message'   => sprintf( __( 'Fetched and cached %d models.', 'nerv-core' ), count( $models ) ),
+			'models'    => $models,
+			'cachedAt'  => $raw['model_cache_time'],
 			'dashboard' => nerv_core_control_dashboard_data(),
 		)
 	);
@@ -842,6 +921,31 @@ function nerv_core_rest_control_ai_policy_generate(): WP_REST_Response {
 				'pageId' => $page_id,
 				'url'    => nerv_core_ai_policy_url(),
 			),
+			'dashboard' => nerv_core_control_dashboard_data(),
+		)
+	);
+}
+
+function nerv_core_rest_control_geo_title_suggest(): WP_REST_Response {
+	if ( ! function_exists( 'nerv_core_geo_title_suggest_next' ) ) {
+		return new WP_REST_Response( array( 'message' => 'GEO 标题功能不可用。' ), 500 );
+	}
+
+	$result = nerv_core_geo_title_suggest_next();
+	if ( is_wp_error( $result ) ) {
+		return new WP_REST_Response(
+			array(
+				'message' => $result->get_error_message(),
+				'data'    => $result->get_error_data(),
+			),
+			400
+		);
+	}
+
+	return new WP_REST_Response(
+		array(
+			'message'   => sprintf( '已为《%s》生成 slug 建议：%s', (string) ( $result['title'] ?? '' ), (string) ( $result['suggested'] ?? '' ) ),
+			'result'    => $result,
 			'dashboard' => nerv_core_control_dashboard_data(),
 		)
 	);
@@ -1384,6 +1488,9 @@ function nerv_core_control_ai_services_form_data( array $cover_options, array $c
 	return array(
 		'endpoint'       => esc_url_raw( (string) ( $cover_options['endpoint'] ?? '' ) ),
 		'model'          => sanitize_text_field( (string) ( $cover_options['model'] ?? '' ) ),
+		'fallbackModels' => function_exists( 'nerv_core_ai_sanitize_model_list' ) ? nerv_core_ai_sanitize_model_list( $cover_options['fallback_models'] ?? array() ) : array(),
+		'modelCache'     => function_exists( 'nerv_core_ai_sanitize_model_list' ) ? nerv_core_ai_sanitize_model_list( $cover_options['model_cache'] ?? array() ) : array(),
+		'modelCacheTime' => sanitize_text_field( (string) ( $cover_options['model_cache_time'] ?? '' ) ),
 		'promptTemplate' => sanitize_textarea_field( (string) ( $cover_options['prompt_template'] ?? '' ) ),
 		'autoGenerate'   => ! empty( $cover_options['auto_generate'] ),
 		'keyPointsAuto'  => ! empty( $cover_options['key_points_auto'] ),
@@ -1392,6 +1499,7 @@ function nerv_core_control_ai_services_form_data( array $cover_options, array $c
 		'status'         => array(
 			'ready'   => ! empty( $cover_status['ready'] ),
 			'dryRun'  => ! empty( $cover_status['dryRun'] ),
+			'models'  => absint( $cover_status['models'] ?? 0 ),
 			'label'   => (string) ( $cover_status['label'] ?? '' ),
 			'message' => (string) ( $cover_status['message'] ?? '' ),
 		),
@@ -1522,6 +1630,9 @@ function nerv_core_control_geo_form_data( array $indexnow_options, array $crawle
 			'aiPolicy'   => function_exists( 'nerv_core_ai_policy_url' ) ? nerv_core_ai_policy_url() : home_url( '/ai-policy/' ),
 			'policyReady'=> $policy_exists,
 			'markdown'   => $markdown_stats,
+		),
+		'geoTitle' => array(
+			'candidates' => function_exists( 'nerv_core_geo_title_candidate_posts' ) ? nerv_core_geo_title_candidate_posts( 8 ) : array(),
 		),
 	);
 }
@@ -1741,7 +1852,7 @@ function nerv_core_control_tabs(): array {
 		array( 'id' => 'seo', 'label' => 'SEO', 'status' => 'partial' ),
 		array( 'id' => 'geo', 'label' => 'GEO', 'status' => 'partial' ),
 		array( 'id' => 'effects', 'label' => '特效', 'status' => 'partial' ),
-		array( 'id' => 'ai', 'label' => 'AI服务', 'status' => 'partial' ),
+		array( 'id' => 'ai', 'label' => 'AI供应商', 'status' => 'partial' ),
 		array( 'id' => 'tools', 'label' => '工具', 'status' => 'partial' ),
 	);
 }

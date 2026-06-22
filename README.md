@@ -55,8 +55,8 @@ bash build.sh --split
 
 The split build produces:
 
-- `dist/nerv-terminal-theme-0.1.3.zip`
-- `dist/nerv-core-plugin-0.1.3.zip`
+- `dist/nerv-terminal-theme-0.1.4.zip`
+- `dist/nerv-core-plugin-0.1.4.zip`
 
 ## Online Updates
 
