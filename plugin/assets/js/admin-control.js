@@ -56,7 +56,7 @@
 
 	function stepItem( step, index, handlers ) {
 		handlers = handlers || {};
-		const actionLabel = step.button || ( step.action ? __( 'Run step', 'nerv-core' ) : __( 'Open step', 'nerv-core' ) );
+		const actionLabel = step.button || ( step.action ? __( '执行步骤', 'nerv-core' ) : __( '打开步骤', 'nerv-core' ) );
 		const sectionLinks = window.nervCoreControl && window.nervCoreControl.sectionLinks ? window.nervCoreControl.sectionLinks : [];
 		const targetLink = step.tab ? sectionLinks.find( function ( item ) {
 			return item.id === step.tab;
@@ -125,7 +125,7 @@
 						{ className: 'nerv-control-activity' },
 						rows.map( renderer )
 				  )
-				: el( 'p', { className: 'nerv-control-empty' }, __( 'No records yet.', 'nerv-core' ) )
+				: el( 'p', { className: 'nerv-control-empty' }, __( '暂无记录。', 'nerv-core' ) )
 		);
 	}
 
@@ -665,13 +665,13 @@
 			el(
 				'section',
 				{ className: 'nerv-control-panel nerv-control-panel--form' },
-				el( 'div', { className: 'nerv-control-panel__title' }, el( 'h3', null, __( 'NERV主题 · AI供应商', 'nerv-core' ) ), el( 'span', { className: 'nerv-control-status-pill nerv-control-status-pill--' + ( status.ready ? 'green' : 'red' ) }, status.label || __( 'Not configured', 'nerv-core' ) ) ),
+				el( 'div', { className: 'nerv-control-panel__title' }, el( 'h3', null, __( 'NERV主题 · AI供应商', 'nerv-core' ) ), el( 'span', { className: 'nerv-control-status-pill nerv-control-status-pill--' + ( status.ready ? 'green' : 'red' ) }, status.label || __( '未配置', 'nerv-core' ) ) ),
 				el( 'p', { className: 'nerv-control-form-note' }, __( '可以添加多个 OpenAI 兼容供应商。文本模型和图片模型分开设置，模型列表获取后会缓存到对应供应商。', 'nerv-core' ) ),
 				el( 'div', { className: 'nerv-control-ai-usage' },
-					el( 'div', null, el( 'span', null, __( 'This month', 'nerv-core' ) ), el( 'strong', null, String( usage.month || '-' ) ) ),
-					el( 'div', null, el( 'span', null, __( 'AI actions', 'nerv-core' ) ), el( 'strong', null, String( usage.total || 0 ) ) ),
-					el( 'div', null, el( 'span', null, __( 'External calls', 'nerv-core' ) ), el( 'strong', null, String( usage.external || 0 ) ) ),
-					el( 'div', null, el( 'span', null, __( 'Covers / KEY POINTS', 'nerv-core' ) ), el( 'strong', null, String( coverUsage.total || 0 ) + ' / ' + String( keyPointsUsage.total || 0 ) ) )
+					el( 'div', null, el( 'span', null, __( '本月', 'nerv-core' ) ), el( 'strong', null, String( usage.month || '-' ) ) ),
+					el( 'div', null, el( 'span', null, __( 'AI 操作', 'nerv-core' ) ), el( 'strong', null, String( usage.total || 0 ) ) ),
+					el( 'div', null, el( 'span', null, __( '外部调用', 'nerv-core' ) ), el( 'strong', null, String( usage.external || 0 ) ) ),
+					el( 'div', null, el( 'span', null, __( '封面 / 要点', 'nerv-core' ) ), el( 'strong', null, String( coverUsage.total || 0 ) + ' / ' + String( keyPointsUsage.total || 0 ) ) )
 				),
 				notice ? el( Notice, { status: 'success', isDismissible: true, onRemove: function () { setNotice( '' ); } }, notice ) : null,
 				error ? el( Notice, { status: 'warning', isDismissible: false }, error ) : null,
@@ -694,14 +694,14 @@
 				el( 'div', { className: 'nerv-control-form-grid' },
 					featurePanel( __( '文本模型', 'nerv-core' ), 'textFeature', __( '用于 KEY POINTS、GEO 标题、后续文本类 AI 功能。', 'nerv-core' ) ),
 					featurePanel( __( '图片模型', 'nerv-core' ), 'imageFeature', __( '用于 AI 封面生成。', 'nerv-core' ) ),
-					el( TextareaControl, { label: __( '封面 Prompt 模板', 'nerv-core' ), value: form.promptTemplate, rows: 4, help: __( 'Available placeholders: {title}, {subtitle}, {excerpt}, {category}.', 'nerv-core' ), __nextHasNoMarginBottom: true, onChange: function ( value ) { setField( 'promptTemplate', value ); } } )
+					el( TextareaControl, { label: __( '封面 Prompt 模板', 'nerv-core' ), value: form.promptTemplate, rows: 4, help: __( '可用占位符：{title}、{subtitle}、{excerpt}、{category}。', 'nerv-core' ), __nextHasNoMarginBottom: true, onChange: function ( value ) { setField( 'promptTemplate', value ); } } )
 				),
 				el( 'div', { className: 'nerv-control-switches' },
-					el( CheckboxControl, { label: __( 'Dry-run AI calls until production credentials are ready', 'nerv-core' ), checked: form.dryRun, __nextHasNoMarginBottom: true, onChange: function ( value ) { setField( 'dryRun', value ); } } ),
-					el( CheckboxControl, { label: __( 'Auto-generate covers when no featured image exists', 'nerv-core' ), checked: form.autoGenerate, __nextHasNoMarginBottom: true, onChange: function ( value ) { setField( 'autoGenerate', value ); } } ),
-					el( CheckboxControl, { label: __( 'Enable KEY POINTS AI generation', 'nerv-core' ), checked: form.keyPointsAuto, __nextHasNoMarginBottom: true, onChange: function ( value ) { setField( 'keyPointsAuto', value ); } } )
+					el( CheckboxControl, { label: __( '生产密钥就绪前使用 AI 试运行', 'nerv-core' ), checked: form.dryRun, __nextHasNoMarginBottom: true, onChange: function ( value ) { setField( 'dryRun', value ); } } ),
+					el( CheckboxControl, { label: __( '没有特色图时自动生成封面', 'nerv-core' ), checked: form.autoGenerate, __nextHasNoMarginBottom: true, onChange: function ( value ) { setField( 'autoGenerate', value ); } } ),
+					el( CheckboxControl, { label: __( '启用 KEY POINTS AI 生成', 'nerv-core' ), checked: form.keyPointsAuto, __nextHasNoMarginBottom: true, onChange: function ( value ) { setField( 'keyPointsAuto', value ); } } )
 				),
-				el( 'div', { className: 'nerv-control-actions' }, el( Button, { variant: 'primary', isBusy: saving, disabled: saving, onClick: saveSettings }, saving ? __( 'Saving...', 'nerv-core' ) : __( '保存 AI 供应商', 'nerv-core' ) ) )
+				el( 'div', { className: 'nerv-control-actions' }, el( Button, { variant: 'primary', isBusy: saving, disabled: saving, onClick: saveSettings }, saving ? __( '保存中...', 'nerv-core' ) : __( '保存 AI 供应商', 'nerv-core' ) ) )
 			)
 		);
 	}
@@ -720,13 +720,13 @@
 
 		function selectMedia( key, title ) {
 			if ( ! window.wp || ! window.wp.media ) {
-				setError( __( 'WordPress media library is unavailable.', 'nerv-core' ) );
+				setError( __( 'WordPress 媒体库不可用。', 'nerv-core' ) );
 				return;
 			}
 
 			const frame = window.wp.media( {
 				title: title,
-				button: { text: __( 'Use this image', 'nerv-core' ) },
+				button: { text: __( '使用这张图片', 'nerv-core' ) },
 				multiple: false,
 				library: { type: 'image' },
 			} );
@@ -761,7 +761,7 @@
 				el(
 					'label',
 					{ className: 'nerv-control-select-field' },
-					el( 'span', null, label + ' ' + __( 'fit', 'nerv-core' ) ),
+					el( 'span', null, label + ' ' + __( '适配', 'nerv-core' ) ),
 					el(
 						'select',
 						{
@@ -770,14 +770,14 @@
 								setField( fitKey, event.target.value );
 							},
 						},
-						el( 'option', { value: 'contain' }, __( 'Contain', 'nerv-core' ) ),
-						el( 'option', { value: 'cover' }, __( 'Cover crop', 'nerv-core' ) )
+						el( 'option', { value: 'contain' }, __( '完整显示', 'nerv-core' ) ),
+						el( 'option', { value: 'cover' }, __( '裁切铺满', 'nerv-core' ) )
 					)
 				),
 				el(
 					'label',
 					{ className: 'nerv-control-range-field' },
-					el( 'span', null, __( 'Focal X', 'nerv-core' ) + ': ' + String( form[ focusXKey ] ) + '%' ),
+					el( 'span', null, __( '焦点 X', 'nerv-core' ) + ': ' + String( form[ focusXKey ] ) + '%' ),
 					el( 'input', {
 						type: 'range',
 						min: '0',
@@ -792,7 +792,7 @@
 				el(
 					'label',
 					{ className: 'nerv-control-range-field' },
-					el( 'span', null, __( 'Focal Y', 'nerv-core' ) + ': ' + String( form[ focusYKey ] ) + '%' ),
+					el( 'span', null, __( '焦点 Y', 'nerv-core' ) + ': ' + String( form[ focusYKey ] ) + '%' ),
 					el( 'input', {
 						type: 'range',
 						min: '0',
@@ -814,15 +814,15 @@
 				objectPosition: String( form.pwaIconFocusX ) + '% ' + String( form.pwaIconFocusY ) + '%',
 			};
 			const tiles = [
-				{ key: 'manifest-small', label: __( 'Manifest small', 'nerv-core' ), size: form.pwaIconSmallSize, note: __( 'baseline install', 'nerv-core' ) },
-				{ key: 'manifest-large', label: __( 'Manifest large', 'nerv-core' ), size: form.pwaIconLargeSize, note: __( 'store surface', 'nerv-core' ) },
-				{ key: 'apple-touch', label: __( 'Apple touch', 'nerv-core' ), size: form.pwaIconAppleSize, note: __( 'iOS home screen', 'nerv-core' ) },
+				{ key: 'manifest-small', label: __( 'Manifest 小图标', 'nerv-core' ), size: form.pwaIconSmallSize, note: __( '基础安装', 'nerv-core' ) },
+				{ key: 'manifest-large', label: __( 'Manifest 大图标', 'nerv-core' ), size: form.pwaIconLargeSize, note: __( '商店展示', 'nerv-core' ) },
+				{ key: 'apple-touch', label: __( 'Apple 触摸图标', 'nerv-core' ), size: form.pwaIconAppleSize, note: __( 'iOS 主屏幕', 'nerv-core' ) },
 			];
 
 			return el(
 				'div',
 				{ className: 'nerv-control-pwa-preview' },
-				el( 'span', null, __( 'PWA icon preview', 'nerv-core' ) ),
+				el( 'span', null, __( 'PWA 图标预览', 'nerv-core' ) ),
 				el(
 					'div',
 					null,
@@ -835,7 +835,7 @@
 						);
 					} )
 				),
-				el( 'p', null, form.pwaIcon && form.pwaIcon.url ? __( 'Uploaded icon with current crop controls.', 'nerv-core' ) : __( 'Generated SVG fallback preview. Upload a square bitmap for production app icons.', 'nerv-core' ) )
+				el( 'p', null, form.pwaIcon && form.pwaIcon.url ? __( '已上传图标，并使用当前裁切设置。', 'nerv-core' ) : __( '当前显示自动生成的 SVG 兜底预览；生产环境建议上传正方形位图图标。', 'nerv-core' ) )
 			);
 		}
 
@@ -869,10 +869,10 @@
 						props.onDashboardUpdate( response.dashboard );
 						setForm( cloneBrandForm( response.dashboard.forms.brand ) );
 					}
-					setNotice( response.message || __( 'Brand settings saved.', 'nerv-core' ) );
+					setNotice( response.message || __( '品牌设置已保存。', 'nerv-core' ) );
 				} )
 				.catch( function ( response ) {
-					setError( response && response.message ? response.message : __( 'Brand settings could not be saved.', 'nerv-core' ) );
+					setError( response && response.message ? response.message : __( '品牌设置保存失败。', 'nerv-core' ) );
 				} )
 				.finally( function () {
 					setSaving( false );
@@ -889,9 +889,9 @@
 					'div',
 					{ className: 'nerv-control-panel__title' },
 					el( 'h3', null, __( 'NERV主题 · 品牌', 'nerv-core' ) ),
-					el( 'span', { className: 'nerv-control-status-pill nerv-control-status-pill--green' }, __( 'White-label active', 'nerv-core' ) )
+					el( 'span', { className: 'nerv-control-status-pill nerv-control-status-pill--green' }, __( '品牌设置已启用', 'nerv-core' ) )
 				),
-				el( 'p', { className: 'nerv-control-form-note' }, __( 'Control the first-viewport brand signal, header clock labels, and PWA install metadata used by the terminal shell.', 'nerv-core' ) ),
+				el( 'p', { className: 'nerv-control-form-note' }, __( '设置首屏品牌标识、页头时钟标签和终端外壳使用的 PWA 安装信息。', 'nerv-core' ) ),
 				notice ? el( Notice, { status: 'success', isDismissible: true, onRemove: function () { setNotice( '' ); } }, notice ) : null,
 				error ? el( Notice, { status: 'warning', isDismissible: false }, error ) : null,
 				el(
@@ -900,9 +900,9 @@
 					el(
 						'div',
 						{ className: 'nerv-control-fieldset' },
-						el( 'h4', null, __( 'Header Brand', 'nerv-core' ) ),
+						el( 'h4', null, __( '页头品牌', 'nerv-core' ) ),
 						el( TextControl, {
-							label: __( 'Brand title', 'nerv-core' ),
+							label: __( '品牌标题', 'nerv-core' ),
 							value: form.brandTitle,
 							__next40pxDefaultSize: true,
 							onChange: function ( value ) {
@@ -910,7 +910,7 @@
 							},
 						} ),
 						el( TextControl, {
-							label: __( 'Brand subtitle', 'nerv-core' ),
+							label: __( '品牌副标题', 'nerv-core' ),
 							value: form.brandSubtitle,
 							__next40pxDefaultSize: true,
 							onChange: function ( value ) {
@@ -918,7 +918,7 @@
 							},
 						} ),
 						el( TextControl, {
-							label: __( 'Center mark', 'nerv-core' ),
+							label: __( '中心标识', 'nerv-core' ),
 							value: form.brandMark,
 							__next40pxDefaultSize: true,
 							onChange: function ( value ) {
@@ -928,20 +928,20 @@
 						el(
 							'div',
 							{ className: 'nerv-control-media-field' },
-							el( 'span', null, __( 'Header logo image', 'nerv-core' ) ),
-							form.brandLogo && form.brandLogo.url ? el( 'img', { src: form.brandLogo.url, alt: '', style: { objectFit: form.brandLogoFit, objectPosition: String( form.brandLogoFocusX ) + '% ' + String( form.brandLogoFocusY ) + '%' } } ) : el( 'em', null, __( 'Using text mark fallback.', 'nerv-core' ) ),
+							el( 'span', null, __( '页头 Logo 图片', 'nerv-core' ) ),
+							form.brandLogo && form.brandLogo.url ? el( 'img', { src: form.brandLogo.url, alt: '', style: { objectFit: form.brandLogoFit, objectPosition: String( form.brandLogoFocusX ) + '% ' + String( form.brandLogoFocusY ) + '%' } } ) : el( 'em', null, __( '当前使用文字标识兜底。', 'nerv-core' ) ),
 							el(
 								'div',
 								null,
 								el(
 									Button,
-									{ variant: 'secondary', onClick: function () { selectMedia( 'brandLogo', __( 'Select header logo', 'nerv-core' ) ); } },
-									form.brandLogo && form.brandLogo.id ? __( 'Replace logo', 'nerv-core' ) : __( 'Select logo', 'nerv-core' )
+									{ variant: 'secondary', onClick: function () { selectMedia( 'brandLogo', __( '选择页头 Logo', 'nerv-core' ) ); } },
+									form.brandLogo && form.brandLogo.id ? __( '替换 Logo', 'nerv-core' ) : __( '选择 Logo', 'nerv-core' )
 								),
 								form.brandLogo && form.brandLogo.id ? el(
 									Button,
 									{ variant: 'tertiary', onClick: function () { clearMedia( 'brandLogo' ); } },
-									__( 'Clear', 'nerv-core' )
+									__( '清除', 'nerv-core' )
 								) : null
 							),
 							mediaCropControls( 'brandLogo', __( 'Logo', 'nerv-core' ) )
@@ -950,9 +950,9 @@
 					el(
 						'div',
 						{ className: 'nerv-control-fieldset' },
-						el( 'h4', null, __( 'Clock Strip', 'nerv-core' ) ),
+						el( 'h4', null, __( '时钟条', 'nerv-core' ) ),
 						el( TextControl, {
-							label: __( 'Clock label', 'nerv-core' ),
+							label: __( '时钟标签', 'nerv-core' ),
 							value: form.clockLabel,
 							__next40pxDefaultSize: true,
 							onChange: function ( value ) {
@@ -960,7 +960,7 @@
 							},
 						} ),
 						el( TextControl, {
-							label: __( 'Timezone badge', 'nerv-core' ),
+							label: __( '时区徽标', 'nerv-core' ),
 							value: form.clockTimezone,
 							__next40pxDefaultSize: true,
 							onChange: function ( value ) {
@@ -968,7 +968,7 @@
 							},
 						} ),
 						el( TextControl, {
-							label: __( 'Active badge', 'nerv-core' ),
+							label: __( '活动徽标', 'nerv-core' ),
 							value: form.activeLabel,
 							__next40pxDefaultSize: true,
 							onChange: function ( value ) {
@@ -979,9 +979,9 @@
 					el(
 						'div',
 						{ className: 'nerv-control-fieldset' },
-						el( 'h4', null, __( 'PWA Identity', 'nerv-core' ) ),
+						el( 'h4', null, __( 'PWA 身份', 'nerv-core' ) ),
 						el( TextControl, {
-							label: __( 'App name', 'nerv-core' ),
+							label: __( '应用名称', 'nerv-core' ),
 							value: form.pwaName,
 							__next40pxDefaultSize: true,
 							onChange: function ( value ) {
@@ -989,7 +989,7 @@
 							},
 						} ),
 						el( TextControl, {
-							label: __( 'Short name', 'nerv-core' ),
+							label: __( '短名称', 'nerv-core' ),
 							value: form.pwaShortName,
 							__next40pxDefaultSize: true,
 							onChange: function ( value ) {
@@ -997,7 +997,7 @@
 							},
 						} ),
 						el( TextControl, {
-							label: __( 'Theme color', 'nerv-core' ),
+							label: __( '主题色', 'nerv-core' ),
 							type: 'color',
 							value: form.themeColor,
 							__next40pxDefaultSize: true,
@@ -1008,23 +1008,23 @@
 						el(
 							'div',
 							{ className: 'nerv-control-media-field' },
-							el( 'span', null, __( 'PWA icon image', 'nerv-core' ) ),
-							form.pwaIcon && form.pwaIcon.url ? el( 'img', { src: form.pwaIcon.url, alt: '', style: { objectFit: form.pwaIconFit, objectPosition: String( form.pwaIconFocusX ) + '% ' + String( form.pwaIconFocusY ) + '%' } } ) : el( 'em', null, __( 'Using generated SVG fallback.', 'nerv-core' ) ),
+							el( 'span', null, __( 'PWA 图标图片', 'nerv-core' ) ),
+							form.pwaIcon && form.pwaIcon.url ? el( 'img', { src: form.pwaIcon.url, alt: '', style: { objectFit: form.pwaIconFit, objectPosition: String( form.pwaIconFocusX ) + '% ' + String( form.pwaIconFocusY ) + '%' } } ) : el( 'em', null, __( '当前使用自动生成的 SVG 兜底图标。', 'nerv-core' ) ),
 							el(
 								'div',
 								null,
 								el(
 									Button,
-									{ variant: 'secondary', onClick: function () { selectMedia( 'pwaIcon', __( 'Select PWA icon', 'nerv-core' ) ); } },
-									form.pwaIcon && form.pwaIcon.id ? __( 'Replace icon', 'nerv-core' ) : __( 'Select icon', 'nerv-core' )
+									{ variant: 'secondary', onClick: function () { selectMedia( 'pwaIcon', __( '选择 PWA 图标', 'nerv-core' ) ); } },
+									form.pwaIcon && form.pwaIcon.id ? __( '替换图标', 'nerv-core' ) : __( '选择图标', 'nerv-core' )
 								),
 								form.pwaIcon && form.pwaIcon.id ? el(
 									Button,
 									{ variant: 'tertiary', onClick: function () { clearMedia( 'pwaIcon' ); } },
-									__( 'Clear', 'nerv-core' )
+									__( '清除', 'nerv-core' )
 								) : null
 							),
-							mediaCropControls( 'pwaIcon', __( 'Icon', 'nerv-core' ) )
+							mediaCropControls( 'pwaIcon', __( '图标', 'nerv-core' ) )
 						),
 						el(
 							'div',
@@ -1035,7 +1035,7 @@
 								min: 64,
 								max: 1024,
 								value: String( form.pwaIconSmallSize ),
-								help: __( 'Common PWA baseline is 192px.', 'nerv-core' ),
+								help: __( 'PWA 常用基础尺寸为 192px。', 'nerv-core' ),
 								__next40pxDefaultSize: true,
 								onChange: function ( value ) {
 									setField( 'pwaIconSmallSize', Math.min( 1024, Math.max( 64, parseInt( value, 10 ) || 192 ) ) );
@@ -1047,7 +1047,7 @@
 								min: 64,
 								max: 1024,
 								value: String( form.pwaIconLargeSize ),
-								help: __( 'Common install icon is 512px.', 'nerv-core' ),
+								help: __( '安装图标常用尺寸为 512px。', 'nerv-core' ),
 								__next40pxDefaultSize: true,
 								onChange: function ( value ) {
 									setField( 'pwaIconLargeSize', Math.min( 1024, Math.max( 64, parseInt( value, 10 ) || 512 ) ) );
@@ -1059,7 +1059,7 @@
 								min: 64,
 								max: 1024,
 								value: String( form.pwaIconAppleSize ),
-								help: __( 'iOS commonly uses 180px.', 'nerv-core' ),
+								help: __( 'iOS 常用尺寸为 180px。', 'nerv-core' ),
 								__next40pxDefaultSize: true,
 								onChange: function ( value ) {
 									setField( 'pwaIconAppleSize', Math.min( 1024, Math.max( 64, parseInt( value, 10 ) || 180 ) ) );
@@ -1070,14 +1070,14 @@
 					el(
 						'div',
 						{ className: 'nerv-control-brand-preview' },
-						el( 'span', null, __( 'Header preview', 'nerv-core' ) ),
+						el( 'span', null, __( '页头预览', 'nerv-core' ) ),
 						el( 'strong', null, form.brandTitle || __( 'NERV Terminal', 'nerv-core' ) ),
-						el( 'em', null, form.brandSubtitle || __( 'Personal Portfolio', 'nerv-core' ) ),
+						el( 'em', null, form.brandSubtitle || __( '个人作品集', 'nerv-core' ) ),
 						form.brandLogo && form.brandLogo.url ? el( 'img', { src: form.brandLogo.url, alt: '', style: { objectFit: form.brandLogoFit, objectPosition: String( form.brandLogoFocusX ) + '% ' + String( form.brandLogoFocusY ) + '%' } } ) : el( 'b', null, form.brandMark || 'NERV' ),
 						el(
 							'small',
 							null,
-							( form.clockLabel || __( 'SYSTEM TIME', 'nerv-core' ) ) + ' / --:--:-- / ' + ( form.clockTimezone || 'JST' ) + ' / ' + ( form.activeLabel || 'ACTIVE' )
+							( form.clockLabel || __( '系统时间', 'nerv-core' ) ) + ' / --:--:-- / ' + ( form.clockTimezone || 'JST' ) + ' / ' + ( form.activeLabel || 'ACTIVE' )
 						)
 					),
 					pwaIconPreviewTiles()
@@ -1085,19 +1085,19 @@
 					el(
 						'div',
 						{ className: 'nerv-control-fieldset' },
-						el( 'h4', null, __( 'Custom Fonts', 'nerv-core' ) ),
+						el( 'h4', null, __( '自定义字体', 'nerv-core' ) ),
 						el( TextControl, {
-							label: __( 'Font CSS URL', 'nerv-core' ),
+							label: __( '字体 CSS URL', 'nerv-core' ),
 							value: form.fontCssUrl,
 							placeholder: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap',
-							help: __( 'Optional stylesheet URL for Google Fonts, Bunny Fonts, or your own hosted font CSS.', 'nerv-core' ),
+							help: __( '可填写 Google Fonts、Bunny Fonts 或自托管字体 CSS 地址。', 'nerv-core' ),
 							__next40pxDefaultSize: true,
 							onChange: function ( value ) {
 								setField( 'fontCssUrl', value );
 							},
 						} ),
 						el( TextControl, {
-							label: __( 'Body font stack', 'nerv-core' ),
+							label: __( '正文字体栈', 'nerv-core' ),
 							value: form.fontBodyFamily,
 							placeholder: '"Inter", "Noto Sans SC", sans-serif',
 							__next40pxDefaultSize: true,
@@ -1106,7 +1106,7 @@
 							},
 						} ),
 						el( TextControl, {
-							label: __( 'Heading font stack', 'nerv-core' ),
+							label: __( '标题字体栈', 'nerv-core' ),
 							value: form.fontHeadingFamily,
 							placeholder: '"Inter", "Noto Sans SC", sans-serif',
 							__next40pxDefaultSize: true,
@@ -1115,7 +1115,7 @@
 							},
 						} ),
 						el( TextControl, {
-							label: __( 'Mono/interface font stack', 'nerv-core' ),
+							label: __( '等宽/界面字体栈', 'nerv-core' ),
 							value: form.fontMonoFamily,
 							placeholder: '"JetBrains Mono", "Noto Sans SC", monospace',
 							__next40pxDefaultSize: true,
@@ -1147,7 +1147,7 @@
 					el(
 						Button,
 						{ variant: 'primary', isBusy: saving, disabled: saving, onClick: saveSettings },
-						saving ? __( 'Saving...', 'nerv-core' ) : __( 'Save Brand Settings', 'nerv-core' )
+						saving ? __( '保存中...', 'nerv-core' ) : __( '保存品牌设置', 'nerv-core' )
 					)
 				)
 			)
@@ -1168,13 +1168,13 @@
 
 		function selectMedia() {
 			if ( ! window.wp || ! window.wp.media ) {
-				setError( __( 'WordPress media library is unavailable.', 'nerv-core' ) );
+				setError( __( 'WordPress 媒体库不可用。', 'nerv-core' ) );
 				return;
 			}
 
 			const frame = window.wp.media( {
-				title: __( 'Select default social image', 'nerv-core' ),
-				button: { text: __( 'Use this image', 'nerv-core' ) },
+				title: __( '选择默认社交图', 'nerv-core' ),
+				button: { text: __( '使用这张图片', 'nerv-core' ) },
 				multiple: false,
 				library: { type: 'image' },
 			} );
@@ -1209,10 +1209,10 @@
 						props.onDashboardUpdate( response.dashboard );
 						setForm( cloneSeoForm( response.dashboard.forms.seo ) );
 					}
-					setNotice( response.message || __( 'SEO settings saved.', 'nerv-core' ) );
+					setNotice( response.message || __( 'SEO 设置已保存。', 'nerv-core' ) );
 				} )
 				.catch( function ( response ) {
-					setError( response && response.message ? response.message : __( 'SEO settings could not be saved.', 'nerv-core' ) );
+					setError( response && response.message ? response.message : __( 'SEO 设置保存失败。', 'nerv-core' ) );
 				} )
 				.finally( function () {
 					setSaving( false );
@@ -1232,10 +1232,10 @@
 					el(
 						'span',
 						{ className: 'nerv-control-status-pill nerv-control-status-pill--' + ( form.enabled ? 'green' : 'red' ) },
-						form.enabled ? __( 'Theme meta enabled', 'nerv-core' ) : __( 'Theme meta disabled', 'nerv-core' )
+						form.enabled ? __( '主题 Meta 已启用', 'nerv-core' ) : __( '主题 Meta 已停用', 'nerv-core' )
 					)
 				),
-				el( 'p', { className: 'nerv-control-form-note' }, __( 'Control the theme-generated description, Open Graph image, SEO plugin handoff, and Markdown mirror indexing policy.', 'nerv-core' ) ),
+				el( 'p', { className: 'nerv-control-form-note' }, __( '设置主题生成的描述、Open Graph 图片、SEO 插件接管和 Markdown 镜像索引策略。', 'nerv-core' ) ),
 				notice ? el( Notice, { status: 'success', isDismissible: true, onRemove: function () { setNotice( '' ); } }, notice ) : null,
 				error ? el( Notice, { status: 'warning', isDismissible: false }, error ) : null,
 				el(
@@ -1244,9 +1244,9 @@
 					el(
 						'div',
 						{ className: 'nerv-control-fieldset' },
-						el( 'h4', null, __( 'Meta Output', 'nerv-core' ) ),
+						el( 'h4', null, __( 'Meta 输出', 'nerv-core' ) ),
 						el( CheckboxControl, {
-							label: __( 'Enable theme-generated SEO meta tags', 'nerv-core' ),
+							label: __( '启用主题生成的 SEO Meta 标签', 'nerv-core' ),
 							checked: form.enabled,
 							__nextHasNoMarginBottom: true,
 							onChange: function ( value ) {
@@ -1254,24 +1254,24 @@
 							},
 						} ),
 						el( CheckboxControl, {
-							label: __( 'Let a detected SEO plugin take over meta output', 'nerv-core' ),
+							label: __( '检测到 SEO 插件时交给插件输出 Meta', 'nerv-core' ),
 							checked: form.deferToSeoPlugin,
 							__nextHasNoMarginBottom: true,
 							onChange: function ( value ) {
 								setField( 'deferToSeoPlugin', value );
 							},
 						} ),
-						el( 'p', { className: 'nerv-control-mini' }, formData.detectedSeoPlugin ? __( 'SEO plugin detected.', 'nerv-core' ) : __( 'No supported SEO plugin detected.', 'nerv-core' ) )
+						el( 'p', { className: 'nerv-control-mini' }, formData.detectedSeoPlugin ? __( '已检测到 SEO 插件。', 'nerv-core' ) : __( '未检测到支持的 SEO 插件。', 'nerv-core' ) )
 					),
 					el(
 						'div',
 						{ className: 'nerv-control-fieldset' },
-						el( 'h4', null, __( 'Site Description', 'nerv-core' ) ),
+						el( 'h4', null, __( '站点描述', 'nerv-core' ) ),
 						el( TextareaControl, {
-							label: __( 'Default description', 'nerv-core' ),
+							label: __( '默认描述', 'nerv-core' ),
 							value: form.siteDescription,
 							rows: 4,
-							help: __( 'Used when the WordPress tagline is empty and the current page has no excerpt.', 'nerv-core' ),
+							help: __( '当 WordPress 副标题为空且当前页面没有摘要时使用。', 'nerv-core' ),
 							__nextHasNoMarginBottom: true,
 							onChange: function ( value ) {
 								setField( 'siteDescription', value );
@@ -1281,24 +1281,24 @@
 					el(
 						'div',
 						{ className: 'nerv-control-fieldset' },
-						el( 'h4', null, __( 'Social Preview Image', 'nerv-core' ) ),
+						el( 'h4', null, __( '社交预览图', 'nerv-core' ) ),
 						el(
 							'div',
 							{ className: 'nerv-control-media-field' },
-							el( 'span', null, __( 'Default Open Graph image', 'nerv-core' ) ),
-							form.defaultOgImage && form.defaultOgImage.url ? el( 'img', { src: form.defaultOgImage.url, alt: '' } ) : el( 'em', null, __( 'Using post cover or app icon fallback.', 'nerv-core' ) ),
+							el( 'span', null, __( '默认 Open Graph 图片', 'nerv-core' ) ),
+							form.defaultOgImage && form.defaultOgImage.url ? el( 'img', { src: form.defaultOgImage.url, alt: '' } ) : el( 'em', null, __( '优先使用文章封面，否则使用应用图标兜底。', 'nerv-core' ) ),
 							el(
 								'div',
 								null,
 								el(
 									Button,
 									{ variant: 'secondary', onClick: selectMedia },
-									form.defaultOgImage && form.defaultOgImage.id ? __( 'Replace image', 'nerv-core' ) : __( 'Select image', 'nerv-core' )
+									form.defaultOgImage && form.defaultOgImage.id ? __( '替换图片', 'nerv-core' ) : __( '选择图片', 'nerv-core' )
 								),
 								form.defaultOgImage && form.defaultOgImage.id ? el(
 									Button,
 									{ variant: 'tertiary', onClick: function () { setField( 'defaultOgImage', { id: 0, url: '', title: '' } ); } },
-									__( 'Clear', 'nerv-core' )
+									__( '清除', 'nerv-core' )
 								) : null
 							)
 						)
@@ -1306,7 +1306,7 @@
 					el(
 						'div',
 						{ className: 'nerv-control-fieldset' },
-						el( 'h4', null, __( 'Markdown Mirrors', 'nerv-core' ) ),
+						el( 'h4', null, __( 'Markdown 镜像', 'nerv-core' ) ),
 						el( CheckboxControl, {
 							label: __( 'Add X-Robots-Tag: noindex to .md mirrors', 'nerv-core' ),
 							checked: form.noindexMarkdown,
@@ -1315,7 +1315,7 @@
 								setField( 'noindexMarkdown', value );
 							},
 						} ),
-						el( 'p', { className: 'nerv-control-mini' }, __( 'Canonical article URLs remain indexable; Markdown mirrors stay machine-readable without competing in search.', 'nerv-core' ) )
+						el( 'p', { className: 'nerv-control-mini' }, __( ' canonical 文章 URL 保持可索引；Markdown 镜像保持机器可读，但不与正文页面竞争搜索排名。', 'nerv-core' ) )
 					)
 				),
 				el(
@@ -1324,7 +1324,7 @@
 					el(
 						Button,
 						{ variant: 'primary', isBusy: saving, disabled: saving, onClick: saveSettings },
-						saving ? __( 'Saving...', 'nerv-core' ) : __( 'Save SEO Settings', 'nerv-core' )
+						saving ? __( '保存中...', 'nerv-core' ) : __( '保存 SEO 设置', 'nerv-core' )
 					)
 				)
 			)
@@ -1371,10 +1371,10 @@
 						props.onDashboardUpdate( response.dashboard );
 						setForm( cloneArticlesForm( response.dashboard.forms.articles ) );
 					}
-					setNotice( response.message || __( 'Article settings saved.', 'nerv-core' ) );
+					setNotice( response.message || __( '文章设置已保存。', 'nerv-core' ) );
 				} )
 				.catch( function ( response ) {
-					setError( response && response.message ? response.message : __( 'Article settings could not be saved.', 'nerv-core' ) );
+					setError( response && response.message ? response.message : __( '文章设置保存失败。', 'nerv-core' ) );
 				} )
 				.finally( function () {
 					setSaving( false );
@@ -1394,10 +1394,10 @@
 					el(
 						'span',
 						{ className: 'nerv-control-status-pill nerv-control-status-pill--' + ( form.enabled ? 'green' : 'red' ) },
-						form.enabled ? __( 'Related engine enabled', 'nerv-core' ) : __( 'Related engine disabled', 'nerv-core' )
+						form.enabled ? __( '相关文章引擎已启用', 'nerv-core' ) : __( '相关文章引擎已停用', 'nerv-core' )
 					)
 				),
-				el( 'p', { className: 'nerv-control-form-note' }, __( 'Tune article semantic linking, visible related-entry panels, cache behavior, and GEO hidden related links from the React control surface.', 'nerv-core' ) ),
+				el( 'p', { className: 'nerv-control-form-note' }, __( '设置文章语义链接、可见相关文章面板、缓存行为和 GEO 隐藏相关链接。', 'nerv-core' ) ),
 				notice ? el( Notice, { status: 'success', isDismissible: true, onRemove: function () { setNotice( '' ); } }, notice ) : null,
 				error ? el( Notice, { status: 'warning', isDismissible: false }, error ) : null,
 				el(
@@ -1406,9 +1406,9 @@
 					el(
 						'div',
 						{ className: 'nerv-control-fieldset' },
-						el( 'h4', null, __( 'Related Entries', 'nerv-core' ) ),
+						el( 'h4', null, __( '相关文章', 'nerv-core' ) ),
 						el( CheckboxControl, {
-							label: __( 'Enable related entries panel and GEO related links', 'nerv-core' ),
+							label: __( '启用相关文章面板和 GEO 相关链接', 'nerv-core' ),
 							checked: form.enabled,
 							__nextHasNoMarginBottom: true,
 							onChange: function ( value ) {
@@ -1416,7 +1416,7 @@
 							},
 						} ),
 						el( TextControl, {
-							label: __( 'Panel title', 'nerv-core' ),
+							label: __( '面板标题', 'nerv-core' ),
 							value: form.title,
 							__next40pxDefaultSize: true,
 							onChange: function ( value ) {
@@ -1424,7 +1424,7 @@
 							},
 						} ),
 						el( TextControl, {
-							label: __( 'Entries count', 'nerv-core' ),
+							label: __( '条目数量', 'nerv-core' ),
 							type: 'number',
 							min: 1,
 							max: 12,
@@ -1438,9 +1438,9 @@
 					el(
 						'div',
 						{ className: 'nerv-control-fieldset' },
-						el( 'h4', null, __( 'Algorithm Weights', 'nerv-core' ) ),
+						el( 'h4', null, __( '算法权重', 'nerv-core' ) ),
 						el( TextControl, {
-							label: __( 'Same category', 'nerv-core' ),
+							label: __( '同分类', 'nerv-core' ),
 							type: 'number',
 							min: 0,
 							max: 20,
@@ -1451,7 +1451,7 @@
 							},
 						} ),
 						el( TextControl, {
-							label: __( 'Shared tag', 'nerv-core' ),
+							label: __( '同标签', 'nerv-core' ),
 							type: 'number',
 							min: 0,
 							max: 20,
@@ -1462,7 +1462,7 @@
 							},
 						} ),
 						el( TextControl, {
-							label: __( 'Recent post', 'nerv-core' ),
+							label: __( '近期文章', 'nerv-core' ),
 							type: 'number',
 							min: 0,
 							max: 20,
@@ -1476,9 +1476,9 @@
 					el(
 						'div',
 						{ className: 'nerv-control-fieldset' },
-						el( 'h4', null, __( 'Time Windows', 'nerv-core' ) ),
+						el( 'h4', null, __( '时间窗口', 'nerv-core' ) ),
 						el( TextControl, {
-							label: __( 'Recent days', 'nerv-core' ),
+							label: __( '近期天数', 'nerv-core' ),
 							type: 'number',
 							min: 1,
 							max: 3650,
@@ -1489,7 +1489,7 @@
 							},
 						} ),
 						el( TextControl, {
-							label: __( 'Cache hours', 'nerv-core' ),
+							label: __( '缓存小时', 'nerv-core' ),
 							type: 'number',
 							min: 1,
 							max: 168,
@@ -1499,16 +1499,16 @@
 								setField( 'cacheHours', value );
 							},
 						} ),
-						el( 'p', { className: 'nerv-control-mini' }, __( 'Saving these settings flushes related-entry transients.', 'nerv-core' ) )
+						el( 'p', { className: 'nerv-control-mini' }, __( '保存这些设置会刷新相关文章缓存。', 'nerv-core' ) )
 					),
 					el(
 						'div',
 						{ className: 'nerv-control-fieldset' },
-						el( 'h4', null, __( 'Article Inventory', 'nerv-core' ) ),
+						el( 'h4', null, __( '文章库存', 'nerv-core' ) ),
 						el( 'p', { className: 'nerv-control-mini' }, String( formData.postCount || 0 ) + ' published posts' ),
 						el( 'p', { className: 'nerv-control-mini' }, String( categories.length ) + ' categories available' ),
 						formData.previewPostUrl
-							? el( 'a', { className: 'nerv-control-inline-link', href: formData.previewPostUrl, target: '_blank', rel: 'noreferrer' }, __( 'Preview latest article', 'nerv-core' ) )
+							? el( 'a', { className: 'nerv-control-inline-link', href: formData.previewPostUrl, target: '_blank', rel: 'noreferrer' }, __( '预览最新文章', 'nerv-core' ) )
 							: null
 					)
 				),
@@ -1532,16 +1532,16 @@
 									el( 'em', null, String( category.count || 0 ) + ' posts' )
 								);
 						  } )
-						: el( 'p', { className: 'nerv-control-empty' }, __( 'No categories available yet.', 'nerv-core' ) )
+						: el( 'p', { className: 'nerv-control-empty' }, __( '暂无可用分类。', 'nerv-core' ) )
 				),
-				el( 'p', { className: 'nerv-control-mini nerv-control-mini--spaced' }, __( 'Checked categories are excluded from related-entry scoring and fallback queries.', 'nerv-core' ) ),
+				el( 'p', { className: 'nerv-control-mini nerv-control-mini--spaced' }, __( '勾选的分类会从相关文章评分和兜底查询中排除。', 'nerv-core' ) ),
 				el(
 					'div',
 					{ className: 'nerv-control-actions' },
 					el(
 						Button,
 						{ variant: 'primary', isBusy: saving, disabled: saving, onClick: saveSettings },
-						saving ? __( 'Saving...', 'nerv-core' ) : __( 'Save Article Settings', 'nerv-core' )
+						saving ? __( '保存中...', 'nerv-core' ) : __( '保存文章设置', 'nerv-core' )
 					)
 				)
 			)
@@ -1592,10 +1592,10 @@
 						props.onDashboardUpdate( response.dashboard );
 						setForm( cloneGeoForm( response.dashboard.forms.geo ) );
 					}
-					setNotice( response.message || __( 'GEO settings saved.', 'nerv-core' ) );
+					setNotice( response.message || __( 'GEO 设置已保存。', 'nerv-core' ) );
 				} )
 				.catch( function ( response ) {
-					setError( response && response.message ? response.message : __( 'GEO settings could not be saved.', 'nerv-core' ) );
+					setError( response && response.message ? response.message : __( 'GEO 设置保存失败。', 'nerv-core' ) );
 				} )
 				.finally( function () {
 					setSaving( false );
@@ -1619,7 +1619,7 @@
 					setNotice( response.message || fallbackMessage );
 				} )
 				.catch( function ( response ) {
-					setError( response && response.message ? response.message : __( 'GEO action could not be completed.', 'nerv-core' ) );
+					setError( response && response.message ? response.message : __( 'GEO 操作未能完成。', 'nerv-core' ) );
 				} )
 				.finally( function () {
 					setRunningAction( '' );
@@ -1648,10 +1648,10 @@
 					el(
 						'span',
 						{ className: 'nerv-control-status-pill nerv-control-status-pill--green' },
-						__( 'Machine resources active', 'nerv-core' )
+						__( '机器可读资源已启用', 'nerv-core' )
 					)
 				),
-				el( 'p', { className: 'nerv-control-form-note' }, __( 'Control the AI-readable publishing layer: IndexNow pings, crawler visibility, robots policy, and machine-readable resource status.', 'nerv-core' ) ),
+				el( 'p', { className: 'nerv-control-form-note' }, __( '管理 AI 可读发布层：IndexNow 推送、爬虫可见性、robots 策略和机器可读资源状态。', 'nerv-core' ) ),
 				notice ? el( Notice, { status: 'success', isDismissible: true, onRemove: function () { setNotice( '' ); } }, notice ) : null,
 				error ? el( Notice, { status: 'warning', isDismissible: false }, error ) : null,
 				el(
@@ -1662,7 +1662,7 @@
 						{ className: 'nerv-control-fieldset' },
 						el( 'h4', null, __( 'IndexNow', 'nerv-core' ) ),
 						el( CheckboxControl, {
-							label: __( 'Enable IndexNow pings on publish/update', 'nerv-core' ),
+							label: __( '发布/更新时启用 IndexNow 推送', 'nerv-core' ),
 							checked: form.indexnow.enabled,
 							__nextHasNoMarginBottom: true,
 							onChange: function ( value ) {
@@ -1670,7 +1670,7 @@
 							},
 						} ),
 						el( TextControl, {
-							label: __( 'Key', 'nerv-core' ),
+							label: __( '密钥', 'nerv-core' ),
 							value: form.indexnow.key,
 							__next40pxDefaultSize: true,
 							onChange: function ( value ) {
@@ -1678,7 +1678,7 @@
 							},
 						} ),
 						el( TextControl, {
-							label: __( 'Endpoint', 'nerv-core' ),
+							label: __( '端点', 'nerv-core' ),
 							value: form.indexnow.endpoint,
 							__next40pxDefaultSize: true,
 							onChange: function ( value ) {
@@ -1686,7 +1686,7 @@
 							},
 						} ),
 						el( CheckboxControl, {
-							label: __( 'Dry-run only; record logs without external submission', 'nerv-core' ),
+							label: __( '仅试运行：记录日志但不向外提交', 'nerv-core' ),
 							checked: form.indexnow.dryRun,
 							__nextHasNoMarginBottom: true,
 							onChange: function ( value ) {
@@ -1698,9 +1698,9 @@
 					el(
 						'div',
 						{ className: 'nerv-control-fieldset' },
-						el( 'h4', null, __( 'AI Crawler Monitor', 'nerv-core' ) ),
+						el( 'h4', null, __( 'AI 爬虫监控', 'nerv-core' ) ),
 						el( CheckboxControl, {
-							label: __( 'Enable AI crawler monitoring and robots policy output', 'nerv-core' ),
+							label: __( '启用 AI 爬虫监控和 robots 策略输出', 'nerv-core' ),
 							checked: form.crawler.enabled,
 							__nextHasNoMarginBottom: true,
 							onChange: function ( value ) {
@@ -1708,7 +1708,7 @@
 							},
 						} ),
 						el( TextControl, {
-							label: __( 'Data retention days', 'nerv-core' ),
+							label: __( '数据保留天数', 'nerv-core' ),
 							type: 'number',
 							min: 1,
 							max: 365,
@@ -1718,7 +1718,7 @@
 								updateCrawler( 'retentionDays', value );
 							},
 						} ),
-						el( 'p', { className: 'nerv-control-mini' }, __( 'Checked bots are monitored and allowed in robots.txt; unchecked bots are blocked.', 'nerv-core' ) )
+						el( 'p', { className: 'nerv-control-mini' }, __( '勾选的机器人会被监控并在 robots.txt 中放行；未勾选的会被阻止。', 'nerv-core' ) )
 					)
 				),
 				el(
@@ -1749,7 +1749,7 @@
 							'a',
 							{ href: resources[ key ] || '#', key: key, target: '_blank', rel: 'noreferrer' },
 							el( 'span', null, key ),
-							el( 'strong', null, key === 'aiPolicy' && ! resources.policyReady ? __( 'Missing', 'nerv-core' ) : __( 'Online', 'nerv-core' ) )
+							el( 'strong', null, key === 'aiPolicy' && ! resources.policyReady ? __( '缺失', 'nerv-core' ) : __( '在线', 'nerv-core' ) )
 						);
 					} )
 				),
@@ -1850,8 +1850,8 @@
 					el(
 						'div',
 						null,
-						el( 'strong', null, __( 'Recommended GEO Setup', 'nerv-core' ) ),
-						el( 'span', null, __( 'Apply the launch-safe defaults: IndexNow dry-run, AI crawler visibility, AI policy page, and refreshed Markdown mirrors.', 'nerv-core' ) )
+						el( 'strong', null, __( '推荐 GEO 设置', 'nerv-core' ) ),
+						el( 'span', null, __( '应用上线安全默认值：IndexNow 试运行、AI 爬虫可见、AI 政策页和刷新 Markdown 镜像。', 'nerv-core' ) )
 					),
 					el(
 						Button,
@@ -1863,12 +1863,12 @@
 								runGeoAction(
 									'geo-defaults',
 									window.nervCoreControl ? window.nervCoreControl.toolsActionPath : '/nerv-core/v1/control-tools-action',
-									__( 'Recommended GEO setup completed.', 'nerv-core' ),
+									__( '推荐 GEO 设置已完成。', 'nerv-core' ),
 									{ toolAction: 'apply_geo_defaults' }
 								);
 							},
 						},
-						__( 'Apply GEO Defaults', 'nerv-core' )
+						__( '应用 GEO 默认设置', 'nerv-core' )
 					)
 				),
 				el(
@@ -1877,8 +1877,8 @@
 					el(
 						'div',
 						null,
-						el( 'strong', null, __( 'AI Usage Policy', 'nerv-core' ) ),
-						el( 'span', null, resources.policyReady ? __( 'Published and linked from machine-readable resources.', 'nerv-core' ) : __( 'Missing; generate the policy page before launch.', 'nerv-core' ) )
+						el( 'strong', null, __( 'AI 使用政策', 'nerv-core' ) ),
+						el( 'span', null, resources.policyReady ? __( '已发布，并已从机器可读资源链接。', 'nerv-core' ) : __( '缺失；上线前请生成政策页。', 'nerv-core' ) )
 					),
 					el(
 						Button,
@@ -1894,7 +1894,7 @@
 								);
 							},
 						},
-						resources.policyReady ? __( 'Refresh AI Policy Page', 'nerv-core' ) : __( 'Generate AI Policy Page', 'nerv-core' )
+						resources.policyReady ? __( '刷新 AI 政策页', 'nerv-core' ) : __( '生成 AI 政策页', 'nerv-core' )
 					)
 				),
 				el(
@@ -1904,7 +1904,7 @@
 						'div',
 						null,
 						el( 'strong', null, __( 'IndexNow TEST', 'nerv-core' ) ),
-						el( 'span', null, __( 'Submit the AI policy URL when available; localhost remains dry-run only.', 'nerv-core' ) )
+						el( 'span', null, __( '有 AI 政策 URL 时提交；本地站点保持试运行。', 'nerv-core' ) )
 					),
 					el(
 						Button,
@@ -1916,11 +1916,11 @@
 								runGeoAction(
 									'indexnow',
 									window.nervCoreControl ? window.nervCoreControl.indexnowPath : '/nerv-core/v1/control-indexnow-test',
-									__( 'IndexNow TEST completed.', 'nerv-core' )
+									__( 'IndexNow 测试已完成。', 'nerv-core' )
 								);
 							},
 						},
-						__( 'Run IndexNow TEST', 'nerv-core' )
+						__( '运行 IndexNow 测试', 'nerv-core' )
 					)
 				),
 				el(
@@ -1929,7 +1929,7 @@
 					el(
 						Button,
 						{ variant: 'primary', isBusy: saving, disabled: saving, onClick: saveSettings },
-						saving ? __( 'Saving...', 'nerv-core' ) : __( 'Save GEO Settings', 'nerv-core' )
+						saving ? __( '保存中...', 'nerv-core' ) : __( '保存 GEO 设置', 'nerv-core' )
 					)
 				)
 			)
@@ -1975,10 +1975,10 @@
 						props.onDashboardUpdate( response.dashboard );
 						setForm( cloneMobileForm( response.dashboard.forms.mobile ) );
 					}
-					setNotice( response.message || __( 'Mobile App settings saved.', 'nerv-core' ) );
+					setNotice( response.message || __( '移动端设置已保存。', 'nerv-core' ) );
 				} )
 				.catch( function ( response ) {
-					setError( response && response.message ? response.message : __( 'Mobile App settings could not be saved.', 'nerv-core' ) );
+					setError( response && response.message ? response.message : __( '移动端设置保存失败。', 'nerv-core' ) );
 				} )
 				.finally( function () {
 					setSaving( false );
@@ -1995,16 +1995,16 @@
 					'div',
 					{ className: 'nerv-control-panel__title' },
 					el( 'h3', null, __( 'NERV主题 · 移动端', 'nerv-core' ) ),
-					el( 'span', { className: 'nerv-control-status-pill nerv-control-status-pill--' + ( form.enabled ? 'green' : 'red' ) }, form.enabled ? __( 'App shell enabled', 'nerv-core' ) : __( 'App shell disabled', 'nerv-core' ) )
+					el( 'span', { className: 'nerv-control-status-pill nerv-control-status-pill--' + ( form.enabled ? 'green' : 'red' ) }, form.enabled ? __( '应用外壳已启用', 'nerv-core' ) : __( '应用外壳已停用', 'nerv-core' ) )
 				),
-				el( 'p', { className: 'nerv-control-form-note' }, __( 'Configure the fixed mobile Tab Bar, MORE screen content, and app-style navigation contract. Keep 3 to 5 enabled tabs for thumb-safe mobile use.', 'nerv-core' ) ),
+				el( 'p', { className: 'nerv-control-form-note' }, __( '设置固定移动端 Tab Bar、MORE 页面内容和应用式导航；建议启用 3 到 5 个适合拇指操作的标签。', 'nerv-core' ) ),
 				notice ? el( Notice, { status: 'success', isDismissible: true, onRemove: function () { setNotice( '' ); } }, notice ) : null,
 				error ? el( Notice, { status: 'warning', isDismissible: false }, error ) : null,
 				el(
 					'div',
 					{ className: 'nerv-control-switches' },
 					el( CheckboxControl, {
-						label: __( 'Enable mobile app shell and fixed Tab Bar', 'nerv-core' ),
+						label: __( '启用移动端应用外壳和固定 Tab Bar', 'nerv-core' ),
 						checked: form.enabled,
 						__nextHasNoMarginBottom: true,
 						onChange: function ( value ) {
@@ -2012,7 +2012,7 @@
 						},
 					} ),
 					el( CheckboxControl, {
-						label: __( 'Enable MORE tab route', 'nerv-core' ),
+						label: __( '启用 MORE 标签路由', 'nerv-core' ),
 						checked: form.moreEnabled,
 						__nextHasNoMarginBottom: true,
 						onChange: function ( value ) {
@@ -2029,7 +2029,7 @@
 							{ className: 'nerv-control-mobile-tab-row', key: tab.id || index },
 							el( 'strong', null, String( index + 1 ).padStart( 2, '0' ) ),
 							el( CheckboxControl, {
-								label: __( 'Enabled', 'nerv-core' ),
+								label: __( '已启用', 'nerv-core' ),
 								checked: !! tab.enabled,
 								__nextHasNoMarginBottom: true,
 								onChange: function ( value ) {
@@ -2037,7 +2037,7 @@
 								},
 							} ),
 							el( TextControl, {
-								label: __( 'Label', 'nerv-core' ),
+								label: __( '标签', 'nerv-core' ),
 								value: tab.label || '',
 								__next40pxDefaultSize: true,
 								onChange: function ( value ) {
@@ -2047,7 +2047,7 @@
 							el(
 								'label',
 								{ className: 'nerv-control-select-field' },
-								el( 'span', null, __( 'Icon', 'nerv-core' ) ),
+								el( 'span', null, __( '图标', 'nerv-core' ) ),
 								el(
 									'select',
 									{
@@ -2064,7 +2064,7 @@
 							el(
 								'label',
 								{ className: 'nerv-control-select-field' },
-								el( 'span', null, __( 'Target', 'nerv-core' ) ),
+								el( 'span', null, __( '目标', 'nerv-core' ) ),
 								el(
 									'select',
 									{
@@ -2079,7 +2079,7 @@
 								)
 							),
 							el( TextControl, {
-								label: __( 'Custom URL', 'nerv-core' ),
+								label: __( '自定义 URL', 'nerv-core' ),
 								value: tab.url || '',
 								__next40pxDefaultSize: true,
 								onChange: function ( value ) {
@@ -2092,7 +2092,7 @@
 				el(
 					'div',
 					{ className: 'nerv-control-fieldset nerv-control-fieldset--wide' },
-					el( 'h4', null, __( 'MORE Screen Sections', 'nerv-core' ) ),
+					el( 'h4', null, __( 'MORE 页面模块', 'nerv-core' ) ),
 					el(
 						'div',
 						{ className: 'nerv-control-more-section-grid' },
@@ -2108,7 +2108,7 @@
 							} );
 						} )
 					),
-					formData.moreUrl ? el( 'a', { className: 'nerv-control-inline-link', href: formData.moreUrl, target: '_blank', rel: 'noreferrer' }, __( 'Preview MORE screen', 'nerv-core' ) ) : null
+					formData.moreUrl ? el( 'a', { className: 'nerv-control-inline-link', href: formData.moreUrl, target: '_blank', rel: 'noreferrer' }, __( '预览 MORE 页面', 'nerv-core' ) ) : null
 				),
 				el(
 					'div',
@@ -2130,7 +2130,7 @@
 					el(
 						Button,
 						{ variant: 'primary', isBusy: saving, disabled: saving, onClick: saveSettings },
-						saving ? __( 'Saving...', 'nerv-core' ) : __( 'Save Mobile App Settings', 'nerv-core' )
+						saving ? __( '保存中...', 'nerv-core' ) : __( '保存移动端设置', 'nerv-core' )
 					)
 				)
 			)
@@ -2258,8 +2258,8 @@
 			const nextIndex = form.customPanels.length + 1;
 			const customPanels = form.customPanels.concat( {
 				id: 'custom_' + Date.now().toString( 36 ),
-				label: __( 'Custom Panel', 'nerv-core' ) + ' ' + nextIndex,
-				title: __( 'Custom Panel', 'nerv-core' ) + ' ' + nextIndex,
+				label: __( '自定义面板', 'nerv-core' ) + ' ' + nextIndex,
+				title: __( '自定义面板', 'nerv-core' ) + ' ' + nextIndex,
 				subtitle: '',
 				content: '',
 				contentType: 'richtext',
@@ -2314,22 +2314,22 @@
 
 		function panelRowTitle( panel ) {
 			if ( 'monitor' === panel.rowType ) {
-				return __( 'Monitor rows', 'nerv-core' );
+				return __( '监控行', 'nerv-core' );
 			}
 			if ( 'log' === panel.rowType ) {
-				return __( 'Log rows', 'nerv-core' );
+				return __( '日志行', 'nerv-core' );
 			}
-			return __( 'Status rows', 'nerv-core' );
+			return __( '状态行', 'nerv-core' );
 		}
 
 		function panelSourceLabel( panel ) {
 			if ( 'status' === panel.id ) {
-				return __( 'Status source', 'nerv-core' );
+				return __( '状态来源', 'nerv-core' );
 			}
 			if ( 'monitor' === panel.id ) {
-				return __( 'Monitor source', 'nerv-core' );
+				return __( '监控来源', 'nerv-core' );
 			}
-			return __( 'Log source', 'nerv-core' );
+			return __( '日志来源', 'nerv-core' );
 		}
 
 		function saveSettings() {
@@ -2349,10 +2349,10 @@
 						props.onDashboardUpdate( response.dashboard );
 						setForm( clonePanelsForm( response.dashboard.forms.panels ) );
 					}
-					setNotice( response.message || __( 'Panel settings saved.', 'nerv-core' ) );
+					setNotice( response.message || __( '面板设置已保存。', 'nerv-core' ) );
 				} )
 				.catch( function ( response ) {
-					setError( response && response.message ? response.message : __( 'Panel settings could not be saved.', 'nerv-core' ) );
+					setError( response && response.message ? response.message : __( '面板设置保存失败。', 'nerv-core' ) );
 				} )
 				.finally( function () {
 					setSaving( false );
@@ -2372,10 +2372,10 @@
 					el(
 						'span',
 						{ className: 'nerv-control-status-pill nerv-control-status-pill--green' },
-						String( enabledCount() ) + ' ' + __( 'Enabled', 'nerv-core' )
+						String( enabledCount() ) + ' ' + __( '已启用', 'nerv-core' )
 					)
 				),
-				el( 'p', { className: 'nerv-control-form-note' }, __( 'Control terminal panels without touching code: visibility, columns, saved order, registered copy fields, live rows, and custom content panels.', 'nerv-core' ) ),
+				el( 'p', { className: 'nerv-control-form-note' }, __( '不用改代码即可控制终端面板：可见性、列、保存顺序、注册文案字段、实时行和自定义内容面板。', 'nerv-core' ) ),
 				notice ? el( Notice, { status: 'success', isDismissible: true, onRemove: function () { setNotice( '' ); } }, notice ) : null,
 				error ? el( Notice, { status: 'warning', isDismissible: false }, error ) : null,
 				el(
@@ -2418,7 +2418,7 @@
 							el(
 								'summary',
 								null,
-								el( 'span', { className: 'nerv-control-panel-drag-handle', title: __( 'Drag to reorder', 'nerv-core' ) }, String( index + 1 ).padStart( 2, '0' ) ),
+								el( 'span', { className: 'nerv-control-panel-drag-handle', title: __( '拖动排序', 'nerv-core' ) }, String( index + 1 ).padStart( 2, '0' ) ),
 								el( 'strong', null, panel.label || panel.id ),
 								el( 'em', null, panel.column || 'center' )
 							),
@@ -2429,7 +2429,7 @@
 									'div',
 									{ className: 'nerv-control-panel-row__meta' },
 									el( CheckboxControl, {
-										label: __( 'Enable panel', 'nerv-core' ),
+										label: __( '启用面板', 'nerv-core' ),
 										checked: !! panel.enabled,
 										__nextHasNoMarginBottom: true,
 										onChange: function ( value ) {
@@ -2439,22 +2439,22 @@
 									el(
 										'div',
 										{ className: 'nerv-control-panel-order' },
-										el( 'span', null, __( 'Order', 'nerv-core' ) + ' ' + String( index + 1 ).padStart( 2, '0' ) ),
+										el( 'span', null, __( '排序', 'nerv-core' ) + ' ' + String( index + 1 ).padStart( 2, '0' ) ),
 										el(
 											Button,
 											{ variant: 'secondary', disabled: 0 === index, onClick: function () { movePanel( index, -1 ); } },
-											__( 'Up', 'nerv-core' )
+											__( '上移', 'nerv-core' )
 										),
 										el(
 											Button,
 											{ variant: 'secondary', disabled: index === form.panels.length - 1, onClick: function () { movePanel( index, 1 ); } },
-											__( 'Down', 'nerv-core' )
+											__( '下移', 'nerv-core' )
 										)
 									),
 									el(
 										'label',
 										{ className: 'nerv-control-select-field' },
-										el( 'span', null, __( 'Column', 'nerv-core' ) ),
+										el( 'span', null, __( '列位置', 'nerv-core' ) ),
 										el(
 											'select',
 											{
@@ -2494,7 +2494,7 @@
 											key: field.key,
 											label: field.label || field.key,
 											value: panel.fields[ field.key ] || '',
-											help: field.default && field.default !== panel.fields[ field.key ] ? __( 'Modified from default.', 'nerv-core' ) : '',
+											help: field.default && field.default !== panel.fields[ field.key ] ? __( '已不同于默认值。', 'nerv-core' ) : '',
 											__next40pxDefaultSize: true,
 											onChange: function ( value ) {
 												updatePanelField( index, field.key, value );
@@ -2512,7 +2512,7 @@
 										el(
 											Button,
 											{ variant: 'secondary', disabled: ( panel.rows || [] ).length >= 12, onClick: function () { addPanelRow( index ); } },
-											__( 'Add Row', 'nerv-core' )
+											__( '添加行', 'nerv-core' )
 										)
 									),
 									( panel.rows || [] ).map( function ( row, rowIndex ) {
@@ -2520,7 +2520,7 @@
 											'div',
 											{ className: 'nerv-control-panel-repeater__row nerv-control-panel-repeater__row--' + panel.rowType, key: panel.id + '-row-' + rowIndex },
 											el( TextControl, {
-												label: __( 'Label', 'nerv-core' ),
+												label: __( '标签', 'nerv-core' ),
 												value: row.label || '',
 												__next40pxDefaultSize: true,
 												onChange: function ( value ) {
@@ -2528,7 +2528,7 @@
 												},
 											} ),
 											el( TextControl, {
-												label: __( 'Value', 'nerv-core' ),
+												label: __( '值', 'nerv-core' ),
 												value: row.value || '',
 												__next40pxDefaultSize: true,
 												onChange: function ( value ) {
@@ -2536,7 +2536,7 @@
 												},
 											} ),
 											'monitor' === panel.rowType ? el( TextControl, {
-												label: __( 'Level', 'nerv-core' ),
+												label: __( '等级', 'nerv-core' ),
 												type: 'number',
 												min: 0,
 												max: 100,
@@ -2549,7 +2549,7 @@
 											'status' === panel.rowType ? el(
 												'label',
 												{ className: 'nerv-control-select-field' },
-												el( 'span', null, __( 'State', 'nerv-core' ) ),
+												el( 'span', null, __( '状态', 'nerv-core' ) ),
 												el(
 													'select',
 													{
@@ -2566,7 +2566,7 @@
 											el(
 												Button,
 												{ variant: 'secondary', isDestructive: true, onClick: function () { removePanelRow( index, rowIndex ); } },
-												__( 'Remove', 'nerv-core' )
+												__( '删除', 'nerv-core' )
 											)
 										);
 									} )
@@ -2581,11 +2581,11 @@
 					el(
 						'div',
 						{ className: 'nerv-control-custom-panels__head' },
-						el( 'strong', null, __( 'Custom Panels', 'nerv-core' ) ),
+						el( 'strong', null, __( '自定义面板', 'nerv-core' ) ),
 						el(
 							Button,
 							{ variant: 'secondary', disabled: form.customPanels.length >= 20, onClick: addCustomPanel },
-							__( 'Add Custom Panel', 'nerv-core' )
+							__( '添加自定义面板', 'nerv-core' )
 						)
 					),
 					form.customPanels.length ? form.customPanels.map( function ( panel, index ) {
@@ -2624,7 +2624,7 @@
 							el(
 								'summary',
 								null,
-								el( 'span', { className: 'nerv-control-panel-drag-handle', title: __( 'Drag to reorder', 'nerv-core' ) }, 'C' + String( index + 1 ).padStart( 2, '0' ) ),
+								el( 'span', { className: 'nerv-control-panel-drag-handle', title: __( '拖动排序', 'nerv-core' ) }, 'C' + String( index + 1 ).padStart( 2, '0' ) ),
 								el( 'strong', null, panel.title || panel.id ),
 								el( 'em', null, panel.column || 'center' )
 							),
@@ -2635,7 +2635,7 @@
 									'div',
 									{ className: 'nerv-control-panel-row__meta nerv-control-panel-row__meta--custom' },
 									el( CheckboxControl, {
-										label: __( 'Enable panel', 'nerv-core' ),
+										label: __( '启用面板', 'nerv-core' ),
 										checked: !! panel.enabled,
 										__nextHasNoMarginBottom: true,
 										onChange: function ( value ) {
@@ -2645,7 +2645,7 @@
 									el(
 										'label',
 										{ className: 'nerv-control-select-field' },
-										el( 'span', null, __( 'Column', 'nerv-core' ) ),
+										el( 'span', null, __( '列位置', 'nerv-core' ) ),
 										el(
 											'select',
 											{
@@ -2662,7 +2662,7 @@
 									el(
 										'label',
 										{ className: 'nerv-control-select-field' },
-										el( 'span', null, __( 'Content type', 'nerv-core' ) ),
+										el( 'span', null, __( '内容类型', 'nerv-core' ) ),
 										el(
 											'select',
 											{
@@ -2679,29 +2679,29 @@
 									el(
 										'div',
 										{ className: 'nerv-control-panel-order' },
-										el( 'span', null, __( 'Order', 'nerv-core' ) + ' C' + String( index + 1 ).padStart( 2, '0' ) ),
+										el( 'span', null, __( '排序', 'nerv-core' ) + ' C' + String( index + 1 ).padStart( 2, '0' ) ),
 										el(
 											Button,
 											{ variant: 'secondary', disabled: 0 === index, onClick: function () { moveCustomPanel( index, -1 ); } },
-											__( 'Up', 'nerv-core' )
+											__( '上移', 'nerv-core' )
 										),
 										el(
 											Button,
 											{ variant: 'secondary', disabled: index === form.customPanels.length - 1, onClick: function () { moveCustomPanel( index, 1 ); } },
-											__( 'Down', 'nerv-core' )
+											__( '下移', 'nerv-core' )
 										)
 									),
 									el(
 										Button,
 										{ variant: 'secondary', isDestructive: true, onClick: function () { removeCustomPanel( index ); } },
-										__( 'Remove', 'nerv-core' )
+										__( '删除', 'nerv-core' )
 									)
 								),
 								el(
 									'div',
 									{ className: 'nerv-control-custom-panel-fields' },
 									el( TextControl, {
-										label: __( 'Panel title', 'nerv-core' ),
+										label: __( '面板标题', 'nerv-core' ),
 										value: panel.title || '',
 										__next40pxDefaultSize: true,
 										onChange: function ( value ) {
@@ -2709,7 +2709,7 @@
 										},
 									} ),
 									el( TextControl, {
-										label: __( 'Subtitle', 'nerv-core' ),
+										label: __( '副标题', 'nerv-core' ),
 										value: panel.subtitle || '',
 										__next40pxDefaultSize: true,
 										onChange: function ( value ) {
@@ -2717,7 +2717,7 @@
 										},
 									} ),
 									el( TextareaControl, {
-										label: __( 'Content', 'nerv-core' ),
+										label: __( '内容', 'nerv-core' ),
 										value: panel.content || '',
 										rows: 6,
 										onChange: function ( value ) {
@@ -2727,7 +2727,7 @@
 								)
 							)
 						);
-					} ) : el( 'p', { className: 'nerv-control-form-note' }, __( 'No custom panels yet.', 'nerv-core' ) )
+					} ) : el( 'p', { className: 'nerv-control-form-note' }, __( '还没有自定义面板。', 'nerv-core' ) )
 				),
 				el(
 					'div',
@@ -2743,11 +2743,11 @@
 				el(
 					'div',
 					{ className: 'nerv-control-actions' },
-					formData.previewUrl ? el( 'a', { className: 'nerv-control-inline-link', href: formData.previewUrl, target: '_blank', rel: 'noreferrer' }, __( 'Preview homepage', 'nerv-core' ) ) : null,
+					formData.previewUrl ? el( 'a', { className: 'nerv-control-inline-link', href: formData.previewUrl, target: '_blank', rel: 'noreferrer' }, __( '预览首页', 'nerv-core' ) ) : null,
 					el(
 						Button,
 						{ variant: 'primary', isBusy: saving, disabled: saving, onClick: saveSettings },
-						saving ? __( 'Saving...', 'nerv-core' ) : __( 'Save Panel Settings', 'nerv-core' )
+						saving ? __( '保存中...', 'nerv-core' ) : __( '保存面板设置', 'nerv-core' )
 					)
 				)
 			)
@@ -2801,10 +2801,10 @@
 						props.onDashboardUpdate( response.dashboard );
 						setForm( cloneEffectsForm( response.dashboard.forms.effects ) );
 					}
-					setNotice( response.message || __( 'Effect settings saved.', 'nerv-core' ) );
+					setNotice( response.message || __( '特效设置已保存。', 'nerv-core' ) );
 				} )
 				.catch( function ( response ) {
-					setError( response && response.message ? response.message : __( 'Effect settings could not be saved.', 'nerv-core' ) );
+					setError( response && response.message ? response.message : __( '特效设置保存失败。', 'nerv-core' ) );
 				} )
 				.finally( function () {
 					setSaving( false );
@@ -2813,7 +2813,7 @@
 
 		function exportEffectsPreset() {
 			setEffectPresetText( JSON.stringify( effectsPresetDocument( form ), null, 2 ) );
-			setNotice( __( 'Effect preset JSON exported.', 'nerv-core' ) );
+			setNotice( __( '特效预设 JSON 已导出。', 'nerv-core' ) );
 			setError( '' );
 		}
 
@@ -2822,17 +2822,17 @@
 			setError( '' );
 			try {
 				setForm( mergeEffectsPresetDocument( form, effectPresetText ) );
-				setNotice( __( 'Effect preset JSON imported. Save to apply it to the frontend.', 'nerv-core' ) );
+				setNotice( __( '特效预设 JSON 已导入，保存后应用到前台。', 'nerv-core' ) );
 			} catch ( presetError ) {
-				setError( presetError && presetError.message ? presetError.message : __( 'Effect preset JSON could not be imported.', 'nerv-core' ) );
+				setError( presetError && presetError.message ? presetError.message : __( '特效预设 JSON 导入失败。', 'nerv-core' ) );
 			}
 		}
 
 		const effectToggles = [
-			{ key: 'backgroundGrid', label: __( 'Background grid', 'nerv-core' ) },
-			{ key: 'scanlines', label: __( 'CRT scanlines', 'nerv-core' ) },
-			{ key: 'panelGlow', label: __( 'Panel glow', 'nerv-core' ) },
-			{ key: 'motion', label: __( 'Motion transitions', 'nerv-core' ) },
+			{ key: 'backgroundGrid', label: __( '背景网格', 'nerv-core' ) },
+			{ key: 'scanlines', label: __( 'CRT 扫描线', 'nerv-core' ) },
+			{ key: 'panelGlow', label: __( '面板辉光', 'nerv-core' ) },
+			{ key: 'motion', label: __( '动效过渡', 'nerv-core' ) },
 		];
 
 		return el(
@@ -2848,10 +2848,10 @@
 					el(
 						'span',
 						{ className: 'nerv-control-status-pill ' + ( form.enabled ? 'nerv-control-status-pill--green' : 'nerv-control-status-pill--amber' ) },
-						form.enabled ? __( 'Enabled', 'nerv-core' ) : __( 'Disabled', 'nerv-core' )
+						form.enabled ? __( '已启用', 'nerv-core' ) : __( '已停用', 'nerv-core' )
 					)
 				),
-				el( 'p', { className: 'nerv-control-form-note' }, __( 'Tune terminal presentation effects for the frontend shell. Reduced-motion visitors still get the browser-level motion override.', 'nerv-core' ) ),
+				el( 'p', { className: 'nerv-control-form-note' }, __( '调整前台终端外壳的展示特效；偏好减少动效的访客仍会使用浏览器级降级。', 'nerv-core' ) ),
 				notice ? el( Notice, { status: 'success', isDismissible: true, onRemove: function () { setNotice( '' ); } }, notice ) : null,
 				error ? el( Notice, { status: 'warning', isDismissible: false }, error ) : null,
 				el(
@@ -2860,11 +2860,11 @@
 					el(
 						'div',
 						{ className: 'nerv-control-fieldset' },
-						el( 'h4', null, __( 'Master Switch', 'nerv-core' ) ),
+						el( 'h4', null, __( '总开关', 'nerv-core' ) ),
 						el(
 							'label',
 							{ className: 'nerv-control-select-field' },
-							el( 'span', null, __( 'Preset', 'nerv-core' ) ),
+							el( 'span', null, __( '预设', 'nerv-core' ) ),
 							el(
 								'select',
 								{
@@ -2879,7 +2879,7 @@
 							)
 						),
 						el( CheckboxControl, {
-							label: __( 'Enable terminal effects', 'nerv-core' ),
+							label: __( '启用终端特效', 'nerv-core' ),
 							checked: !! form.enabled,
 							__nextHasNoMarginBottom: true,
 							onChange: function ( value ) {
@@ -2889,7 +2889,7 @@
 						el(
 							'label',
 							{ className: 'nerv-control-range-field' },
-							el( 'span', null, __( 'Intensity', 'nerv-core' ) + ': ' + String( form.intensity ) + '%' ),
+							el( 'span', null, __( '强度', 'nerv-core' ) + ': ' + String( form.intensity ) + '%' ),
 							el( 'input', {
 								type: 'range',
 								min: '0',
@@ -2906,7 +2906,7 @@
 					el(
 						'div',
 						{ className: 'nerv-control-fieldset' },
-						el( 'h4', null, __( 'Effect Channels', 'nerv-core' ) ),
+						el( 'h4', null, __( '特效通道', 'nerv-core' ) ),
 						el(
 							'div',
 							{ className: 'nerv-control-effect-toggles' },
@@ -2931,9 +2931,9 @@
 					el(
 						'div',
 						{ className: 'nerv-control-fieldset' },
-						el( 'h4', null, __( 'Desktop Override', 'nerv-core' ) ),
+						el( 'h4', null, __( '桌面端覆盖', 'nerv-core' ) ),
 						el( CheckboxControl, {
-							label: __( 'Enable effects on desktop', 'nerv-core' ),
+							label: __( '桌面端启用特效', 'nerv-core' ),
 							checked: !! form.desktop.enabled,
 							disabled: ! form.enabled,
 							__nextHasNoMarginBottom: true,
@@ -2944,7 +2944,7 @@
 						el(
 							'label',
 							{ className: 'nerv-control-range-field' },
-							el( 'span', null, __( 'Desktop intensity', 'nerv-core' ) + ': ' + String( form.desktop.intensity ) + '%' ),
+							el( 'span', null, __( '桌面端强度', 'nerv-core' ) + ': ' + String( form.desktop.intensity ) + '%' ),
 							el( 'input', {
 								type: 'range',
 								min: '0',
@@ -2961,9 +2961,9 @@
 					el(
 						'div',
 						{ className: 'nerv-control-fieldset' },
-						el( 'h4', null, __( 'Mobile Override', 'nerv-core' ) ),
+						el( 'h4', null, __( '移动端覆盖', 'nerv-core' ) ),
 						el( CheckboxControl, {
-							label: __( 'Enable effects on mobile', 'nerv-core' ),
+							label: __( '移动端启用特效', 'nerv-core' ),
 							checked: !! form.mobile.enabled,
 							disabled: ! form.enabled,
 							__nextHasNoMarginBottom: true,
@@ -2977,7 +2977,7 @@
 							effectToggles.map( function ( toggle ) {
 								return el( CheckboxControl, {
 									key: 'mobile-' + toggle.key,
-									label: __( 'Mobile', 'nerv-core' ) + ' · ' + toggle.label,
+									label: __( '移动端', 'nerv-core' ) + ' · ' + toggle.label,
 									checked: !! form.mobile[ toggle.key ],
 									disabled: ! form.enabled || ! form.mobile.enabled,
 									__nextHasNoMarginBottom: true,
@@ -2990,7 +2990,7 @@
 						el(
 							'label',
 							{ className: 'nerv-control-range-field' },
-							el( 'span', null, __( 'Mobile intensity', 'nerv-core' ) + ': ' + String( form.mobile.intensity ) + '%' ),
+							el( 'span', null, __( '移动端强度', 'nerv-core' ) + ': ' + String( form.mobile.intensity ) + '%' ),
 							el( 'input', {
 								type: 'range',
 								min: '0',
@@ -3017,10 +3017,10 @@
 				el(
 					'div',
 					{ className: 'nerv-control-effect-preset-box' },
-					el( 'h4', null, __( 'Effect Preset JSON', 'nerv-core' ) ),
-					el( 'p', null, __( 'Export or import only the effect settings. Imported JSON updates this form first; save when the preview looks right.', 'nerv-core' ) ),
+					el( 'h4', null, __( '特效预设 JSON', 'nerv-core' ) ),
+					el( 'p', null, __( '只导出/导入特效设置。导入 JSON 会先更新表单，确认预览后再保存。', 'nerv-core' ) ),
 					el( TextareaControl, {
-						label: __( 'Effect preset JSON', 'nerv-core' ),
+						label: __( '特效预设 JSON', 'nerv-core' ),
 						value: effectPresetText,
 						rows: 7,
 						__nextHasNoMarginBottom: true,
@@ -3034,23 +3034,23 @@
 						el(
 							Button,
 							{ variant: 'secondary', disabled: saving, onClick: exportEffectsPreset },
-							__( 'Export Effects JSON', 'nerv-core' )
+							__( '导出特效 JSON', 'nerv-core' )
 						),
 						el(
 							Button,
 							{ variant: 'primary', disabled: saving || ! effectPresetText.trim(), onClick: importEffectsPreset },
-							__( 'Import Effects JSON', 'nerv-core' )
+							__( '导入特效 JSON', 'nerv-core' )
 						)
 					)
 				),
 				el(
 					'div',
 					{ className: 'nerv-control-actions' },
-					formData.previewUrl ? el( 'a', { className: 'nerv-control-inline-link', href: formData.previewUrl, target: '_blank', rel: 'noreferrer' }, __( 'Preview homepage', 'nerv-core' ) ) : null,
+					formData.previewUrl ? el( 'a', { className: 'nerv-control-inline-link', href: formData.previewUrl, target: '_blank', rel: 'noreferrer' }, __( '预览首页', 'nerv-core' ) ) : null,
 					el(
 						Button,
 						{ variant: 'primary', isBusy: saving, disabled: saving, onClick: saveSettings },
-						saving ? __( 'Saving...', 'nerv-core' ) : __( 'Save Effect Settings', 'nerv-core' )
+						saving ? __( '保存中...', 'nerv-core' ) : __( '保存特效设置', 'nerv-core' )
 					)
 				)
 			)
@@ -3086,10 +3086,10 @@
 						props.onDashboardUpdate( response.dashboard );
 						setForm( cloneAppearanceForm( response.dashboard.forms.appearance ) );
 					}
-					setNotice( response.message || __( 'Appearance settings saved.', 'nerv-core' ) );
+					setNotice( response.message || __( '配色设置已保存。', 'nerv-core' ) );
 				} )
 				.catch( function ( response ) {
-					setError( response && response.message ? response.message : __( 'Appearance settings could not be saved.', 'nerv-core' ) );
+					setError( response && response.message ? response.message : __( '配色设置保存失败。', 'nerv-core' ) );
 				} )
 				.finally( function () {
 					setSaving( false );
@@ -3108,7 +3108,7 @@
 					el( 'h3', null, __( 'NERV主题 · 配色', 'nerv-core' ) ),
 					el( 'span', { className: 'nerv-control-status-pill nerv-control-status-pill--green' }, form.mode + ' / ' + form.palette )
 				),
-				el( 'p', { className: 'nerv-control-form-note' }, __( 'Choose the frontend palette and day/night mode. The block editor remains white background with black text for writing clarity.', 'nerv-core' ) ),
+				el( 'p', { className: 'nerv-control-form-note' }, __( '选择前台配色和白天/夜间模式；区块编辑器保持白底黑字，方便写作。', 'nerv-core' ) ),
 				notice ? el( Notice, { status: 'success', isDismissible: true, onRemove: function () { setNotice( '' ); } }, notice ) : null,
 				error ? el( Notice, { status: 'warning', isDismissible: false }, error ) : null,
 				el(
@@ -3117,7 +3117,7 @@
 					el(
 						'div',
 						{ className: 'nerv-control-fieldset' },
-						el( 'h4', null, __( 'Color Palette', 'nerv-core' ) ),
+						el( 'h4', null, __( '配色方案', 'nerv-core' ) ),
 						el(
 							'div',
 							{ className: 'nerv-control-palette-grid' },
@@ -3141,7 +3141,7 @@
 					el(
 						'div',
 						{ className: 'nerv-control-fieldset' },
-						el( 'h4', null, __( 'Day / Night Mode', 'nerv-core' ) ),
+						el( 'h4', null, __( '白天 / 夜间模式', 'nerv-core' ) ),
 						el(
 							'div',
 							{ className: 'nerv-control-mode-grid' },
@@ -3164,7 +3164,7 @@
 						el(
 							'div',
 							{ className: 'nerv-control-appearance-preview', 'data-palette': form.palette, 'data-mode': form.mode },
-							el( 'span', null, __( 'Preview token', 'nerv-core' ) ),
+							el( 'span', null, __( '预览令牌', 'nerv-core' ) ),
 							el( 'strong', null, form.palette.toUpperCase() ),
 							el( 'small', null, form.mode.toUpperCase() )
 						)
@@ -3173,11 +3173,11 @@
 				el(
 					'div',
 					{ className: 'nerv-control-actions' },
-					form.previewUrl ? el( 'a', { className: 'nerv-control-inline-link', href: form.previewUrl, target: '_blank', rel: 'noreferrer' }, __( 'Preview homepage', 'nerv-core' ) ) : null,
+					form.previewUrl ? el( 'a', { className: 'nerv-control-inline-link', href: form.previewUrl, target: '_blank', rel: 'noreferrer' }, __( '预览首页', 'nerv-core' ) ) : null,
 					el(
 						Button,
 						{ variant: 'primary', isBusy: saving, disabled: saving, onClick: saveSettings },
-						saving ? __( 'Saving...', 'nerv-core' ) : __( 'Save Appearance Settings', 'nerv-core' )
+						saving ? __( '保存中...', 'nerv-core' ) : __( '保存配色设置', 'nerv-core' )
 					)
 				)
 			)
@@ -3231,10 +3231,10 @@
 						props.onDashboardUpdate( response.dashboard );
 						setForm( cloneSocialForm( response.dashboard.forms.social ) );
 					}
-					setNotice( response.message || __( 'Social settings saved.', 'nerv-core' ) );
+					setNotice( response.message || __( '社交设置已保存。', 'nerv-core' ) );
 				} )
 				.catch( function ( response ) {
-					setError( response && response.message ? response.message : __( 'Social settings could not be saved.', 'nerv-core' ) );
+					setError( response && response.message ? response.message : __( '社交设置保存失败。', 'nerv-core' ) );
 				} )
 				.finally( function () {
 					setSaving( false );
@@ -3254,17 +3254,17 @@
 					el(
 						'span',
 						{ className: 'nerv-control-status-pill nerv-control-status-pill--' + ( form.enabled ? 'green' : 'red' ) },
-						form.enabled ? __( 'Social profile enabled', 'nerv-core' ) : __( 'Social profile disabled', 'nerv-core' )
+						form.enabled ? __( '社交档案已启用', 'nerv-core' ) : __( '社交档案已停用', 'nerv-core' )
 					)
 				),
-				el( 'p', { className: 'nerv-control-form-note' }, __( 'Configure the global social library used by the Pilot Profile panel and machine-readable identity signals. Author cards can still override links from each user profile.', 'nerv-core' ) ),
+				el( 'p', { className: 'nerv-control-form-note' }, __( '设置 Pilot Profile 面板和机器可读身份信号使用的全局社交链接；作者卡片仍可从用户资料单独覆盖。', 'nerv-core' ) ),
 				notice ? el( Notice, { status: 'success', isDismissible: true, onRemove: function () { setNotice( '' ); } }, notice ) : null,
 				error ? el( Notice, { status: 'warning', isDismissible: false }, error ) : null,
 				el(
 					'div',
 					{ className: 'nerv-control-switches' },
 					el( CheckboxControl, {
-						label: __( 'Show global social links in Pilot Profile', 'nerv-core' ),
+						label: __( '在 Pilot Profile 中显示全局社交链接', 'nerv-core' ),
 						checked: form.enabled,
 						__nextHasNoMarginBottom: true,
 						onChange: function ( value ) {
@@ -3272,7 +3272,7 @@
 						},
 					} ),
 					el( CheckboxControl, {
-						label: __( 'Open external social links in a new tab', 'nerv-core' ),
+						label: __( '外部社交链接在新窗口打开', 'nerv-core' ),
 						checked: form.openNewTab,
 						__nextHasNoMarginBottom: true,
 						onChange: function ( value ) {
@@ -3289,7 +3289,7 @@
 							{ className: 'nerv-control-social-row', key: String( index ) + '-' + ( link.key || 'social' ) },
 							el( 'strong', null, String( index + 1 ).padStart( 2, '0' ) ),
 							el( CheckboxControl, {
-								label: __( 'Enabled', 'nerv-core' ),
+								label: __( '已启用', 'nerv-core' ),
 								checked: !! link.enabled,
 								__nextHasNoMarginBottom: true,
 								onChange: function ( value ) {
@@ -3299,7 +3299,7 @@
 							el(
 								'label',
 								{ className: 'nerv-control-select-field' },
-								el( 'span', null, __( 'Platform', 'nerv-core' ) ),
+								el( 'span', null, __( '平台', 'nerv-core' ) ),
 								el(
 									'select',
 									{
@@ -3314,7 +3314,7 @@
 								)
 							),
 							el( TextControl, {
-								label: __( 'Label', 'nerv-core' ),
+								label: __( '标签', 'nerv-core' ),
 								value: link.label || '',
 								__next40pxDefaultSize: true,
 								onChange: function ( value ) {
@@ -3331,10 +3331,10 @@
 								},
 							} ),
 							el( TextControl, {
-								label: __( 'QR image URL', 'nerv-core' ),
+								label: __( '二维码图片 URL', 'nerv-core' ),
 								type: 'url',
 								value: link.qrUrl || '',
-								help: __( 'Used for WeChat QR popups; leave empty for normal social links.', 'nerv-core' ),
+								help: __( '用于微信二维码弹层；普通社交链接可留空。', 'nerv-core' ),
 								__next40pxDefaultSize: true,
 								onChange: function ( value ) {
 									updateLink( index, 'qrUrl', value );
@@ -3351,7 +3351,7 @@
 							el(
 								Button,
 								{ variant: 'secondary', isDestructive: true, onClick: function () { removeLink( index ); } },
-								__( 'Remove', 'nerv-core' )
+								__( '删除', 'nerv-core' )
 							)
 						);
 					} )
@@ -3359,8 +3359,8 @@
 				el(
 					'div',
 					{ className: 'nerv-control-social-tools' },
-					el( Button, { variant: 'secondary', onClick: addLink }, __( 'Add social link', 'nerv-core' ) ),
-					el( 'a', { className: 'nerv-control-inline-link', href: formData.previewUrl || '#', target: '_blank', rel: 'noreferrer' }, __( 'Preview Pilot Profile', 'nerv-core' ) ),
+					el( Button, { variant: 'secondary', onClick: addLink }, __( '添加社交链接', 'nerv-core' ) ),
+					el( 'a', { className: 'nerv-control-inline-link', href: formData.previewUrl || '#', target: '_blank', rel: 'noreferrer' }, __( '预览 Pilot Profile', 'nerv-core' ) ),
 					el( 'span', null, String( formData.sameAsCount || 0 ) + ' sameAs' )
 				),
 				el(
@@ -3378,7 +3378,7 @@
 					el(
 						Button,
 						{ variant: 'primary', isBusy: saving, disabled: saving, onClick: saveSettings },
-						saving ? __( 'Saving...', 'nerv-core' ) : __( 'Save Social Settings', 'nerv-core' )
+						saving ? __( '保存中...', 'nerv-core' ) : __( '保存社交设置', 'nerv-core' )
 					)
 				)
 			)
@@ -3418,10 +3418,10 @@
 						props.onDashboardUpdate( response.dashboard );
 						setForm( clonePartnersForm( response.dashboard.forms.partners ) );
 					}
-					setNotice( response.message || __( 'Partner settings saved.', 'nerv-core' ) );
+					setNotice( response.message || __( '合作伙伴设置已保存。', 'nerv-core' ) );
 				} )
 				.catch( function ( response ) {
-					setError( response && response.message ? response.message : __( 'Partner settings could not be saved.', 'nerv-core' ) );
+					setError( response && response.message ? response.message : __( '合作伙伴设置保存失败。', 'nerv-core' ) );
 				} )
 				.finally( function () {
 					setSaving( false );
@@ -3442,10 +3442,10 @@
 						props.onDashboardUpdate( response.dashboard );
 						setForm( clonePartnersForm( response.dashboard.forms.partners ) );
 					}
-					setNotice( response.message || __( 'Partner health TEST completed.', 'nerv-core' ) );
+					setNotice( response.message || __( '合作伙伴健康测试已完成。', 'nerv-core' ) );
 				} )
 				.catch( function ( response ) {
-					setError( response && response.message ? response.message : __( 'Partner health TEST could not be completed.', 'nerv-core' ) );
+					setError( response && response.message ? response.message : __( '合作伙伴健康测试未能完成。', 'nerv-core' ) );
 				} )
 				.finally( function () {
 					setTesting( false );
@@ -3468,7 +3468,7 @@
 						String( summary.online || 0 ) + '/' + String( summary.total || 0 ) + ' ONLINE'
 					)
 				),
-				el( 'p', { className: 'nerv-control-form-note' }, __( 'Control allied-link display, application copy, llms.txt inclusion, and partner health probe thresholds.', 'nerv-core' ) ),
+				el( 'p', { className: 'nerv-control-form-note' }, __( '设置合作伙伴链接展示、申请文案、llms.txt 收录和健康探测阈值。', 'nerv-core' ) ),
 				notice ? el( Notice, { status: 'success', isDismissible: true, onRemove: function () { setNotice( '' ); } }, notice ) : null,
 				error ? el( Notice, { status: 'warning', isDismissible: false }, error ) : null,
 				el(
@@ -3477,9 +3477,9 @@
 					el(
 						'div',
 						{ className: 'nerv-control-fieldset' },
-						el( 'h4', null, __( 'Partner Display', 'nerv-core' ) ),
+						el( 'h4', null, __( '合作伙伴展示', 'nerv-core' ) ),
 						el( CheckboxControl, {
-							label: __( 'Show featured partners in the terminal footer', 'nerv-core' ),
+							label: __( '在终端页脚显示推荐伙伴', 'nerv-core' ),
 							checked: form.display.footerEnabled,
 							__nextHasNoMarginBottom: true,
 							onChange: function ( value ) {
@@ -3487,7 +3487,7 @@
 							},
 						} ),
 						el( TextControl, {
-							label: __( 'Footer count', 'nerv-core' ),
+							label: __( '页脚数量', 'nerv-core' ),
 							type: 'number',
 							min: 1,
 							max: 12,
@@ -3498,7 +3498,7 @@
 							},
 						} ),
 						el( CheckboxControl, {
-							label: __( 'Include partners in llms.txt', 'nerv-core' ),
+							label: __( '在 llms.txt 收录合作伙伴', 'nerv-core' ),
 							checked: form.display.llmsInclude,
 							__nextHasNoMarginBottom: true,
 							onChange: function ( value ) {
@@ -3509,9 +3509,9 @@
 					el(
 						'div',
 						{ className: 'nerv-control-fieldset' },
-						el( 'h4', null, __( 'Partner Health', 'nerv-core' ) ),
+						el( 'h4', null, __( '合作伙伴健康', 'nerv-core' ) ),
 						el( CheckboxControl, {
-							label: __( 'Enable scheduled partner health checks', 'nerv-core' ),
+							label: __( '启用定时合作伙伴健康检查', 'nerv-core' ),
 							checked: form.health.enabled,
 							__nextHasNoMarginBottom: true,
 							onChange: function ( value ) {
@@ -3519,7 +3519,7 @@
 							},
 						} ),
 						el( TextControl, {
-							label: __( 'Timeout seconds', 'nerv-core' ),
+							label: __( '超时秒数', 'nerv-core' ),
 							type: 'number',
 							min: 1,
 							max: 20,
@@ -3530,7 +3530,7 @@
 							},
 						} ),
 						el( TextControl, {
-							label: __( 'Slow threshold seconds', 'nerv-core' ),
+							label: __( '慢速阈值秒数', 'nerv-core' ),
 							type: 'number',
 							min: 0.5,
 							max: 10,
@@ -3546,9 +3546,9 @@
 					el(
 						'div',
 						{ className: 'nerv-control-fieldset nerv-control-fieldset--wide' },
-						el( 'h4', null, __( 'Application Block', 'nerv-core' ) ),
+						el( 'h4', null, __( '申请区块', 'nerv-core' ) ),
 						el( CheckboxControl, {
-							label: __( 'Show allied-link application block on the partners page', 'nerv-core' ),
+							label: __( '在合作伙伴页面显示申请区块', 'nerv-core' ),
 							checked: form.display.applicationEnabled,
 							__nextHasNoMarginBottom: true,
 							onChange: function ( value ) {
@@ -3556,7 +3556,7 @@
 							},
 						} ),
 						el( TextControl, {
-							label: __( 'Application email', 'nerv-core' ),
+							label: __( '申请邮箱', 'nerv-core' ),
 							type: 'email',
 							value: form.display.applicationEmail,
 							__next40pxDefaultSize: true,
@@ -3565,7 +3565,7 @@
 							},
 						} ),
 						el( TextareaControl, {
-							label: __( 'Application text', 'nerv-core' ),
+							label: __( '申请文案', 'nerv-core' ),
 							value: form.display.applicationText,
 							rows: 3,
 							__nextHasNoMarginBottom: true,
@@ -3578,9 +3578,9 @@
 				el(
 					'div',
 					{ className: 'nerv-control-partner-actions' },
-					el( 'a', { href: formData.links ? formData.links.list : '#', target: '_blank', rel: 'noreferrer' }, __( 'Manage partners', 'nerv-core' ) ),
-					el( 'a', { href: formData.links ? formData.links.new : '#', target: '_blank', rel: 'noreferrer' }, __( 'Add partner', 'nerv-core' ) ),
-					el( 'a', { href: formData.links ? formData.links.archive : '#', target: '_blank', rel: 'noreferrer' }, __( 'View archive', 'nerv-core' ) )
+					el( 'a', { href: formData.links ? formData.links.list : '#', target: '_blank', rel: 'noreferrer' }, __( '管理合作伙伴', 'nerv-core' ) ),
+					el( 'a', { href: formData.links ? formData.links.new : '#', target: '_blank', rel: 'noreferrer' }, __( '新增合作伙伴', 'nerv-core' ) ),
+					el( 'a', { href: formData.links ? formData.links.archive : '#', target: '_blank', rel: 'noreferrer' }, __( '查看归档', 'nerv-core' ) )
 				),
 				el(
 					'div',
@@ -3588,13 +3588,13 @@
 					el(
 						'div',
 						null,
-						el( 'strong', null, __( 'Partner Health TEST', 'nerv-core' ) ),
-						el( 'span', null, __( 'Run a manual HEAD probe for published partner links and refresh the status table.', 'nerv-core' ) )
+						el( 'strong', null, __( '合作伙伴健康测试', 'nerv-core' ) ),
+						el( 'span', null, __( '手动探测已发布的合作伙伴链接并刷新状态表。', 'nerv-core' ) )
 					),
 					el(
 						Button,
 						{ variant: 'secondary', isBusy: testing, disabled: testing || saving, onClick: runHealthTest },
-						__( 'Run Partner Health TEST', 'nerv-core' )
+						__( '运行合作伙伴健康测试', 'nerv-core' )
 					)
 				),
 				el(
@@ -3607,12 +3607,12 @@
 									{ className: 'nerv-control-partner-row nerv-control-partner-row--' + row.status, key: row.id },
 									el( 'strong', null, row.title ),
 									el( 'span', null, row.label ),
-									el( 'em', null, row.featured ? __( 'Featured', 'nerv-core' ) : __( 'Standard', 'nerv-core' ) ),
+									el( 'em', null, row.featured ? __( '推荐', 'nerv-core' ) : __( '普通', 'nerv-core' ) ),
 									el( 'small', null, ( row.message || row.url || '' ) + ( row.redirects ? ' · ' + String( row.redirects ) + ' redirects' : '' ) ),
-									row.finalUrl && row.finalUrl !== row.url ? el( 'small', null, __( 'Final URL', 'nerv-core' ) + ': ' + row.finalUrl ) : null
+									row.finalUrl && row.finalUrl !== row.url ? el( 'small', null, __( '最终 URL', 'nerv-core' ) + ': ' + row.finalUrl ) : null
 								);
 						  } )
-						: el( 'p', { className: 'nerv-control-empty' }, __( 'No partners available yet.', 'nerv-core' ) )
+						: el( 'p', { className: 'nerv-control-empty' }, __( '暂无合作伙伴。', 'nerv-core' ) )
 				),
 				el(
 					'div',
@@ -3620,7 +3620,7 @@
 					el(
 						Button,
 						{ variant: 'primary', isBusy: saving, disabled: saving, onClick: saveSettings },
-						saving ? __( 'Saving...', 'nerv-core' ) : __( 'Save Partner Settings', 'nerv-core' )
+						saving ? __( '保存中...', 'nerv-core' ) : __( '保存合作伙伴设置', 'nerv-core' )
 					)
 				)
 			)
@@ -3665,10 +3665,10 @@
 					if ( 'import_demo' === action && response.result ) {
 						setDemoResult( Object.assign( {}, form.demo, response.result ) );
 					}
-					setNotice( response.message || __( 'Tool action completed.', 'nerv-core' ) );
+					setNotice( response.message || __( '工具操作已完成。', 'nerv-core' ) );
 				} )
 				.catch( function ( response ) {
-					setError( response && response.message ? response.message : __( 'Tool action could not be completed.', 'nerv-core' ) );
+					setError( response && response.message ? response.message : __( '工具操作未能完成。', 'nerv-core' ) );
 				} )
 				.finally( function () {
 					setRunning( '' );
@@ -3688,10 +3688,10 @@
 					el(
 						'span',
 						{ className: 'nerv-control-status-pill nerv-control-status-pill--green' },
-						__( 'Tools Ready', 'nerv-core' )
+						__( '工具就绪', 'nerv-core' )
 					)
 				),
-				el( 'p', { className: 'nerv-control-form-note' }, __( 'Run safe WordPress maintenance actions and inspect local build/demo commands. Shell packaging stays in the local CLI instead of the browser admin surface.', 'nerv-core' ) ),
+				el( 'p', { className: 'nerv-control-form-note' }, __( '运行安全的 WordPress 维护操作，并检查本地构建/演示命令；打包仍保留在本地 CLI，不放进浏览器后台。', 'nerv-core' ) ),
 				notice ? el( Notice, { status: 'success', isDismissible: true, onRemove: function () { setNotice( '' ); } }, notice ) : null,
 				error ? el( Notice, { status: 'warning', isDismissible: false }, error ) : null,
 				el(
@@ -3700,49 +3700,49 @@
 					el(
 						'div',
 						{ className: 'nerv-control-tool-card' },
-						el( 'span', null, __( 'Markdown Mirrors', 'nerv-core' ) ),
+						el( 'span', null, __( 'Markdown 镜像', 'nerv-core' ) ),
 						el( 'strong', null, String( form.markdown.cached ) + '/' + String( form.markdown.eligible ) ),
-						el( 'small', null, form.markdown.dir || __( 'Cache directory unavailable.', 'nerv-core' ) ),
+						el( 'small', null, form.markdown.dir || __( '缓存目录不可用。', 'nerv-core' ) ),
 						el(
 							Button,
 							{ variant: 'secondary', isBusy: 'refresh_markdown' === running, disabled: !! running, onClick: function () { runAction( 'refresh_markdown' ); } },
-							__( 'Refresh Markdown Mirrors', 'nerv-core' )
+							__( '刷新 Markdown 镜像', 'nerv-core' )
 						)
 					),
 					el(
 						'div',
 						{ className: 'nerv-control-tool-card' },
-						el( 'span', null, __( 'Related Cache', 'nerv-core' ) ),
-						el( 'strong', null, form.related.enabled ? __( 'Enabled', 'nerv-core' ) : __( 'Disabled', 'nerv-core' ) ),
-						el( 'small', null, __( 'Flush transient rows used by the weighted related-entry engine.', 'nerv-core' ) ),
+						el( 'span', null, __( '相关文章缓存', 'nerv-core' ) ),
+						el( 'strong', null, form.related.enabled ? __( '已启用', 'nerv-core' ) : __( '已停用', 'nerv-core' ) ),
+						el( 'small', null, __( '清理加权相关文章引擎使用的 transient 缓存。', 'nerv-core' ) ),
 						el(
 							Button,
 							{ variant: 'secondary', isBusy: 'flush_related' === running, disabled: !! running, onClick: function () { runAction( 'flush_related' ); } },
-							__( 'Flush Related Cache', 'nerv-core' )
+							__( '清理相关文章缓存', 'nerv-core' )
 						)
 					),
 						el(
 							'div',
 							{ className: 'nerv-control-tool-card' },
-							el( 'span', null, __( 'Partner Health', 'nerv-core' ) ),
+							el( 'span', null, __( '合作伙伴健康', 'nerv-core' ) ),
 						el( 'strong', null, 'ONLINE ' + form.partners.online + ' / SLOW ' + form.partners.slow + ' / OFFLINE ' + form.partners.offline ),
-						el( 'small', null, String( form.partners.total ) + ' ' + __( 'partner records tracked.', 'nerv-core' ) ),
+						el( 'small', null, String( form.partners.total ) + ' ' + __( '条合作伙伴记录已跟踪。', 'nerv-core' ) ),
 						el(
 							Button,
 							{ variant: 'secondary', onClick: function () { props.onSelectTab( 'partners' ); } },
-								__( 'Open Partner Tools', 'nerv-core' )
+								__( '打开合作伙伴工具', 'nerv-core' )
 							)
 						),
 						el(
 							'div',
 							{ className: 'nerv-control-tool-card' },
 							el( 'span', null, __( 'WebP 图片优化', 'nerv-core' ) ),
-							el( 'strong', null, form.images.webpEnabled ? __( 'Enabled', 'nerv-core' ) : __( 'Disabled', 'nerv-core' ) ),
+							el( 'strong', null, form.images.webpEnabled ? __( '已启用', 'nerv-core' ) : __( '已停用', 'nerv-core' ) ),
 							el( 'small', null, __( '上传 JPEG/PNG 后自动生成 WebP，分享卡片优先使用真实媒体图。', 'nerv-core' ) + ' Q' + String( form.images.webpQuality || 0 ) ),
 							el( 'small', null, 'MEDIA ' + String( ( form.images.mediaQueue && form.images.mediaQueue.status ) || 'idle' ) + ' / PENDING ' + String( ( form.images.mediaQueue && form.images.mediaQueue.pending ) || 0 ) ),
 							form.images.mediaQueue && form.images.mediaQueue.lastError ? el( 'small', null, String( form.images.mediaQueue.lastError ) ) : null,
 							el( 'small', null, 'SOCIAL ' + String( ( form.images.queue && form.images.queue.status ) || 'idle' ) + ' / PENDING ' + String( ( form.images.queue && form.images.queue.pending ) || 0 ) ),
-							el( 'small', null, form.images.socialDir || __( 'Social cover directory unavailable.', 'nerv-core' ) ),
+							el( 'small', null, form.images.socialDir || __( '社交封面目录不可用。', 'nerv-core' ) ),
 							el(
 								Button,
 								{ variant: 'secondary', isBusy: 'refresh_media_webp' === running, disabled: !! running, onClick: function () { runAction( 'refresh_media_webp' ); } },
@@ -3757,7 +3757,7 @@
 						el(
 							'div',
 							{ className: 'nerv-control-tool-card' },
-						el( 'span', null, __( 'Demo Content', 'nerv-core' ) ),
+						el( 'span', null, __( '演示内容', 'nerv-core' ) ),
 						el(
 							'strong',
 							null,
@@ -3765,13 +3765,13 @@
 								' / POSTS ' + String( ( form.demo.counts && form.demo.counts.posts ) || 0 ) +
 								' / PARTNERS ' + String( ( form.demo.counts && form.demo.counts.partners ) || 0 )
 						),
-						el( 'small', null, form.demo.ready ? __( 'Demo records are available for frontend validation.', 'nerv-core' ) : __( 'Seed the local demo records used by homepage, archive, and GEO checks.', 'nerv-core' ) ),
+						el( 'small', null, form.demo.ready ? __( '演示记录可用于前台验证。', 'nerv-core' ) : __( '导入首页、归档和 GEO 检查使用的本地演示记录。', 'nerv-core' ) ),
 						el(
 							'div',
 							{ className: 'nerv-control-demo-summary nerv-control-demo-summary--' + ( demoResult.status || ( form.demo.ready ? 'pass' : 'warning' ) ) },
-							el( 'span', null, __( 'CREATED', 'nerv-core' ) + ' ' + String( ( demoResult.summary && demoResult.summary.created ) || 0 ) ),
-							el( 'span', null, __( 'UPDATED', 'nerv-core' ) + ' ' + String( ( demoResult.summary && demoResult.summary.updated ) || 0 ) ),
-							el( 'span', null, __( 'FAILED', 'nerv-core' ) + ' ' + String( ( demoResult.summary && demoResult.summary.failed ) || 0 ) )
+							el( 'span', null, __( '已创建', 'nerv-core' ) + ' ' + String( ( demoResult.summary && demoResult.summary.created ) || 0 ) ),
+							el( 'span', null, __( '已更新', 'nerv-core' ) + ' ' + String( ( demoResult.summary && demoResult.summary.updated ) || 0 ) ),
+							el( 'span', null, __( '失败', 'nerv-core' ) + ' ' + String( ( demoResult.summary && demoResult.summary.failed ) || 0 ) )
 						),
 						demoResult.steps && demoResult.steps.length ? el(
 							'ul',
@@ -3789,7 +3789,7 @@
 						el(
 							Button,
 							{ variant: 'secondary', isBusy: 'import_demo' === running, disabled: !! running, onClick: function () { runAction( 'import_demo' ); } },
-							__( 'Import / Refresh Demo Content', 'nerv-core' )
+							__( '导入 / 刷新演示内容', 'nerv-core' )
 						),
 						el( 'code', null, form.demo.command || 'php bin/seed-demo.php /path/to/wp-load.php' )
 					)
@@ -3797,12 +3797,12 @@
 				el(
 					'div',
 					{ className: 'nerv-control-build-box nerv-control-build-box--' + ( form.build.status || 'missing' ) },
-					el( 'h4', null, __( 'Release Packaging', 'nerv-core' ) ),
+					el( 'h4', null, __( '发布打包', 'nerv-core' ) ),
 					el( 'p', null, form.build.complete
-						? __( 'Bundle, theme, and plugin packages are present in the local dist directory.', 'nerv-core' )
+						? __( '本地 dist 目录已有 bundle、主题和插件包。', 'nerv-core' )
 						: 'unavailable' === form.build.status
-							? __( 'Package status is only available from the local monorepo; this deployed wp-content copy keeps the CLI commands for reference.', 'nerv-core' )
-							: __( 'The spec requires split and bundle packages. Build any missing package from the monorepo root.', 'nerv-core' ) ),
+							? __( '包状态只能从本地 monorepo 读取；部署到 wp-content 的副本只保留 CLI 命令供参考。', 'nerv-core' )
+							: __( '发布要求同时有拆分包和整合包；缺失包请在 monorepo 根目录构建。', 'nerv-core' ) ),
 					form.build.packages && form.build.packages.length ? el(
 						'ul',
 						{ className: 'nerv-control-build-packages' },
@@ -3812,26 +3812,26 @@
 								{ className: 'is-' + ( pkg.state || 'missing' ), key: pkg.key || pkg.label },
 								el( 'strong', null, pkg.label || '' ),
 								el( 'span', null, ( pkg.state || 'missing' ).toUpperCase() ),
-								el( 'small', null, pkg.file ? pkg.file + ' · ' + ( pkg.size || '' ) + ' · ' + ( pkg.modified || '' ) : 'unavailable' === pkg.state ? __( 'Check package artifacts from the local monorepo dist directory.', 'nerv-core' ) : __( 'Package not found in dist.', 'nerv-core' ) )
+								el( 'small', null, pkg.file ? pkg.file + ' · ' + ( pkg.size || '' ) + ' · ' + ( pkg.modified || '' ) : 'unavailable' === pkg.state ? __( '请从本地 monorepo 的 dist 目录检查包文件。', 'nerv-core' ) : __( 'dist 中未找到包。', 'nerv-core' ) )
 							);
 						} )
 					) : null,
 					el( 'code', null, form.build.commands && form.build.commands.split ? form.build.commands.split : './build.sh --split' ),
 					el( 'code', null, form.build.commands && form.build.commands.bundle ? form.build.commands.bundle : './build.sh --bundle' ),
-					el( 'small', null, form.build.available ? form.build.script : __( 'Build script is a local monorepo tool and is not deployed inside wp-content.', 'nerv-core' ) ),
-					form.build.distDir ? el( 'small', null, __( 'Dist directory:', 'nerv-core' ) + ' ' + form.build.distDir ) : null
+					el( 'small', null, form.build.available ? form.build.script : __( '构建脚本是本地 monorepo 工具，不会部署进 wp-content。', 'nerv-core' ) ),
+					form.build.distDir ? el( 'small', null, __( 'Dist 目录：', 'nerv-core' ) + ' ' + form.build.distDir ) : null
 				),
 				el(
 					'div',
 					{ className: 'nerv-control-themecheck-box nerv-control-themecheck-box--' + ( themeCheck.status || 'pending' ) },
-					el( 'h4', null, __( 'Theme Check / Release Audit', 'nerv-core' ) ),
-					el( 'p', null, themeCheck.message || __( 'Run a local release audit before packaging the theme.', 'nerv-core' ) ),
+					el( 'h4', null, __( '主题检查 / 发布审计', 'nerv-core' ) ),
+					el( 'p', null, themeCheck.message || __( '打包主题前运行本地发布审计。', 'nerv-core' ) ),
 					el(
 						'div',
 						{ className: 'nerv-control-themecheck-summary' },
-						el( 'span', null, __( 'PASS', 'nerv-core' ) + ' ' + String( ( themeCheck.summary && themeCheck.summary.pass ) || 0 ) ),
-						el( 'span', null, __( 'WARN', 'nerv-core' ) + ' ' + String( ( themeCheck.summary && themeCheck.summary.warning ) || 0 ) ),
-						el( 'span', null, __( 'FAIL', 'nerv-core' ) + ' ' + String( ( themeCheck.summary && themeCheck.summary.fail ) || 0 ) )
+						el( 'span', null, __( '通过', 'nerv-core' ) + ' ' + String( ( themeCheck.summary && themeCheck.summary.pass ) || 0 ) ),
+						el( 'span', null, __( '警告', 'nerv-core' ) + ' ' + String( ( themeCheck.summary && themeCheck.summary.warning ) || 0 ) ),
+						el( 'span', null, __( '失败', 'nerv-core' ) + ' ' + String( ( themeCheck.summary && themeCheck.summary.fail ) || 0 ) )
 					),
 					themeCheck.checks && themeCheck.checks.length
 						? el(
@@ -3847,21 +3847,21 @@
 									);
 								} )
 						  )
-						: el( 'small', null, __( 'Official Theme Check is used when available; otherwise this runs the built-in block-theme release audit.', 'nerv-core' ) ),
+						: el( 'small', null, __( '可用时使用官方 Theme Check；否则运行内置区块主题发布审计。', 'nerv-core' ) ),
 					el(
 						Button,
 						{ variant: 'secondary', isBusy: 'run_theme_check' === running, disabled: !! running, onClick: function () { runAction( 'run_theme_check' ); } },
-						__( 'Run Theme Check / Release Audit', 'nerv-core' )
+						__( '运行主题检查 / 发布审计', 'nerv-core' )
 					)
 				),
 				el(
 					'div',
 					{ className: 'nerv-control-preset-box' },
-					el( 'h4', null, __( 'Settings Preset JSON', 'nerv-core' ) ),
-					el( 'p', null, __( 'Export or import whitelisted theme/control settings. Secret API keys are excluded.', 'nerv-core' ) ),
+					el( 'h4', null, __( '设置预设 JSON', 'nerv-core' ) ),
+					el( 'p', null, __( '导出或导入白名单内的主题/控制台设置；不会包含 API 密钥。', 'nerv-core' ) ),
 					el( 'small', null, ( form.preset.optionGroups || [] ).join( ', ' ) ),
 					el( TextareaControl, {
-						label: __( 'Preset JSON', 'nerv-core' ),
+						label: __( '预设 JSON', 'nerv-core' ),
 						value: presetText,
 						rows: 8,
 						__nextHasNoMarginBottom: true,
@@ -3875,12 +3875,12 @@
 						el(
 							Button,
 							{ variant: 'secondary', isBusy: 'export_preset' === running, disabled: !! running, onClick: function () { runAction( 'export_preset' ); } },
-							__( 'Export Preset JSON', 'nerv-core' )
+							__( '导出预设 JSON', 'nerv-core' )
 						),
 						el(
 							Button,
 							{ variant: 'primary', isBusy: 'import_preset' === running, disabled: !! running || ! presetText.trim(), onClick: function () { runAction( 'import_preset', { preset: presetText } ); } },
-							__( 'Import Preset JSON', 'nerv-core' )
+							__( '导入预设 JSON', 'nerv-core' )
 						)
 					)
 				),
@@ -3900,8 +3900,8 @@
 			el(
 				'section',
 				{ className: 'nerv-control-panel' },
-				el( 'h3', null, tab.label || __( 'Theme Control Page', 'nerv-core' ) ),
-				el( 'p', { className: 'nerv-control-form-note' }, __( 'This React tab shell is ready; its editable controls will be migrated from the current settings forms in a later pass.', 'nerv-core' ) )
+				el( 'h3', null, tab.label || __( '主题控制页面', 'nerv-core' ) ),
+				el( 'p', { className: 'nerv-control-form-note' }, __( 'React 页面外壳已就绪；可编辑控件会在后续从旧设置表单迁移。', 'nerv-core' ) )
 			)
 		);
 	}
@@ -3936,10 +3936,10 @@
 					if ( response.dashboard ) {
 						props.onDashboardUpdate( response.dashboard );
 					}
-					setWizardNotice( response.message || __( 'Activation step completed.', 'nerv-core' ) );
+					setWizardNotice( response.message || __( '启用步骤已完成。', 'nerv-core' ) );
 				} )
 				.catch( function ( response ) {
-					setWizardError( response && response.message ? response.message : __( 'Activation step could not be completed.', 'nerv-core' ) );
+					setWizardError( response && response.message ? response.message : __( '启用步骤未能完成。', 'nerv-core' ) );
 				} )
 				.finally( function () {
 					setWizardRunning( '' );
@@ -3956,7 +3956,7 @@
 					el(
 						'div',
 						{ className: 'nerv-control-panel__title' },
-						el( 'h3', null, __( 'Health Signals', 'nerv-core' ) ),
+						el( 'h3', null, __( '健康信号', 'nerv-core' ) ),
 						el( 'a', { href: data.legacy.anchor }, data.legacy.label )
 					),
 					el( 'ul', { className: 'nerv-control-health' }, data.health.map( healthRow ) )
@@ -3967,7 +3967,7 @@
 					el(
 						'div',
 						{ className: 'nerv-control-panel__title' },
-						el( 'h3', null, __( 'Activation Wizard', 'nerv-core' ) ),
+						el( 'h3', null, __( '启用向导', 'nerv-core' ) ),
 						el( 'span', null, doneSteps + '/' + data.steps.length )
 					),
 					wizardNotice ? el( Notice, { status: 'success', isDismissible: true, onRemove: function () { setWizardNotice( '' ); } }, wizardNotice ) : null,
@@ -3980,7 +3980,7 @@
 						} );
 					} ) )
 				),
-				activityRows( __( 'Recent AI Crawls', 'nerv-core' ), data.activity.crawlers, function ( row, index ) {
+				activityRows( __( '最近 AI 抓取', 'nerv-core' ), data.activity.crawlers, function ( row, index ) {
 					return el(
 						'li',
 						{ key: index },
@@ -3989,7 +3989,7 @@
 						el( 'small', null, row.time || '' )
 					);
 				} ),
-				activityRows( __( 'IndexNow Log', 'nerv-core' ), data.activity.indexnow, function ( row, index ) {
+				activityRows( __( 'IndexNow 日志', 'nerv-core' ), data.activity.indexnow, function ( row, index ) {
 					return el(
 						'li',
 						{ key: index },
@@ -4001,7 +4001,7 @@
 				el(
 					'section',
 					{ className: 'nerv-control-panel nerv-control-links' },
-					el( 'h3', null, __( 'Machine-Readable Resources', 'nerv-core' ) ),
+					el( 'h3', null, __( '机器可读资源', 'nerv-core' ) ),
 					el(
 						'div',
 						null,
@@ -4048,21 +4048,21 @@
 				el(
 					'div',
 					null,
-					el( 'span', { className: 'nerv-control-kicker' }, singlePageMode ? __( 'Theme Settings Page', 'nerv-core' ) : __( 'Theme Dashboard', 'nerv-core' ) ),
+					el( 'span', { className: 'nerv-control-kicker' }, singlePageMode ? __( '主题设置页面', 'nerv-core' ) : __( '主题总览', 'nerv-core' ) ),
 					el( 'h2', null, currentTitle || data.site.name || __( 'NERV Terminal', 'nerv-core' ) ),
-					el( 'p', null, currentDescription || __( 'GEO, AI services, crawler visibility, partners, and theme operations in one control surface.', 'nerv-core' ) )
+					el( 'p', null, currentDescription || __( '在一个控制台管理 GEO、AI 服务、爬虫可见性、合作伙伴和主题运维。', 'nerv-core' ) )
 				),
 				el(
 					'div',
 					{ className: 'nerv-control-identity' },
-					el( 'span', null, __( 'THEME', 'nerv-core' ) ),
+					el( 'span', null, __( '主题', 'nerv-core' ) ),
 					el( 'strong', null, data.site.theme || 'NERV Terminal' ),
 					el( 'small', null, 'WP ' + data.site.wpVersion + ' / Core ' + data.site.core )
 				)
 			),
 			singlePageMode ? null : el(
 				'nav',
-				{ className: 'nerv-control-tabs', 'aria-label': __( 'Theme Control pages', 'nerv-core' ) },
+				{ className: 'nerv-control-tabs', 'aria-label': __( '主题控制页面', 'nerv-core' ) },
 				data.tabs.map( function ( tab ) {
 					return tabButton( tab, activeTab, props.onSelectTab );
 				} )
@@ -4086,7 +4086,7 @@
 					setData( response );
 				} )
 				.catch( function () {
-					setError( __( 'Theme Control dashboard data could not be loaded.', 'nerv-core' ) );
+					setError( __( '主题控制台数据加载失败。', 'nerv-core' ) );
 				} );
 		}, [] );
 
@@ -4099,7 +4099,7 @@
 				'div',
 				{ className: 'nerv-control-shell nerv-control-shell--loading' },
 				el( Spinner, null ),
-				el( 'p', null, __( 'Loading Theme Control dashboard...', 'nerv-core' ) )
+				el( 'p', null, __( '正在加载主题控制台...', 'nerv-core' ) )
 			);
 		}
 

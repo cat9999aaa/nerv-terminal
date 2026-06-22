@@ -2001,6 +2001,11 @@
 	color: #135e96;
 }
 
+.nerv-control-wrap .nerv-control-panel a,
+.nerv-control-wrap .nerv-control-inline-link {
+	background: transparent;
+}
+
 .nerv-control-wrap .nerv-control-status-pill {
 	border-color: #dcdcde;
 	background: #f6f7f7;
@@ -2336,6 +2341,40 @@
 	.nerv-control-effect-preset-box,
 	.nerv-control-effects-preview,
 	.nerv-control-panel-preview,
+	.nerv-control-panel-row,
+	.nerv-control-panel-repeater__row,
+	.nerv-control-panel-repeater__head,
+	.nerv-control-panel-row__meta,
+	.nerv-control-panel-order,
+	.nerv-control-panel-fields,
+	.nerv-control-panel-repeater,
+	.nerv-control-custom-panels,
+	.nerv-control-custom-panels__head,
+	.nerv-control-custom-panel-fields,
+	.nerv-control-category,
+	.nerv-control-category-grid,
+	.nerv-control-bot-grid,
+	.nerv-control-mobile-preview,
+	.nerv-control-mobile-tabs-editor,
+	.nerv-control-mobile-tab-row,
+	.nerv-control-more-section-grid,
+	.nerv-control-effects-grid,
+	.nerv-control-effects-device-grid,
+	.nerv-control-effect-toggles,
+	.nerv-control-social-editor,
+	.nerv-control-social-row,
+	.nerv-control-social-tools,
+	.nerv-control-social-preview,
+	.nerv-control-partner-table,
+	.nerv-control-partner-actions,
+	.nerv-control-tools-grid,
+	.nerv-control-build-packages,
+	.nerv-control-themecheck-summary,
+	.nerv-control-themecheck-list,
+	.nerv-control-preset-actions,
+	.nerv-control-palette-grid,
+	.nerv-control-mode-grid,
+	.nerv-control-appearance-grid,
 	.nerv-control-custom-panel,
 	.nerv-control-repeat-row
 ) {
@@ -2351,9 +2390,126 @@
 	.nerv-control-provider-card p,
 	.nerv-control-model-picker small,
 	.nerv-control-command-row span,
-	.nerv-control-command-row small
+	.nerv-control-command-row small,
+	.nerv-control-panel-row span,
+	.nerv-control-panel-row small,
+	.nerv-control-panel-row em,
+	.nerv-control-mobile-tab-row span,
+	.nerv-control-mobile-tab-row small,
+	.nerv-control-social-row span,
+	.nerv-control-social-row small,
+	.nerv-control-partner-row span,
+	.nerv-control-partner-row small,
+	.nerv-control-demo-summary span,
+	.nerv-control-demo-summary small,
+	.nerv-control-build-box span,
+	.nerv-control-build-box small,
+	.nerv-control-themecheck-box span,
+	.nerv-control-themecheck-box small,
+	.nerv-control-effects-preview span,
+	.nerv-control-panel-preview span
 ) {
 	color: #50575e;
+}
+
+.nerv-control-wrap :where(
+	.nerv-control-panel-row strong,
+	.nerv-control-panel-repeater__head strong,
+	.nerv-control-social-preview strong,
+	.nerv-control-demo-summary strong,
+	.nerv-control-build-box strong,
+	.nerv-control-themecheck-box strong,
+	.nerv-control-effects-preview strong,
+	.nerv-control-panel-preview strong
+) {
+	color: #1d2327;
+}
+
+.nerv-control-wrap :where(
+	.nerv-control-panel-drag-handle,
+	.nerv-control-panel-order button,
+	.nerv-control-preset-actions button,
+	.nerv-control-partner-actions button,
+	.nerv-control-social-tools button
+) {
+	border-color: #c3c4c7;
+	background: #f6f7f7;
+	color: #1d2327;
+	box-shadow: none;
+}
+
+.nerv-control-wrap :where(
+	.nerv-control-tool-card code,
+	.nerv-control-build-box code,
+	.nerv-control-themecheck-summary span,
+	.nerv-control-demo-summary span,
+	.nerv-control-themecheck-list li,
+	.nerv-control-build-packages li,
+	.nerv-control-demo-steps li
+) {
+	border-color: #dcdcde;
+	background: #f6f7f7;
+	color: #1d2327;
+	box-shadow: none;
+}
+
+.nerv-control-wrap .nerv-control-tool-card code,
+.nerv-control-wrap .nerv-control-build-box code,
+.nerv-control-wrap .nerv-control-themecheck-summary span,
+.nerv-control-wrap .nerv-control-demo-summary span,
+.nerv-control-wrap .nerv-control-themecheck-list li,
+.nerv-control-wrap .nerv-control-build-packages li,
+.nerv-control-wrap .nerv-control-demo-steps li {
+	border-color: #dcdcde;
+	background: #f6f7f7;
+	color: #1d2327;
+	box-shadow: none;
+}
+
+.nerv-control-wrap :where(
+	.nerv-control-demo-summary--pass span:first-child,
+	.nerv-control-demo-summary--pass span:nth-child(2),
+	.nerv-control-themecheck-list .is-pass span,
+	.nerv-control-demo-steps .is-pass span
+) {
+	color: #006800;
+}
+
+.nerv-control-wrap .nerv-control-demo-summary--pass span:first-child,
+.nerv-control-wrap .nerv-control-demo-summary--pass span:nth-child(2),
+.nerv-control-wrap .nerv-control-themecheck-list .is-pass span,
+.nerv-control-wrap .nerv-control-demo-steps .is-pass span {
+	color: #006800;
+}
+
+.nerv-control-wrap :where(
+	.nerv-control-themecheck-list .is-warning span,
+	.nerv-control-build-packages .is-missing span,
+	.nerv-control-build-packages .is-unavailable span,
+	.nerv-control-demo-steps .is-warning span,
+	.nerv-control-demo-summary--warning span:last-child
+) {
+	color: #755100;
+}
+
+.nerv-control-wrap .nerv-control-themecheck-list .is-warning span,
+.nerv-control-wrap .nerv-control-build-packages .is-missing span,
+.nerv-control-wrap .nerv-control-build-packages .is-unavailable span,
+.nerv-control-wrap .nerv-control-demo-steps .is-warning span,
+.nerv-control-wrap .nerv-control-demo-summary--warning span:last-child {
+	color: #755100;
+}
+
+.nerv-control-wrap :where(
+	.nerv-control-themecheck-list .is-fail span,
+	.nerv-control-demo-steps .is-fail span
+) {
+	color: #8a2424;
+}
+
+.nerv-control-wrap .nerv-control-themecheck-list .is-fail span,
+.nerv-control-wrap .nerv-control-demo-steps .is-fail span {
+	color: #8a2424;
 }
 
 .nerv-control-model-picker {
