@@ -14,7 +14,7 @@ function nerv_core_cover_default_options(): array {
 		'endpoint'         => '',
 		'api_key'          => '',
 		'model'            => '',
-		'prompt_template'  => __( 'Create an original square editorial thumbnail for "{title}". Use a refined retro terminal interface mood, crisp typography space, no logos, no franchise references, no triangles. Subtitle: {subtitle}. Category: {category}. Excerpt: {excerpt}.', 'nerv-core' ),
+		'prompt_template'  => __( 'Create an original {ratio_label} editorial cover for "{title}". Use a refined retro terminal interface mood, crisp typography space, no logos, no franchise references, no triangles. Subtitle: {subtitle}. Category: {category}. Excerpt: {excerpt}.', 'nerv-core' ),
 		'auto_generate'    => false,
 		'key_points_auto'  => false,
 		'dry_run'          => true,
@@ -167,7 +167,12 @@ function nerv_core_cover_template_redirect(): void {
 }
 
 function nerv_core_cover_post_types(): array {
-	return function_exists( 'nerv_core_geo_public_post_types' ) ? nerv_core_geo_public_post_types() : array( 'post', 'project' );
+	$post_types = function_exists( 'nerv_core_geo_public_post_types' ) ? nerv_core_geo_public_post_types() : array( 'post', 'project' );
+	if ( post_type_exists( 'partner' ) ) {
+		$post_types[] = 'partner';
+	}
+
+	return array_values( array_unique( $post_types ) );
 }
 
 function nerv_core_cover_status(): array {
@@ -288,13 +293,15 @@ function nerv_core_cover_store_history( int $post_id, array $entry ): void {
 			'url'           => esc_url_raw( (string) ( $entry['url'] ?? '' ) ),
 			'attachment_id' => absint( $entry['attachment_id'] ?? 0 ),
 			'prompt'        => sanitize_textarea_field( (string) ( $entry['prompt'] ?? '' ) ),
+			'ratio'         => nerv_core_cover_normalize_ratio( (string) ( $entry['ratio'] ?? '' ) ),
+			'model'         => sanitize_text_field( (string) ( $entry['model'] ?? '' ) ),
 		)
 	);
 
 	update_post_meta( $post_id, '_nerv_cover_history', array_values( array_slice( $history, 0, 10 ) ) );
 }
 
-function nerv_core_cover_generate( int $post_id, string $source = 'manual' ): array {
+function nerv_core_cover_generate( int $post_id, string $source = 'manual', string $ratio = '' ): array {
 	$post = get_post( $post_id );
 	if ( ! $post instanceof WP_Post || ! in_array( $post->post_type, nerv_core_cover_post_types(), true ) ) {
 		return nerv_core_cover_generation_result( 'error', __( 'Unsupported post.', 'nerv-core' ) );
@@ -305,10 +312,11 @@ function nerv_core_cover_generate( int $post_id, string $source = 'manual' ): ar
 	}
 
 	$options = nerv_core_cover_options();
-	$prompt = nerv_core_cover_render_prompt( $post );
+	$ratio = $ratio ? nerv_core_cover_normalize_ratio( $ratio ) : nerv_core_cover_default_ratio_for_post( $post );
+	$prompt = nerv_core_cover_render_prompt( $post, $ratio );
 
 	if ( ! empty( $options['dry_run'] ) ) {
-		$result = nerv_core_cover_generation_result( 'dry-run', __( 'Dry-run recorded; no external image request was sent.', 'nerv-core' ), '', 0, $prompt );
+		$result = nerv_core_cover_generation_result( 'dry-run', __( 'Dry-run recorded; no external image request was sent.', 'nerv-core' ), '', 0, $prompt, $ratio, (string) $options['model'] );
 		nerv_core_cover_store_history( $post_id, array_merge( $result, array( 'source' => $source ) ) );
 		nerv_core_ai_usage_record( 'cover', 'dry-run', false );
 		return $result;
@@ -316,15 +324,15 @@ function nerv_core_cover_generate( int $post_id, string $source = 'manual' ): ar
 
 	$status = nerv_core_cover_status();
 	if ( empty( $status['ready'] ) ) {
-		$result = nerv_core_cover_generation_result( 'error', __( 'AI cover service is not configured.', 'nerv-core' ), '', 0, $prompt );
+		$result = nerv_core_cover_generation_result( 'error', __( 'AI cover service is not configured.', 'nerv-core' ), '', 0, $prompt, $ratio, (string) $options['model'] );
 		nerv_core_cover_store_history( $post_id, array_merge( $result, array( 'source' => $source ) ) );
 		nerv_core_ai_usage_record( 'cover', 'unconfigured', false );
 		return $result;
 	}
 
-	$response = nerv_core_cover_request_image( $prompt, $options );
+	$response = nerv_core_cover_request_image( $prompt, $options, $ratio );
 	if ( is_wp_error( $response ) ) {
-		$result = nerv_core_cover_generation_result( 'error', $response->get_error_message(), '', 0, $prompt );
+		$result = nerv_core_cover_generation_result( 'error', $response->get_error_message(), '', 0, $prompt, $ratio, (string) $options['model'] );
 		nerv_core_cover_store_history( $post_id, array_merge( $result, array( 'source' => $source ) ) );
 		nerv_core_ai_usage_record( 'cover', 'error', true );
 		return $result;
@@ -332,7 +340,7 @@ function nerv_core_cover_generate( int $post_id, string $source = 'manual' ): ar
 
 	$image_payload = nerv_core_cover_extract_image_payload( $response );
 	if ( is_wp_error( $image_payload ) ) {
-		$result = nerv_core_cover_generation_result( 'error', $image_payload->get_error_message(), '', 0, $prompt );
+		$result = nerv_core_cover_generation_result( 'error', $image_payload->get_error_message(), '', 0, $prompt, $ratio, (string) $options['model'] );
 		nerv_core_cover_store_history( $post_id, array_merge( $result, array( 'source' => $source ) ) );
 		nerv_core_ai_usage_record( 'cover', 'error', true );
 		return $result;
@@ -340,7 +348,7 @@ function nerv_core_cover_generate( int $post_id, string $source = 'manual' ): ar
 
 	$attachment_id = nerv_core_cover_import_image( $post_id, $image_payload );
 	if ( is_wp_error( $attachment_id ) ) {
-		$result = nerv_core_cover_generation_result( 'error', $attachment_id->get_error_message(), (string) ( $image_payload['url'] ?? '' ), 0, $prompt );
+		$result = nerv_core_cover_generation_result( 'error', $attachment_id->get_error_message(), (string) ( $image_payload['url'] ?? '' ), 0, $prompt, $ratio, (string) $options['model'] );
 		nerv_core_cover_store_history( $post_id, array_merge( $result, array( 'source' => $source ) ) );
 		nerv_core_ai_usage_record( 'cover', 'error', true );
 		return $result;
@@ -349,7 +357,7 @@ function nerv_core_cover_generate( int $post_id, string $source = 'manual' ): ar
 	set_post_thumbnail( $post_id, (int) $attachment_id );
 	update_post_meta( $post_id, '_nerv_cover_generated_url', wp_get_attachment_url( (int) $attachment_id ) );
 
-	$result = nerv_core_cover_generation_result( 'success', __( 'AI cover generated and attached.', 'nerv-core' ), (string) wp_get_attachment_url( (int) $attachment_id ), (int) $attachment_id, $prompt );
+	$result = nerv_core_cover_generation_result( 'success', __( 'AI cover generated and attached.', 'nerv-core' ), (string) wp_get_attachment_url( (int) $attachment_id ), (int) $attachment_id, $prompt, $ratio, (string) $options['model'] );
 	nerv_core_cover_store_history( $post_id, array_merge( $result, array( 'source' => $source ) ) );
 	nerv_core_ai_usage_record( 'cover', 'success', true );
 
@@ -389,13 +397,13 @@ function nerv_core_cover_restore_history( int $post_id, int $index ): array {
 		return nerv_core_cover_generation_result( 'error', __( 'Cover history item has no reusable image.', 'nerv-core' ) );
 	}
 
-	$result = nerv_core_cover_generation_result( 'restored', __( 'Cover restored from history.', 'nerv-core' ), $url, $attachment_id, (string) ( $item['prompt'] ?? '' ) );
+	$result = nerv_core_cover_generation_result( 'restored', __( 'Cover restored from history.', 'nerv-core' ), $url, $attachment_id, (string) ( $item['prompt'] ?? '' ), (string) ( $item['ratio'] ?? nerv_core_cover_default_ratio_for_post( $post ) ), (string) ( $item['model'] ?? '' ) );
 	nerv_core_cover_store_history( $post_id, array_merge( $result, array( 'source' => 'history' ) ) );
 
 	return $result;
 }
 
-function nerv_core_cover_generation_result( string $status, string $message, string $url = '', int $attachment_id = 0, string $prompt = '' ): array {
+function nerv_core_cover_generation_result( string $status, string $message, string $url = '', int $attachment_id = 0, string $prompt = '', string $ratio = '', string $model = '' ): array {
 	return array(
 		'time'          => current_time( 'mysql' ),
 		'status'        => sanitize_key( $status ),
@@ -403,7 +411,35 @@ function nerv_core_cover_generation_result( string $status, string $message, str
 		'url'           => esc_url_raw( $url ),
 		'attachment_id' => absint( $attachment_id ),
 		'prompt'        => sanitize_textarea_field( $prompt ),
+		'ratio'         => nerv_core_cover_normalize_ratio( $ratio ),
+		'model'         => sanitize_text_field( $model ),
 	);
+}
+
+add_action( 'wp_after_insert_post', 'nerv_core_cover_maybe_auto_generate', 30, 4 );
+function nerv_core_cover_maybe_auto_generate( int $post_id, WP_Post $post, bool $update, ?WP_Post $post_before ): void {
+	unset( $update, $post_before );
+
+	if ( wp_is_post_autosave( $post_id ) || wp_is_post_revision( $post_id ) || 'publish' !== $post->post_status ) {
+		return;
+	}
+	if ( ! in_array( $post->post_type, nerv_core_cover_post_types(), true ) ) {
+		return;
+	}
+
+	$options = nerv_core_cover_options();
+	if ( empty( $options['auto_generate'] ) || has_post_thumbnail( $post_id ) || nerv_core_cover_generated_url( $post_id ) ) {
+		return;
+	}
+
+	static $running = array();
+	if ( ! empty( $running[ $post_id ] ) ) {
+		return;
+	}
+
+	$running[ $post_id ] = true;
+	nerv_core_cover_generate( $post_id, 'auto', nerv_core_cover_default_ratio_for_post( $post ) );
+	unset( $running[ $post_id ] );
 }
 
 function nerv_core_key_points_generate( int $post_id, array $context = array() ): array {
@@ -681,12 +717,12 @@ function nerv_core_ai_response_output_text( array $output ): string {
 	return trim( implode( "\n", array_filter( $parts ) ) );
 }
 
-function nerv_core_cover_request_image( string $prompt, array $options ) {
+function nerv_core_cover_request_image( string $prompt, array $options, string $ratio = '5x2' ) {
 	$body = array(
 		'model'  => (string) $options['model'],
 		'prompt' => $prompt,
 		'n'      => 1,
-		'size'   => '1024x1024',
+		'size'   => nerv_core_cover_ai_size( $ratio ),
 	);
 
 	$response = wp_remote_post(
@@ -966,7 +1002,7 @@ function nerv_core_cover_image( int $post_id, string $ratio = '5x2', string $cla
 	return '<img class="' . esc_attr( $class ) . ' nerv-cover-source--' . esc_attr( nerv_core_cover_source( $post_id ) ) . '" src="' . esc_url( $url ) . '" alt="' . esc_attr( get_the_title( $post_id ) ) . '">';
 }
 
-function nerv_core_cover_render_prompt( WP_Post $post ): string {
+function nerv_core_cover_render_prompt( WP_Post $post, string $ratio = '' ): string {
 	$options = nerv_core_cover_options();
 	$template = (string) $options['prompt_template'];
 	$category = '';
@@ -975,15 +1011,52 @@ function nerv_core_cover_render_prompt( WP_Post $post ): string {
 		$category = $terms[0]->name;
 	}
 
+	$ratio = $ratio ? nerv_core_cover_normalize_ratio( $ratio ) : nerv_core_cover_default_ratio_for_post( $post );
+
 	return strtr(
 		$template,
 		array(
-			'{title}'    => get_the_title( $post ),
-			'{subtitle}' => (string) get_post_meta( $post->ID, '_nerv_subtitle', true ),
-			'{excerpt}'  => wp_trim_words( wp_strip_all_tags( $post->post_excerpt ?: $post->post_content ), 36 ),
-			'{category}' => $category,
+			'{title}'       => get_the_title( $post ),
+			'{subtitle}'    => (string) get_post_meta( $post->ID, '_nerv_subtitle', true ),
+			'{excerpt}'     => wp_trim_words( wp_strip_all_tags( $post->post_excerpt ?: $post->post_content ), 36 ),
+			'{category}'    => $category,
+			'{ratio}'       => $ratio,
+			'{ratio_label}' => nerv_core_cover_ratio_label( $ratio ),
 		)
 	);
+}
+
+function nerv_core_cover_default_ratio_for_post( WP_Post $post ): string {
+	return in_array( $post->post_type, array( 'project', 'partner' ), true ) ? '1x1' : '5x2';
+}
+
+function nerv_core_cover_normalize_ratio( string $ratio ): string {
+	$ratio = sanitize_key( $ratio );
+	return in_array( $ratio, array( '1x1', '2x1', '5x2' ), true ) ? $ratio : '5x2';
+}
+
+function nerv_core_cover_ratio_label( string $ratio ): string {
+	$ratio = nerv_core_cover_normalize_ratio( $ratio );
+	if ( '1x1' === $ratio ) {
+		return '1:1 square';
+	}
+	if ( '2x1' === $ratio ) {
+		return '2:1 social sharing';
+	}
+
+	return '5:2 wide';
+}
+
+function nerv_core_cover_ai_size( string $ratio ): string {
+	$ratio = nerv_core_cover_normalize_ratio( $ratio );
+	if ( '1x1' === $ratio ) {
+		return '1024x1024';
+	}
+	if ( '2x1' === $ratio ) {
+		return '1536x768';
+	}
+
+	return '1536x640';
 }
 
 function nerv_core_cover_dimensions( string $ratio ): array {

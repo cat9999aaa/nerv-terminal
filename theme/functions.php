@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'NERV_TERMINAL_VERSION', '0.1.2' );
+define( 'NERV_TERMINAL_VERSION', '0.1.3' );
 define( 'NERV_TERMINAL_DIR', get_template_directory() );
 define( 'NERV_TERMINAL_URI', get_template_directory_uri() );
 
@@ -277,6 +277,7 @@ function nerv_terminal_register_runtime_routes(): void {
 	add_rewrite_tag( '%size%', '[0-9]+' );
 	foreach ( array( 'blog', 'about', 'gallery', 'contact', 'partners', 'projects' ) as $view ) {
 		add_rewrite_rule( '^' . $view . '/?$', 'index.php?nerv_view=' . $view, 'top' );
+		add_rewrite_rule( '^' . $view . '/page/([0-9]+)/?$', 'index.php?nerv_view=' . $view . '&paged=$matches[1]', 'top' );
 	}
 }
 
@@ -289,6 +290,94 @@ function nerv_terminal_runtime_responses(): void {
 	if ( get_query_var( 'nerv_icon' ) ) {
 		nerv_terminal_output_icon();
 	}
+
+	nerv_terminal_maybe_redirect_overflow_view_page();
+}
+
+add_filter( 'pre_handle_404', 'nerv_terminal_pre_handle_view_overflow_404', 0, 2 );
+function nerv_terminal_pre_handle_view_overflow_404( bool $preempt, WP_Query $query ): bool {
+	if ( ! $query->is_main_query() ) {
+		return $preempt;
+	}
+
+	$view = nerv_terminal_view_from_request_path();
+	if ( ! in_array( $view, array( 'blog', 'projects', 'partners' ), true ) ) {
+		return $preempt;
+	}
+
+	$paged = max( 1, absint( $query->get( 'paged' ) ?: get_query_var( 'paged' ) ?: get_query_var( 'page' ) ) );
+	if ( $paged < 2 ) {
+		return $preempt;
+	}
+
+	$max_pages = nerv_terminal_view_max_pages( $view );
+	if ( $max_pages > 0 && $paged > $max_pages ) {
+		wp_safe_redirect( nerv_terminal_view_page_url( $view, $max_pages ), 301 );
+		exit;
+	}
+
+	return $preempt;
+}
+
+function nerv_terminal_view_from_request_path(): string {
+	$path = trim( (string) wp_parse_url( (string) ( $_SERVER['REQUEST_URI'] ?? '' ), PHP_URL_PATH ), '/' );
+	if ( preg_match( '~^(blog|projects|partners)(?:/page/[0-9]+)?/?$~', $path, $matches ) ) {
+		return sanitize_key( (string) $matches[1] );
+	}
+
+	return '';
+}
+
+function nerv_terminal_maybe_redirect_overflow_view_page(): void {
+	$view = nerv_terminal_current_view();
+	if ( ! in_array( $view, array( 'blog', 'projects', 'partners' ), true ) ) {
+		return;
+	}
+
+	$paged = max( 1, absint( get_query_var( 'paged' ) ?: get_query_var( 'page' ) ) );
+	if ( $paged < 2 ) {
+		return;
+	}
+
+	$max_pages = nerv_terminal_view_max_pages( $view );
+	if ( $max_pages > 0 && $paged > $max_pages ) {
+		wp_safe_redirect( nerv_terminal_view_page_url( $view, $max_pages ), 301 );
+		exit;
+	}
+}
+
+function nerv_terminal_view_max_pages( string $view ): int {
+	$args = array(
+		'post_status'         => 'publish',
+		'fields'              => 'ids',
+		'no_found_rows'       => false,
+		'ignore_sticky_posts' => true,
+	);
+
+	if ( 'blog' === $view ) {
+		$args['post_type'] = 'post';
+		$args['posts_per_page'] = max( 1, (int) get_option( 'posts_per_page', 10 ) );
+	} elseif ( 'projects' === $view ) {
+		$args['post_type'] = post_type_exists( 'project' ) ? 'project' : 'post';
+		$args['posts_per_page'] = 12;
+	} elseif ( 'partners' === $view ) {
+		$args['post_type'] = post_type_exists( 'partner' ) ? 'partner' : 'post';
+		$args['posts_per_page'] = 12;
+	} else {
+		return 0;
+	}
+
+	$query = new WP_Query( $args );
+	return max( 1, (int) $query->max_num_pages );
+}
+
+function nerv_terminal_view_page_url( string $view, int $page ): string {
+	$base = home_url( '/' . trim( $view, '/' ) . '/' );
+	if ( $page <= 1 ) {
+		return $base;
+	}
+
+	return user_trailingslashit( trailingslashit( $base ) . 'page/' . $page );
 }
 
 function nerv_terminal_output_manifest(): void {

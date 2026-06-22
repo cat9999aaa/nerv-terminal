@@ -25,12 +25,12 @@
 		return base + postId;
 	}
 
-	function coverGenerateUrl( postId ) {
+	function coverGenerateUrl( postId, ratio ) {
 		const base = window.nervCoreEditor && window.nervCoreEditor.coverGenerateBase;
 		if ( ! base || ! postId ) {
 			return '';
 		}
-		return base + postId;
+		return base + postId + ( ratio ? '?ratio=' + encodeURIComponent( ratio ) : '' );
 	}
 
 	function coverRestoreUrl( postId ) {
@@ -104,6 +104,7 @@
 			const featuredMedia = editor.getEditedPostAttribute( 'featured_media' );
 			return {
 				postId: editor.getCurrentPostId(),
+				type: editor.getCurrentPostType ? editor.getCurrentPostType() : '',
 				featuredMedia: featuredMedia,
 				featuredMediaObject: featuredMedia ? core.getMedia( featuredMedia ) : null,
 			};
@@ -172,6 +173,7 @@
 			featuredMediaObject.media_details.sizes.full
 				? featuredMediaObject.media_details.sizes.full.source_url
 				: featuredMediaObject.source_url );
+		const ratio1x1 = editedUploadUrl || ( preview ? preview.ratio1x1 : '' );
 		const ratio5x2 = editedUploadUrl || ( preview ? preview.ratio5x2 : '' );
 		const ratio2x1 = editedUploadUrl || ( preview ? preview.ratio2x1 : '' );
 		const sourceLabel = editedUploadUrl ? 'UPLOAD' : preview && preview.sourceLabel ? preview.sourceLabel : 'SVG';
@@ -180,7 +182,8 @@
 		const busy = generating || restoringIndex !== null;
 
 		function generateCover() {
-			const url = coverGenerateUrl( postId );
+			const defaultRatio = [ 'project', 'partner' ].indexOf( postState.type ) !== -1 ? '1x1' : '5x2';
+			const url = coverGenerateUrl( postId, defaultRatio );
 			if ( ! url ) {
 				return;
 			}
@@ -287,6 +290,7 @@
 							el( 'span', null, __( 'SOURCE', 'nerv-core' ) ),
 							el( 'strong', null, sourceLabel )
 						),
+						coverRatioFrame( '1:1 / 1200x1200', '1x1', ratio1x1 ),
 						coverRatioFrame( '5:2 / 1500x600', '5x2', ratio5x2 ),
 						coverRatioFrame( '2:1 / 1200x600', '2x1', ratio2x1 ),
 						el(

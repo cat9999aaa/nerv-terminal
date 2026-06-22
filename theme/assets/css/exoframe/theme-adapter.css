@@ -1267,7 +1267,7 @@ body.nerv-terminal-theme:not(.nerv-effect-motion) *::after {
 	line-height: 1.3;
 }
 
-.nerv-card-image,
+.nerv-project-card .nerv-card-image,
 .nerv-partner-logo {
 	aspect-ratio: 1 / 1;
 }
@@ -1282,7 +1282,8 @@ body.nerv-terminal-theme:not(.nerv-effect-motion) *::after {
 		var(--color-surface);
 }
 
-.nerv-card-image {
+.nerv-project-card .nerv-card-image,
+.nerv-partner-card .nerv-card-image {
 	margin-bottom: 14px;
 	border-color: color-mix(in srgb, var(--color-primary) 30%, var(--color-line));
 }

@@ -205,6 +205,7 @@ function nerv_core_rest_cover_preview( WP_REST_Request $request ): WP_REST_Respo
 		'title'        => get_the_title( $post ),
 		'source'       => $source,
 		'sourceLabel'  => strtoupper( $source ),
+		'ratio1x1'     => function_exists( 'nerv_core_cover_url' ) ? nerv_core_cover_url( $post_id, '1x1' ) : ( get_the_post_thumbnail_url( $post_id, 'nerv-thumb-square' ) ?: '' ),
 		'ratio5x2'     => function_exists( 'nerv_core_cover_url' ) ? nerv_core_cover_url( $post_id, '5x2' ) : ( get_the_post_thumbnail_url( $post_id, 'nerv-cover' ) ?: '' ),
 		'ratio2x1'     => function_exists( 'nerv_core_cover_url' ) ? nerv_core_cover_url( $post_id, '2x1' ) : ( get_the_post_thumbnail_url( $post_id, 'nerv-og' ) ?: '' ),
 		'prompt'       => function_exists( 'nerv_core_cover_render_prompt' ) ? nerv_core_cover_render_prompt( $post ) : '',
@@ -222,7 +223,7 @@ function nerv_core_rest_cover_generate( WP_REST_Request $request ): WP_REST_Resp
 		return new WP_REST_Response( array( 'message' => __( 'Cover generator is unavailable.', 'nerv-core' ) ), 500 );
 	}
 
-	$result = nerv_core_cover_generate( $post_id, 'editor' );
+	$result = nerv_core_cover_generate( $post_id, 'editor', sanitize_key( (string) $request->get_param( 'ratio' ) ) );
 	$status = 'success' === ( $result['status'] ?? '' ) || 'dry-run' === ( $result['status'] ?? '' ) ? 200 : 400;
 	$preview = new WP_REST_Request( 'GET', '/nerv-core/v1/cover-preview/' . $post_id );
 	$preview->set_param( 'id', $post_id );
