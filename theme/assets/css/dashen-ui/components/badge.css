@@ -1,0 +1,30 @@
+.badge-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.exo-badge {
+  border: 1px solid currentColor;
+  padding: 4px 10px;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+}
+
+.exo-badge[data-tone="primary"] {
+  color: var(--color-primary-glow);
+}
+
+.exo-badge[data-tone="success"] {
+  color: var(--color-success);
+}
+
+.exo-badge[data-tone="signal"] {
+  color: var(--color-signal);
+}
+
+.exo-badge[data-tone="danger"] {
+  color: var(--color-danger);
+}

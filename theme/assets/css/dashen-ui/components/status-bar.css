@@ -1,0 +1,65 @@
+.status-bar {
+  position: sticky;
+  top: 0;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  padding: 9px 18px;
+  border-bottom: 1px solid var(--color-line);
+  background: color-mix(in srgb, var(--color-bg) 88%, transparent);
+  color: var(--color-muted);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.06em;
+}
+
+.status-brand {
+  color: var(--color-primary-glow);
+}
+
+.status-separator {
+  color: var(--color-faint);
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-success);
+  box-shadow: 0 0 8px var(--color-success);
+  animation: exo-blink 2s infinite;
+}
+
+.status-nav {
+  display: flex;
+  gap: 14px;
+  margin-left: auto;
+}
+
+.status-nav a {
+  color: var(--color-muted);
+  text-decoration: none;
+}
+
+.status-nav a:hover {
+  color: var(--color-success);
+  text-shadow: 0 0 6px color-mix(in srgb, var(--color-success) 50%, transparent);
+}
+
+.theme-toggle {
+  cursor: pointer;
+  border: 1px solid var(--color-line);
+  background: transparent;
+  color: var(--color-muted);
+  padding: 4px 9px;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.12em;
+}
+
+.theme-toggle:hover {
+  border-color: var(--color-primary-strong);
+  color: var(--color-text);
+}

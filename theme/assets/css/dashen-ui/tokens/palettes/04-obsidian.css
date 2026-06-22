@@ -1,0 +1,38 @@
+[data-palette="obsidian"] {
+  --palette-name: "obsidian";
+  --palette-label: "04 OBSIDIAN";
+  --obsidian-950: #030306;
+  --obsidian-900: #08080d;
+  --obsidian-800: #101019;
+  --obsidian-700: #191925;
+  --obsidian-600: #252535;
+  --obsidian-500: #35354a;
+  --obsidian-400: #56566d;
+  --obsidian-300: #7b7b92;
+  --obsidian-200: #aaaabe;
+  --obsidian-100: #d7d7e4;
+  --obsidian-50: #f1f1f7;
+  --palette-950: var(--obsidian-950);
+  --palette-900: var(--obsidian-900);
+  --palette-800: var(--obsidian-800);
+  --palette-700: var(--obsidian-700);
+  --palette-600: var(--obsidian-600);
+  --palette-500: var(--obsidian-500);
+  --palette-400: var(--obsidian-400);
+  --palette-300: var(--obsidian-300);
+  --palette-200: var(--obsidian-200);
+  --palette-100: var(--obsidian-100);
+  --palette-50: var(--obsidian-50);
+  --palette-active: #b6ff4a;
+  --palette-signal: #9aa7ff;
+  --palette-danger: #ff495f;
+  --palette-info: #66f0ff;
+  --palette-active-paper: #4d7c0f;
+  --palette-signal-paper: #4f46e5;
+  --palette-danger-paper: #be123c;
+  --palette-info-paper: #0891b2;
+  --palette-on-primary: #ffffff;
+  --palette-on-active: #101500;
+  --palette-on-primary-paper: #ffffff;
+  --palette-on-active-paper: #ffffff;
+}

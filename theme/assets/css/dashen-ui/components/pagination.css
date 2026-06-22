@@ -1,0 +1,22 @@
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.page-link {
+  min-width: 34px;
+  border: 1px solid var(--color-line);
+  background: transparent;
+  color: var(--color-muted);
+  padding: 7px 10px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-align: center;
+  text-decoration: none;
+}
+
+.page-link[aria-current="page"] {
+  border-color: var(--color-primary);
+  color: var(--color-primary-glow);
+}

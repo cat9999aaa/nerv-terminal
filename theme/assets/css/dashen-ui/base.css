@@ -1,0 +1,75 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  line-height: 1.65;
+  transition: background var(--duration-slow), color var(--duration-slow);
+}
+
+::selection {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+a {
+  color: inherit;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.wrap {
+  width: min(100% - 36px, var(--container));
+  margin-inline: auto;
+}
+
+section {
+  padding-block: clamp(3rem, 7vw, 5.25rem);
+}
+
+.eyebrow {
+  margin-block-end: var(--space-3);
+  color: var(--color-signal);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.22em;
+}
+
+.section-title {
+  margin: 0 0 var(--space-2);
+  color: var(--color-text);
+  font-family: var(--font-mono);
+  font-size: clamp(1.625rem, 4.5vw, 2.625rem);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  line-height: 1.05;
+}
+
+.section-title::after {
+  content: " ▋";
+  color: var(--color-success);
+  animation: exo-blink 1.1s steps(1) infinite;
+}
+
+.subtle {
+  max-width: 35rem;
+  margin: var(--space-2) 0 var(--space-6);
+  color: var(--color-muted);
+  font-size: 0.9375rem;
+}
+
+.phosphor {
+  text-shadow: var(--text-glow);
+}

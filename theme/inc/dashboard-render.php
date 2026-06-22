@@ -18,8 +18,11 @@ function nerv_terminal_render_dashboard_block(): string {
 	$clock_short = current_time( 'H:i' );
 	ob_start();
 	?>
-	<div class="nerv-app-shell" data-nerv-terminal>
-		<header class="nerv-header">
+	<div class="nerv-app-shell" data-nerv-terminal data-theme="void" data-palette="hazard">
+		<div class="crt-vignette" aria-hidden="true"></div>
+		<div class="crt-roll" aria-hidden="true"></div>
+		<div class="crt-scan" aria-hidden="true"></div>
+		<header class="nerv-header status-bar">
 			<a class="nerv-brand" href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-label="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
 				<span class="nerv-brand__title"><?php echo esc_html( nerv_terminal_string( 'brand_title' ) ); ?></span>
 				<span class="nerv-brand__subtitle"><?php echo esc_html( nerv_terminal_string( 'brand_subtitle' ) ); ?></span>
@@ -31,9 +34,9 @@ function nerv_terminal_render_dashboard_block(): string {
 					<?php echo esc_html( nerv_terminal_string( 'brand_mark' ) ); ?>
 				<?php endif; ?>
 			</div>
-			<nav class="nerv-topnav" aria-label="<?php esc_attr_e( 'Primary navigation', 'nerv-terminal' ); ?>">
+			<nav class="nerv-topnav exo-nav" aria-label="<?php esc_attr_e( 'Primary navigation', 'nerv-terminal' ); ?>">
 				<?php foreach ( nerv_terminal_nav_items() as $item ) : ?>
-					<a class="<?php echo esc_attr( $item['active'] ? 'is-active' : '' ); ?>" href="<?php echo esc_url( $item['url'] ); ?>"><?php echo esc_html( $item['label'] ); ?></a>
+					<a class="<?php echo esc_attr( $item['active'] ? 'is-active' : '' ); ?>" href="<?php echo esc_url( $item['url'] ); ?>" <?php echo $item['active'] ? 'aria-current="page"' : ''; ?>><?php echo esc_html( $item['label'] ); ?></a>
 				<?php endforeach; ?>
 			</nav>
 			<div class="nerv-clock">
@@ -103,13 +106,13 @@ function nerv_terminal_core_notice(): string {
 		: admin_url( 'plugin-install.php' );
 	$button_text = is_file( $plugin_file ) ? __( 'Activate NERV Core', 'nerv-terminal' ) : __( 'Install NERV Core', 'nerv-terminal' );
 	$button      = current_user_can( 'activate_plugins' )
-		? '<a class="nerv-button nerv-button--small" href="' . esc_url( $action_url ) . '">' . esc_html( $button_text ) . '</a>'
+		? '<a class="nerv-button nerv-button--small exo-button" href="' . esc_url( $action_url ) . '">' . esc_html( $button_text ) . '</a>'
 		: '';
 
 	return nerv_terminal_panel(
 		'nerv-panel--core-missing',
 		'<div class="nerv-panel__heading"><h2>' . esc_html__( 'NERV Core Offline', 'nerv-terminal' ) . '</h2><span>' . esc_html__( 'Companion plugin required', 'nerv-terminal' ) . '</span></div>' .
-		'<div class="nerv-warning"><span aria-hidden="true">!</span><strong>' . esc_html__( 'Theme is running in safe visual mode.', 'nerv-terminal' ) . '</strong><p>' . esc_html__( 'Activate NERV Core to restore GEO mirrors, AI cover tools, partners, crawler monitoring, related entries, and NERV CONTROL.', 'nerv-terminal' ) . '</p>' . $button . '</div>'
+		'<div class="nerv-warning exo-alert" data-tone="danger" data-label="WARNING"><span aria-hidden="true">!</span><strong>' . esc_html__( 'Theme is running in safe visual mode.', 'nerv-terminal' ) . '</strong><p>' . esc_html__( 'Activate NERV Core to restore GEO mirrors, AI cover tools, partners, crawler monitoring, related entries, and NERV CONTROL.', 'nerv-terminal' ) . '</p>' . $button . '</div>'
 	);
 }
 
@@ -351,7 +354,38 @@ function nerv_terminal_is_missing_post_type_request( string $post_type ): bool {
 }
 
 function nerv_terminal_panel( string $class, string $html ): string {
-	return '<section class="nerv-panel ' . esc_attr( $class ) . '">' . $html . '</section>';
+	$label = nerv_terminal_panel_label_from_class( $class );
+	return '<section class="' . esc_attr( trim( 'nerv-panel panel ' . $class ) ) . '" data-label="' . esc_attr( $label ) . '">' . $html . '</section>';
+}
+
+function nerv_terminal_panel_label_from_class( string $class ): string {
+	$labels = array(
+		'nerv-panel--user'          => 'IDENTITY',
+		'nerv-panel--status'        => 'STATUS',
+		'nerv-panel--mission'       => 'MISSION',
+		'nerv-panel--server'        => 'SERVER',
+		'nerv-panel--hero'          => 'COMMAND',
+		'nerv-panel--projects'      => 'PROJECTS',
+		'nerv-panel--log'           => 'LOG',
+		'nerv-panel--pilot'         => 'PILOT',
+		'nerv-panel--monitor'       => 'MONITOR',
+		'nerv-panel--alert'         => 'ALERT',
+		'nerv-panel--entry'         => 'ARTICLE',
+		'nerv-panel--archive'       => 'ARCHIVE',
+		'nerv-panel--author'        => 'AUTHOR',
+		'nerv-panel--related'       => 'RELATED',
+		'nerv-panel--partners'      => 'ALLIES',
+		'nerv-panel--partner-apply' => 'CONTACT',
+		'nerv-panel--more'          => 'MOBILE',
+	);
+
+	foreach ( $labels as $needle => $label ) {
+		if ( str_contains( $class, $needle ) ) {
+			return $label;
+		}
+	}
+
+	return 'EXOFRAME';
 }
 
 function nerv_terminal_panel_heading( string $title_key, string $subtitle_key = '' ): string {
@@ -454,7 +488,7 @@ function nerv_terminal_panel_hero(): string {
 		'<h1>' . esc_html( nerv_terminal_string( 'hero_title' ) ) . '</h1>' .
 		'<p>' . esc_html( nerv_terminal_string( 'hero_desc_1' ) ) . '</p>' .
 		'<p>' . esc_html( nerv_terminal_string( 'hero_desc_2' ) ) . '</p>' .
-		'<a class="nerv-button" href="' . esc_url( home_url( '/about/' ) ) . '">' . esc_html( nerv_terminal_string( 'hero_button' ) ) . '</a></div>' .
+		'<a class="nerv-button exo-button" href="' . esc_url( home_url( '/about/' ) ) . '">' . esc_html( nerv_terminal_string( 'hero_button' ) ) . '</a></div>' .
 		'<div class="nerv-watermark" aria-hidden="true">NERV</div>'
 	);
 }
@@ -483,7 +517,7 @@ function nerv_terminal_panel_singular( ?WP_Post $queried_post = null ): string {
 	$entry_panel = nerv_terminal_panel(
 		'nerv-panel--entry',
 		'<div class="nerv-panel__heading nerv-panel__heading--split"><div><h2>' . esc_html( nerv_terminal_string( $title_key ) ) . '</h2><span>' . esc_html( $meta ) . '</span></div></div>' .
-		'<article class="nerv-entry"><h1>' . esc_html( get_the_title() ) . '</h1>' .
+		'<article class="nerv-entry article"><h1>' . esc_html( get_the_title() ) . '</h1>' .
 		( $subtitle ? '<p class="nerv-entry-subtitle">' . esc_html( $subtitle ) . '</p>' : '' ) .
 		( $image ? '<figure class="nerv-entry-cover-wrap">' . $image . '</figure>' : '<div class="nerv-entry-cover-fallback" aria-hidden="true">ENTRY: 0x' . esc_html( strtoupper( dechex( $post_id ) ) ) . '</div>' ) .
 		'<div class="nerv-entry-content">' . $content . '</div>' . nerv_terminal_geo_hidden_links( $post_id ) . '</article>'
@@ -549,7 +583,7 @@ function nerv_terminal_archive_card( int $post_id ): string {
 	$image = function_exists( 'nerv_core_cover_url' ) ? nerv_core_cover_url( $post_id, '5x2' ) : get_the_post_thumbnail_url( $post_id, 'nerv-cover' );
 	$style = $image ? ' style="background-image:url(' . esc_url( $image ) . ')"' : '';
 	$title = get_the_title( $post_id );
-	return '<article class="nerv-archive-card">' .
+	return '<article class="nerv-archive-card exo-card">' .
 		'<a class="nerv-card-image"' . $style . ' href="' . esc_url( get_permalink( $post_id ) ) . '" aria-label="' . esc_attr( sprintf( __( 'Open %s', 'nerv-terminal' ), $title ) ) . '"></a>' .
 		'<div><time>' . esc_html( get_the_date( 'Y-m-d', $post_id ) ) . '</time><h3><a href="' . esc_url( get_permalink( $post_id ) ) . '">' . esc_html( $title ) . '</a></h3><p>' . esc_html( nerv_terminal_excerpt( $post_id, 26 ) ) . '</p></div>' .
 		'</article>';
@@ -559,7 +593,7 @@ function nerv_terminal_panel_404(): string {
 	return nerv_terminal_panel(
 		'nerv-panel--entry nerv-panel--lost',
 		'<div class="nerv-panel__heading"><h2>' . esc_html( nerv_terminal_string( 'content_404_title' ) ) . '</h2></div>' .
-		'<div class="nerv-lost-code">404</div><p>' . esc_html( nerv_terminal_string( 'content_404_text' ) ) . '</p><a class="nerv-button" href="' . esc_url( home_url( '/' ) ) . '">' . esc_html( nerv_terminal_string( 'mobile_tab_home' ) ) . '</a>'
+		'<div class="nerv-lost-code">404</div><p>' . esc_html( nerv_terminal_string( 'content_404_text' ) ) . '</p><a class="nerv-button exo-button" href="' . esc_url( home_url( '/' ) ) . '">' . esc_html( nerv_terminal_string( 'mobile_tab_home' ) ) . '</a>'
 	);
 }
 
@@ -586,7 +620,7 @@ function nerv_terminal_panel_author_card( int $post_id ): string {
 		'<div class="nerv-author-card">' . $avatar . '<div><h3>' . esc_html( $name ) . '</h3>' .
 		( $title ? '<p class="nerv-author-title">' . esc_html( $title ) . '</p>' : '' ) .
 		'<p>' . esc_html( $bio ?: nerv_terminal_string( 'pilot_bio' ) ) . '</p>' . $social_html .
-		'<a class="nerv-button nerv-button--small" href="' . esc_url( get_author_posts_url( $author_id ) ) . '">' . esc_html( nerv_terminal_string( 'author_more_entries' ) ) . '</a></div></div>'
+		'<a class="nerv-button nerv-button--small exo-button" href="' . esc_url( get_author_posts_url( $author_id ) ) . '">' . esc_html( nerv_terminal_string( 'author_more_entries' ) ) . '</a></div></div>'
 	);
 }
 
@@ -674,13 +708,14 @@ function nerv_terminal_partner_card( int $post_id ): string {
 	$label  = function_exists( 'nerv_core_partner_health_status_label' ) ? nerv_core_partner_health_status_label( $status ) : strtoupper( $status );
 	$rel    = function_exists( 'nerv_core_partner_link_rel' ) ? nerv_core_partner_link_rel( $post_id ) : 'noopener noreferrer';
 	$target = $url ? ' target="_blank"' : '';
+	$tone   = 'offline' === $status ? 'danger' : ( 'slow' === $status ? 'signal' : 'success' );
 
-	return '<article class="nerv-partner-card">' .
+	return '<article class="nerv-partner-card exo-card">' .
 		'<div class="nerv-partner-logo">' . ( get_the_post_thumbnail( $post_id, 'thumbnail' ) ?: nerv_terminal_icon_svg( 'grid' ) ) . '</div>' .
 		'<h3>' . esc_html( get_the_title( $post_id ) ) . '</h3>' .
 		'<p>' . esc_html( nerv_terminal_excerpt( $post_id, 18 ) ) . '</p>' .
-		'<span class="nerv-partner-status nerv-partner-status--' . esc_attr( $status ) . '" title="' . esc_attr( (string) ( $health['message'] ?? '' ) ) . '"><i></i>' . esc_html( $label ) . '</span>' .
-		'<a class="nerv-button nerv-button--small" href="' . esc_url( $url ?: get_permalink( $post_id ) ) . '" rel="' . esc_attr( $rel ) . '"' . $target . '>' . esc_html( nerv_terminal_string( 'partner_visit' ) ) . '</a>' .
+		'<span class="nerv-partner-status exo-badge nerv-partner-status--' . esc_attr( $status ) . '" data-tone="' . esc_attr( $tone ) . '" title="' . esc_attr( (string) ( $health['message'] ?? '' ) ) . '"><i></i>' . esc_html( $label ) . '</span>' .
+		'<a class="nerv-button nerv-button--small exo-button" href="' . esc_url( $url ?: get_permalink( $post_id ) ) . '" rel="' . esc_attr( $rel ) . '"' . $target . '>' . esc_html( nerv_terminal_string( 'partner_visit' ) ) . '</a>' .
 		'</article>';
 }
 
@@ -700,7 +735,7 @@ function nerv_terminal_partner_application_panel(): string {
 	return nerv_terminal_panel(
 		'nerv-panel--partner-apply',
 		'<div class="nerv-panel__heading"><h2>' . esc_html( nerv_terminal_string( 'partner_apply_title' ) ) . '</h2><span>' . esc_html( nerv_terminal_string( 'partner_apply_subtitle' ) ) . '</span></div>' .
-		'<div class="nerv-partner-apply"><p>' . esc_html( $text ) . '</p><a class="nerv-button nerv-button--small" href="mailto:' . esc_attr( $email ) . '">' . esc_html( nerv_terminal_string( 'partner_apply_button' ) ) . '</a></div>'
+		'<div class="nerv-partner-apply exo-alert" data-tone="signal" data-label="ALLY"><p>' . esc_html( $text ) . '</p><a class="nerv-button nerv-button--small exo-button" href="mailto:' . esc_attr( $email ) . '">' . esc_html( nerv_terminal_string( 'partner_apply_button' ) ) . '</a></div>'
 	);
 }
 
@@ -757,7 +792,7 @@ function nerv_terminal_panel_mobile_more(): string {
 		$links .= '<a href="' . esc_url( $item['url'] ) . '"><span>' . esc_html( $item['number'] ) . '</span><strong>' . esc_html( $item['label'] ) . '</strong><small>' . esc_html( $item['subtitle'] ) . '</small></a>';
 	}
 
-	$search = ! empty( $sections['search'] ) ? '<form class="nerv-more-search" role="search" method="get" action="' . esc_url( home_url( '/' ) ) . '"><label><span>' . esc_html( nerv_terminal_string( 'mobile_more_search' ) ) . '</span><input type="search" name="s" value="' . esc_attr( get_search_query() ) . '" placeholder="MAGI QUERY"></label><button class="nerv-button nerv-button--small" type="submit">&gt; RUN</button></form>' : '';
+	$search = ! empty( $sections['search'] ) ? '<form class="nerv-more-search exo-form" role="search" method="get" action="' . esc_url( home_url( '/' ) ) . '"><label><span>' . esc_html( nerv_terminal_string( 'mobile_more_search' ) ) . '</span><input class="exo-field" type="search" name="s" value="' . esc_attr( get_search_query() ) . '" placeholder="MAGI QUERY"></label><button class="nerv-button nerv-button--small exo-button" type="submit">&gt; RUN</button></form>' : '';
 	$footer = ! empty( $sections['footer'] ) ? '<p class="nerv-more-footer">&copy; ' . esc_html( gmdate( 'Y' ) ) . ' ' . esc_html( get_bloginfo( 'name' ) ) . ' / ' . esc_html( nerv_terminal_string( 'powered_by' ) ) . '</p>' : '';
 
 	$output = nerv_terminal_panel(
@@ -815,12 +850,12 @@ function nerv_terminal_project_card( int $post_id ): string {
 	$cat_name = $cat ? $cat[0]->name : __( 'WordPress', 'nerv-terminal' );
 	$title = get_the_title( $post_id );
 
-	return '<article class="nerv-project-card">' .
+	return '<article class="nerv-project-card exo-card">' .
 		'<a class="nerv-card-image"' . $style . ' href="' . esc_url( get_permalink( $post_id ) ) . '" aria-label="' . esc_attr( sprintf( __( 'Open project %s', 'nerv-terminal' ), $title ) ) . '"></a>' .
 		'<h3>' . esc_html( nerv_terminal_string( 'project_prefix' ) . ' ' . $title ) . '</h3>' .
 		'<p class="nerv-card-cat">' . esc_html( nerv_terminal_string( 'category_label' ) . ' ' . $cat_name ) . '</p>' .
 		'<p>' . esc_html( nerv_terminal_excerpt( $post_id, 18 ) ) . '</p>' .
-		'<a class="nerv-button nerv-button--small" href="' . esc_url( get_permalink( $post_id ) ) . '">' . esc_html( nerv_terminal_string( 'detail_button' ) ) . '</a>' .
+		'<a class="nerv-button nerv-button--small exo-button" href="' . esc_url( get_permalink( $post_id ) ) . '">' . esc_html( nerv_terminal_string( 'detail_button' ) ) . '</a>' .
 		'</article>';
 }
 
@@ -882,12 +917,12 @@ function nerv_terminal_geo_hidden_links( int $post_id ): string {
 function nerv_terminal_placeholder_card( int $index ): string {
 	$titles = array( 'EVA-01', 'TOKYO-3', 'MAGI SYSTEM' );
 	$cats   = array( 'Web Design', 'CMS / WordPress', 'Plugin' );
-	return '<article class="nerv-project-card">' .
+	return '<article class="nerv-project-card exo-card">' .
 		'<div class="nerv-card-image nerv-card-image--placeholder nerv-card-image--' . esc_attr( (string) $index ) . '"></div>' .
 		'<h3>' . esc_html( nerv_terminal_string( 'project_prefix' ) . ' ' . $titles[ $index - 1 ] ) . '</h3>' .
 		'<p class="nerv-card-cat">' . esc_html( nerv_terminal_string( 'category_label' ) . ' ' . $cats[ $index - 1 ] ) . '</p>' .
 		'<p>' . esc_html__( 'WordPress terminal operation record initialized.', 'nerv-terminal' ) . '</p>' .
-		'<a class="nerv-button nerv-button--small" href="' . esc_url( nerv_terminal_post_type_url( 'project' ) ) . '">' . esc_html( nerv_terminal_string( 'detail_button' ) ) . '</a>' .
+		'<a class="nerv-button nerv-button--small exo-button" href="' . esc_url( nerv_terminal_post_type_url( 'project' ) ) . '">' . esc_html( nerv_terminal_string( 'detail_button' ) ) . '</a>' .
 		'</article>';
 }
 
@@ -955,7 +990,7 @@ function nerv_terminal_global_social_links(): string {
 		$rel   = trim( (string) ( $social['rel'] ?? 'me noopener noreferrer' ) );
 		$qr_url = esc_url_raw( (string) ( $social['qr_url'] ?? '' ) );
 		if ( 'wechat' === $key && $qr_url ) {
-			$links .= '<details class="nerv-social-qr"><summary aria-label="' . esc_attr( $label ) . '">' . esc_html( nerv_terminal_social_abbr( $key, $label ) ) . '</summary><span><img src="' . esc_url( $qr_url ) . '" alt="' . esc_attr( $label ) . '"></span></details>';
+			$links .= '<details class="nerv-social-qr tooltip"><summary aria-label="' . esc_attr( $label ) . '">' . esc_html( nerv_terminal_social_abbr( $key, $label ) ) . '</summary><span><img src="' . esc_url( $qr_url ) . '" alt="' . esc_attr( $label ) . '"></span></details>';
 			continue;
 		}
 		if ( '' === $url ) {
@@ -986,7 +1021,7 @@ function nerv_terminal_panel_alert(): string {
 	return nerv_terminal_panel(
 		'nerv-panel--alert',
 		nerv_terminal_panel_heading( 'alert_title', 'alert_subtitle' ) .
-		'<div class="nerv-warning"><span aria-hidden="true">!</span><strong>' . esc_html( nerv_terminal_string( 'warning_level' ) ) . '</strong><p>' . esc_html( nerv_terminal_string( 'warning_text' ) ) . '</p><p>' . esc_html( nerv_terminal_string( 'warning_ip' ) ) . '</p><p>TIME: <span data-nerv-clock-short>' . esc_html( current_time( 'H:i' ) ) . '</span></p><a class="nerv-button nerv-button--small" href="' . esc_url( home_url( '/contact/' ) ) . '">' . esc_html( nerv_terminal_string( 'warning_button' ) ) . '</a></div>'
+		'<div class="nerv-warning exo-alert" data-tone="danger" data-label="WARNING"><span aria-hidden="true">!</span><strong>' . esc_html( nerv_terminal_string( 'warning_level' ) ) . '</strong><p>' . esc_html( nerv_terminal_string( 'warning_text' ) ) . '</p><p>' . esc_html( nerv_terminal_string( 'warning_ip' ) ) . '</p><p>TIME: <span data-nerv-clock-short>' . esc_html( current_time( 'H:i' ) ) . '</span></p><a class="nerv-button nerv-button--small exo-button" href="' . esc_url( home_url( '/contact/' ) ) . '">' . esc_html( nerv_terminal_string( 'warning_button' ) ) . '</a></div>'
 	);
 }
 

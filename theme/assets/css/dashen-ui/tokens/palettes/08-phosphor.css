@@ -1,0 +1,38 @@
+[data-palette="phosphor"] {
+  --palette-name: "phosphor";
+  --palette-label: "08 PHOSPHOR";
+  --phosphor-950: #041407;
+  --phosphor-900: #08250d;
+  --phosphor-800: #0d3b15;
+  --phosphor-700: #13551f;
+  --phosphor-600: #1b742c;
+  --phosphor-500: #2a963d;
+  --phosphor-400: #54c764;
+  --phosphor-300: #83e68b;
+  --phosphor-200: #b6f5b9;
+  --phosphor-100: #dcfbdd;
+  --phosphor-50: #f0fff0;
+  --palette-950: var(--phosphor-950);
+  --palette-900: var(--phosphor-900);
+  --palette-800: var(--phosphor-800);
+  --palette-700: var(--phosphor-700);
+  --palette-600: var(--phosphor-600);
+  --palette-500: var(--phosphor-500);
+  --palette-400: var(--phosphor-400);
+  --palette-300: var(--phosphor-300);
+  --palette-200: var(--phosphor-200);
+  --palette-100: var(--phosphor-100);
+  --palette-50: var(--phosphor-50);
+  --palette-active: #adff2f;
+  --palette-signal: #f4d35e;
+  --palette-danger: #ff3b5c;
+  --palette-info: #48f2ff;
+  --palette-active-paper: #3f8f18;
+  --palette-signal-paper: #a16207;
+  --palette-danger-paper: #be123c;
+  --palette-info-paper: #0891b2;
+  --palette-on-primary: #101018;
+  --palette-on-active: #101600;
+  --palette-on-primary-paper: #ffffff;
+  --palette-on-active-paper: #ffffff;
+}

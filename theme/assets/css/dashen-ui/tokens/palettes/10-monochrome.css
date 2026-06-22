@@ -1,0 +1,38 @@
+[data-palette="monochrome"] {
+  --palette-name: "monochrome";
+  --palette-label: "10 MONOCHROME";
+  --monochrome-950: #050505;
+  --monochrome-900: #111111;
+  --monochrome-800: #1f1f1f;
+  --monochrome-700: #333333;
+  --monochrome-600: #4d4d4d;
+  --monochrome-500: #737373;
+  --monochrome-400: #999999;
+  --monochrome-300: #b8b8b8;
+  --monochrome-200: #d4d4d4;
+  --monochrome-100: #ececec;
+  --monochrome-50: #fafafa;
+  --palette-950: var(--monochrome-950);
+  --palette-900: var(--monochrome-900);
+  --palette-800: var(--monochrome-800);
+  --palette-700: var(--monochrome-700);
+  --palette-600: var(--monochrome-600);
+  --palette-500: var(--monochrome-500);
+  --palette-400: var(--monochrome-400);
+  --palette-300: var(--monochrome-300);
+  --palette-200: var(--monochrome-200);
+  --palette-100: var(--monochrome-100);
+  --palette-50: var(--monochrome-50);
+  --palette-active: #ffffff;
+  --palette-signal: #b8b8b8;
+  --palette-danger: #2b2b2b;
+  --palette-info: #737373;
+  --palette-active-paper: #111111;
+  --palette-signal-paper: #525252;
+  --palette-danger-paper: #2b2b2b;
+  --palette-info-paper: #404040;
+  --palette-on-primary: #ffffff;
+  --palette-on-active: #050509;
+  --palette-on-primary-paper: #ffffff;
+  --palette-on-active-paper: #ffffff;
+}

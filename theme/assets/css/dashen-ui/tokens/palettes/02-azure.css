@@ -1,0 +1,38 @@
+[data-palette="azure"] {
+  --palette-name: "azure";
+  --palette-label: "02 AZURE";
+  --azure-950: #061420;
+  --azure-900: #08233a;
+  --azure-800: #0b3558;
+  --azure-700: #0d4b7a;
+  --azure-600: #12639d;
+  --azure-500: #1881c8;
+  --azure-400: #41a9ea;
+  --azure-300: #79c9f5;
+  --azure-200: #b4e2fb;
+  --azure-100: #d8f1fd;
+  --azure-50: #eef9ff;
+  --palette-950: var(--azure-950);
+  --palette-900: var(--azure-900);
+  --palette-800: var(--azure-800);
+  --palette-700: var(--azure-700);
+  --palette-600: var(--azure-600);
+  --palette-500: var(--azure-500);
+  --palette-400: var(--azure-400);
+  --palette-300: var(--azure-300);
+  --palette-200: var(--azure-200);
+  --palette-100: var(--azure-100);
+  --palette-50: var(--azure-50);
+  --palette-active: #5af7ff;
+  --palette-signal: #f5b347;
+  --palette-danger: #ff4f6d;
+  --palette-info: #8de0ff;
+  --palette-active-paper: #087f8c;
+  --palette-signal-paper: #9a5f00;
+  --palette-danger-paper: #b4233f;
+  --palette-info-paper: #0369a1;
+  --palette-on-primary: #ffffff;
+  --palette-on-active: #001416;
+  --palette-on-primary-paper: #ffffff;
+  --palette-on-active-paper: #ffffff;
+}

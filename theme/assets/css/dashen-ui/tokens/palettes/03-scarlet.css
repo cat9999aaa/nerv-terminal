@@ -1,0 +1,38 @@
+[data-palette="scarlet"] {
+  --palette-name: "scarlet";
+  --palette-label: "03 SCARLET";
+  --scarlet-950: #230708;
+  --scarlet-900: #3b0a0c;
+  --scarlet-800: #5a1114;
+  --scarlet-700: #7c171b;
+  --scarlet-600: #a31f25;
+  --scarlet-500: #c93238;
+  --scarlet-400: #e85d61;
+  --scarlet-300: #f48b8e;
+  --scarlet-200: #f9b9bb;
+  --scarlet-100: #fde0e1;
+  --scarlet-50: #fff1f1;
+  --palette-950: var(--scarlet-950);
+  --palette-900: var(--scarlet-900);
+  --palette-800: var(--scarlet-800);
+  --palette-700: var(--scarlet-700);
+  --palette-600: var(--scarlet-600);
+  --palette-500: var(--scarlet-500);
+  --palette-400: var(--scarlet-400);
+  --palette-300: var(--scarlet-300);
+  --palette-200: var(--scarlet-200);
+  --palette-100: var(--scarlet-100);
+  --palette-50: var(--scarlet-50);
+  --palette-active: #ff9d2e;
+  --palette-signal: #ffd166;
+  --palette-danger: #ff314f;
+  --palette-info: #48c8ff;
+  --palette-active-paper: #b45309;
+  --palette-signal-paper: #a16207;
+  --palette-danger-paper: #b91c1c;
+  --palette-info-paper: #0369a1;
+  --palette-on-primary: #ffffff;
+  --palette-on-active: #160900;
+  --palette-on-primary-paper: #ffffff;
+  --palette-on-active-paper: #ffffff;
+}

@@ -1,0 +1,46 @@
+.exo-button {
+  cursor: pointer;
+  border: 1px solid var(--color-line);
+  background: transparent;
+  color: var(--color-text);
+  padding: 10px 18px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  transition: transform var(--duration-fast), border-color var(--duration-fast), box-shadow var(--duration-fast), background var(--duration-fast);
+}
+
+.exo-button:hover {
+  transform: translateY(-1px);
+}
+
+.exo-button:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.exo-button[data-variant="primary"] {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+.exo-button[data-variant="primary"]:hover {
+  background: var(--color-primary-strong);
+  box-shadow: 0 0 16px -3px var(--color-primary-glow);
+}
+
+.exo-button[data-variant="success"] {
+  border-color: var(--color-success);
+  color: var(--color-success);
+}
+
+.exo-button[data-variant="danger"] {
+  border-color: var(--color-danger);
+  color: var(--color-danger);
+}
+
+.exo-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.35;
+}

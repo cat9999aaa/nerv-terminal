@@ -1,0 +1,38 @@
+[data-palette="hazard"] {
+  --palette-name: "hazard";
+  --palette-label: "09 HAZARD";
+  --hazard-950: #171300;
+  --hazard-900: #2a2200;
+  --hazard-800: #433700;
+  --hazard-700: #604f00;
+  --hazard-600: #806a00;
+  --hazard-500: #a88a00;
+  --hazard-400: #d4b000;
+  --hazard-300: #f5d13d;
+  --hazard-200: #ffe68a;
+  --hazard-100: #fff3c4;
+  --hazard-50: #fffbe8;
+  --palette-950: var(--hazard-950);
+  --palette-900: var(--hazard-900);
+  --palette-800: var(--hazard-800);
+  --palette-700: var(--hazard-700);
+  --palette-600: var(--hazard-600);
+  --palette-500: var(--hazard-500);
+  --palette-400: var(--hazard-400);
+  --palette-300: var(--hazard-300);
+  --palette-200: var(--hazard-200);
+  --palette-100: var(--hazard-100);
+  --palette-50: var(--hazard-50);
+  --palette-active: #fff000;
+  --palette-signal: #ff9f1c;
+  --palette-danger: #e71d36;
+  --palette-info: #2ec4b6;
+  --palette-active-paper: #8a7600;
+  --palette-signal-paper: #b45309;
+  --palette-danger-paper: #b91c1c;
+  --palette-info-paper: #0f766e;
+  --palette-on-primary: #101018;
+  --palette-on-active: #171400;
+  --palette-on-primary-paper: #ffffff;
+  --palette-on-active-paper: #ffffff;
+}

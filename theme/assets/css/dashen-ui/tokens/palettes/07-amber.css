@@ -1,0 +1,38 @@
+[data-palette="amber"] {
+  --palette-name: "amber";
+  --palette-label: "07 AMBER";
+  --amber-950: #1b0f02;
+  --amber-900: #321b04;
+  --amber-800: #4d2a06;
+  --amber-700: #6f3c08;
+  --amber-600: #96540d;
+  --amber-500: #c06f16;
+  --amber-400: #e8942e;
+  --amber-300: #f5b75f;
+  --amber-200: #ffd38e;
+  --amber-100: #ffe8bd;
+  --amber-50: #fff6df;
+  --palette-950: var(--amber-950);
+  --palette-900: var(--amber-900);
+  --palette-800: var(--amber-800);
+  --palette-700: var(--amber-700);
+  --palette-600: var(--amber-600);
+  --palette-500: var(--amber-500);
+  --palette-400: var(--amber-400);
+  --palette-300: var(--amber-300);
+  --palette-200: var(--amber-200);
+  --palette-100: var(--amber-100);
+  --palette-50: var(--amber-50);
+  --palette-active: #ffd166;
+  --palette-signal: #ff8c1a;
+  --palette-danger: #ff3b30;
+  --palette-info: #00d4ff;
+  --palette-active-paper: #a16207;
+  --palette-signal-paper: #c2410c;
+  --palette-danger-paper: #b91c1c;
+  --palette-info-paper: #0284c7;
+  --palette-on-primary: #101018;
+  --palette-on-active: #171000;
+  --palette-on-primary-paper: #ffffff;
+  --palette-on-active-paper: #ffffff;
+}

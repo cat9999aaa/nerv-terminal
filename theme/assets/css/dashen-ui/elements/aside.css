@@ -1,0 +1,17 @@
+.article aside {
+  margin: 1.6em 0;
+  border: 1px dashed var(--color-line);
+  background: color-mix(in srgb, var(--color-surface) 86%, transparent);
+  padding: 14px 16px;
+  color: var(--color-muted);
+}
+
+.article aside::before {
+  content: "SIDE CHANNEL";
+  display: block;
+  margin-bottom: 6px;
+  color: var(--color-signal);
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+}

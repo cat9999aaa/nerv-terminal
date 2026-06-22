@@ -1,0 +1,26 @@
+.toast-stack {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 110;
+  display: grid;
+  gap: 8px;
+  width: min(360px, calc(100vw - 36px));
+}
+
+.toast {
+  border: 1px solid var(--color-primary);
+  background: var(--color-bg);
+  color: var(--color-muted);
+  padding: 12px 14px;
+  box-shadow: 0 0 24px -14px var(--color-primary-glow);
+  font-size: 0.875rem;
+}
+
+.toast strong {
+  display: block;
+  color: var(--color-primary-glow);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+}

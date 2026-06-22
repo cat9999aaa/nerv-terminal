@@ -1,0 +1,34 @@
+.crt-scan,
+.crt-vignette,
+.crt-roll {
+  position: fixed;
+  pointer-events: none;
+}
+
+.crt-scan {
+  inset: 0;
+  z-index: 95;
+  background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.16) 0 1px, transparent 1px 3px);
+}
+
+.crt-vignette {
+  inset: 0;
+  z-index: 94;
+  background: radial-gradient(120% 120% at 50% 50%, transparent 62%, rgba(0, 0, 0, 0.4) 100%);
+  box-shadow: inset 0 0 160px 20px rgba(0, 0, 0, 0.55);
+}
+
+.crt-roll {
+  left: 0;
+  right: 0;
+  z-index: 93;
+  height: 90px;
+  background: linear-gradient(180deg, transparent, rgba(185, 140, 255, 0.05), transparent);
+  animation: exo-roll 7s linear infinite;
+}
+
+[data-theme="paper"] .crt-scan,
+[data-theme="paper"] .crt-vignette,
+[data-theme="paper"] .crt-roll {
+  display: none;
+}

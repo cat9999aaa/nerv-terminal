@@ -1,0 +1,19 @@
+.exo-card {
+  border: 1px solid var(--color-line);
+  background: var(--color-surface);
+  padding: 18px;
+}
+
+.exo-card-title {
+  margin: 0 0 8px;
+  color: var(--color-text);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  letter-spacing: 0.08em;
+}
+
+.exo-card p {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 0.875rem;
+}

@@ -1,0 +1,63 @@
+[data-theme="void"] {
+  --color-bg: var(--palette-950, var(--exo-void));
+  --color-surface: color-mix(in srgb, var(--palette-900, var(--exo-elevated)) 84%, #000 16%);
+  --color-card: color-mix(in srgb, var(--palette-900, var(--exo-panel)) 70%, var(--palette-800, var(--exo-panel)) 30%);
+  --color-text: var(--palette-50, var(--exo-fg));
+  --color-muted: var(--palette-200, var(--exo-muted));
+  --color-faint: var(--palette-400, var(--exo-faint));
+  --color-line: color-mix(in srgb, var(--palette-700, var(--exo-line)) 58%, #000 42%);
+  --color-primary: var(--palette-500, #737373);
+  --color-primary-strong: var(--palette-400, #999999);
+  --color-primary-glow: var(--palette-300, #b8b8b8);
+  --color-success: var(--palette-active, #ffffff);
+  --color-signal: var(--palette-signal, #b8b8b8);
+  --color-danger: var(--palette-danger, #ff4a52);
+  --color-info: var(--palette-info, #66f0ff);
+  --color-on-primary: var(--palette-on-primary, #ffffff);
+  --color-on-success: var(--palette-on-active, #050509);
+  --shadow-phosphor: 0 0 1px color-mix(in srgb, var(--color-primary-glow) 80%, #fff 20%), 0 0 7px color-mix(in srgb, var(--color-primary) 54%, transparent);
+  --code-bg: color-mix(in srgb, var(--palette-950, #050509) 88%, #000 12%);
+  --code-bar-bg: color-mix(in srgb, var(--palette-900, #111116) 80%, #000 20%);
+  --code-border: color-mix(in srgb, var(--palette-700, #2d2d35) 65%, #000 35%);
+  --code-text: var(--palette-50, #f4f4f5);
+  --code-muted: var(--palette-300, #b8b8c0);
+  --syntax-comment: var(--palette-400, #a1a1aa);
+  --syntax-punctuation: var(--palette-200, #d4d4d8);
+  --syntax-keyword: var(--palette-300, #b8b8b8);
+  --syntax-string: var(--palette-active, #ffffff);
+  --syntax-function: var(--palette-signal, #b8b8b8);
+  --syntax-number: var(--palette-info, #737373);
+  --syntax-danger: var(--palette-danger, #ff4a52);
+}
+
+[data-theme="paper"] {
+  --color-bg: var(--palette-50, var(--exo-paper));
+  --color-surface: var(--palette-100, var(--exo-paper-elevated));
+  --color-card: #ffffff;
+  --color-text: var(--palette-950, var(--exo-ink));
+  --color-muted: var(--palette-700, #52525b);
+  --color-faint: var(--palette-500, #a1a1aa);
+  --color-line: var(--palette-200, #d4d4d8);
+  --color-primary: var(--palette-600, #4d4d4d);
+  --color-primary-strong: var(--palette-700, #333333);
+  --color-primary-glow: var(--palette-500, #737373);
+  --color-success: var(--palette-active-paper, var(--palette-active, #111111));
+  --color-signal: var(--palette-signal-paper, var(--palette-signal, #737373));
+  --color-danger: var(--palette-danger-paper, var(--palette-danger, #2b2b2b));
+  --color-info: var(--palette-info-paper, var(--palette-info, #737373));
+  --color-on-primary: var(--palette-on-primary-paper, #ffffff);
+  --color-on-success: var(--palette-on-active-paper, #ffffff);
+  --shadow-phosphor: none;
+  --code-bg: #ffffff;
+  --code-bar-bg: color-mix(in srgb, var(--palette-100, #ececef) 86%, #fff 14%);
+  --code-border: var(--palette-200, #d4d4d8);
+  --code-text: var(--palette-950, #111116);
+  --code-muted: var(--palette-600, #52525b);
+  --syntax-comment: var(--palette-500, #71717a);
+  --syntax-punctuation: var(--palette-700, #3f3f46);
+  --syntax-keyword: var(--palette-600, #52525b);
+  --syntax-string: var(--palette-active-paper, var(--palette-active, #111111));
+  --syntax-function: var(--palette-signal-paper, var(--palette-signal, #737373));
+  --syntax-number: var(--palette-info-paper, var(--palette-info, #737373));
+  --syntax-danger: var(--palette-danger-paper, var(--palette-danger, #2b2b2b));
+}

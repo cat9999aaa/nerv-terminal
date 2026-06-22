@@ -1,0 +1,21 @@
+.article details {
+  margin: 1.3em 0;
+  border: 1px solid var(--color-line);
+  background: var(--color-surface);
+}
+
+.article summary {
+  cursor: pointer;
+  padding: 10px 12px;
+  color: var(--color-text);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+}
+
+.article summary::marker {
+  color: var(--color-success);
+}
+
+.article details > :not(summary) {
+  margin-inline: 12px;
+}

@@ -1,0 +1,151 @@
+.article {
+  max-width: 42.5rem;
+  margin-inline: auto;
+}
+
+.article .kick {
+  margin-block-end: 6px;
+  color: var(--color-signal);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.26em;
+}
+
+.article h1,
+.article h2,
+.article h5,
+.article h6 {
+  font-family: var(--font-mono);
+}
+
+.article h1 {
+  margin: 0.5em 0 0.1em;
+  color: var(--color-text);
+  font-size: clamp(2.125rem, 6vw, 3.625rem);
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  line-height: 1;
+}
+
+.article h1 .em {
+  color: var(--color-primary-glow);
+}
+
+.article h2 {
+  margin: 1.5em 0 0.4em;
+  color: var(--color-text);
+  font-size: clamp(1.5rem, 4vw, 2.125rem);
+  font-weight: 800;
+}
+
+.article h2::before {
+  content: "▓▒░ ";
+  color: var(--color-primary);
+}
+
+.article h3 {
+  margin: 1.5em 0 0.4em;
+  border-bottom: 1px solid var(--color-line);
+  color: var(--color-text);
+  padding-bottom: 6px;
+  font-family: var(--font-body);
+  font-size: 1.4375rem;
+  font-weight: 600;
+}
+
+.article h4 {
+  margin: 1.5em 0 0.3em;
+  color: var(--color-signal);
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.article h5 {
+  margin: 1.6em 0 0.3em;
+  color: var(--color-primary-glow);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.article h6 {
+  margin: 1.4em 0 0.3em;
+  color: var(--color-faint);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.article p {
+  margin: 0 0 1.1em;
+  color: var(--color-muted);
+}
+
+.article p.lead {
+  color: var(--color-text);
+  font-family: var(--font-serif);
+  font-size: 1.1875rem;
+  line-height: 1.7;
+}
+
+.article a {
+  color: var(--color-success);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.article strong,
+.article b,
+.article em,
+.article i {
+  color: var(--color-text);
+}
+
+.article del {
+  color: var(--color-faint);
+}
+
+.article ins {
+  border-bottom: 2px solid var(--color-success);
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.article mark {
+  background: var(--color-success);
+  color: var(--color-on-success);
+  padding-inline: 4px;
+}
+
+.article small {
+  color: var(--color-faint);
+  font-size: 0.82em;
+}
+
+.article kbd {
+  border: 1px solid var(--color-line);
+  border-bottom-width: 3px;
+  border-radius: var(--radius-sm);
+  background: var(--color-card);
+  color: var(--color-text);
+  padding: 1px 7px;
+  font-family: var(--font-mono);
+  font-size: 0.8em;
+}
+
+.article abbr {
+  cursor: help;
+  text-decoration: underline dotted;
+}
+
+.article :not(pre) > code {
+  border: 1px solid var(--color-line);
+  background: var(--color-surface);
+  color: var(--color-success);
+  padding: 1px 6px;
+  font-family: var(--font-mono);
+  font-size: 0.86em;
+}

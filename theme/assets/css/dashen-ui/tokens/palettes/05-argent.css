@@ -1,0 +1,38 @@
+[data-palette="argent"] {
+  --palette-name: "argent";
+  --palette-label: "05 ARGENT";
+  --argent-950: #0b0d10;
+  --argent-900: #171b20;
+  --argent-800: #252b33;
+  --argent-700: #37404a;
+  --argent-600: #4c5965;
+  --argent-500: #667482;
+  --argent-400: #8a98a5;
+  --argent-300: #aeb9c2;
+  --argent-200: #cfd7dd;
+  --argent-100: #e7ecef;
+  --argent-50: #f6f8f9;
+  --palette-950: var(--argent-950);
+  --palette-900: var(--argent-900);
+  --palette-800: var(--argent-800);
+  --palette-700: var(--argent-700);
+  --palette-600: var(--argent-600);
+  --palette-500: var(--argent-500);
+  --palette-400: var(--argent-400);
+  --palette-300: var(--argent-300);
+  --palette-200: var(--argent-200);
+  --palette-100: var(--argent-100);
+  --palette-50: var(--argent-50);
+  --palette-active: #3df2c2;
+  --palette-signal: #f2c14e;
+  --palette-danger: #ef476f;
+  --palette-info: #4cc9f0;
+  --palette-active-paper: #0f766e;
+  --palette-signal-paper: #a16207;
+  --palette-danger-paper: #be123c;
+  --palette-info-paper: #0369a1;
+  --palette-on-primary: #ffffff;
+  --palette-on-active: #001712;
+  --palette-on-primary-paper: #ffffff;
+  --palette-on-active-paper: #ffffff;
+}

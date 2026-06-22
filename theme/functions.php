@@ -60,6 +60,15 @@ function nerv_terminal_enqueue_assets(): void {
 	);
 }
 
+add_filter( 'language_attributes', 'nerv_terminal_language_attributes' );
+function nerv_terminal_language_attributes( string $output ): string {
+	if ( str_contains( $output, 'data-theme=' ) ) {
+		return $output;
+	}
+
+	return trim( $output . ' data-theme="void" data-palette="hazard"' );
+}
+
 function nerv_terminal_asset_version( string $path ): string {
 	$mtime = is_file( $path ) ? (int) filemtime( $path ) : 0;
 	if ( is_dir( $path ) ) {

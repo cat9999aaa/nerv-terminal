@@ -1,0 +1,38 @@
+[data-palette="amethyst"] {
+  --palette-name: "amethyst";
+  --palette-label: "01 AMETHYST";
+  --amethyst-950: #160c27;
+  --amethyst-900: #24113f;
+  --amethyst-800: #391c62;
+  --amethyst-700: #4d2585;
+  --amethyst-600: #6330a6;
+  --amethyst-500: #7741c1;
+  --amethyst-400: #9d6be8;
+  --amethyst-300: #b98cff;
+  --amethyst-200: #c9b2ec;
+  --amethyst-100: #e4d8f8;
+  --amethyst-50: #f4effc;
+  --palette-950: var(--amethyst-950);
+  --palette-900: var(--amethyst-900);
+  --palette-800: var(--amethyst-800);
+  --palette-700: var(--amethyst-700);
+  --palette-600: var(--amethyst-600);
+  --palette-500: var(--amethyst-500);
+  --palette-400: var(--amethyst-400);
+  --palette-300: var(--amethyst-300);
+  --palette-200: var(--amethyst-200);
+  --palette-100: var(--amethyst-100);
+  --palette-50: var(--amethyst-50);
+  --palette-active: #9df542;
+  --palette-signal: #f0a030;
+  --palette-danger: #ff4a52;
+  --palette-info: #4fd8ff;
+  --palette-active-paper: #4e8a0c;
+  --palette-signal-paper: #b8650e;
+  --palette-danger-paper: #b4232b;
+  --palette-info-paper: #0d7490;
+  --palette-on-primary: #ffffff;
+  --palette-on-active: #0a1500;
+  --palette-on-primary-paper: #ffffff;
+  --palette-on-active-paper: #ffffff;
+}

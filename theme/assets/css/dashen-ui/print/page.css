@@ -1,0 +1,93 @@
+@media print {
+  @page {
+    size: A4;
+    margin: 20mm 18mm;
+  }
+
+  body {
+    background: #fff !important;
+    color: #111 !important;
+    font-family: Georgia, "Times New Roman", serif;
+  }
+
+  .crt-scan,
+  .crt-vignette,
+  .crt-roll,
+  .status-bar,
+  .hero,
+  #palette,
+  #components,
+  #type,
+  #export,
+  footer {
+    display: none !important;
+  }
+
+  section {
+    padding: 0;
+  }
+
+  .article {
+    max-width: none;
+  }
+
+  .article h1,
+  .article h2,
+  .article h3,
+  .article h4,
+  .article h5,
+  .article h6 {
+    color: #111 !important;
+    break-after: avoid;
+  }
+
+  .article p,
+  .article li,
+  .article dd {
+    color: #222 !important;
+  }
+
+  .article blockquote,
+  .article .callout,
+  .article figure,
+  .code-shell,
+  .article table {
+    break-inside: avoid;
+  }
+
+  .article blockquote {
+    border: 1px solid #999;
+    background: #f7f7f7;
+  }
+
+  .article a[href]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.85em;
+  }
+
+  .code-shell {
+    border-color: #ccc;
+    background: #f7f7f7;
+  }
+
+  .codebar {
+    background: #eee;
+    color: #555;
+  }
+
+  .code-shell pre {
+    color: #111;
+  }
+
+  .article .callout,
+  .article aside,
+  .article details {
+    border-color: #aaa;
+    background: #f8f8f8;
+  }
+
+  .article figcaption,
+  .article .footnotes {
+    color: #555 !important;
+  }
+}

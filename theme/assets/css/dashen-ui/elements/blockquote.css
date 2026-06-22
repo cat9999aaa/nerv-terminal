@@ -1,0 +1,68 @@
+.article blockquote {
+  position: relative;
+  margin: 2em 0;
+  border: 1px solid var(--color-primary);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--color-primary) 14%, transparent), transparent);
+  color: var(--color-text);
+  padding: 26px 26px 22px;
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  line-height: 1.55;
+}
+
+.article blockquote::before {
+  content: "┤ INCOMING TRANSMISSION ├";
+  position: absolute;
+  top: -8px;
+  left: 18px;
+  background: var(--color-bg);
+  color: var(--color-signal);
+  padding-inline: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-style: normal;
+  letter-spacing: 0.16em;
+}
+
+.article blockquote::after {
+  content: "◗";
+  position: absolute;
+  right: 18px;
+  bottom: 12px;
+  color: var(--color-success);
+  animation: exo-blink 1s steps(1) infinite;
+}
+
+.article blockquote cite {
+  display: block;
+  margin-top: 10px;
+  color: var(--color-faint);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-style: normal;
+}
+
+.article .pull {
+  position: relative;
+  margin: 1.8em 0;
+  color: var(--color-primary-glow);
+  font-family: var(--font-serif);
+  font-size: clamp(1.5rem, 4vw, 2.375rem);
+  line-height: 1.3;
+  text-align: center;
+}
+
+.article .pull::before,
+.article .pull::after {
+  color: var(--color-signal);
+  font-family: var(--font-mono);
+  font-size: 0.7em;
+}
+
+.article .pull::before {
+  content: "// ";
+}
+
+.article .pull::after {
+  content: " //";
+}

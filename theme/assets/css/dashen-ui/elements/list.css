@@ -1,0 +1,47 @@
+.article ul,
+.article ol {
+  margin: 0 0 1.1em;
+  color: var(--color-muted);
+  padding-left: 1.5em;
+}
+
+.article li {
+  margin: 0.3em 0;
+}
+
+.article ul li {
+  position: relative;
+  list-style: none;
+}
+
+.article ul li::before {
+  content: "▸";
+  position: absolute;
+  left: -1.3em;
+  color: var(--color-success);
+}
+
+.article ol li::marker {
+  color: var(--color-signal);
+  font-family: var(--font-mono);
+  font-weight: 700;
+}
+
+.article dl {
+  margin: 0 0 1.1em;
+  border-left: 2px solid var(--color-line);
+  padding-left: 16px;
+}
+
+.article dt {
+  margin-top: 10px;
+  color: var(--color-primary-glow);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.1em;
+}
+
+.article dd {
+  margin: 2px 0 0;
+  color: var(--color-muted);
+}

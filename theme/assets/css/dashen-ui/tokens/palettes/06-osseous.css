@@ -1,0 +1,38 @@
+[data-palette="osseous"] {
+  --palette-name: "osseous";
+  --palette-label: "06 OSSEOUS";
+  --osseous-950: #17120d;
+  --osseous-900: #2a2118;
+  --osseous-800: #423529;
+  --osseous-700: #5c4b3b;
+  --osseous-600: #786555;
+  --osseous-500: #958373;
+  --osseous-400: #b4a798;
+  --osseous-300: #cec6b8;
+  --osseous-200: #e3ddd1;
+  --osseous-100: #f1ede5;
+  --osseous-50: #fbf8f1;
+  --palette-950: var(--osseous-950);
+  --palette-900: var(--osseous-900);
+  --palette-800: var(--osseous-800);
+  --palette-700: var(--osseous-700);
+  --palette-600: var(--osseous-600);
+  --palette-500: var(--osseous-500);
+  --palette-400: var(--osseous-400);
+  --palette-300: var(--osseous-300);
+  --palette-200: var(--osseous-200);
+  --palette-100: var(--osseous-100);
+  --palette-50: var(--osseous-50);
+  --palette-active: #7bd88f;
+  --palette-signal: #d98e2b;
+  --palette-danger: #d92d20;
+  --palette-info: #3a86ff;
+  --palette-active-paper: #15803d;
+  --palette-signal-paper: #b45309;
+  --palette-danger-paper: #b42318;
+  --palette-info-paper: #1d4ed8;
+  --palette-on-primary: #101018;
+  --palette-on-active: #041307;
+  --palette-on-primary-paper: #ffffff;
+  --palette-on-active-paper: #ffffff;
+}

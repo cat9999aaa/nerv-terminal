@@ -1,0 +1,25 @@
+.panel {
+  position: relative;
+  padding: 24px 22px 22px;
+  border: 1px solid var(--color-line);
+  background: var(--color-surface);
+}
+
+.panel::before {
+  content: attr(data-label);
+  position: absolute;
+  top: -8px;
+  left: 16px;
+  padding-inline: 9px;
+  background: var(--color-bg);
+  color: var(--color-signal);
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.22em;
+}
+
+.panel-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(248px, 1fr));
+  gap: 22px;
+}

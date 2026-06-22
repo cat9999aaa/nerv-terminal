@@ -1,0 +1,14 @@
+.article hr {
+  height: 0;
+  margin: 2.4em 0;
+  overflow: visible;
+  border: 0;
+  text-align: center;
+}
+
+.article hr::before {
+  content: "◇ ◆ ◇";
+  color: var(--color-faint);
+  font-family: var(--font-mono);
+  letter-spacing: 0.4em;
+}

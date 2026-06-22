@@ -1,0 +1,33 @@
+:root {
+  --exo-void: #050509;
+  --exo-elevated: #111116;
+  --exo-panel: #191920;
+  --exo-paper: #f7f7f8;
+  --exo-paper-elevated: #ececef;
+  --exo-paper-panel: #ffffff;
+  --exo-ink: #111116;
+  --exo-fg: #f4f4f5;
+  --exo-muted: #b8b8c0;
+  --exo-faint: #71717a;
+  --exo-line: #2d2d35;
+}
+
+[data-theme="void"] {
+  --color-bg: var(--exo-void);
+  --color-surface: var(--exo-elevated);
+  --color-card: var(--exo-panel);
+  --color-text: var(--exo-fg);
+  --color-muted: var(--exo-muted);
+  --color-faint: var(--exo-faint);
+  --color-line: var(--exo-line);
+}
+
+[data-theme="paper"] {
+  --color-bg: var(--exo-paper);
+  --color-surface: var(--exo-paper-elevated);
+  --color-card: var(--exo-paper-panel);
+  --color-text: var(--exo-ink);
+  --color-muted: #52525b;
+  --color-faint: #a1a1aa;
+  --color-line: #d4d4d8;
+}

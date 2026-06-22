@@ -1,0 +1,16 @@
+.exo-field {
+  width: 100%;
+  margin-top: 6px;
+  border: 1px solid var(--color-line);
+  background: var(--color-bg);
+  color: var(--color-text);
+  padding: 9px 12px;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+}
+
+.exo-field:focus {
+  outline: none;
+  border-color: var(--color-primary-strong);
+  box-shadow: var(--focus-ring);
+}
