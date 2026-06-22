@@ -1635,6 +1635,56 @@
 			);
 		}
 
+		function slugBatchControls() {
+			return el(
+				'div',
+				{ className: 'nerv-control-primary-task' },
+				el(
+					'div',
+					{ className: 'nerv-control-primary-task__body' },
+					el( 'span', null, __( '旧文章链接 GEO 化', 'nerv-core' ) ),
+					el( 'strong', null, __( '批量多线程改文章链接', 'nerv-core' ) ),
+					el( 'p', null, __( '把中文、过长或不可读的旧文章 slug 批量改成适合 SEO/GEO 的英文链接；保留旧链接 301 跳转，并在 429/5xx 时自动重拾。', 'nerv-core' ) ),
+					el( 'small', null, String( slugBatch.processed || 0 ) + '/' + String( slugBatch.total || 0 ) + ' · ' + ( slugBatch.status || 'idle' ) + ' · changed ' + String( slugBatch.changed || 0 ) + ' · failed ' + String( slugBatch.failed || 0 ) )
+				),
+				el(
+					'div',
+					{ className: 'nerv-control-primary-task__settings' },
+					el( TextControl, {
+						label: __( '每批数量', 'nerv-core' ),
+						type: 'number',
+						min: 1,
+						max: 25,
+						value: String( slugBatchSettings.batchSize ),
+						__next40pxDefaultSize: true,
+						onChange: function ( value ) {
+							setSlugBatchSettings( Object.assign( {}, slugBatchSettings, { batchSize: Math.max( 1, Math.min( 25, parseInt( value, 10 ) || 1 ) ) } ) );
+						},
+					} ),
+					el( TextControl, {
+						label: __( '并发线程', 'nerv-core' ),
+						type: 'number',
+						min: 1,
+						max: 8,
+						value: String( slugBatchSettings.concurrency ),
+						__next40pxDefaultSize: true,
+						onChange: function ( value ) {
+							setSlugBatchSettings( Object.assign( {}, slugBatchSettings, { concurrency: Math.max( 1, Math.min( 8, parseInt( value, 10 ) || 1 ) ) } ) );
+						},
+					} )
+				),
+				el(
+					'div',
+					{ className: 'nerv-control-primary-task__actions' },
+					el( Button, { variant: 'primary', isBusy: 'geo-slug-start' === runningAction, disabled: !! runningAction || saving, onClick: function () { runSlugBatch( 'start' ); } }, __( '启动挂机改链接', 'nerv-core' ) ),
+					el( Button, { variant: 'secondary', isBusy: 'geo-slug-tick' === runningAction, disabled: !! runningAction || saving || ! slugBatch.total || 'paused' === slugBatch.status, onClick: function () { runSlugBatch( 'tick' ); } }, __( '立即跑一批', 'nerv-core' ) ),
+					el( Button, { variant: 'secondary', isBusy: 'geo-slug-pause' === runningAction, disabled: !! runningAction || saving || 'running' !== slugBatch.status, onClick: function () { runSlugBatch( 'pause' ); } }, __( '暂停', 'nerv-core' ) ),
+					el( Button, { variant: 'secondary', isBusy: 'geo-slug-resume' === runningAction, disabled: !! runningAction || saving || 'paused' !== slugBatch.status, onClick: function () { runSlugBatch( 'resume' ); } }, __( '恢复', 'nerv-core' ) ),
+					el( Button, { variant: 'tertiary', isBusy: 'geo-slug-stop' === runningAction, disabled: !! runningAction || saving || [ 'running', 'paused' ].indexOf( slugBatch.status ) < 0, onClick: function () { runSlugBatch( 'stop' ); } }, __( '停止', 'nerv-core' ) )
+				)
+			);
+		}
+
 		return el(
 			'div',
 			{ className: 'nerv-control-tab-view' },
@@ -1654,6 +1704,7 @@
 				el( 'p', { className: 'nerv-control-form-note' }, __( '管理 AI 可读发布层：IndexNow 推送、爬虫可见性、robots 策略和机器可读资源状态。', 'nerv-core' ) ),
 				notice ? el( Notice, { status: 'success', isDismissible: true, onRemove: function () { setNotice( '' ); } }, notice ) : null,
 				error ? el( Notice, { status: 'warning', isDismissible: false }, error ) : null,
+				slugBatchControls(),
 				el(
 					'div',
 					{ className: 'nerv-control-form-grid' },

@@ -2541,6 +2541,60 @@
 	margin-bottom: 0;
 }
 
+.nerv-control-primary-task {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) minmax(220px, 0.36fr) auto;
+	gap: 14px;
+	align-items: center;
+	margin: 16px 0;
+	padding: 16px;
+	border: 1px solid #2271b1;
+	border-radius: 6px;
+	background: #f0f6fc;
+	color: #1d2327;
+}
+
+.nerv-control-primary-task__body {
+	display: grid;
+	gap: 5px;
+}
+
+.nerv-control-primary-task__body span {
+	color: #135e96;
+	font-size: 12px;
+	font-weight: 600;
+}
+
+.nerv-control-primary-task__body strong {
+	color: #1d2327;
+	font-size: 17px;
+	line-height: 1.2;
+}
+
+.nerv-control-primary-task__body p,
+.nerv-control-primary-task__body small {
+	margin: 0;
+	color: #50575e;
+	line-height: 1.5;
+}
+
+.nerv-control-primary-task__settings,
+.nerv-control-primary-task__actions {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-end;
+	gap: 8px;
+}
+
+.nerv-control-primary-task__settings .components-base-control {
+	width: 96px;
+	margin-bottom: 0;
+}
+
+.nerv-control-primary-task__actions {
+	justify-content: flex-end;
+}
+
 .nerv-control-model-chip-list {
 	display: flex;
 	flex-wrap: wrap;
@@ -2579,5 +2633,13 @@
 @media (max-width: 782px) {
 	.nerv-update-grid {
 		grid-template-columns: 1fr;
+	}
+
+	.nerv-control-primary-task {
+		grid-template-columns: 1fr;
+	}
+
+	.nerv-control-primary-task__actions {
+		justify-content: flex-start;
 	}
 }

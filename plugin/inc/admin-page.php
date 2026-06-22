@@ -2057,6 +2057,12 @@ function nerv_core_control_wizard_steps( bool $policy_exists, array $markdown_st
 }
 
 function nerv_core_control_health_items( array $cover_status, array $indexnow_options, array $crawler_options, array $crawler_summary, array $partner_summary, array $related_options, bool $policy_exists, array $markdown_stats ): array {
+	$slug_batch = function_exists( 'nerv_core_geo_slug_status' ) ? nerv_core_geo_slug_status() : array();
+	$slug_status = sanitize_key( (string) ( $slug_batch['status'] ?? 'idle' ) );
+	$slug_total = absint( $slug_batch['total'] ?? 0 );
+	$slug_processed = absint( $slug_batch['processed'] ?? 0 );
+	$slug_failed = absint( $slug_batch['failed'] ?? 0 );
+	$slug_state = $slug_failed > 0 ? 'red' : ( in_array( $slug_status, array( 'running', 'complete' ), true ) ? 'green' : 'amber' );
 		return array(
 			array(
 				'key'    => 'llms',
@@ -2082,6 +2088,18 @@ function nerv_core_control_health_items( array $cover_status, array $indexnow_op
 				'state'  => ! empty( $indexnow_options['enabled'] ) ? 'green' : 'amber',
 				'value'  => ! empty( $indexnow_options['enabled'] ) ? __( 'Enabled', 'nerv-core' ) : __( 'Disabled', 'nerv-core' ),
 				'detail' => ! empty( $indexnow_options['dry_run'] ) ? __( 'Dry-run safety is on.', 'nerv-core' ) : __( 'Live submission mode.', 'nerv-core' ),
+			),
+			array(
+				'key'    => 'geo-slug',
+				'label'  => __( 'GEO slug 挂机', 'nerv-core' ),
+				'state'  => $slug_state,
+				'value'  => sprintf(
+					'%1$s %2$d/%3$d',
+					$slug_status ? strtoupper( $slug_status ) : 'IDLE',
+					$slug_processed,
+					$slug_total
+				),
+				'detail' => __( '入口：NERV主题 · GEO 顶部的“旧文章链接 GEO 化”。', 'nerv-core' ),
 			),
 			array(
 				'key'    => 'cover',

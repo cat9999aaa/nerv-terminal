@@ -28,6 +28,7 @@ add_check( $checks, 'admin js exists', is_string( $js ) && '' !== $js, 'admin-co
 add_check( $checks, 'light shell override', str_contains( (string) $css, '.nerv-control-wrap .nerv-control-shell' ) && str_contains( (string) $css, 'background: #fff;' ), 'Control shell has a white WordPress-native override.' );
 add_check( $checks, 'loading shell override', str_contains( (string) $css, '.nerv-control-wrap .nerv-control-shell--loading' ), 'Loading state is included in the white override.' );
 add_check( $checks, 'slug batch controls', str_contains( (string) $js, '每批数量' ) && str_contains( (string) $js, '并发线程' ) && str_contains( (string) $js, "runSlugBatch( 'pause' )" ), 'GEO slug batch exposes batch size, concurrency, pause, resume, and stop controls.' );
+add_check( $checks, 'slug batch primary entry', str_contains( (string) $js, '旧文章链接 GEO 化' ) && str_contains( (string) $js, '批量多线程改文章链接' ) && str_contains( (string) $css, '.nerv-control-primary-task' ), 'GEO slug batch is promoted as a visible primary task on the GEO settings page.' );
 add_check( $checks, 'model chip fallback picker', str_contains( (string) $js, 'nerv-control-model-chip' ) && str_contains( (string) $js, '全部加入备用' ), 'AI fallback models can be selected from cached model chips.' );
 add_check( $checks, 'admin visible copy localized', ! preg_match( '/Theme Settings Page|This month|External calls|Tools Ready|Partner Display|Color Palette|Day \/ Night Mode|Save [A-Za-z ]+ Settings/', (string) $js ), 'Previously mixed English admin labels are localized in the React control surface.' );
 add_check( $checks, 'partner redirect data', str_contains( (string) $admin, "'redirects'" ) && str_contains( (string) $admin, "'finalUrl'" ), 'Partner health rows expose redirect count and final URL.' );
@@ -38,7 +39,7 @@ add_check( $checks, 'media webp failure details', str_contains( (string) $js, 'm
 $dark_rules = preg_match_all( '/background\s*:\s*(#0[0-9a-f]{2,6}|#1[0-9a-f]{2,6}|black|rgba\(\s*0\s*,\s*0\s*,\s*0)/i', (string) $css, $matches );
 $late_light_override = strpos( (string) $css, '.nerv-control-wrap :where(' );
 add_check( $checks, 'dark rules capped by light override', false !== $late_light_override && $dark_rules < 80, 'Dark legacy rules: ' . (int) $dark_rules . '; light override is present late in the file.' );
-foreach ( array( 'nerv-control-panel-row', 'nerv-control-social-row', 'nerv-control-mobile-tab-row', 'nerv-control-partner-row', 'nerv-control-tools-grid', 'nerv-control-effects-preview', 'nerv-control-appearance-grid' ) as $class_name ) {
+foreach ( array( 'nerv-control-primary-task', 'nerv-control-panel-row', 'nerv-control-social-row', 'nerv-control-mobile-tab-row', 'nerv-control-partner-row', 'nerv-control-tools-grid', 'nerv-control-effects-preview', 'nerv-control-appearance-grid' ) as $class_name ) {
 	add_check( $checks, 'light override for ' . $class_name, str_contains( (string) $css, '.' . $class_name ), $class_name . ' is covered by the WordPress light admin override.' );
 }
 
