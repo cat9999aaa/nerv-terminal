@@ -2154,11 +2154,19 @@
 }
 
 .nerv-control-wrap,
+.nerv-control-wrap .nerv-control-app,
 .nerv-control-wrap .nerv-control-shell,
+.nerv-control-wrap .nerv-control-shell--loading,
 .nerv-control-wrap .nerv-control-hero,
+.nerv-control-wrap .nerv-control-tabs,
+.nerv-control-wrap .nerv-control-tab,
+.nerv-control-wrap .nerv-control-metrics,
 .nerv-control-wrap .nerv-control-panel,
 .nerv-control-wrap .nerv-control-metric,
 .nerv-control-wrap .nerv-control-identity,
+.nerv-control-wrap .nerv-control-fieldset,
+.nerv-control-wrap .nerv-control-page-nav,
+.nerv-control-wrap .nerv-control-page-nav a,
 .nerv-control-wrap .nerv-control-health__item,
 .nerv-control-wrap .nerv-control-activity li,
 .nerv-control-wrap .nerv-control-model-cache {
@@ -2170,6 +2178,15 @@
 
 .nerv-control-wrap .nerv-control-hero {
 	background: #f6f7f7;
+}
+
+.nerv-control-wrap .nerv-control-tab--active,
+.nerv-control-wrap .nerv-control-tab.is-selected,
+.nerv-control-wrap .nerv-control-page-nav a.is-current {
+	background: #f0f6fc;
+	color: #135e96;
+	border-color: #2271b1;
+	outline: 0;
 }
 
 .nerv-control-wrap h1,
@@ -2187,8 +2204,13 @@
 .nerv-control-wrap span,
 .nerv-control-wrap small,
 .nerv-control-wrap em,
+.nerv-control-wrap .nerv-control-kicker,
+.nerv-control-wrap .nerv-control-tab em,
+.nerv-control-wrap .nerv-control-identity small,
 .nerv-control-wrap .nerv-control-form-note {
 	color: #50575e;
+	font-family: inherit;
+	text-transform: none;
 }
 
 .nerv-control-wrap input,
@@ -2238,6 +2260,49 @@
 	font-size: 14px;
 }
 
+.nerv-control-wrap .nerv-control-resource-grid a,
+.nerv-control-wrap .nerv-control-brand-preview,
+.nerv-control-wrap .nerv-control-pwa-preview,
+.nerv-control-wrap .nerv-control-pwa-preview figure,
+.nerv-control-wrap .nerv-control-media-field,
+.nerv-control-wrap .nerv-control-media-field img,
+.nerv-control-wrap .nerv-control-brand-preview img {
+	background: #fff;
+	color: #1d2327;
+	border-color: #dcdcde;
+	box-shadow: none;
+}
+
+.nerv-control-wrap .nerv-control-resource-grid a {
+	border: 1px solid #c3c4c7;
+	border-radius: 6px;
+	text-decoration: none;
+}
+
+.nerv-control-wrap .nerv-control-resource-grid a:hover {
+	border-color: #2271b1;
+	background: #f0f6fc;
+}
+
+.nerv-control-wrap .nerv-control-resource-grid strong,
+.nerv-control-wrap .nerv-control-brand-preview strong,
+.nerv-control-wrap .nerv-control-pwa-preview strong,
+.nerv-control-wrap .nerv-control-media-field > span {
+	color: #1d2327;
+}
+
+.nerv-control-wrap .nerv-control-brand-preview span,
+.nerv-control-wrap .nerv-control-brand-preview small,
+.nerv-control-wrap .nerv-control-brand-preview em,
+.nerv-control-wrap .nerv-control-pwa-preview > span,
+.nerv-control-wrap .nerv-control-pwa-preview small,
+.nerv-control-wrap .nerv-control-pwa-preview p,
+.nerv-control-wrap .nerv-control-media-field em {
+	color: #50575e;
+	font-family: inherit;
+	text-transform: none;
+}
+
 .nerv-control-wrap .nerv-control-geo-title-list {
 	display: grid;
 	gap: 8px;
@@ -2253,6 +2318,106 @@
 	border: 1px solid #dcdcde;
 	border-radius: 6px;
 	background: #fff;
+}
+
+.nerv-control-wrap :where(
+	.nerv-control-tool-card,
+	.nerv-control-provider-card,
+	.nerv-control-model-picker,
+	.nerv-control-command-row,
+	.nerv-control-action-pair--inputs,
+	.nerv-control-bot,
+	.nerv-control-resource-grid a,
+	.nerv-control-partner-row,
+	.nerv-control-demo-summary,
+	.nerv-control-demo-steps li,
+	.nerv-control-build-box,
+	.nerv-control-themecheck-box,
+	.nerv-control-effect-preset-box,
+	.nerv-control-effects-preview,
+	.nerv-control-panel-preview,
+	.nerv-control-custom-panel,
+	.nerv-control-repeat-row
+) {
+	background: #fff;
+	color: #1d2327;
+	border-color: #dcdcde;
+	box-shadow: none;
+}
+
+.nerv-control-wrap :where(
+	.nerv-control-tool-card span,
+	.nerv-control-tool-card small,
+	.nerv-control-provider-card p,
+	.nerv-control-model-picker small,
+	.nerv-control-command-row span,
+	.nerv-control-command-row small
+) {
+	color: #50575e;
+}
+
+.nerv-control-model-picker {
+	display: grid;
+	gap: 10px;
+	padding: 12px;
+	border: 1px solid #dcdcde;
+	border-radius: 6px;
+}
+
+.nerv-control-model-picker__head,
+.nerv-control-action-pair {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px;
+}
+
+.nerv-control-action-pair--inputs {
+	justify-content: flex-start;
+	align-items: flex-end;
+	gap: 12px;
+	padding: 10px 0;
+}
+
+.nerv-control-action-pair--inputs .components-base-control {
+	min-width: 140px;
+	margin-bottom: 0;
+}
+
+.nerv-control-model-chip-list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+	max-height: 220px;
+	overflow: auto;
+}
+
+.nerv-control-model-chip {
+	padding: 5px 8px;
+	border: 1px solid #dcdcde;
+	border-radius: 4px;
+	background: #f6f7f7;
+	color: #1d2327;
+	cursor: pointer;
+}
+
+.nerv-control-model-chip.is-selected {
+	border-color: #2271b1;
+	background: #f0f6fc;
+	color: #135e96;
+}
+
+.nerv-control-model-chip.is-main,
+.nerv-control-model-chip:disabled {
+	border-color: #00a32a;
+	background: #edfaef;
+	color: #006800;
+	cursor: default;
+}
+
+.nerv-control-command-row--stack {
+	align-items: start;
 }
 
 @media (max-width: 782px) {

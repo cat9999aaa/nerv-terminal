@@ -463,6 +463,7 @@
 			demo: Object.assign( { available: false, command: '', counts: { projects: 0, posts: 0, partners: 0 }, ready: false, summary: { created: 0, updated: 0, failed: 0 }, steps: [] }, source.demo || {} ),
 			preset: Object.assign( { schema: '', optionGroups: [] }, source.preset || {} ),
 			themeCheck: Object.assign( { available: false, status: 'pending', summary: { pass: 0, warning: 0, fail: 0 }, checks: [], message: '' }, source.themeCheck || {} ),
+			images: Object.assign( { webpEnabled: false, webpQuality: 0 }, source.images || {} ),
 		};
 	}
 
@@ -522,6 +523,24 @@
 			updateFeature( featureKey, 'fallback_models', String( value || '' ).split( /[\r\n,]+/ ).map( function ( item ) {
 				return item.trim();
 			} ).filter( Boolean ) );
+		}
+
+		function toggleFallbackModel( featureKey, model ) {
+			const feature = form[ featureKey ];
+			const current = feature.fallback_models || [];
+			const next = current.indexOf( model ) >= 0 ? current.filter( function ( item ) { return item !== model; } ) : current.concat( [ model ] );
+			updateFeature( featureKey, 'fallback_models', next );
+		}
+
+		function addCacheToFallbacks( featureKey, models ) {
+			const feature = form[ featureKey ];
+			const next = ( feature.fallback_models || [] ).slice();
+			models.forEach( function ( model ) {
+				if ( model !== feature.model && next.indexOf( model ) < 0 ) {
+					next.push( model );
+				}
+			} );
+			updateFeature( featureKey, 'fallback_models', next );
 		}
 
 		function providerOptions() {
@@ -590,6 +609,7 @@
 			const feature = form[ featureKey ];
 			const provider = findProvider( feature.provider_id );
 			const cache = provider.modelCache || [];
+			const fallbackModels = feature.fallback_models || [];
 			return el(
 				'div',
 				{ className: 'nerv-control-fieldset' },
@@ -599,20 +619,40 @@
 					el( 'span', null, __( '供应商', 'nerv-core' ) ),
 					el( 'select', { value: feature.provider_id, onChange: function ( event ) { updateFeature( featureKey, 'provider_id', event.target.value ); } }, providerOptions() )
 				),
-				el( TextControl, {
+				cache.length ? el( 'label', { className: 'nerv-control-select-field' },
+					el( 'span', null, __( '主模型', 'nerv-core' ) ),
+					el( 'select', { value: feature.model, onChange: function ( event ) { updateFeature( featureKey, 'model', event.target.value ); } },
+						el( 'option', { value: '' }, __( '选择主模型', 'nerv-core' ) ),
+						cache.map( function ( model ) { return el( 'option', { value: model, key: featureKey + '-main-' + model }, model ); } )
+					)
+				) : el( TextControl, {
 					label: __( '主模型', 'nerv-core' ),
 					value: feature.model,
 					__next40pxDefaultSize: true,
 					onChange: function ( value ) { updateFeature( featureKey, 'model', value ); },
 				} ),
-				cache.length ? el( 'div', { className: 'nerv-control-model-cache__list' }, cache.slice( 0, 20 ).map( function ( model ) {
-					return el( 'button', { type: 'button', className: 'button button-small', key: featureKey + model, onClick: function () { updateFeature( featureKey, 'model', model ); } }, model );
-				} ) ) : null,
+				cache.length ? el( 'div', { className: 'nerv-control-model-picker' },
+					el( 'div', { className: 'nerv-control-model-picker__head' },
+						el( 'strong', null, __( '备用模型选择', 'nerv-core' ) ),
+						el( Button, { variant: 'secondary', onClick: function () { addCacheToFallbacks( featureKey, cache ); } }, __( '全部加入备用', 'nerv-core' ) )
+					),
+					el( 'div', { className: 'nerv-control-model-chip-list' }, cache.slice( 0, 80 ).map( function ( model ) {
+						const selected = fallbackModels.indexOf( model ) >= 0;
+						const isMain = feature.model === model;
+						return el( 'button', {
+							type: 'button',
+							className: 'nerv-control-model-chip' + ( selected ? ' is-selected' : '' ) + ( isMain ? ' is-main' : '' ),
+							key: featureKey + '-fallback-' + model,
+							disabled: isMain,
+							onClick: function () { toggleFallbackModel( featureKey, model ); },
+						}, isMain ? __( '主模型', 'nerv-core' ) + ' · ' + model : model );
+					} ) )
+				) : null,
 				el( TextareaControl, {
-					label: __( '备用模型', 'nerv-core' ),
+					label: cache.length ? __( '备用模型顺序（可手动微调）', 'nerv-core' ) : __( '备用模型', 'nerv-core' ),
 					value: featureFallbackText( feature ),
 					rows: 4,
-					help: __( '每行一个。主模型失败、429、超时或返回格式错误时会立即切换。', 'nerv-core' ),
+					help: cache.length ? __( '上面的模型按钮会自动维护这个列表。顺序从上到下执行。', 'nerv-core' ) : __( '每行一个。主模型失败、429、超时或返回格式错误时会立即切换。', 'nerv-core' ),
 					__nextHasNoMarginBottom: true,
 					onChange: function ( value ) { setFeatureFallbackText( featureKey, value ); },
 				} )
@@ -1520,6 +1560,11 @@
 		const resources = formData.resources || {};
 		const geoTitle = formData.geoTitle || {};
 		const titleCandidates = geoTitle.candidates || [];
+		const slugBatch = geoTitle.batch || {};
+		const [ slugBatchSettings, setSlugBatchSettings ] = useState( {
+			batchSize: slugBatch.batchSize || 5,
+			concurrency: slugBatch.concurrency || 2,
+		} );
 
 		function updateIndexNow( key, value ) {
 			setForm( Object.assign( {}, form, { indexnow: Object.assign( {}, form.indexnow, { [ key ]: value } ) } ) );
@@ -1579,6 +1624,15 @@
 				.finally( function () {
 					setRunningAction( '' );
 				} );
+		}
+
+		function runSlugBatch( mode ) {
+			runGeoAction(
+				'geo-slug-' + mode,
+				window.nervCoreControl ? window.nervCoreControl.geoSlugBatchPath : '/nerv-core/v1/control-geo-slug-batch',
+				__( 'GEO slug 挂机任务已更新。', 'nerv-core' ),
+				{ mode: mode, batchSize: slugBatchSettings.batchSize, concurrency: slugBatchSettings.concurrency }
+			);
 		}
 
 		return el(
@@ -1725,19 +1779,72 @@
 						__( '生成下一篇建议', 'nerv-core' )
 					)
 				),
-				titleCandidates.length ? el(
-					'ul',
-					{ className: 'nerv-control-geo-title-list' },
+					titleCandidates.length ? el(
+						'ul',
+						{ className: 'nerv-control-geo-title-list' },
 					titleCandidates.slice( 0, 5 ).map( function ( row ) {
 						return el(
 							'li',
 							{ key: row.id },
 							el( 'strong', null, row.title || '' ),
 							el( 'span', null, ( row.reason || '' ) + ' / ' + ( row.slug || '' ) )
-						);
-					} )
-				) : null,
-				el(
+							);
+						} )
+					) : null,
+					el(
+						'div',
+						{ className: 'nerv-control-command-row nerv-control-command-row--stack' },
+						el(
+							'div',
+							null,
+							el( 'strong', null, __( 'GEO slug 挂机模式', 'nerv-core' ) ),
+							el( 'span', null, __( '自动批量处理不适合 SEO/GEO 的旧文章链接，支持失败重试与批次推进。', 'nerv-core' ) ),
+							el( 'small', null, String( slugBatch.processed || 0 ) + '/' + String( slugBatch.total || 0 ) + ' · ' + ( slugBatch.status || 'idle' ) + ' · changed ' + String( slugBatch.changed || 0 ) + ' · failed ' + String( slugBatch.failed || 0 ) )
+						),
+						el(
+							'div',
+							{ className: 'nerv-control-action-pair nerv-control-action-pair--inputs' },
+							el( TextControl, {
+								label: __( '每批数量', 'nerv-core' ),
+								type: 'number',
+								min: 1,
+								max: 25,
+								value: String( slugBatchSettings.batchSize ),
+								__next40pxDefaultSize: true,
+								onChange: function ( value ) {
+									setSlugBatchSettings( Object.assign( {}, slugBatchSettings, { batchSize: Math.max( 1, Math.min( 25, parseInt( value, 10 ) || 1 ) ) } ) );
+								},
+							} ),
+							el( TextControl, {
+								label: __( '并发线程', 'nerv-core' ),
+								type: 'number',
+								min: 1,
+								max: 8,
+								value: String( slugBatchSettings.concurrency ),
+								__next40pxDefaultSize: true,
+								onChange: function ( value ) {
+									setSlugBatchSettings( Object.assign( {}, slugBatchSettings, { concurrency: Math.max( 1, Math.min( 8, parseInt( value, 10 ) || 1 ) ) } ) );
+								},
+							} )
+						),
+						el(
+							'div',
+							{ className: 'nerv-control-action-pair' },
+							el( Button, { variant: 'primary', isBusy: 'geo-slug-start' === runningAction, disabled: !! runningAction || saving, onClick: function () { runSlugBatch( 'start' ); } }, __( '启动挂机改链接', 'nerv-core' ) ),
+							el( Button, { variant: 'secondary', isBusy: 'geo-slug-tick' === runningAction, disabled: !! runningAction || saving || ! slugBatch.total || 'paused' === slugBatch.status, onClick: function () { runSlugBatch( 'tick' ); } }, __( '立即跑一批', 'nerv-core' ) ),
+							el( Button, { variant: 'secondary', isBusy: 'geo-slug-pause' === runningAction, disabled: !! runningAction || saving || 'running' !== slugBatch.status, onClick: function () { runSlugBatch( 'pause' ); } }, __( '暂停', 'nerv-core' ) ),
+							el( Button, { variant: 'secondary', isBusy: 'geo-slug-resume' === runningAction, disabled: !! runningAction || saving || 'paused' !== slugBatch.status, onClick: function () { runSlugBatch( 'resume' ); } }, __( '恢复', 'nerv-core' ) ),
+							el( Button, { variant: 'tertiary', isBusy: 'geo-slug-stop' === runningAction, disabled: !! runningAction || saving || [ 'running', 'paused' ].indexOf( slugBatch.status ) < 0, onClick: function () { runSlugBatch( 'stop' ); } }, __( '停止', 'nerv-core' ) )
+						)
+					),
+					slugBatch.log && slugBatch.log.length ? el(
+						'ul',
+						{ className: 'nerv-control-geo-title-list' },
+						slugBatch.log.slice( 0, 6 ).map( function ( row, index ) {
+							return el( 'li', { key: 'slug-log-' + index }, el( 'strong', null, row.state || '' ), el( 'span', null, row.message || '' ) );
+						} )
+					) : null,
+					el(
 					'div',
 					{ className: 'nerv-control-command-row' },
 					el(
@@ -3501,7 +3608,8 @@
 									el( 'strong', null, row.title ),
 									el( 'span', null, row.label ),
 									el( 'em', null, row.featured ? __( 'Featured', 'nerv-core' ) : __( 'Standard', 'nerv-core' ) ),
-									el( 'small', null, row.message || row.url || '' )
+									el( 'small', null, ( row.message || row.url || '' ) + ( row.redirects ? ' · ' + String( row.redirects ) + ' redirects' : '' ) ),
+									row.finalUrl && row.finalUrl !== row.url ? el( 'small', null, __( 'Final URL', 'nerv-core' ) + ': ' + row.finalUrl ) : null
 								);
 						  } )
 						: el( 'p', { className: 'nerv-control-empty' }, __( 'No partners available yet.', 'nerv-core' ) )
@@ -3613,21 +3721,33 @@
 							__( 'Flush Related Cache', 'nerv-core' )
 						)
 					),
-					el(
-						'div',
-						{ className: 'nerv-control-tool-card' },
-						el( 'span', null, __( 'Partner Health', 'nerv-core' ) ),
+						el(
+							'div',
+							{ className: 'nerv-control-tool-card' },
+							el( 'span', null, __( 'Partner Health', 'nerv-core' ) ),
 						el( 'strong', null, 'ONLINE ' + form.partners.online + ' / SLOW ' + form.partners.slow + ' / OFFLINE ' + form.partners.offline ),
 						el( 'small', null, String( form.partners.total ) + ' ' + __( 'partner records tracked.', 'nerv-core' ) ),
 						el(
 							Button,
 							{ variant: 'secondary', onClick: function () { props.onSelectTab( 'partners' ); } },
-							__( 'Open Partner Tools', 'nerv-core' )
-						)
-					),
-					el(
-						'div',
-						{ className: 'nerv-control-tool-card' },
+								__( 'Open Partner Tools', 'nerv-core' )
+							)
+						),
+						el(
+							'div',
+							{ className: 'nerv-control-tool-card' },
+							el( 'span', null, __( 'WebP 图片优化', 'nerv-core' ) ),
+							el( 'strong', null, form.images.webpEnabled ? __( 'Enabled', 'nerv-core' ) : __( 'Disabled', 'nerv-core' ) ),
+							el( 'small', null, __( '上传 JPEG/PNG 后自动生成 WebP，分享卡片优先使用真实媒体图。', 'nerv-core' ) + ' Q' + String( form.images.webpQuality || 0 ) ),
+							el(
+								Button,
+								{ variant: 'secondary', onClick: function () { props.onSelectTab( 'seo' ); } },
+								__( 'Open SEO Settings', 'nerv-core' )
+							)
+						),
+						el(
+							'div',
+							{ className: 'nerv-control-tool-card' },
 						el( 'span', null, __( 'Demo Content', 'nerv-core' ) ),
 						el(
 							'strong',

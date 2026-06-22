@@ -501,7 +501,14 @@ function nerv_core_geo_json_ld_graph(): array {
 function nerv_core_geo_post_schema( WP_Post $post, string $site_id ): array {
 	$post_id = (int) $post->ID;
 	$subtitle = get_post_meta( $post_id, '_nerv_subtitle', true );
-	$image = function_exists( 'nerv_core_cover_url' ) ? nerv_core_cover_url( $post_id, '2x1' ) : ( get_the_post_thumbnail_url( $post_id, 'nerv-og' ) ?: get_the_post_thumbnail_url( $post_id, 'nerv-cover' ) );
+	$thumbnail_id = get_post_thumbnail_id( $post_id );
+	$image = $thumbnail_id && function_exists( 'nerv_core_image_optimizer_attachment_social_url' ) ? nerv_core_image_optimizer_attachment_social_url( (int) $thumbnail_id ) : '';
+	if ( ! $image && function_exists( 'nerv_core_image_optimizer_social_cover_url' ) ) {
+		$image = nerv_core_image_optimizer_social_cover_url( $post_id );
+	}
+	if ( ! $image ) {
+		$image = function_exists( 'nerv_core_cover_url' ) ? nerv_core_cover_url( $post_id, '2x1' ) : ( get_the_post_thumbnail_url( $post_id, 'nerv-og' ) ?: get_the_post_thumbnail_url( $post_id, 'nerv-cover' ) );
+	}
 	$type = 'post' === $post->post_type ? 'BlogPosting' : 'CreativeWork';
 
 	return array_filter(

@@ -9,9 +9,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'NERV_TERMINAL_VERSION', '0.1.5' );
+define( 'NERV_TERMINAL_VERSION', '0.1.6' );
 define( 'NERV_TERMINAL_DIR', get_template_directory() );
 define( 'NERV_TERMINAL_URI', get_template_directory_uri() );
+define( 'NERV_TERMINAL_REWRITE_VERSION', '20260623-blog-md-routes' );
 
 require_once NERV_TERMINAL_DIR . '/inc/defaults.php';
 require_once NERV_TERMINAL_DIR . '/inc/dashboard-render.php';
@@ -211,14 +212,28 @@ function nerv_terminal_social_image_url(): string {
 
 	if ( is_singular() ) {
 		$post_id = get_queried_object_id();
-		if ( $post_id && function_exists( 'nerv_core_cover_url' ) ) {
-			return nerv_core_cover_url( $post_id, '2x1' );
-		}
 		if ( $post_id ) {
+			$thumbnail_id = get_post_thumbnail_id( $post_id );
+			if ( $thumbnail_id && function_exists( 'nerv_core_image_optimizer_attachment_social_url' ) ) {
+				$image = nerv_core_image_optimizer_attachment_social_url( (int) $thumbnail_id );
+				if ( $image ) {
+					return $image;
+				}
+			}
 			$thumbnail = get_the_post_thumbnail_url( $post_id, 'nerv-og' );
 			if ( $thumbnail ) {
 				return $thumbnail;
 			}
+		}
+		if ( $post_id && function_exists( 'nerv_core_cover_url' ) ) {
+			if ( function_exists( 'nerv_core_image_optimizer_social_cover_url' ) ) {
+				$image = nerv_core_image_optimizer_social_cover_url( $post_id );
+				if ( $image ) {
+					return $image;
+				}
+			}
+
+			return nerv_core_cover_url( $post_id, '2x1' );
 		}
 	}
 
@@ -279,6 +294,16 @@ function nerv_terminal_register_runtime_routes(): void {
 		add_rewrite_rule( '^' . $view . '/?$', 'index.php?nerv_view=' . $view, 'top' );
 		add_rewrite_rule( '^' . $view . '/page/([0-9]+)/?$', 'index.php?nerv_view=' . $view . '&paged=$matches[1]', 'top' );
 	}
+}
+
+add_action( 'wp_loaded', 'nerv_terminal_maybe_flush_runtime_routes', 20 );
+function nerv_terminal_maybe_flush_runtime_routes(): void {
+	if ( get_option( 'nerv_terminal_rewrite_version' ) === NERV_TERMINAL_REWRITE_VERSION ) {
+		return;
+	}
+
+	flush_rewrite_rules( false );
+	update_option( 'nerv_terminal_rewrite_version', NERV_TERMINAL_REWRITE_VERSION, false );
 }
 
 add_action( 'pre_get_posts', 'nerv_terminal_prepare_runtime_view_query', 0 );
@@ -437,12 +462,22 @@ function nerv_terminal_view_max_pages( string $view ): int {
 }
 
 function nerv_terminal_view_page_url( string $view, int $page ): string {
-	$base = home_url( '/' . trim( $view, '/' ) . '/' );
+	$base = nerv_terminal_view_url( $view );
 	if ( $page <= 1 ) {
 		return $base;
 	}
 
 	$url = trailingslashit( $base ) . 'page/' . $page;
+	$permalink_structure = (string) get_option( 'permalink_structure' );
+	if ( '' !== $permalink_structure && ! str_ends_with( $permalink_structure, '/' ) ) {
+		return untrailingslashit( $url );
+	}
+
+	return user_trailingslashit( $url );
+}
+
+function nerv_terminal_view_url( string $view ): string {
+	$url = home_url( '/' . trim( $view, '/' ) . '/' );
 	$permalink_structure = (string) get_option( 'permalink_structure' );
 	if ( '' !== $permalink_structure && ! str_ends_with( $permalink_structure, '/' ) ) {
 		return untrailingslashit( $url );

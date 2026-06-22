@@ -459,6 +459,7 @@ function nerv_core_ai_usage_empty_month( string $month ): array {
 		'external' => 0,
 		'services' => array(
 			'cover'      => array( 'total' => 0, 'external' => 0 ),
+			'geo_slug'   => array( 'total' => 0, 'external' => 0 ),
 			'key_points' => array( 'total' => 0, 'external' => 0 ),
 		),
 		'statuses' => array(),
@@ -473,7 +474,7 @@ function nerv_core_ai_usage_log(): array {
 
 function nerv_core_ai_usage_record( string $service, string $status, bool $external ): void {
 	$service = sanitize_key( $service );
-	if ( ! in_array( $service, array( 'cover', 'key_points' ), true ) ) {
+	if ( ! in_array( $service, array( 'cover', 'geo_slug', 'key_points' ), true ) ) {
 		return;
 	}
 
@@ -510,7 +511,7 @@ function nerv_core_ai_usage_summary( string $month = '' ): array {
 	$log   = nerv_core_ai_usage_log();
 	$row   = isset( $log[ $month ] ) && is_array( $log[ $month ] ) ? wp_parse_args( $log[ $month ], nerv_core_ai_usage_empty_month( $month ) ) : nerv_core_ai_usage_empty_month( $month );
 
-	foreach ( array( 'cover', 'key_points' ) as $service ) {
+	foreach ( array( 'cover', 'geo_slug', 'key_points' ) as $service ) {
 		if ( ! isset( $row['services'][ $service ] ) || ! is_array( $row['services'][ $service ] ) ) {
 			$row['services'][ $service ] = array( 'total' => 0, 'external' => 0 );
 		}
@@ -572,7 +573,7 @@ function nerv_core_cover_generate( int $post_id, string $source = 'manual', stri
 		return nerv_core_cover_generation_result( 'error', __( 'You are not allowed to generate this cover.', 'nerv-core' ) );
 	}
 
-	$options = array_merge( nerv_core_cover_options(), nerv_core_ai_feature_options( 'text' ) );
+	$options = array_merge( nerv_core_cover_options(), nerv_core_ai_feature_options( 'image' ) );
 	$ratio = $ratio ? nerv_core_cover_normalize_ratio( $ratio ) : nerv_core_cover_default_ratio_for_post( $post );
 	$prompt = nerv_core_cover_render_prompt( $post, $ratio );
 
@@ -617,9 +618,10 @@ function nerv_core_cover_generate( int $post_id, string $source = 'manual', stri
 	}
 
 	set_post_thumbnail( $post_id, (int) $attachment_id );
-	update_post_meta( $post_id, '_nerv_cover_generated_url', wp_get_attachment_url( (int) $attachment_id ) );
+	$generated_url = function_exists( 'nerv_core_image_optimizer_attachment_social_url' ) ? nerv_core_image_optimizer_attachment_social_url( (int) $attachment_id ) : wp_get_attachment_url( (int) $attachment_id );
+	update_post_meta( $post_id, '_nerv_cover_generated_url', esc_url_raw( (string) $generated_url ) );
 
-	$result = nerv_core_cover_generation_result( 'success', __( 'AI cover generated and attached.', 'nerv-core' ), (string) wp_get_attachment_url( (int) $attachment_id ), (int) $attachment_id, $prompt, $ratio, (string) $options['model'] );
+	$result = nerv_core_cover_generation_result( 'success', __( 'AI cover generated and attached.', 'nerv-core' ), (string) $generated_url, (int) $attachment_id, $prompt, $ratio, (string) $options['model'] );
 	nerv_core_cover_store_history( $post_id, array_merge( $result, array( 'source' => $source ) ) );
 	nerv_core_ai_usage_record( 'cover', 'success', true );
 
@@ -759,7 +761,7 @@ function nerv_core_cover_maybe_auto_generate( int $post_id, WP_Post $post, bool 
 		return;
 	}
 
-	$options = nerv_core_cover_options();
+	$options = array_merge( nerv_core_cover_options(), nerv_core_ai_feature_options( 'image' ) );
 	if ( empty( $options['auto_generate'] ) || has_post_thumbnail( $post_id ) || nerv_core_cover_generated_url( $post_id ) ) {
 		return;
 	}
@@ -1420,7 +1422,8 @@ function nerv_core_cover_import_base64_image( int $post_id, string $base64, stri
 
 function nerv_core_cover_url( int $post_id, string $ratio = '5x2' ): string {
 	$size = '1x1' === $ratio ? 'nerv-thumb-square' : ( '2x1' === $ratio ? 'nerv-og' : 'nerv-cover' );
-	$uploaded = get_the_post_thumbnail_url( $post_id, $size );
+	$thumbnail_id = get_post_thumbnail_id( $post_id );
+	$uploaded = $thumbnail_id && function_exists( 'nerv_core_image_optimizer_attachment_url' ) ? nerv_core_image_optimizer_attachment_url( (int) $thumbnail_id, $size ) : get_the_post_thumbnail_url( $post_id, $size );
 	if ( $uploaded ) {
 		return $uploaded;
 	}

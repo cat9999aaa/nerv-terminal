@@ -777,7 +777,7 @@ function nerv_terminal_mobile_default_options(): array {
 		),
 		'tabs'          => array(
 			array( 'id' => 'home', 'label' => nerv_terminal_string( 'mobile_tab_home' ), 'icon' => 'home', 'url' => home_url( '/' ), 'target' => 'home', 'enabled' => true ),
-			array( 'id' => 'blog', 'label' => nerv_terminal_string( 'mobile_tab_blog' ), 'icon' => 'blog', 'url' => home_url( '/blog/' ), 'target' => 'blog', 'enabled' => true ),
+			array( 'id' => 'blog', 'label' => nerv_terminal_string( 'mobile_tab_blog' ), 'icon' => 'blog', 'url' => function_exists( 'nerv_terminal_view_url' ) ? nerv_terminal_view_url( 'blog' ) : home_url( '/blog/' ), 'target' => 'blog', 'enabled' => true ),
 			array( 'id' => 'projects', 'label' => nerv_terminal_string( 'mobile_tab_projects' ), 'icon' => 'grid', 'url' => nerv_terminal_post_type_url( 'project' ), 'target' => 'projects', 'enabled' => true ),
 			array( 'id' => 'pilot', 'label' => nerv_terminal_string( 'mobile_tab_pilot' ), 'icon' => 'pilot', 'url' => home_url( '/about/' ), 'target' => 'pilot', 'enabled' => true ),
 			array( 'id' => 'more', 'label' => nerv_terminal_string( 'mobile_tab_more' ), 'icon' => 'more', 'url' => add_query_arg( 'nerv_more', '1', home_url( '/' ) ), 'target' => 'more', 'enabled' => true ),

@@ -15,6 +15,7 @@ $checks = array();
 $blog = http_get( $site . '/blog/page/444/', true );
 add_check( $checks, 'overflow blog pagination', 200 === $blog['status'], 'Expected /blog/page/444/ to resolve after redirects, got HTTP ' . $blog['status'] . ' at ' . $blog['url'] . '.' );
 add_check( $checks, 'overflow canonical target', (bool) preg_match( '~/blog(?:/page/[0-9]+)?/?$~', $blog['url'] ), 'Overflow pagination redirects to a stable blog URL: ' . $blog['url'] . '.' );
+add_check( $checks, 'overflow page is not 404 template', 200 === $blog['status'] && ! body_looks_like_404( $blog['body'] ), 'Final title: ' . html_title( $blog['body'] ) . '; URL: ' . $blog['url'] . '.' );
 
 $llms = http_get( $site . '/llms.txt' );
 add_check( $checks, 'llms route', 200 === $llms['status'] && str_contains( strtolower( $llms['headers'] ), 'content-type: text/plain' ), 'llms.txt returned HTTP ' . $llms['status'] . '.' );
@@ -42,6 +43,11 @@ foreach ( $checks as $check ) {
 }
 
 if ( $failed ) {
+	fwrite( STDERR, "\nBaota/Nginx checklist:\n" );
+	fwrite( STDERR, "1. Use: try_files \$uri \$uri/ /index.php?\$args;\n" );
+	fwrite( STDERR, "2. Save WordPress Settings -> Permalinks once after deploying.\n" );
+	fwrite( STDERR, "3. If only .md fails, check Baota security rules that block all *.md before WordPress.\n" );
+	fwrite( STDERR, "4. Clear CDN/page cache before retesting the same URL in a browser.\n" );
 	exit( 1 );
 }
 
@@ -131,4 +137,25 @@ function markdown_url_from_llms( string $body ): string {
 	}
 
 	return '';
+}
+
+function html_title( string $body ): string {
+	if ( preg_match( '~<title[^>]*>(.*?)</title>~is', $body, $matches ) ) {
+		return trim( html_entity_decode( wp_strip_tags_fallback( $matches[1] ), ENT_QUOTES, 'UTF-8' ) );
+	}
+
+	return '(no title)';
+}
+
+function body_looks_like_404( string $body ): bool {
+	$title = strtolower( html_title( $body ) );
+	if ( str_contains( $title, '404' ) || str_contains( $title, 'not found' ) || str_contains( $title, '未找到' ) ) {
+		return true;
+	}
+
+	return (bool) preg_match( '~<(?:body|main)[^>]*class=["\'][^"\']*(?:error404|not-found)[^"\']*["\']~i', $body );
+}
+
+function wp_strip_tags_fallback( string $html ): string {
+	return preg_replace( '~<[^>]+>~', '', $html ) ?? $html;
 }

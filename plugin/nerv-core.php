@@ -3,7 +3,7 @@
  * Plugin Name: NERV Core
  * Plugin URI: https://dashen.wang/
  * Description: Data and service layer for the NERV Terminal theme.
- * Version: 0.1.5
+ * Version: 0.1.6
  * Requires at least: 6.7
  * Requires PHP: 8.1
  * Author: Wang Dashen
@@ -18,9 +18,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'NERV_CORE_VERSION', '0.1.5' );
+define( 'NERV_CORE_VERSION', '0.1.6' );
 define( 'NERV_CORE_DIR', plugin_dir_path( __FILE__ ) );
 define( 'NERV_CORE_URL', plugin_dir_url( __FILE__ ) );
+define( 'NERV_CORE_REWRITE_VERSION', '20260623-geo-md-routes' );
 
 require_once NERV_CORE_DIR . 'inc/i18n.php';
 require_once NERV_CORE_DIR . 'inc/cpt-project.php';
@@ -32,10 +33,12 @@ require_once NERV_CORE_DIR . 'inc/social-store.php';
 require_once NERV_CORE_DIR . 'inc/author-profile.php';
 require_once NERV_CORE_DIR . 'inc/blocks.php';
 require_once NERV_CORE_DIR . 'inc/cover-pipeline.php';
+require_once NERV_CORE_DIR . 'inc/image-optimizer.php';
 require_once NERV_CORE_DIR . 'inc/geo-markdown.php';
 require_once NERV_CORE_DIR . 'inc/geo-score.php';
 require_once NERV_CORE_DIR . 'inc/geo-crawler-stats.php';
 require_once NERV_CORE_DIR . 'inc/geo-title.php';
+require_once NERV_CORE_DIR . 'inc/geo-slug-batch.php';
 require_once NERV_CORE_DIR . 'inc/ai-policy.php';
 require_once NERV_CORE_DIR . 'inc/indexnow.php';
 require_once NERV_CORE_DIR . 'inc/related-engine.php';
@@ -77,4 +80,14 @@ function nerv_core_apply_preferred_permalink_structure( bool $force_flush = fals
 	if ( $force_flush ) {
 		flush_rewrite_rules();
 	}
+}
+
+add_action( 'wp_loaded', 'nerv_core_maybe_flush_runtime_routes', 20 );
+function nerv_core_maybe_flush_runtime_routes(): void {
+	if ( get_option( 'nerv_core_rewrite_version' ) === NERV_CORE_REWRITE_VERSION ) {
+		return;
+	}
+
+	flush_rewrite_rules( false );
+	update_option( 'nerv_core_rewrite_version', NERV_CORE_REWRITE_VERSION, false );
 }

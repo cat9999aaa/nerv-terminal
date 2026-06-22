@@ -130,12 +130,12 @@ function nerv_terminal_core_notice(): string {
 function nerv_terminal_nav_items(): array {
 	return array(
 		array( 'label' => nerv_terminal_string( 'nav_home' ), 'url' => home_url( '/' ), 'active' => is_front_page() && ! nerv_terminal_is_more_view(), 'new_window' => false ),
-		array( 'label' => nerv_terminal_string( 'nav_about' ), 'url' => home_url( '/about/' ), 'active' => nerv_terminal_is_view( 'about' ) || is_author(), 'new_window' => false ),
-		array( 'label' => nerv_terminal_string( 'nav_projects' ), 'url' => home_url( '/projects/' ), 'active' => nerv_terminal_is_view( 'projects' ) || is_post_type_archive( 'project' ), 'new_window' => false ),
-		array( 'label' => nerv_terminal_string( 'nav_blog' ), 'url' => home_url( '/blog/' ), 'active' => nerv_terminal_is_view( 'blog' ) || ( is_home() && ! is_front_page() ), 'new_window' => false ),
-		array( 'label' => nerv_terminal_string( 'nav_partners' ), 'url' => home_url( '/partners/' ), 'active' => nerv_terminal_is_view( 'partners' ) || is_post_type_archive( 'partner' ) || is_singular( 'partner' ), 'new_window' => true ),
-		array( 'label' => nerv_terminal_string( 'nav_gallery' ), 'url' => home_url( '/gallery/' ), 'active' => nerv_terminal_is_view( 'gallery' ), 'new_window' => false ),
-		array( 'label' => nerv_terminal_string( 'nav_contact' ), 'url' => home_url( '/contact/' ), 'active' => nerv_terminal_is_view( 'contact' ), 'new_window' => false ),
+		array( 'label' => nerv_terminal_string( 'nav_about' ), 'url' => nerv_terminal_view_url( 'about' ), 'active' => nerv_terminal_is_view( 'about' ) || is_author(), 'new_window' => false ),
+		array( 'label' => nerv_terminal_string( 'nav_projects' ), 'url' => nerv_terminal_view_url( 'projects' ), 'active' => nerv_terminal_is_view( 'projects' ) || is_post_type_archive( 'project' ), 'new_window' => false ),
+		array( 'label' => nerv_terminal_string( 'nav_blog' ), 'url' => nerv_terminal_view_url( 'blog' ), 'active' => nerv_terminal_is_view( 'blog' ) || ( is_home() && ! is_front_page() ), 'new_window' => false ),
+		array( 'label' => nerv_terminal_string( 'nav_partners' ), 'url' => nerv_terminal_view_url( 'partners' ), 'active' => nerv_terminal_is_view( 'partners' ) || is_post_type_archive( 'partner' ) || is_singular( 'partner' ), 'new_window' => true ),
+		array( 'label' => nerv_terminal_string( 'nav_gallery' ), 'url' => nerv_terminal_view_url( 'gallery' ), 'active' => nerv_terminal_is_view( 'gallery' ), 'new_window' => false ),
+		array( 'label' => nerv_terminal_string( 'nav_contact' ), 'url' => nerv_terminal_view_url( 'contact' ), 'active' => nerv_terminal_is_view( 'contact' ), 'new_window' => false ),
 	);
 }
 
@@ -270,11 +270,11 @@ function nerv_terminal_mobile_tab_url( string $target, string $url ): string {
 		case 'home':
 			return home_url( '/' );
 		case 'blog':
-			return home_url( '/blog/' );
+			return nerv_terminal_view_url( 'blog' );
 		case 'projects':
 			return nerv_terminal_post_type_url( 'project' );
 		case 'pilot':
-			return home_url( '/about/' );
+			return nerv_terminal_view_url( 'about' );
 		case 'more':
 			return add_query_arg( 'nerv_more', '1', home_url( '/' ) );
 		case 'partners':
@@ -417,7 +417,7 @@ function nerv_terminal_pagination( ?WP_Query $query = null ): string {
 function nerv_terminal_pagination_base(): string {
 	$view = nerv_terminal_current_view();
 	if ( in_array( $view, array( 'blog', 'projects', 'partners' ), true ) && function_exists( 'nerv_terminal_view_page_url' ) ) {
-		return trailingslashit( home_url( '/' . $view . '/' ) ) . '%_%';
+		return trailingslashit( nerv_terminal_view_url( $view ) ) . '%_%';
 	}
 
 	return str_replace( 999999999, '%#%', esc_url_raw( get_pagenum_link( 999999999 ) ) );
@@ -1106,7 +1106,7 @@ function nerv_terminal_panel_system_log(): string {
 	return nerv_terminal_panel(
 		'nerv-panel--log',
 		'<div class="nerv-panel__heading nerv-panel__heading--split"><div><h2>' . esc_html( nerv_terminal_string( 'log_title' ) ) . '</h2><span>' . esc_html( nerv_terminal_string( 'log_subtitle' ) ) . '</span></div><small>' . esc_html( nerv_terminal_string( 'log_level' ) ) . '</small></div>' .
-		'<ul class="nerv-log-list">' . $rows . '</ul><a class="nerv-log-more" href="' . esc_url( get_post_type_archive_link( 'post' ) ?: home_url( '/blog/' ) ) . '">' . esc_html( nerv_terminal_string( 'more_logs' ) ) . '</a>'
+		'<ul class="nerv-log-list">' . $rows . '</ul><a class="nerv-log-more" href="' . esc_url( get_post_type_archive_link( 'post' ) ?: nerv_terminal_view_url( 'blog' ) ) . '">' . esc_html( nerv_terminal_string( 'more_logs' ) ) . '</a>'
 	);
 }
 

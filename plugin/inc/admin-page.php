@@ -121,6 +121,7 @@ function nerv_core_enqueue_admin_control_assets( string $hook_suffix ): void {
 				'partnersPath'   => '/nerv-core/v1/control-partners',
 			'aiPolicyPath'   => '/nerv-core/v1/control-ai-policy-generate',
 			'geoTitlePath'   => '/nerv-core/v1/control-geo-title-suggest',
+			'geoSlugBatchPath' => '/nerv-core/v1/control-geo-slug-batch',
 			'indexnowPath'   => '/nerv-core/v1/control-indexnow-test',
 			'partnerTestPath'=> '/nerv-core/v1/control-partner-health-test',
 			'toolsActionPath'=> '/nerv-core/v1/control-tools-action',
@@ -323,6 +324,18 @@ function nerv_core_register_control_rest(): void {
 		array(
 			'methods'             => WP_REST_Server::CREATABLE,
 			'callback'            => 'nerv_core_rest_control_geo_title_suggest',
+			'permission_callback' => static function (): bool {
+				return current_user_can( 'manage_options' );
+			},
+		)
+	);
+
+	register_rest_route(
+		'nerv-core/v1',
+		'/control-geo-slug-batch',
+		array(
+			'methods'             => WP_REST_Server::CREATABLE,
+			'callback'            => 'nerv_core_rest_control_geo_slug_batch',
 			'permission_callback' => static function (): bool {
 				return current_user_can( 'manage_options' );
 			},
@@ -983,6 +996,47 @@ function nerv_core_rest_control_geo_title_suggest(): WP_REST_Response {
 	);
 }
 
+function nerv_core_rest_control_geo_slug_batch( WP_REST_Request $request ): WP_REST_Response {
+	if ( ! function_exists( 'nerv_core_geo_slug_start_job' ) || ! function_exists( 'nerv_core_geo_slug_run_batch' ) ) {
+		return new WP_REST_Response( array( 'message' => 'GEO slug 批处理功能不可用。' ), 500 );
+	}
+
+	$params = $request->get_json_params();
+	if ( ! is_array( $params ) ) {
+		$params = $request->get_params();
+	}
+
+	$mode = sanitize_key( (string) ( $params['mode'] ?? 'status' ) );
+	if ( 'start' === $mode ) {
+		$status = nerv_core_geo_slug_start_job( absint( $params['batchSize'] ?? 5 ), absint( $params['concurrency'] ?? 2 ) );
+		$message = sprintf( 'GEO slug 挂机任务已启动：%d 篇。', absint( $status['total'] ?? 0 ) );
+	} elseif ( 'tick' === $mode ) {
+		nerv_core_geo_slug_run_batch();
+		$status = nerv_core_geo_slug_status();
+		$message = 'GEO slug 批次已执行。';
+	} elseif ( 'pause' === $mode && function_exists( 'nerv_core_geo_slug_pause_job' ) ) {
+		$status = nerv_core_geo_slug_pause_job();
+		$message = 'GEO slug 挂机任务已暂停。';
+	} elseif ( 'resume' === $mode && function_exists( 'nerv_core_geo_slug_resume_job' ) ) {
+		$status = nerv_core_geo_slug_resume_job();
+		$message = 'GEO slug 挂机任务已恢复。';
+	} elseif ( 'stop' === $mode && function_exists( 'nerv_core_geo_slug_stop_job' ) ) {
+		$status = nerv_core_geo_slug_stop_job();
+		$message = 'GEO slug 挂机任务已停止。';
+	} else {
+		$status = nerv_core_geo_slug_status();
+		$message = 'GEO slug 任务状态已刷新。';
+	}
+
+	return new WP_REST_Response(
+		array(
+			'message'   => $message,
+			'result'    => $status,
+			'dashboard' => nerv_core_control_dashboard_data(),
+		)
+	);
+}
+
 function nerv_core_rest_control_indexnow_test(): WP_REST_Response {
 	if ( ! function_exists( 'nerv_core_indexnow_submit_urls' ) ) {
 		return new WP_REST_Response( array( 'message' => __( 'IndexNow testing is unavailable.', 'nerv-core' ) ), 500 );
@@ -1140,8 +1194,8 @@ function nerv_core_control_dashboard_data(): array {
 			'llmsFull'   => function_exists( 'nerv_core_geo_llms_url' ) ? nerv_core_geo_llms_url( true ) : home_url( '/llms-full.txt' ),
 			'jsonFeed'   => function_exists( 'nerv_core_geo_json_feed_url' ) ? nerv_core_geo_json_feed_url() : home_url( '/feed/json' ),
 			'aiPolicy'   => function_exists( 'nerv_core_ai_policy_url' ) ? nerv_core_ai_policy_url() : home_url( '/ai-policy/' ),
-			'partners'   => get_post_type_archive_link( 'partner' ) ?: home_url( '/partners/' ),
-			'projects'   => get_post_type_archive_link( 'project' ) ?: home_url( '/projects/' ),
+			'partners'   => get_post_type_archive_link( 'partner' ) ?: ( function_exists( 'nerv_terminal_view_url' ) ? nerv_terminal_view_url( 'partners' ) : home_url( '/partners/' ) ),
+			'projects'   => get_post_type_archive_link( 'project' ) ?: ( function_exists( 'nerv_terminal_view_url' ) ? nerv_terminal_view_url( 'projects' ) : home_url( '/projects/' ) ),
 		),
 		'legacy'     => array(
 			'anchor' => '#nerv-control-legacy-settings',
@@ -1637,6 +1691,8 @@ function nerv_core_control_partners_form_data( array $display_options, array $he
 			'status'   => sanitize_key( (string) ( $health['status'] ?? 'online' ) ),
 			'label'    => function_exists( 'nerv_core_partner_health_status_label' ) ? nerv_core_partner_health_status_label( (string) ( $health['status'] ?? 'online' ) ) : strtoupper( (string) ( $health['status'] ?? 'online' ) ),
 			'message'  => sanitize_text_field( (string) ( $health['message'] ?? '' ) ),
+			'redirects'=> absint( $health['redirects'] ?? 0 ),
+			'finalUrl'  => esc_url_raw( (string) ( $health['final_url'] ?? '' ) ),
 			'checked'  => sanitize_text_field( (string) ( $health['checked'] ?? '' ) ),
 		);
 	}
@@ -1663,7 +1719,7 @@ function nerv_core_control_partners_form_data( array $display_options, array $he
 		),
 		'rows'    => $rows,
 		'links'   => array(
-			'archive' => get_post_type_archive_link( 'partner' ) ?: home_url( '/partners/' ),
+			'archive' => get_post_type_archive_link( 'partner' ) ?: ( function_exists( 'nerv_terminal_view_url' ) ? nerv_terminal_view_url( 'partners' ) : home_url( '/partners/' ) ),
 			'new'     => admin_url( 'post-new.php?post_type=partner' ),
 			'list'    => admin_url( 'edit.php?post_type=partner' ),
 		),
@@ -1707,9 +1763,10 @@ function nerv_core_control_geo_form_data( array $indexnow_options, array $crawle
 			'policyReady'=> $policy_exists,
 			'markdown'   => $markdown_stats,
 		),
-		'geoTitle' => array(
-			'candidates' => function_exists( 'nerv_core_geo_title_candidate_posts' ) ? nerv_core_geo_title_candidate_posts( 8 ) : array(),
-		),
+			'geoTitle' => array(
+				'candidates' => function_exists( 'nerv_core_geo_title_candidate_posts' ) ? nerv_core_geo_title_candidate_posts( 8 ) : array(),
+				'batch'      => function_exists( 'nerv_core_geo_slug_status' ) ? nerv_core_geo_slug_status() : array(),
+			),
 	);
 }
 
@@ -1846,6 +1903,10 @@ function nerv_core_control_tools_form_data( array $markdown_stats, array $partne
 			'online'  => absint( $partner_summary['online'] ?? 0 ),
 			'slow'    => absint( $partner_summary['slow'] ?? 0 ),
 			'offline' => absint( $partner_summary['offline'] ?? 0 ),
+		),
+		'images'   => array(
+			'webpEnabled' => function_exists( 'nerv_core_image_optimizer_options' ) && ! empty( nerv_core_image_optimizer_options()['enabled'] ),
+			'webpQuality' => function_exists( 'nerv_core_image_optimizer_options' ) ? absint( nerv_core_image_optimizer_options()['quality'] ?? 82 ) : 0,
 		),
 		'build'    => array(
 			'available' => is_file( $build_script ),

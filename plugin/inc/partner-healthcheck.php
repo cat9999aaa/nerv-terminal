@@ -89,13 +89,14 @@ function nerv_core_partner_health_check_all(): array {
 function nerv_core_partner_health_check_one( int $partner_id ): array {
 	$url = get_post_meta( $partner_id, '_nerv_partner_url', true );
 	if ( ! $url ) {
-		$result = nerv_core_partner_health_result( 'offline', __( 'Missing URL', 'nerv-core' ), 0, 0 );
+		$result = nerv_core_partner_health_result( 'offline', __( 'Missing URL', 'nerv-core' ), 0, 0, 0, '' );
 		nerv_core_partner_health_store_result( $partner_id, $result );
 		return $result;
 	}
 
 	$options = nerv_core_partner_health_options();
 	$start = microtime( true );
+	$trace = nerv_core_partner_health_trace_redirects( esc_url_raw( (string) $url ), (int) $options['timeout'] );
 	$response = wp_remote_head(
 		$url,
 		array(
@@ -106,7 +107,7 @@ function nerv_core_partner_health_check_one( int $partner_id ): array {
 	);
 
 	if ( is_wp_error( $response ) ) {
-		$result = nerv_core_partner_health_result( 'offline', $response->get_error_message(), 0, 0 );
+		$result = nerv_core_partner_health_result( 'offline', $response->get_error_message(), 0, 0, absint( $trace['redirects'] ?? 0 ), (string) ( $trace['final_url'] ?? '' ) );
 		nerv_core_partner_health_store_result( $partner_id, $result );
 		return $result;
 	}
@@ -124,20 +125,91 @@ function nerv_core_partner_health_check_one( int $partner_id ): array {
 		$code,
 		$duration
 	);
-	$result = nerv_core_partner_health_result( $status, $message, $code, $duration );
+	$redirects = absint( $trace['redirects'] ?? 0 );
+	if ( $redirects > 0 ) {
+		$message .= sprintf(
+			/* translators: %d: redirect count. */
+			__( ' · %d redirects', 'nerv-core' ),
+			$redirects
+		);
+	}
+	$result = nerv_core_partner_health_result( $status, $message, $code, $duration, $redirects, (string) ( $trace['final_url'] ?? '' ) );
 	nerv_core_partner_health_store_result( $partner_id, $result );
 
 	return $result;
 }
 
-function nerv_core_partner_health_result( string $status, string $message, int $code, float $duration ): array {
+function nerv_core_partner_health_result( string $status, string $message, int $code, float $duration, int $redirects = 0, string $final_url = '' ): array {
 	return array(
-		'status'   => in_array( $status, array( 'online', 'slow', 'offline' ), true ) ? $status : 'offline',
-		'message'  => sanitize_text_field( $message ),
-		'code'     => $code,
-		'duration' => round( $duration, 3 ),
-		'checked'  => current_time( 'mysql' ),
+		'status'    => in_array( $status, array( 'online', 'slow', 'offline' ), true ) ? $status : 'offline',
+		'message'   => sanitize_text_field( $message ),
+		'code'      => $code,
+		'duration'  => round( $duration, 3 ),
+		'redirects' => max( 0, absint( $redirects ) ),
+		'final_url' => esc_url_raw( $final_url ),
+		'checked'   => current_time( 'mysql' ),
 	);
+}
+
+function nerv_core_partner_health_trace_redirects( string $url, int $timeout ): array {
+	if ( '' === $url ) {
+		return array( 'redirects' => 0, 'final_url' => '' );
+	}
+
+	$response = wp_remote_head(
+		$url,
+		array(
+			'timeout'     => $timeout,
+			'redirection' => 0,
+			'user-agent'  => 'NERV-Core-Partner-Trace/' . NERV_CORE_VERSION . '; ' . home_url( '/' ),
+		)
+	);
+	if ( is_wp_error( $response ) ) {
+		return array( 'redirects' => 0, 'final_url' => $url );
+	}
+
+	$redirects = 0;
+	$current = $url;
+	for ( $i = 0; $i < 5; $i++ ) {
+		$code = (int) wp_remote_retrieve_response_code( $response );
+		$location = wp_remote_retrieve_header( $response, 'location' );
+		if ( $code < 300 || $code >= 400 || '' === (string) $location ) {
+			break;
+		}
+
+		$current = nerv_core_partner_health_absolute_url( (string) $location, $current );
+		++$redirects;
+		$response = wp_remote_head(
+			$current,
+			array(
+				'timeout'     => $timeout,
+				'redirection' => 0,
+				'user-agent'  => 'NERV-Core-Partner-Trace/' . NERV_CORE_VERSION . '; ' . home_url( '/' ),
+			)
+		);
+		if ( is_wp_error( $response ) ) {
+			break;
+		}
+	}
+
+	return array( 'redirects' => $redirects, 'final_url' => esc_url_raw( $current ) );
+}
+
+function nerv_core_partner_health_absolute_url( string $location, string $base ): string {
+	if ( preg_match( '~^https?://~i', $location ) ) {
+		return esc_url_raw( $location );
+	}
+
+	$parts = wp_parse_url( $base );
+	$scheme = (string) ( $parts['scheme'] ?? 'https' );
+	$host = (string) ( $parts['host'] ?? '' );
+	$port = isset( $parts['port'] ) ? ':' . absint( $parts['port'] ) : '';
+	if ( str_starts_with( $location, '/' ) ) {
+		return esc_url_raw( $scheme . '://' . $host . $port . $location );
+	}
+
+	$path = isset( $parts['path'] ) ? trailingslashit( dirname( (string) $parts['path'] ) ) : '/';
+	return esc_url_raw( $scheme . '://' . $host . $port . $path . ltrim( $location, '/' ) );
 }
 
 function nerv_core_partner_health_store_result( int $partner_id, array $result ): void {
