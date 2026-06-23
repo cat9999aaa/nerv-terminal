@@ -80,8 +80,8 @@ bash build.sh --split
 
 The split build produces:
 
-- `dist/nerv-terminal-theme-0.1.15.zip`
-- `dist/nerv-core-plugin-0.1.15.zip`
+- `dist/nerv-terminal-theme-0.1.16.zip`
+- `dist/nerv-core-plugin-0.1.16.zip`
 
 ## Baota / Nginx Rewrite
 

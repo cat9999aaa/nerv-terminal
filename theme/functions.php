@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'NERV_TERMINAL_VERSION', '0.1.15' );
+define( 'NERV_TERMINAL_VERSION', '0.1.16' );
 define( 'NERV_TERMINAL_DIR', get_template_directory() );
 define( 'NERV_TERMINAL_URI', get_template_directory_uri() );
 define( 'NERV_TERMINAL_REWRITE_VERSION', '20260623-blog-md-routes' );

@@ -231,6 +231,11 @@ function nerv_core_geo_output_markdown_path( string $path ): void {
 }
 
 function nerv_core_geo_markdown_redirect_url_from_path( string $path ): string {
+	$cached_redirect = nerv_core_geo_markdown_redirect_url_from_cached_front_matter( $path );
+	if ( '' !== $cached_redirect ) {
+		return $cached_redirect;
+	}
+
 	if ( ! function_exists( 'nerv_core_geo_slug_redirect_map' ) ) {
 		return '';
 	}
@@ -273,6 +278,65 @@ function nerv_core_geo_markdown_redirect_url_from_path( string $path ): string {
 		if ( str_ends_with( $new_path, '.md' ) ) {
 			return esc_url_raw( $new_url );
 		}
+	}
+
+	return '';
+}
+
+function nerv_core_geo_markdown_redirect_url_from_cached_front_matter( string $path ): string {
+	$request_path = trim( rawurldecode( $path ), '/' );
+	if ( '' === $request_path ) {
+		return '';
+	}
+
+	$request_url = home_url( '/' . $request_path . '.md' );
+	$dir         = nerv_core_geo_markdown_cache_dir();
+	if ( '' === $dir || ! is_dir( $dir ) ) {
+		return '';
+	}
+
+	$files = glob( trailingslashit( $dir ) . '*.md' );
+	if ( ! is_array( $files ) ) {
+		return '';
+	}
+
+	foreach ( array_slice( $files, 0, 1000 ) as $file ) {
+		$post_id = absint( basename( (string) $file, '.md' ) );
+		if ( $post_id <= 0 || ! is_readable( (string) $file ) ) {
+			continue;
+		}
+
+		$content = (string) file_get_contents( (string) $file, false, null, 0, 4096 );
+		if ( ! str_contains( $content, 'markdown:' ) ) {
+			continue;
+		}
+
+		$cached_url = nerv_core_geo_front_matter_value( $content, 'markdown' );
+		if ( '' === $cached_url ) {
+			continue;
+		}
+
+		$cached_path = trim( rawurldecode( (string) wp_parse_url( $cached_url, PHP_URL_PATH ) ), '/' );
+		if ( $cached_path !== $request_path . '.md' ) {
+			continue;
+		}
+
+		$post = get_post( $post_id );
+		if ( $post instanceof WP_Post && 'publish' === $post->post_status && in_array( $post->post_type, nerv_core_geo_public_post_types(), true ) ) {
+			$current_url  = nerv_core_geo_markdown_url( $post_id );
+			$current_path = trim( rawurldecode( (string) wp_parse_url( $current_url, PHP_URL_PATH ) ), '/' );
+			if ( '' !== $current_path && $current_path !== $cached_path ) {
+				return esc_url_raw( $current_url );
+			}
+		}
+	}
+
+	return '';
+}
+
+function nerv_core_geo_front_matter_value( string $content, string $key ): string {
+	if ( preg_match( '~^' . preg_quote( $key, '~' ) . ':\s*"([^"]*)"~mi', $content, $matches ) ) {
+		return html_entity_decode( $matches[1], ENT_QUOTES | ENT_HTML5, get_option( 'blog_charset' ) );
 	}
 
 	return '';
