@@ -129,25 +129,31 @@ function nerv_core_geo_slug_schedule(): void {
 	}
 }
 
-function nerv_core_geo_slug_acquire_lock(): bool {
+function nerv_core_geo_slug_acquire_lock(): string {
 	$lock = get_option( 'nerv_core_geo_slug_batch_lock', array() );
 	if ( is_array( $lock ) && ! empty( $lock['expires'] ) && absint( $lock['expires'] ) > time() ) {
-		return false;
+		return '';
 	}
 
+	$token = wp_generate_uuid4();
 	update_option(
 		'nerv_core_geo_slug_batch_lock',
 		array(
-			'token'   => wp_generate_uuid4(),
+			'token'   => $token,
 			'expires' => time() + 15 * MINUTE_IN_SECONDS,
 		),
 		false
 	);
 
-	return true;
+	return $token;
 }
 
-function nerv_core_geo_slug_release_lock(): void {
+function nerv_core_geo_slug_release_lock( string $token ): void {
+	$lock = get_option( 'nerv_core_geo_slug_batch_lock', array() );
+	if ( ! is_array( $lock ) || (string) ( $lock['token'] ?? '' ) !== $token ) {
+		return;
+	}
+
 	delete_option( 'nerv_core_geo_slug_batch_lock' );
 }
 
@@ -158,7 +164,8 @@ function nerv_core_geo_slug_run_batch(): void {
 		return;
 	}
 
-	if ( ! nerv_core_geo_slug_acquire_lock() ) {
+	$lock_token = nerv_core_geo_slug_acquire_lock();
+	if ( '' === $lock_token ) {
 		$job['log'][] = nerv_core_geo_slug_log_row( 'info', '已有 GEO slug 批次运行中，本轮跳过避免重复写入。' );
 		nerv_core_geo_slug_save_job( $job );
 		nerv_core_geo_slug_schedule();
@@ -201,7 +208,7 @@ function nerv_core_geo_slug_run_batch(): void {
 		$job['log'] = array_slice( array_reverse( array_reverse( (array) $job['log'] ) ), -60 );
 		nerv_core_geo_slug_save_job( $job );
 	} finally {
-		nerv_core_geo_slug_release_lock();
+		nerv_core_geo_slug_release_lock( $lock_token );
 	}
 }
 
