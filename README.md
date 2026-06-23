@@ -165,6 +165,19 @@ see new versions in the WordPress updates screen.
 Every release note should clearly describe what changed because the same text is
 shown inside the WordPress admin update page.
 
+After publishing a release or upgrading production, run the production upgrade
+audit. It checks the latest GitHub Release assets, `/blog/page/444/`,
+`/partners/`, `llms.txt`, and the first Markdown mirror front matter:
+
+```bash
+php bin/audit-production-upgrade.php https://dashen.wang
+```
+
+If the audit reports a stale Markdown front matter URL, update NERV Core and
+NERV Terminal, save **Settings -> Permalinks** once, run **NERV主题 · 工具 ->
+Refresh Markdown mirrors**, and clear CDN/Baota/page-cache layers before
+rerunning it.
+
 ## i18n
 
 Build gettext catalogs for the theme and companion plugin with:
