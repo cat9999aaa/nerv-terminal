@@ -326,6 +326,7 @@ function nerv_core_geo_markdown_redirect_url_from_cached_front_matter( string $p
 			$current_url  = nerv_core_geo_markdown_url( $post_id );
 			$current_path = trim( rawurldecode( (string) wp_parse_url( $current_url, PHP_URL_PATH ) ), '/' );
 			if ( '' !== $current_path && $current_path !== $cached_path ) {
+				nerv_core_geo_write_markdown_cache( $post );
 				return esc_url_raw( $current_url );
 			}
 		}

@@ -16,6 +16,9 @@ $core_file = $root . '/plugin/nerv-core.php';
 $core = is_file( $core_file ) ? file_get_contents( $core_file ) : '';
 
 add_check( $checks, 'automatic markdown cache refresh', is_string( $core ) && str_contains( $core, 'NERV_CORE_MARKDOWN_CACHE_VERSION' ) && str_contains( $core, 'nerv_core_maybe_refresh_markdown_cache' ), 'Plugin refreshes Markdown mirrors once after cache-version upgrades.' );
+$geo_file = $root . '/plugin/inc/geo-markdown.php';
+$geo = is_file( $geo_file ) ? file_get_contents( $geo_file ) : '';
+add_check( $checks, 'stale markdown self-heal on redirect', is_string( $geo ) && str_contains( $geo, 'nerv_core_geo_write_markdown_cache( $post );' ) && str_contains( $geo, 'nerv_core_geo_markdown_cache_is_stale' ), 'Current and legacy .md requests can rebuild stale front matter before publishing or redirecting.' );
 
 $blog = http_get( $site . '/blog/page/444/', true );
 add_check( $checks, 'overflow blog pagination', 200 === $blog['status'], 'Expected /blog/page/444/ to resolve after redirects, got HTTP ' . $blog['status'] . ' at ' . $blog['url'] . '.' );
