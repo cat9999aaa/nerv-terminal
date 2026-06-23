@@ -38,7 +38,7 @@ function nerv_core_geo_template_redirect(): void {
 	}
 
 	if ( str_ends_with( $request_path, '.md' ) ) {
-		nerv_core_geo_output_markdown( nerv_core_geo_post_id_from_markdown_path( substr( $request_path, 0, -3 ) ) );
+		nerv_core_geo_output_markdown_path( substr( $request_path, 0, -3 ) );
 	}
 
 	$md_post_id = absint( get_query_var( 'nerv_md' ) ?: ( $_GET['nerv_md'] ?? 0 ) );
@@ -48,7 +48,7 @@ function nerv_core_geo_template_redirect(): void {
 
 	$md_path = (string) ( get_query_var( 'nerv_md_path' ) ?: ( $_GET['nerv_md_path'] ?? '' ) );
 	if ( $md_path ) {
-		nerv_core_geo_output_markdown( nerv_core_geo_post_id_from_markdown_path( $md_path ) );
+		nerv_core_geo_output_markdown_path( $md_path );
 	}
 
 	if ( is_singular( nerv_core_geo_public_post_types() ) && nerv_core_geo_accepts_markdown() ) {
@@ -209,6 +209,96 @@ function nerv_core_geo_post_id_from_markdown_path( string $path ): int {
 	return 0;
 }
 
+function nerv_core_geo_output_markdown_path( string $path ): void {
+	$redirect_url = nerv_core_geo_markdown_redirect_url_from_path( $path );
+	if ( '' !== $redirect_url ) {
+		wp_safe_redirect( $redirect_url, 301 );
+		exit;
+	}
+
+	$post_id = nerv_core_geo_post_id_from_markdown_path( $path );
+	if ( $post_id > 0 ) {
+		$requested = trim( rawurldecode( $path ), '/' );
+		$current   = trim( (string) wp_parse_url( nerv_core_geo_markdown_url( $post_id ), PHP_URL_PATH ), '/' );
+		$current   = str_ends_with( $current, '.md' ) ? substr( $current, 0, -3 ) : $current;
+		if ( '' !== $current && $requested !== rawurldecode( $current ) ) {
+			wp_safe_redirect( nerv_core_geo_markdown_url( $post_id ), 301 );
+			exit;
+		}
+	}
+
+	nerv_core_geo_output_markdown( $post_id );
+}
+
+function nerv_core_geo_markdown_redirect_url_from_path( string $path ): string {
+	if ( ! function_exists( 'nerv_core_geo_slug_redirect_map' ) ) {
+		return '';
+	}
+
+	$request_path = trim( rawurldecode( $path ), '/' );
+	if ( '' === $request_path ) {
+		return '';
+	}
+
+	$map        = nerv_core_geo_slug_redirect_map();
+	$candidates = array_values(
+		array_unique(
+			array_filter(
+				array(
+					$request_path,
+					$request_path . '.md',
+					$request_path . '.html',
+					str_ends_with( $request_path, '.html' ) ? substr( $request_path, 0, -5 ) . '.md' : '',
+				),
+				'strlen'
+			)
+		)
+	);
+
+	foreach ( $candidates as $candidate ) {
+		if ( empty( $map[ $candidate ]['new_url'] ) ) {
+			continue;
+		}
+
+		$new_url = (string) $map[ $candidate ]['new_url'];
+		$new_path = trim( (string) wp_parse_url( $new_url, PHP_URL_PATH ), '/' );
+		if ( '' === $new_path ) {
+			continue;
+		}
+
+		if ( str_ends_with( $new_path, '.html' ) ) {
+			return esc_url_raw( substr( $new_url, 0, -5 ) . '.md' );
+		}
+
+		if ( str_ends_with( $new_path, '.md' ) ) {
+			return esc_url_raw( $new_url );
+		}
+	}
+
+	return '';
+}
+
+function nerv_core_geo_markdown_paths_from_redirect_meta( WP_Post $post ): array {
+	$paths = array();
+	$rows  = get_post_meta( (int) $post->ID, '_nerv_geo_slug_redirect' );
+	foreach ( $rows as $row ) {
+		if ( ! is_array( $row ) || empty( $row['old_url'] ) ) {
+			continue;
+		}
+
+		$old_path = trim( (string) wp_parse_url( (string) $row['old_url'], PHP_URL_PATH ), '/' );
+		if ( '' === $old_path ) {
+			continue;
+		}
+
+		$html_free = str_ends_with( $old_path, '.html' ) ? substr( $old_path, 0, -5 ) : untrailingslashit( $old_path );
+		$paths[]   = $html_free;
+		$paths[]   = basename( $html_free );
+	}
+
+	return array_values( array_unique( array_filter( $paths, 'strlen' ) ) );
+}
+
 function nerv_core_geo_post_ids_by_markdown_paths( array $path_candidates ): array {
 	global $wpdb;
 
@@ -261,11 +351,14 @@ function nerv_core_geo_post_markdown_paths( WP_Post $post ): array {
 	return array_values(
 		array_unique(
 			array_filter(
-				array(
-					$html_free,
-					basename( $html_free ),
-					$post->post_name,
-					$post->post_type . '/' . $post->post_name,
+				array_merge(
+					array(
+						$html_free,
+						basename( $html_free ),
+						$post->post_name,
+						$post->post_type . '/' . $post->post_name,
+					),
+					nerv_core_geo_markdown_paths_from_redirect_meta( $post )
 				),
 				'strlen'
 			)

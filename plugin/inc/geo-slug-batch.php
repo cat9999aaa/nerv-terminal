@@ -219,8 +219,9 @@ function nerv_core_geo_slug_process_post( int $post_id ): array {
 		return array( 'ok' => false, 'message' => get_the_title( $post ) . '：无法生成有效 slug。' );
 	}
 
-	$old_url = get_permalink( $post );
-	$updated = wp_update_post(
+	$old_url          = get_permalink( $post );
+	$old_markdown_url = function_exists( 'nerv_core_geo_markdown_url' ) ? nerv_core_geo_markdown_url( $post_id ) : '';
+	$updated          = wp_update_post(
 		array(
 			'ID'        => $post_id,
 			'post_name' => $new_slug,
@@ -244,6 +245,9 @@ function nerv_core_geo_slug_process_post( int $post_id ): array {
 		)
 	);
 	nerv_core_geo_slug_redirect_map_add( $old_url, get_permalink( $post_id ), $post_id );
+	if ( $old_markdown_url && function_exists( 'nerv_core_geo_markdown_url' ) ) {
+		nerv_core_geo_slug_redirect_map_add( $old_markdown_url, nerv_core_geo_markdown_url( $post_id ), $post_id );
+	}
 	if ( function_exists( 'nerv_core_ai_usage_record' ) ) {
 		nerv_core_ai_usage_record( 'geo_slug', 'success', true );
 	}
