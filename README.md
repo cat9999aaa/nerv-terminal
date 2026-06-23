@@ -72,6 +72,13 @@ Run runtime acceptance checks against the local WordPress install:
 sudo -u www php bin/audit-acceptance.php /www/wwwroot/127_0_0_1/wp-load.php
 ```
 
+Run the full hardening goal sweep:
+
+```bash
+NERV_SKIP_WP_STATE=1 php bin/audit-goal.php http://127.0.0.1
+sudo php bin/audit-legacy-markdown-redirect.php /www/wwwroot/127_0_0_1/wp-load.php
+```
+
 Build release packages:
 
 ```bash
@@ -80,8 +87,8 @@ bash build.sh --split
 
 The split build produces:
 
-- `dist/nerv-terminal-theme-0.1.16.zip`
-- `dist/nerv-core-plugin-0.1.16.zip`
+- `dist/nerv-terminal-theme-0.1.17.zip`
+- `dist/nerv-core-plugin-0.1.17.zip`
 
 ## Baota / Nginx Rewrite
 
