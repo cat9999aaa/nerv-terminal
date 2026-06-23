@@ -23,6 +23,15 @@ if ( ! empty( $release['version'] ) ) {
 	}
 }
 
+$home = http_get( $site . '/', true );
+add_check( $checks, 'production home route', 200 === $home['status'], 'Home returned HTTP ' . $home['status'] . ' at ' . $home['url'] . '.' );
+if ( ! empty( $release['version'] ) ) {
+	$core_version = response_header_value( $home['headers'], 'x-nerv-core' );
+	$theme_version = response_header_value( $home['headers'], 'x-nerv-theme' );
+	add_check( $checks, 'production core version header', version_at_least( $core_version, $release['version'] ), 'X-NERV-Core is ' . ( $core_version ?: 'missing' ) . '; latest is ' . $release['version'] . '.' );
+	add_check( $checks, 'production theme version header', version_at_least( $theme_version, $release['version'] ), 'X-NERV-Theme is ' . ( $theme_version ?: 'missing' ) . '; latest is ' . $release['version'] . '.' );
+}
+
 $blog = http_get( $site . '/blog/page/444/', true );
 add_check( $checks, 'production blog pagination', 200 === $blog['status'] && ! body_looks_like_404( $blog['body'] ), '/blog/page/444/ final HTTP ' . $blog['status'] . ' at ' . $blog['url'] . '.' );
 
@@ -103,6 +112,10 @@ function github_latest_release( string $repo ): array {
 
 function release_asset( array $release, string $name ): array {
 	return is_array( $release['assets'][ $name ] ?? null ) ? $release['assets'][ $name ] : array();
+}
+
+function version_at_least( string $current, string $latest ): bool {
+	return '' !== $current && '' !== $latest && version_compare( $current, $latest, '>=' );
 }
 
 function http_get_json( string $url ): array {
@@ -191,6 +204,16 @@ function status_from_headers( array $headers ): int {
 function location_from_headers( array $headers ): string {
 	foreach ( $headers as $header ) {
 		if ( preg_match( '/^Location:\s*(.+)$/i', $header, $matches ) ) {
+			return trim( $matches[1] );
+		}
+	}
+
+	return '';
+}
+
+function response_header_value( string $headers, string $name ): string {
+	foreach ( preg_split( '/\R/', $headers ) ?: array() as $header ) {
+		if ( preg_match( '/^' . preg_quote( $name, '/' ) . ':\s*(.+)$/i', $header, $matches ) ) {
 			return trim( $matches[1] );
 		}
 	}

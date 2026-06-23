@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'NERV_TERMINAL_VERSION', '0.1.21' );
+define( 'NERV_TERMINAL_VERSION', '0.1.22' );
 define( 'NERV_TERMINAL_DIR', get_template_directory() );
 define( 'NERV_TERMINAL_URI', get_template_directory_uri() );
 define( 'NERV_TERMINAL_REWRITE_VERSION', '20260623-blog-md-routes' );
@@ -294,6 +294,11 @@ function nerv_terminal_trim_meta_description( string $description ): string {
 
 add_action( 'send_headers', 'nerv_terminal_send_geo_headers' );
 function nerv_terminal_send_geo_headers(): void {
+	header( 'X-NERV-Theme: ' . NERV_TERMINAL_VERSION, false );
+	if ( defined( 'NERV_CORE_VERSION' ) ) {
+		header( 'X-NERV-Core: ' . NERV_CORE_VERSION, false );
+	}
+
 	if ( ! is_singular() || ! function_exists( 'nerv_core_geo_markdown_url' ) ) {
 		return;
 	}
