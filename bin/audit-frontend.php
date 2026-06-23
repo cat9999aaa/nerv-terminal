@@ -43,6 +43,8 @@ foreach ( $urls as $label => $url ) {
 		add_check( $checks, 'no-js clock fallback', (bool) preg_match( '/data-nerv-clock>\d{2}:\d{2}:\d{2}</', $html ) && (bool) preg_match( '/data-nerv-clock-short>\d{2}:\d{2}</', $html ), 'Clock text renders as server-side time before JavaScript runs.' );
 		add_check( $checks, 'seo meta description', (bool) preg_match( '/<meta name="description" content="[^"]{50,160}">/', $html ), 'Homepage outputs a concise meta description.' );
 		add_check( $checks, 'card image link names', ! preg_match( '/<a class="nerv-card-image"(?![^>]*aria-label=)/', $html ), 'Decorative card image links have accessible names.' );
+		add_check( $checks, 'frontend script deferred', str_contains( $html, 'frontend.js' ) && str_contains( $html, ' defer' ), 'Frontend script is loaded with defer.' );
+		add_check( $checks, 'emoji assets disabled', ! str_contains( $html, 'wp-emoji' ) && ! str_contains( $html, 'emoji-settings' ) && ! str_contains( $html, 'concatemoji' ), 'Frontend does not ship WordPress emoji detection assets.' );
 	} elseif ( 'more' === $label && 200 === $response['status'] ) {
 		$html = $response['body'];
 		add_check( $checks, 'mobile more status panels', str_contains( $html, 'nerv-panel--more' ) && str_contains( $html, 'nerv-panel--status' ) && str_contains( $html, 'nerv-panel--monitor' ) && str_contains( $html, 'nerv-panel--alert' ), 'Mobile MORE renders navigation plus status, monitor, and alert panels.' );

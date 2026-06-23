@@ -543,6 +543,46 @@
 			updateFeature( featureKey, 'fallback_models', next );
 		}
 
+		function allCachedModels() {
+			const models = [];
+			form.providers.forEach( function ( provider ) {
+				( provider.modelCache || [] ).forEach( function ( model ) {
+					if ( models.indexOf( model ) < 0 ) {
+						models.push( model );
+					}
+				} );
+			} );
+			return models;
+		}
+
+		function addAllProviderCachesToFallbacks() {
+			const models = allCachedModels();
+			setForm( Object.assign( {}, form, {
+				textFeature: featureWithFallbacks( form.textFeature, models ),
+				imageFeature: featureWithFallbacks( form.imageFeature, models ),
+			} ) );
+			setNotice( models.length ? __( '已把全部供应商缓存模型加入文本和图片备用模型。', 'nerv-core' ) : __( '还没有可用的缓存模型，请先获取模型列表。', 'nerv-core' ) );
+		}
+
+		function featureWithFallbacks( feature, models ) {
+			const next = ( feature.fallback_models || [] ).slice();
+			models.forEach( function ( model ) {
+				if ( model !== feature.model && next.indexOf( model ) < 0 ) {
+					next.push( model );
+				}
+			} );
+			return Object.assign( {}, feature, { fallback_models: next } );
+		}
+
+		function copyTextModelToImage() {
+			setForm( Object.assign( {}, form, {
+				imageFeature: Object.assign( {}, form.textFeature, {
+					fallback_models: ( form.textFeature.fallback_models || [] ).slice(),
+				} ),
+			} ) );
+			setNotice( __( '已把文本模型配置复制到图片模型，可再按需微调。', 'nerv-core' ) );
+		}
+
 		function providerOptions() {
 			return form.providers.map( function ( provider ) {
 				return el( 'option', { value: provider.id, key: provider.id }, provider.name || provider.id );
@@ -672,6 +712,14 @@
 					el( 'div', null, el( 'span', null, __( 'AI 操作', 'nerv-core' ) ), el( 'strong', null, String( usage.total || 0 ) ) ),
 					el( 'div', null, el( 'span', null, __( '外部调用', 'nerv-core' ) ), el( 'strong', null, String( usage.external || 0 ) ) ),
 					el( 'div', null, el( 'span', null, __( '封面 / 要点', 'nerv-core' ) ), el( 'strong', null, String( coverUsage.total || 0 ) + ' / ' + String( keyPointsUsage.total || 0 ) ) )
+				),
+				el(
+					'div',
+					{ className: 'nerv-control-ai-quick-actions' },
+					el( 'strong', null, __( '快捷配置', 'nerv-core' ) ),
+					el( Button, { variant: 'secondary', onClick: addAllProviderCachesToFallbacks }, __( '全部供应商模型加入备用', 'nerv-core' ) ),
+					el( Button, { variant: 'secondary', onClick: copyTextModelToImage }, __( '文本模型复制到图片模型', 'nerv-core' ) ),
+					el( 'span', null, __( '减少复制粘贴；保存前仍可在下方调整顺序。', 'nerv-core' ) )
 				),
 				notice ? el( Notice, { status: 'success', isDismissible: true, onRemove: function () { setNotice( '' ); } }, notice ) : null,
 				error ? el( Notice, { status: 'warning', isDismissible: false }, error ) : null,

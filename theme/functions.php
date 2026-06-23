@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'NERV_TERMINAL_VERSION', '0.1.12' );
+define( 'NERV_TERMINAL_VERSION', '0.1.13' );
 define( 'NERV_TERMINAL_DIR', get_template_directory() );
 define( 'NERV_TERMINAL_URI', get_template_directory_uri() );
 define( 'NERV_TERMINAL_REWRITE_VERSION', '20260623-blog-md-routes' );
@@ -59,8 +59,31 @@ function nerv_terminal_enqueue_assets(): void {
 		NERV_TERMINAL_URI . '/assets/js/frontend.js',
 		array(),
 		nerv_terminal_asset_version( NERV_TERMINAL_DIR . '/assets/js/frontend.js' ),
-		true
+		array(
+			'in_footer' => true,
+			'strategy'  => 'defer',
+		)
 	);
+}
+
+add_action( 'init', 'nerv_terminal_disable_frontend_emoji_assets' );
+function nerv_terminal_disable_frontend_emoji_assets(): void {
+	if ( is_admin() ) {
+		return;
+	}
+
+	remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+	remove_action( 'wp_print_styles', 'print_emoji_styles' );
+	remove_filter( 'the_content_feed', 'wp_staticize_emoji' );
+	remove_filter( 'comment_text_rss', 'wp_staticize_emoji' );
+	remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
+	add_filter( 'emoji_svg_url', '__return_false' );
+}
+
+add_action( 'wp_enqueue_scripts', 'nerv_terminal_dequeue_frontend_emoji_assets', 100 );
+function nerv_terminal_dequeue_frontend_emoji_assets(): void {
+	wp_dequeue_style( 'wp-emoji-styles' );
+	wp_deregister_style( 'wp-emoji-styles' );
 }
 
 add_filter( 'language_attributes', 'nerv_terminal_language_attributes' );

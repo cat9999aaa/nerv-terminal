@@ -59,6 +59,13 @@ Run static checks for the WordPress admin control surface:
 php bin/audit-admin-control.php
 ```
 
+Run public route and lightweight response health checks:
+
+```bash
+php bin/audit-runtime-health.php
+php bin/audit-runtime-health.php https://dashen.wang
+```
+
 Run runtime acceptance checks against the local WordPress install:
 
 ```bash
@@ -73,8 +80,8 @@ bash build.sh --split
 
 The split build produces:
 
-- `dist/nerv-terminal-theme-0.1.12.zip`
-- `dist/nerv-core-plugin-0.1.12.zip`
+- `dist/nerv-terminal-theme-0.1.13.zip`
+- `dist/nerv-core-plugin-0.1.13.zip`
 
 ## Baota / Nginx Rewrite
 

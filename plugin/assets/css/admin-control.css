@@ -2245,6 +2245,27 @@
 	margin: 18px 0;
 }
 
+.nerv-control-wrap .nerv-control-ai-quick-actions {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 10px;
+	margin: 14px 0;
+	padding: 12px;
+	border: 1px solid #dcdcde;
+	border-radius: 6px;
+	background: #f6f7f7;
+	color: #1d2327;
+}
+
+.nerv-control-wrap .nerv-control-ai-quick-actions strong {
+	color: #1d2327;
+}
+
+.nerv-control-wrap .nerv-control-ai-quick-actions span {
+	color: #50575e;
+}
+
 .nerv-control-wrap .nerv-control-provider-card {
 	display: grid;
 	gap: 12px;
@@ -2328,7 +2349,9 @@
 .nerv-control-wrap :where(
 	.nerv-control-tool-card,
 	.nerv-control-provider-card,
+	.nerv-control-ai-quick-actions,
 	.nerv-control-model-picker,
+	.nerv-control-model-cache,
 	.nerv-control-command-row,
 	.nerv-control-action-pair--inputs,
 	.nerv-control-bot,
@@ -2624,6 +2647,38 @@
 	background: #edfaef;
 	color: #006800;
 	cursor: default;
+}
+
+.nerv-control-wrap *:not(.dashicons):not(.components-spinner):not(.nerv-control-light):not(.nerv-control-palette-swatch i) {
+	text-shadow: none;
+}
+
+.nerv-control-wrap :where(
+	.nerv-control-shell,
+	.nerv-control-panel,
+	.nerv-control-fieldset,
+	.nerv-control-provider-card,
+	.nerv-control-model-cache,
+	.nerv-control-model-picker,
+	.nerv-control-switches,
+	.nerv-control-command-row,
+	.nerv-control-tool-card,
+	.nerv-control-social-row,
+	.nerv-control-partner-row,
+	.nerv-control-panel-row,
+	.nerv-control-mobile-tab-row,
+	.nerv-control-primary-task,
+	.nerv-control-ai-usage div,
+	.nerv-control-ai-quick-actions
+) {
+	background-color: #fff;
+	color: #1d2327;
+}
+
+.nerv-control-wrap .nerv-control-ai-quick-actions,
+.nerv-control-wrap .nerv-control-primary-task,
+.nerv-control-wrap .nerv-control-tab.is-selected {
+	background-color: #f0f6fc;
 }
 
 .nerv-control-command-row--stack {
