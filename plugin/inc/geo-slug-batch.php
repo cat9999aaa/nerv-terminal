@@ -129,6 +129,28 @@ function nerv_core_geo_slug_schedule(): void {
 	}
 }
 
+function nerv_core_geo_slug_acquire_lock(): bool {
+	$lock = get_option( 'nerv_core_geo_slug_batch_lock', array() );
+	if ( is_array( $lock ) && ! empty( $lock['expires'] ) && absint( $lock['expires'] ) > time() ) {
+		return false;
+	}
+
+	update_option(
+		'nerv_core_geo_slug_batch_lock',
+		array(
+			'token'   => wp_generate_uuid4(),
+			'expires' => time() + 15 * MINUTE_IN_SECONDS,
+		),
+		false
+	);
+
+	return true;
+}
+
+function nerv_core_geo_slug_release_lock(): void {
+	delete_option( 'nerv_core_geo_slug_batch_lock' );
+}
+
 add_action( 'nerv_core_geo_slug_batch_tick', 'nerv_core_geo_slug_run_batch' );
 function nerv_core_geo_slug_run_batch(): void {
 	$job = nerv_core_geo_slug_job();
@@ -136,40 +158,51 @@ function nerv_core_geo_slug_run_batch(): void {
 		return;
 	}
 
-	$limit = min( absint( $job['batch_size'] ?? 5 ) * absint( $job['concurrency'] ?? 2 ), 50 );
-	$done = 0;
-	foreach ( (array) ( $job['items'] ?? array() ) as $index => $item ) {
-		if ( $done >= $limit ) {
-			break;
-		}
-		if ( 'pending' !== (string) ( $item['status'] ?? '' ) ) {
-			continue;
-		}
-
-		$result = nerv_core_geo_slug_process_post( absint( $item['id'] ?? 0 ) );
-		$job['items'][ $index ]['status'] = empty( $result['ok'] ) ? 'failed' : 'changed';
-		$job['items'][ $index ]['newSlug'] = sanitize_title( (string) ( $result['slug'] ?? '' ) );
-		$job['items'][ $index ]['message'] = sanitize_text_field( (string) ( $result['message'] ?? '' ) );
-		$job['processed'] = absint( $job['processed'] ?? 0 ) + 1;
-		if ( empty( $result['ok'] ) ) {
-			$job['failed'] = absint( $job['failed'] ?? 0 ) + 1;
-			$job['log'][] = nerv_core_geo_slug_log_row( 'warning', (string) ( $result['message'] ?? '处理失败。' ) );
-		} else {
-			$job['changed'] = absint( $job['changed'] ?? 0 ) + 1;
-			$job['log'][] = nerv_core_geo_slug_log_row( 'success', (string) ( $result['message'] ?? '已更新 slug。' ) );
-		}
-		++$done;
-	}
-
-	if ( absint( $job['processed'] ?? 0 ) >= absint( $job['total'] ?? 0 ) ) {
-		$job['status'] = 'complete';
-		$job['log'][] = nerv_core_geo_slug_log_row( 'info', 'GEO slug 挂机任务完成。' );
-	} else {
+	if ( ! nerv_core_geo_slug_acquire_lock() ) {
+		$job['log'][] = nerv_core_geo_slug_log_row( 'info', '已有 GEO slug 批次运行中，本轮跳过避免重复写入。' );
+		nerv_core_geo_slug_save_job( $job );
 		nerv_core_geo_slug_schedule();
+		return;
 	}
 
-	$job['log'] = array_slice( array_reverse( array_reverse( (array) $job['log'] ) ), -60 );
-	nerv_core_geo_slug_save_job( $job );
+	try {
+		$limit = min( absint( $job['batch_size'] ?? 5 ) * absint( $job['concurrency'] ?? 2 ), 50 );
+		$done = 0;
+		foreach ( (array) ( $job['items'] ?? array() ) as $index => $item ) {
+			if ( $done >= $limit ) {
+				break;
+			}
+			if ( 'pending' !== (string) ( $item['status'] ?? '' ) ) {
+				continue;
+			}
+
+			$result = nerv_core_geo_slug_process_post( absint( $item['id'] ?? 0 ) );
+			$job['items'][ $index ]['status'] = empty( $result['ok'] ) ? 'failed' : 'changed';
+			$job['items'][ $index ]['newSlug'] = sanitize_title( (string) ( $result['slug'] ?? '' ) );
+			$job['items'][ $index ]['message'] = sanitize_text_field( (string) ( $result['message'] ?? '' ) );
+			$job['processed'] = absint( $job['processed'] ?? 0 ) + 1;
+			if ( empty( $result['ok'] ) ) {
+				$job['failed'] = absint( $job['failed'] ?? 0 ) + 1;
+				$job['log'][] = nerv_core_geo_slug_log_row( 'warning', (string) ( $result['message'] ?? '处理失败。' ) );
+			} else {
+				$job['changed'] = absint( $job['changed'] ?? 0 ) + 1;
+				$job['log'][] = nerv_core_geo_slug_log_row( 'success', (string) ( $result['message'] ?? '已更新 slug。' ) );
+			}
+			++$done;
+		}
+
+		if ( absint( $job['processed'] ?? 0 ) >= absint( $job['total'] ?? 0 ) ) {
+			$job['status'] = 'complete';
+			$job['log'][] = nerv_core_geo_slug_log_row( 'info', 'GEO slug 挂机任务完成。' );
+		} else {
+			nerv_core_geo_slug_schedule();
+		}
+
+		$job['log'] = array_slice( array_reverse( array_reverse( (array) $job['log'] ) ), -60 );
+		nerv_core_geo_slug_save_job( $job );
+	} finally {
+		nerv_core_geo_slug_release_lock();
+	}
 }
 
 add_action( 'nerv_core_geo_slug_retry_post', 'nerv_core_geo_slug_retry_post', 10, 1 );
