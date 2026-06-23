@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'NERV_TERMINAL_VERSION', '0.1.22' );
+define( 'NERV_TERMINAL_VERSION', '0.1.23' );
 define( 'NERV_TERMINAL_DIR', get_template_directory() );
 define( 'NERV_TERMINAL_URI', get_template_directory_uri() );
 define( 'NERV_TERMINAL_REWRITE_VERSION', '20260623-blog-md-routes' );
@@ -316,8 +316,10 @@ function nerv_terminal_register_runtime_routes(): void {
 	add_rewrite_tag( '%nerv_manifest%', '1' );
 	add_rewrite_tag( '%nerv_icon%', '1' );
 	add_rewrite_tag( '%nerv_more%', '1' );
+	add_rewrite_tag( '%nerv_health%', '1' );
 	add_rewrite_tag( '%nerv_view%', '([^&]+)' );
 	add_rewrite_tag( '%size%', '[0-9]+' );
+	add_rewrite_rule( '^nerv-health\.json/?$', 'index.php?nerv_health=1', 'top' );
 	foreach ( array( 'blog', 'about', 'gallery', 'contact', 'partners', 'projects' ) as $view ) {
 		add_rewrite_rule( '^' . $view . '/?$', 'index.php?nerv_view=' . $view, 'top' );
 		add_rewrite_rule( '^' . $view . '/page/([0-9]+)/?$', 'index.php?nerv_view=' . $view . '&paged=$matches[1]', 'top' );
@@ -391,12 +393,21 @@ function nerv_terminal_clear_runtime_view_404(): void {
 
 add_action( 'template_redirect', 'nerv_terminal_runtime_responses', 0 );
 function nerv_terminal_runtime_responses(): void {
+	$request_path = trim( (string) wp_parse_url( (string) ( $_SERVER['REQUEST_URI'] ?? '' ), PHP_URL_PATH ), '/' );
+	if ( 'nerv-health.json' === $request_path ) {
+		nerv_terminal_output_health();
+	}
+
 	if ( get_query_var( 'nerv_manifest' ) ) {
 		nerv_terminal_output_manifest();
 	}
 
 	if ( get_query_var( 'nerv_icon' ) ) {
 		nerv_terminal_output_icon();
+	}
+
+	if ( get_query_var( 'nerv_health' ) ) {
+		nerv_terminal_output_health();
 	}
 
 	nerv_terminal_maybe_redirect_overflow_view_page();
@@ -549,6 +560,23 @@ function nerv_terminal_output_manifest(): void {
 	nocache_headers();
 	header( 'Content-Type: application/manifest+json; charset=' . get_option( 'blog_charset' ) );
 	echo wp_json_encode( $manifest, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE );
+	exit;
+}
+
+function nerv_terminal_output_health(): void {
+	$payload = array(
+		'name'                 => 'nerv-terminal',
+		'themeVersion'         => NERV_TERMINAL_VERSION,
+		'coreVersion'          => defined( 'NERV_CORE_VERSION' ) ? NERV_CORE_VERSION : '',
+		'themeRewriteVersion'  => defined( 'NERV_TERMINAL_REWRITE_VERSION' ) ? NERV_TERMINAL_REWRITE_VERSION : '',
+		'coreRewriteVersion'   => defined( 'NERV_CORE_REWRITE_VERSION' ) ? NERV_CORE_REWRITE_VERSION : '',
+		'markdownCacheVersion' => defined( 'NERV_CORE_MARKDOWN_CACHE_VERSION' ) ? NERV_CORE_MARKDOWN_CACHE_VERSION : '',
+		'generatedAt'          => current_time( DATE_ATOM ),
+	);
+
+	nocache_headers();
+	header( 'Content-Type: application/json; charset=' . get_option( 'blog_charset' ) );
+	echo wp_json_encode( $payload, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE );
 	exit;
 }
 

@@ -23,13 +23,16 @@ if ( ! empty( $release['version'] ) ) {
 	}
 }
 
+$health = http_get_json( $site . '/?nerv_health=1' );
 $home = http_get( $site . '/', true );
 add_check( $checks, 'production home route', 200 === $home['status'], 'Home returned HTTP ' . $home['status'] . ' at ' . $home['url'] . '.' );
 if ( ! empty( $release['version'] ) ) {
-	$core_version = response_header_value( $home['headers'], 'x-nerv-core' );
-	$theme_version = response_header_value( $home['headers'], 'x-nerv-theme' );
-	add_check( $checks, 'production core version header', version_at_least( $core_version, $release['version'] ), 'X-NERV-Core is ' . ( $core_version ?: 'missing' ) . '; latest is ' . $release['version'] . '.' );
-	add_check( $checks, 'production theme version header', version_at_least( $theme_version, $release['version'] ), 'X-NERV-Theme is ' . ( $theme_version ?: 'missing' ) . '; latest is ' . $release['version'] . '.' );
+	$core_version = (string) ( $health['coreVersion'] ?? response_header_value( $home['headers'], 'x-nerv-core' ) );
+	$theme_version = (string) ( $health['themeVersion'] ?? response_header_value( $home['headers'], 'x-nerv-theme' ) );
+	$source = $health ? 'health endpoint' : 'response header';
+	add_check( $checks, 'production health signal', ! empty( $health ) || '' !== response_header_value( $home['headers'], 'x-nerv-core' ) || '' !== response_header_value( $home['headers'], 'x-nerv-theme' ), 'Runtime version source is ' . $source . '.' );
+	add_check( $checks, 'production core version', version_at_least( $core_version, $release['version'] ), 'Core version is ' . ( $core_version ?: 'missing' ) . '; latest is ' . $release['version'] . '.' );
+	add_check( $checks, 'production theme version', version_at_least( $theme_version, $release['version'] ), 'Theme version is ' . ( $theme_version ?: 'missing' ) . '; latest is ' . $release['version'] . '.' );
 }
 
 $blog = http_get( $site . '/blog/page/444/', true );
