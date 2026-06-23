@@ -3,7 +3,7 @@
  * Plugin Name: NERV Core
  * Plugin URI: https://dashen.wang/
  * Description: Data and service layer for the NERV Terminal theme.
- * Version: 0.1.13
+ * Version: 0.1.14
  * Requires at least: 6.7
  * Requires PHP: 8.1
  * Author: Wang Dashen
@@ -18,10 +18,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'NERV_CORE_VERSION', '0.1.13' );
+define( 'NERV_CORE_VERSION', '0.1.14' );
 define( 'NERV_CORE_DIR', plugin_dir_path( __FILE__ ) );
 define( 'NERV_CORE_URL', plugin_dir_url( __FILE__ ) );
-define( 'NERV_CORE_REWRITE_VERSION', '20260623-geo-md-routes' );
+define( 'NERV_CORE_REWRITE_VERSION', '20260623-geo-md-cache-refresh' );
+define( 'NERV_CORE_MARKDOWN_CACHE_VERSION', '20260623-stale-md-cache-refresh' );
 
 require_once NERV_CORE_DIR . 'inc/i18n.php';
 require_once NERV_CORE_DIR . 'inc/cpt-project.php';
@@ -56,6 +57,7 @@ function nerv_core_activate(): void {
 	}
 	nerv_core_apply_preferred_permalink_structure( true );
 	flush_rewrite_rules();
+	nerv_core_maybe_refresh_markdown_cache( true );
 }
 
 register_deactivation_hook( __FILE__, 'nerv_core_deactivate' );
@@ -85,9 +87,33 @@ function nerv_core_apply_preferred_permalink_structure( bool $force_flush = fals
 add_action( 'wp_loaded', 'nerv_core_maybe_flush_runtime_routes', 20 );
 function nerv_core_maybe_flush_runtime_routes(): void {
 	if ( get_option( 'nerv_core_rewrite_version' ) === NERV_CORE_REWRITE_VERSION ) {
+		nerv_core_maybe_refresh_markdown_cache();
 		return;
 	}
 
 	flush_rewrite_rules( false );
 	update_option( 'nerv_core_rewrite_version', NERV_CORE_REWRITE_VERSION, false );
+	nerv_core_maybe_refresh_markdown_cache( true );
+}
+
+function nerv_core_maybe_refresh_markdown_cache( bool $force = false ): void {
+	if ( ! $force && get_option( 'nerv_core_markdown_cache_version' ) === NERV_CORE_MARKDOWN_CACHE_VERSION ) {
+		return;
+	}
+
+	if ( function_exists( 'nerv_core_tools_refresh_markdown_cache' ) ) {
+		$result = nerv_core_tools_refresh_markdown_cache();
+		update_option(
+			'nerv_core_markdown_cache_last_result',
+			array(
+				'written' => absint( $result['written'] ?? 0 ),
+				'failed'  => absint( $result['failed'] ?? 0 ),
+				'message' => sanitize_text_field( (string) ( $result['message'] ?? '' ) ),
+				'updated' => current_time( 'mysql' ),
+			),
+			false
+		);
+	}
+
+	update_option( 'nerv_core_markdown_cache_version', NERV_CORE_MARKDOWN_CACHE_VERSION, false );
 }
