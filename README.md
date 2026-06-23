@@ -47,6 +47,12 @@ Run rewrite-sensitive route checks against the local site:
 php bin/audit-rewrite-routes.php
 ```
 
+Check a production site the same way:
+
+```bash
+php bin/audit-rewrite-routes.php https://dashen.wang
+```
+
 Run static checks for the WordPress admin control surface:
 
 ```bash
@@ -67,8 +73,8 @@ bash build.sh --split
 
 The split build produces:
 
-- `dist/nerv-terminal-theme-0.1.11.zip`
-- `dist/nerv-core-plugin-0.1.11.zip`
+- `dist/nerv-terminal-theme-0.1.12.zip`
+- `dist/nerv-core-plugin-0.1.12.zip`
 
 ## Baota / Nginx Rewrite
 
@@ -122,7 +128,8 @@ directories so the Baota/Nginx rule travels with the installable zips.
 2. 清理 Cloudflare、宝塔缓存、页面缓存插件缓存，再重新访问同一个 URL。
 3. 在宝塔「伪静态」确认 `try_files $uri $uri/ /index.php?$args;` 没有被删。
 4. 如果只有 `.md` 404，检查宝塔「防篡改 / 网站安全 / 禁止访问文件」里是否有拦截全部 `*.md` 的规则。可以禁止访问仓库文件 `README.md`，但不能拦截公开文章镜像，例如 `/my-post.md`。
-5. 如果 `/blog/page/444/` 仍然 404，说明请求没有进入 WordPress 或 WordPress rewrite 没刷新；先保存固定链接，再停用/启用一次 NERV Core 插件触发规则刷新。
+5. 如果 `llms.txt` 里的 `.md` 能访问，但 Markdown front matter 里的 `markdown:` 指向旧地址，打开一次后台「NERV主题 · 工具」里的「刷新 Markdown 镜像」，或重新访问该 `.md`；插件会自动重建过期缓存。
+6. 如果 `/blog/page/444/` 仍然 404，说明请求没有进入 WordPress 或 WordPress rewrite 没刷新；先保存固定链接，再停用/启用一次 NERV Core 插件触发规则刷新。
 
 ## Online Updates
 

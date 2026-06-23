@@ -337,7 +337,7 @@ function nerv_core_geo_read_markdown_cache( WP_Post $post ): string {
 	$file = nerv_core_geo_markdown_cache_file( (int) $post->ID );
 	if ( $file && is_file( $file ) ) {
 		$content = file_get_contents( $file );
-		if ( false !== $content ) {
+		if ( false !== $content && ! nerv_core_geo_markdown_cache_is_stale( $content, $post ) ) {
 			return $content;
 		}
 	}
@@ -346,6 +346,21 @@ function nerv_core_geo_read_markdown_cache( WP_Post $post ): string {
 	nerv_core_geo_write_markdown_cache( $post );
 
 	return $markdown;
+}
+
+function nerv_core_geo_markdown_cache_is_stale( string $content, WP_Post $post ): bool {
+	$canonical = esc_url_raw( get_permalink( $post ) );
+	$markdown  = esc_url_raw( nerv_core_geo_markdown_url( (int) $post->ID ) );
+
+	if ( ! str_contains( $content, 'canonical: "' . $canonical . '"' ) ) {
+		return true;
+	}
+
+	if ( ! str_contains( $content, 'markdown: "' . $markdown . '"' ) ) {
+		return true;
+	}
+
+	return false;
 }
 
 function nerv_core_geo_output_llms( bool $full ): void {

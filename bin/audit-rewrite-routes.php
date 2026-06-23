@@ -9,7 +9,7 @@ if ( PHP_SAPI !== 'cli' ) {
 	exit( 1 );
 }
 
-$site = rtrim( getenv( 'NERV_SITE_URL' ) ?: 'http://127.0.0.1', '/' );
+$site = rtrim( $argv[1] ?? getenv( 'NERV_SITE_URL' ) ?: 'http://127.0.0.1', '/' );
 $checks = array();
 
 $blog = http_get( $site . '/blog/page/444/', true );
@@ -27,6 +27,12 @@ if ( '' !== $markdown_url ) {
 	$markdown = http_get( $markdown_url );
 	add_check( $checks, 'markdown mirror route', 200 === $markdown['status'] && str_contains( strtolower( $markdown['headers'] ), 'content-type: text/markdown' ), $markdown_url . ' returned HTTP ' . $markdown['status'] . '.' );
 	add_check( $checks, 'markdown front matter', str_starts_with( ltrim( $markdown['body'] ), '---' ) && str_contains( $markdown['body'], 'canonical:' ), 'Markdown mirror includes front matter and canonical metadata.' );
+	$front_matter_markdown = front_matter_value( $markdown['body'], 'markdown' );
+	add_check( $checks, 'markdown front matter URL current', $front_matter_markdown === $markdown_url, 'Front matter markdown URL is ' . ( $front_matter_markdown ?: 'missing' ) . '.' );
+	if ( '' !== $front_matter_markdown && $front_matter_markdown !== $markdown_url ) {
+		$front_matter_response = http_get( $front_matter_markdown );
+		add_check( $checks, 'stale markdown URL not published', 200 === $front_matter_response['status'], 'Front matter markdown URL returned HTTP ' . $front_matter_response['status'] . '.' );
+	}
 }
 
 $failed = array_values(
@@ -134,6 +140,14 @@ function absolute_url( string $location, string $base ): string {
 function markdown_url_from_llms( string $body ): string {
 	if ( preg_match( '~\((https?://[^)]+\.md)\)~i', $body, $matches ) ) {
 		return $matches[1];
+	}
+
+	return '';
+}
+
+function front_matter_value( string $body, string $key ): string {
+	if ( preg_match( '~^' . preg_quote( $key, '~' ) . ':\s*"([^"]*)"~mi', $body, $matches ) ) {
+		return html_entity_decode( $matches[1], ENT_QUOTES | ENT_HTML5, 'UTF-8' );
 	}
 
 	return '';
