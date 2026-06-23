@@ -86,15 +86,29 @@ function nerv_core_enqueue_admin_control_assets( string $hook_suffix ): void {
 	wp_enqueue_media();
 
 	wp_enqueue_script(
+		'nerv-core-admin-control-utils',
+		NERV_CORE_URL . 'assets/js/admin-control-utils.js',
+		array( 'wp-components', 'wp-element', 'wp-i18n' ),
+		NERV_CORE_VERSION . '-' . (string) filemtime( NERV_CORE_DIR . 'assets/js/admin-control-utils.js' ),
+		true
+	);
+
+	wp_enqueue_script(
 		'nerv-core-admin-control',
 		NERV_CORE_URL . 'assets/js/admin-control.js',
-		array( 'wp-api-fetch', 'wp-components', 'wp-element', 'wp-i18n' ),
+		array( 'wp-api-fetch', 'wp-components', 'wp-element', 'wp-i18n', 'nerv-core-admin-control-utils' ),
 		NERV_CORE_VERSION . '-' . (string) filemtime( NERV_CORE_DIR . 'assets/js/admin-control.js' ),
 		true
 	);
 
+	wp_set_script_translations( 'nerv-core-admin-control-utils', 'nerv-core', NERV_CORE_DIR . 'languages' );
 	wp_set_script_translations( 'nerv-core-admin-control', 'nerv-core', NERV_CORE_DIR . 'languages' );
 	if ( function_exists( 'nerv_core_zh_cn_js_locale_data' ) && nerv_core_should_use_zh_cn_fallback() ) {
+		wp_add_inline_script(
+			'nerv-core-admin-control-utils',
+			'wp.i18n.setLocaleData(' . wp_json_encode( nerv_core_zh_cn_js_locale_data(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) . ', "nerv-core");',
+			'before'
+		);
 		wp_add_inline_script(
 			'nerv-core-admin-control',
 			'wp.i18n.setLocaleData(' . wp_json_encode( nerv_core_zh_cn_js_locale_data(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) . ', "nerv-core");',

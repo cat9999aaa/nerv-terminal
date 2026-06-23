@@ -81,8 +81,9 @@ build_js_json() {
 	local handle="$3"
 	local domain="$4"
 	local lang_dir="$5"
+	shift 5
 
-	php "$ROOT/bin/build-js-i18n.php" "$po" "$lang_dir/$domain-$locale-$handle.json" "$domain"
+	php "$ROOT/bin/build-js-i18n.php" "$po" "$lang_dir/$domain-$locale-$handle.json" "$domain" "$@"
 }
 
 build_theme() {
@@ -113,6 +114,7 @@ build_plugin() {
 		"$ROOT/plugin/nerv-core.php" \
 		"$ROOT/plugin/inc/"*.php
 	extract_js "nerv-core" "$tmp/js.pot" \
+		"$ROOT/plugin/assets/js/admin-control-utils.js" \
 		"$ROOT/plugin/assets/js/admin-control.js" \
 		"$ROOT/plugin/assets/js/blocks.js"
 	merge_pots "$lang_dir/nerv-core.pot" "$tmp/php.pot" "$tmp/js.pot"
@@ -121,8 +123,9 @@ build_plugin() {
 	fill_po "$lang_dir/nerv-core.pot" "$lang_dir/nerv-core-ja.po" "ja.UTF-8"
 	fill_po "$lang_dir/nerv-core.pot" "$lang_dir/nerv-core-en_US.po" "en_US.UTF-8"
 	for locale in zh_CN ja en_US; do
-		build_js_json "$lang_dir/nerv-core-$locale.po" "$locale" "nerv-core-blocks" "nerv-core" "$lang_dir"
-		build_js_json "$lang_dir/nerv-core-$locale.po" "$locale" "nerv-core-admin-control" "nerv-core" "$lang_dir"
+		build_js_json "$lang_dir/nerv-core-$locale.po" "$locale" "nerv-core-blocks" "nerv-core" "$lang_dir" "$ROOT/plugin/assets/js/blocks.js"
+		build_js_json "$lang_dir/nerv-core-$locale.po" "$locale" "nerv-core-admin-control-utils" "nerv-core" "$lang_dir" "$ROOT/plugin/assets/js/admin-control-utils.js"
+		build_js_json "$lang_dir/nerv-core-$locale.po" "$locale" "nerv-core-admin-control" "nerv-core" "$lang_dir" "$ROOT/plugin/assets/js/admin-control.js"
 	done
 	rm -rf "$tmp"
 }

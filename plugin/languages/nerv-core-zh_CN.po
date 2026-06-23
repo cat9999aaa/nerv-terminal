@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nerv-core\n"
 "Report-Msgid-Bugs-To: https://dashen.wang/\n"
-"POT-Creation-Date: 2026-06-14 21:08+0800\n"
+"POT-Creation-Date: 2026-06-23 22:08+0800\n"
 "PO-Revision-Date: 2026-06-14 21:08+0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -17,16 +17,28 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:937
+msgid ""
+" canonical 文章 URL 保持可索引；Markdown 镜像保持机器可读，但不与正文页面竞争"
+"搜索排名。"
+msgstr ""
+
+#. translators: %d: redirect count.
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/partner-healthcheck.php:132
+#, php-format
+msgid " · %d redirects"
+msgstr ""
+
 #. translators: 1: created count, 2: updated count, 3: failed count.
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:602
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:681
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:718
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:675
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:754
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:791
 #, php-format
 msgid "%1$d created, %2$d updated, %3$d failed."
 msgstr ""
 
 #. translators: 1: project count, 2: post count, 3: partner count.
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1435
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1965
 #, php-format
 msgid "%1$d projects, %2$d posts, %3$d partners are published."
 msgstr ""
@@ -38,78 +50,38 @@ msgid "%d / 7D"
 msgstr ""
 
 #. translators: %d: related entry count.
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1608
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2166
 #, php-format
 msgid "%d entries per article."
 msgstr ""
 
 #. translators: %d: crawler hits.
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1576
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2131
 #, php-format
 msgid "%d hits / 7D"
 msgstr ""
 
 #. translators: %d: partner count.
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1592
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2148
 #, php-format
 msgid "%d partner records tracked."
 msgstr ""
 
 #. translators: %s: post title.
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:517
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:887
 #, php-format
 msgid "%s defines the main operating context for readers and AI systems."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1474
-msgid "00 Dashboard"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1475
-msgid "01 Brand"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1476
-msgid "02 Panels"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1477
-msgid "03 Mobile App"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1478
-msgid "04 Social"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1479
-msgid "05 Articles"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1480
-msgid "06 GEO"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1481
-msgid "07 Effects"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1482
-msgid "08 Tools"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1483
-msgid "09 AI Services"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1484
-msgid "10 Partners"
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1862
+msgid "09 Hazard"
 msgstr ""
 
 #: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/geo-crawler-stats.php:278
 msgid "404"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:742
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:746
 msgid "A NERV-styled summary panel for GEO-ready article takeaways."
 msgstr ""
 
@@ -117,184 +89,161 @@ msgstr ""
 msgid "AI CRAWLERS"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1964
-msgid "AI Crawler Monitor"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2005
-msgid "AI Crawler Stats"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1848
-msgid "AI Services / Cover Pipeline"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:434
-msgid "AI Services settings could not be saved."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:333
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:499
 msgid "AI Services settings saved."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1765
 #: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/ai-policy.php:75
 msgid "AI Usage Policy"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:470
-msgid "AI actions"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1566
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1752
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2120
 msgid "AI cover API"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:352
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:624
 msgid "AI cover generated and attached."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:828
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1204
 msgid "AI cover mode"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:319
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:589
 msgid "AI cover service is not configured."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:181
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:447
 msgid "AI cover settings are present."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:911
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1324
 msgid "AI crawler data"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1572
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2127
 msgid "AI crawler monitor"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:100
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:173
 msgid "AI crawler monitoring and the default bot policy are enabled."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:107
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:180
 msgid "AI crawler settings are unavailable."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:98
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:105
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:171
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:178
 msgid "AI crawler visibility"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:808
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1184
 msgid "AI crawls / 7D"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:316
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:507
+msgid "AI model fetcher is unavailable."
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:957
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:1092
+msgid "AI model is not configured."
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:320
 msgid "AI not configured"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:767
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:1285
 msgid "AI response did not include an image URL or base64 image."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:462
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:832
 msgid "AI response did not include usable KEY POINTS."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:440
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:810
 msgid "AI service is not configured; generated local KEY POINTS instead."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:606
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:710
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:1011
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:1138
 #, php-format
 msgid "AI service returned HTTP %d."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:611
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:715
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:1016
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:1143
 msgid "AI service returned invalid JSON."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:311
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:463
 msgid "AI services settings are unavailable."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1597
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1740
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:117
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2154
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:190
 msgid "AI usage policy"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:666
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:968
 msgid "AI usage policy generation is unavailable."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:671
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1681
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:119
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:973
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:192
 msgid "AI usage policy page could not be generated."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:676
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1679
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:978
 msgid "AI usage policy page generated."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:119
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:192
 msgid ""
 "AI usage policy page is published and linked from machine-readable resources."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1854
-msgid "API endpoint"
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1550
+msgid "AI 使用政策"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1862
-msgid "API key"
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:283
+msgid "AI 操作"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:516
-msgid "API key · saved; enter a new value to replace"
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1371
+msgid "AI 爬虫监控"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3410
-msgid "Activation Wizard"
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:212
+msgid "AI供应商设置保存失败。"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3379
-msgid "Activation step completed."
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:209
+msgid "AI供应商设置已保存。"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3382
-msgid "Activation step could not be completed."
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:303
+msgid "API Key"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:840
-msgid "Active badge"
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:303
+msgid "API Key 已保存，输入新值可替换"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2150
-msgid "Add Custom Panel"
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:1189
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:1194
+msgid "API endpoint is not configured."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:987
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:991
 msgid "Add FAQ"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cpt-partner.php:20
-msgid "Add New Partner"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cpt-project.php:20
-msgid "Add New Project"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2077
-msgid "Add Row"
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:930
+msgid "Add X-Robots-Tag: noindex to .md mirrors"
 msgstr ""
 
 #: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/geo-score.php:72
@@ -311,7 +260,7 @@ msgid ""
 "headline."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:560
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:564
 msgid ""
 "Add a supporting paragraph with concrete context, examples, constraints, and "
 "next steps so the article can stand alone for human readers and AI crawlers."
@@ -326,166 +275,105 @@ msgstr ""
 msgid "Add at least two internal links to strengthen the semantic crawl path."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:540
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:910
 msgid ""
 "Add direct answers near the top so AI summaries can extract the article "
 "quickly."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1518
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2050
 msgid ""
 "Add global and author identity links used by pilot cards and Person JSON-LD."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3032
-msgid "Add partner"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:873
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:877
 msgid "Add point"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2807
-msgid "Add social link"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:532
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:536
 msgid "Add the primary answer in one sentence."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1095
-msgid "Algorithm Weights"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1802
-msgid "Algorithm weights"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:679
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:683
 msgid "All active GEO checks are passing for this draft."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2023
-msgid "All tracked bots"
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:974
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:1109
+msgid "All configured AI models failed."
 msgstr ""
 
 #: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/meta-fields.php:98
 msgid "Alternative headline for entries and GEO metadata."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:925
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1338
 msgid "Amber"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:957
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:961
 msgid "Answer"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:853
-msgid "App name"
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:893
+msgid "Appearance settings are unavailable."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1555
-msgid "App shell disabled"
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:914
+msgid "Appearance settings saved."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1555
-msgid "App shell enabled"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:692
-msgid "Apple touch"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:926
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:676
 msgid "Apple touch icon"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2999
-msgid "Application Block"
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:438
+msgid "Apple 触摸图标"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2084
-msgid "Application block"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2094
-msgid "Application email"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2102
-msgid "Application text"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1526
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2058
 msgid "Apply GEO Defaults"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1406
-msgid ""
-"Apply the launch-safe defaults: IndexNow dry-run, AI crawler visibility, AI "
-"policy page, and refreshed Markdown mirrors."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1005
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1418
 msgid "Archive link label"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1161
-msgid "Article Inventory"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:495
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:768
 msgid "Article settings are unavailable."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1031
-msgid "Article settings could not be saved."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:522
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:795
 msgid "Article settings saved."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1890
-msgid "Auto-generate covers when no featured image exists"
+#. translators: 1: attachment ID, 2: file path.
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/image-optimizer.php:185
+#, php-format
+msgid ""
+"Attachment #%1$d could not be converted. Re-upload or regenerate the "
+"original image: %2$s"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1886
-msgid "Automation"
+#. translators: %d: attachment ID.
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/image-optimizer.php:129
+#, php-format
+msgid "Attachment #%d has no local file path."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1882
-msgid "Available placeholders: {title}, {subtitle}, {excerpt}, {category}."
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:302
+msgid "Base URL"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:575
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:981
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1203
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1489
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1695
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2317
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2625
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2831
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3077
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3326
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3346
-msgid "Back to dashboard"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2399
-msgid "Background grid"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1010
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1423
 msgid "Base line"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:868
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:1386
 msgid "Base64 image payload could not be decoded."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:863
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:1381
 msgid "Base64 image payload is empty."
 msgstr ""
 
@@ -493,55 +381,24 @@ msgstr ""
 msgid "Bilibili"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1009
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1422
 msgid "Bio"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1089
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1502
 msgid "Blog"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1703
-msgid "Booting NERV CONTROL dashboard..."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2009
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2035
-msgid "Bot"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:744
-msgid "Brand settings could not be saved."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:395
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:640
 msgid "Brand settings saved."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:782
-msgid "Brand subtitle"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:774
-msgid "Brand title"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3254
-msgid ""
-"Build script is a local monorepo tool and is not deployed inside wp-content."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:349
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:422
 msgid "Bundle package"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3235
-msgid ""
-"Bundle, theme, and plugin packages are present in the local dist directory."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:998
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1019
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1411
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1432
 msgid "Button label"
 msgstr ""
 
@@ -549,216 +406,65 @@ msgstr ""
 msgid "CLAUDEBOT"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3205
-msgid "CREATED"
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2503
+msgid "CRT 扫描线"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2400
-msgid "CRT scanlines"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3159
-msgid "Cache directory unavailable."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1820
-msgid "Cache hours"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:965
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1378
 msgid "Center column"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:790
-msgid "Center mark"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3248
-msgid "Check package artifacts from the local monorepo dist directory."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2179
-msgid "Checked"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1966
-msgid ""
-"Checked bots are monitored and allowed in robots.txt; unchecked bots are "
-"blocked with Disallow: /."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1364
-msgid ""
-"Checked bots are monitored and allowed in robots.txt; unchecked bots are "
-"blocked."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1191
-msgid ""
-"Checked categories are excluded from related-entry scoring and fallback "
-"queries."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1509
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2041
 msgid ""
 "Choose the visual intensity, motion budget, and desktop/mobile terminal "
 "effects."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:813
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:893
-msgid "Clear"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:980
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1393
 msgid "Clearance label"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:981
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1394
 msgid "Clearance value"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:822
-msgid "Clock Strip"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:824
-msgid "Clock label"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2019
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2210
-msgid "Column"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:907
-msgid "Common PWA baseline is 192px."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:919
-msgid "Common install icon is 512px."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1849
-msgid ""
-"Configure an OpenAI images-compatible service. Without credentials, uploaded "
-"covers and SVG fallback remain active and publishing is never blocked."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:457
-msgid ""
-"Configure an OpenAI-compatible endpoint for covers and editor KEY POINTS "
-"generation. API keys stay server-side and are never returned to this screen."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1557
-msgid ""
-"Configure the fixed mobile Tab Bar, MORE screen content, and app-style "
-"navigation contract. Keep 3 to 5 enabled tabs for thumb-safe mobile use."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2705
-msgid ""
-"Configure the global social library used by the Pilot Profile panel and "
-"machine-readable identity signals. Author cards can still override links "
-"from each user profile."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:180
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:446
 msgid "Configured"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:646
-msgid "Contain"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2282
-msgid "Content"
 msgstr ""
 
 #: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/ai-policy.php:93
 msgid "Content licensing and citation rules for AI systems."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2227
-msgid "Content type"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2921
-msgid ""
-"Control allied-link display, application copy, llms.txt inclusion, and "
-"partner health probe thresholds."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1675
-msgid ""
-"Control center foundation for the NERV Terminal theme. The full React "
-"dashboard will expand from these server-rendered settings."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1940
-msgid ""
-"Control terminal panels without touching code: visibility, columns, saved "
-"order, registered copy fields, live rows, and custom content panels."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1297
-msgid ""
-"Control the AI-readable publishing layer: IndexNow pings, crawler "
-"visibility, robots policy, and machine-readable resource status."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:763
-msgid ""
-"Control the first-viewport brand signal, header clock labels, and PWA "
-"install metadata used by the terminal shell."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2063
-msgid ""
-"Control the partner footer row, shortcode panel, application block, and "
-"llms.txt partner index."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:357
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:430
 msgid "Core plugin package"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:883
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:1401
 msgid "Could not create a temporary image file."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:888
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:1406
 msgid "Could not write the generated image file."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1965
-msgid ""
-"Count known AI crawler user agents and show the latest pages they requested. "
-"This proves GEO discovery is happening."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:647
-msgid "Cover crop"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:216
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:219
 msgid "Cover generation failed."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/blocks.php:215
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/blocks.php:223
 msgid "Cover generator is unavailable."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:389
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:731
 msgid "Cover history item has no reusable image."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:371
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:713
 msgid "Cover history item was not found."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/blocks.php:237
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/blocks.php:245
 msgid "Cover history restore is unavailable."
 msgstr ""
 
@@ -766,69 +472,45 @@ msgstr ""
 msgid "Cover image"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:151
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:152
 msgid "Cover preview could not be loaded."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:259
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:262
 msgid "Cover restore failed."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:392
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:734
 msgid "Cover restored from history."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:482
-msgid "Covers / KEY POINTS"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:17
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:20
 msgid ""
-"Create an EVA terminal style cover for \"{title}\". Subtitle: {subtitle}. "
-"Category: {category}. Excerpt: {excerpt}."
+"Create an original {ratio_label} editorial cover for \"{title}\". Use a "
+"refined retro terminal interface mood, crisp typography space, no logos, no "
+"franchise references, no triangles. Subtitle: {subtitle}. Category: "
+"{category}. Excerpt: {excerpt}."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1707
-msgid "Current Settings Forms"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1431
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1961
 msgid "Current demo records"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1823
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1824
-msgid "Custom Panel"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2146
-msgid "Custom Panels"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1095
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1508
 msgid "Custom URL"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1980
-msgid "Data retention"
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1863
+msgid "Day / Paper"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1354
-msgid "Data retention days"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:897
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:903
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:909
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1310
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1316
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1322
 msgid "Decorative rows"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2115
-msgid ""
-"Default is off so llms.txt stays focused on owned content unless you opt in."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:502
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:506
 msgid "Default weights restored in this preview. Save to apply globally."
 msgstr ""
 
@@ -836,168 +518,98 @@ msgstr ""
 msgid "Definition opening"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:547
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:551
 msgid "Definition paragraph inserted. Move it near the opening if needed."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3193
-msgid "Demo Content"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:573
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:646
 msgid "Demo authors"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1531
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2063
 msgid "Demo content"
 msgstr ""
 
 #. translators: 1: created count, 2: updated count, 3: failed count.
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:741
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:814
 #, php-format
 msgid "Demo import completed: %1$d created, %2$d updated, %3$d failed."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:746
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1120
 msgid "Demo import is unavailable."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:714
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:787
 msgid "Demo partners"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:677
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:750
 msgid "Demo posts"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:598
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:671
 msgid "Demo projects"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3201
-msgid "Demo records are available for frontend validation."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:628
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:701
 msgid "Demo taxonomy"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:996
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1409
 msgid "Description line 1"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:997
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1410
 msgid "Description line 2"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2501
-msgid "Desktop Override"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2514
-msgid "Desktop intensity"
-msgstr ""
-
 #. translators: %s: detected license header.
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:317
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:390
 #, php-format
 msgid "Detected license: %s."
 msgstr ""
 
 #. translators: %s: detected text domain.
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:283
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:356
 #, php-format
 msgid "Detected text domain: %s."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1562
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1605
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2103
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2163
 msgid "Disabled"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3255
-msgid "Dist directory:"
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3492
+msgid "Dist 目录："
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2013
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2253
-msgid "Down"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1983
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2189
-msgid "Drag to reorder"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:829
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1205
 msgid "Dry-run"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1898
-msgid "Dry-run AI calls until production credentials are ready"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:429
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:799
 msgid "Dry-run KEY POINTS generated locally; no external AI request was sent."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1946
-msgid "Dry-run only; record logs without external submission"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:311
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:581
 msgid "Dry-run recorded; no external image request was sent."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1563
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2104
 msgid "Dry-run safety is on."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1011
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1424
 msgid "Duty line"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cpt-partner.php:21
-msgid "Edit Partner"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cpt-project.php:21
-msgid "Edit Project"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2476
-msgid "Effect Channels"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2587
-msgid "Effect Preset JSON"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2590
-msgid "Effect preset JSON"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2394
-msgid "Effect preset JSON could not be imported."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2383
-msgid "Effect preset JSON exported."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2392
-msgid "Effect preset JSON imported. Save to apply it to the frontend."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:574
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:847
 msgid "Effect settings are unavailable."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2374
-msgid "Effect settings could not be saved."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:612
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:885
 msgid "Effect settings saved."
 msgstr ""
 
@@ -1005,76 +617,15 @@ msgstr ""
 msgid "Email"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1974
-msgid "Enable AI crawler monitoring"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1346
-msgid "Enable AI crawler monitoring and robots policy output"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1918
-msgid "Enable IndexNow pings on publish/update"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1894
-msgid "Enable KEY POINTS AI generation"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1572
-msgid "Enable MORE tab route"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2503
-msgid "Enable effects on desktop"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2533
-msgid "Enable effects on mobile"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1564
-msgid "Enable mobile app shell and fixed Tab Bar"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1994
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2200
-msgid "Enable panel"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1527
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2059
 msgid ""
 "Enable recommended IndexNow safety mode, crawler visibility, AI policy, and "
 "Markdown mirrors."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1781
-msgid "Enable related entries panel and GEO related links"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2138
-msgid "Enable scheduled partner health checks"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2449
-msgid "Enable terminal effects"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1562
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1605
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2103
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2163
 msgid "Enabled"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1935
-msgid "Endpoint"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1795
-msgid "Entries count"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1825
-msgid "Excluded categories"
 msgstr ""
 
 #: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/geo-score.php:73
@@ -1082,48 +633,16 @@ msgid ""
 "Expand the article toward at least 300 words for stronger standalone context."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:561
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:565
 msgid "Expansion paragraph inserted."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:532
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:536
 msgid "Explain the reader outcome or operating context."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2604
-msgid "Export Effects JSON"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3311
-msgid "Export Preset JSON"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2588
-msgid ""
-"Export or import only TAB 07 effect settings. Imported JSON updates this "
-"form first; save when the preview looks right."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3294
-msgid ""
-"Export or import whitelisted theme/control settings. Secret API keys are "
-"excluded."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:476
-msgid "External calls"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3267
-msgid "FAIL"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3207
-msgid "FAILED"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/blocks.php:73
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/blocks.php:297
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/blocks.php:80
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/blocks.php:305
 msgid "FAQ / よくある質問"
 msgstr ""
 
@@ -1131,55 +650,32 @@ msgstr ""
 msgid "FAQ block"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:554
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:558
 msgid "FAQ block inserted with a starter question."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:829
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1205
 msgid "Fallback"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3060
-msgid "Featured"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3175
-msgid "Flush Related Cache"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3171
-msgid "Flush transient rows used by the weighted related-entry engine."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:653
-msgid "Focal X"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:668
-msgid "Focal Y"
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:567
+#, php-format
+msgid "Fetched and cached %d models."
 msgstr ""
 
 #: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/meta-fields.php:108
 msgid "Follow"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:586
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:590
 msgid "Follow the GEO suggestion and refresh the score."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2077
-msgid "Footer count"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2067
-msgid "Footer featured row"
 msgstr ""
 
 #: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/geo-score.php:76
 msgid "Freshness"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:613
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:617
 msgid "GEO SCORE"
 msgstr ""
 
@@ -1187,23 +683,15 @@ msgstr ""
 msgid "GEO Systems Operator"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1274
-msgid "GEO action could not be completed."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1522
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2054
 msgid "GEO launch"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2109
-msgid "GEO partner index"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:449
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:453
 msgid "GEO score could not be refreshed."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:492
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:496
 msgid "GEO score weights could not be saved."
 msgstr ""
 
@@ -1211,33 +699,55 @@ msgstr ""
 msgid "GEO score weights saved."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:530
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:803
 msgid "GEO settings are unavailable."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1250
-msgid "GEO settings could not be saved."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:566
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:839
 msgid "GEO settings saved."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:410
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2108
+msgid "GEO slug 挂机"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1252
+msgid "GEO slug 挂机任务已更新。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1470
+msgid "GEO slug 挂机模式"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:414
 msgid "GEO weights could not be loaded."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3489
-msgid ""
-"GEO, AI services, crawler visibility, partners, and theme operations in one "
-"control surface."
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1241
+msgid "GEO 操作未能完成。"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2580
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1217
+msgid "GEO 设置保存失败。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1214
+msgid "GEO 设置已保存。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1432
+msgid "GEO标题 slug 建议"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1445
+msgid "GEO标题 slug 建议已生成。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2683
 msgid "GLOW"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:313
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:386
 msgid "GPL-compatible license header"
 msgstr ""
 
@@ -1245,40 +755,24 @@ msgstr ""
 msgid "GPTBOT"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1579
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2134
 msgid "GPTBot, ClaudeBot, PerplexityBot, Google-Extended and more."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2578
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2681
 msgid "GRID"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1767
-msgid "Generate AI Policy Page"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:886
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:890
 msgid "Generate KEY POINTS"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:317
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:321
 msgid "Generate cover"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1766
-msgid ""
-"Generate or refresh the /ai-policy/ page so llms.txt can declare licensing, "
-"citation, and contact rules for AI systems."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:711
-msgid ""
-"Generated SVG fallback preview. Upload a square bitmap for production app "
-"icons."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:314
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:886
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:318
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:890
 msgid "Generating..."
 msgstr ""
 
@@ -1287,23 +781,23 @@ msgstr ""
 msgid "GitHub"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/blocks.php:80
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/blocks.php:87
 msgid "Give a direct answer that can stand alone in search and AI summaries."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:924
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1337
 msgid "Green"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:982
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1395
 msgid "Guest authorization"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:983
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1396
 msgid "Guest code"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:540
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:544
 msgid "H2 heading inserted."
 msgstr ""
 
@@ -1312,135 +806,87 @@ msgid "H2 structure"
 msgstr ""
 
 #. translators: 1: HTTP status code, 2: response seconds.
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/partner-healthcheck.php:123
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/partner-healthcheck.php:124
 #, php-format
 msgid "HTTP %1$d in %2$.2fs"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:772
-msgid "Header Brand"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:800
-msgid "Header logo image"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:942
-msgid "Header preview"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:995
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1408
 msgid "Headline"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3399
-msgid "Health Signals"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:323
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:327
 msgid "History"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1088
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1501
 msgid "Home"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:896
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1607
-msgid "Icon"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:839
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:1357
 msgid "Image URL is empty."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:830
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:1348
 msgid "Image payload is invalid."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3225
-msgid "Import / Refresh Demo Content"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1535
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2067
 msgid "Import Demo"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2609
-msgid "Import Effects JSON"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3316
-msgid "Import Preset JSON"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2113
-msgid "Include partners in llms.txt"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1560
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1909
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2101
 msgid "IndexNow"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2199
-msgid "IndexNow Log"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1458
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1576
 msgid "IndexNow TEST"
 msgstr ""
 
 #. translators: %s: IndexNow test status.
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:699
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1067
 #, php-format
 msgid "IndexNow TEST completed with status: %s."
-msgstr ""
-
-#. translators: %s: IndexNow test status.
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1691
-#, php-format
-msgid "IndexNow TEST completed with status: %s. See the log below."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1471
-msgid "IndexNow TEST completed."
 msgstr ""
 
 #: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/indexnow.php:152
 msgid "IndexNow is disabled."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:83
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:156
 msgid "IndexNow is enabled with dry-run safety on for local validation."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:81
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:88
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:154
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:161
 msgid "IndexNow safety mode"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:90
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:163
 msgid "IndexNow settings are unavailable."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:688
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1056
 msgid "IndexNow testing is unavailable."
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3662
+msgid "IndexNow 日志"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1589
+msgid "IndexNow 测试已完成。"
 msgstr ""
 
 #: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/social-store.php:18
 msgid "Instagram"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2459
-msgid "Intensity"
-msgstr ""
-
 #: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/geo-score.php:75
 msgid "Internal links"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:568
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:572
 msgid ""
 "Internal-link prompt inserted. Replace the text with real internal links."
 msgstr ""
@@ -1449,70 +895,48 @@ msgstr ""
 msgid "KEY POINTS"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/blocks.php:47
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/blocks.php:282
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/blocks.php:54
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/blocks.php:290
 msgid "KEY POINTS / 要点提取"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:533
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:537
 msgid "KEY POINTS block inserted. Edit the three draft points."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:471
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:841
 msgid "KEY POINTS generated."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:807
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:811
 msgid "KEY POINTS generation failed."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/blocks.php:259
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/blocks.php:267
 msgid "KEY POINTS generator is unavailable."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/blocks.php:53
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/blocks.php:60
 msgid "Keep each point short enough for AI summaries."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1924
-msgid "Key"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:994
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1407
 msgid "Kicker"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1597
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2085
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2762
-msgid "Label"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2010
-msgid "Last 7 Days"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:488
-msgid "Last AI action"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:992
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1405
 msgid "Latitude"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:678
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:682
 msgid "Launch-ready"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:964
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1377
 msgid "Left column"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2101
-msgid "Level"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1004
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1417
 msgid "Level badge"
 msgstr ""
 
@@ -1520,7 +944,7 @@ msgstr ""
 msgid "Link attribute"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/blocks.php:54
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/blocks.php:61
 msgid "Link the article to a concrete operating context."
 msgstr ""
 
@@ -1529,124 +953,111 @@ msgstr ""
 msgid "LinkedIn"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:829
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1205
 msgid "Live"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1563
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2104
 msgid "Live submission mode."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1942
-msgid "Local safety"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:991
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1404
 msgid "Location"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1882
-msgid "Log rows"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1894
-msgid "Log source"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:816
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:566
 msgid "Logo"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:993
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1406
 msgid "Longitude"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2582
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2685
 msgid "MOBILE"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1094
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1507
 msgid "MORE"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1652
-msgid "MORE Screen Sections"
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1765
+msgid "MORE 页面模块"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2581
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2684
 msgid "MOTION"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1294
-msgid "Machine resources active"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3444
-msgid "Machine-Readable Resources"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3031
-msgid "Manage partners"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:691
-msgid "Manifest large"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:914
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:664
 msgid "Manifest large icon"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:690
-msgid "Manifest small"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:902
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:652
 msgid "Manifest small icon"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3157
-msgid "Markdown Mirrors"
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:437
+msgid "Manifest 大图标"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:436
+msgid "Manifest 小图标"
 msgstr ""
 
 #: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:17
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:125
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:198
 msgid "Markdown mirror tools are unavailable."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:820
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1550
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:129
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:732
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1196
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2090
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:202
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:805
 msgid "Markdown mirrors"
 msgstr ""
 
 #. translators: 1: written cache count, 2: failed cache count.
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:44
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:54
 #, php-format
 msgid "Markdown mirrors refreshed: %1$d written, %2$d failed."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:737
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1105
 msgid "Markdown refresh is unavailable."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2430
-msgid "Master Switch"
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:928
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3373
+msgid "Markdown 镜像"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2178
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2205
-msgid "Message"
+#. translators: 1: generated count, 2: skipped count, 3: failed count, 4: pending count.
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:129
+#, php-format
+msgid ""
+"Media WebP queue started: %1$d generated, %2$d already existed, %3$d failed, "
+"%4$d pending."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:302
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1114
+msgid "Media WebP refresh is unavailable."
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:112
+msgid "Media WebP tools are unavailable."
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:866
+msgid "Meta 输出"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:375
 msgid "Minimum runtime versions"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1546
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1599
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1747
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2085
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2156
 msgid "Missing"
 msgstr ""
 
@@ -1655,67 +1066,36 @@ msgid "Missing URL"
 msgstr ""
 
 #. translators: %s: comma-separated missing file list.
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:246
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:319
 #, php-format
 msgid "Missing required files: %s."
 msgstr ""
 
 #. translators: %s: comma-separated missing header list.
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:273
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:346
 #, php-format
 msgid "Missing style.css headers: %s."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1433
-msgid "Missing; generate the policy page before launch."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2547
-msgid "Mobile"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1538
-msgid "Mobile App settings could not be saved."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:269
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:421
 msgid "Mobile App settings saved."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2531
-msgid "Mobile Override"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:246
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:398
 msgid "Mobile app settings are unavailable."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2560
-msgid "Mobile intensity"
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:1217
+#, php-format
+msgid "Model list request returned HTTP %d."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1870
-msgid "Model"
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:1220
+msgid "Model list response is not valid JSON."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2059
-msgid "Modified from default."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1879
-msgid "Monitor rows"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1892
-msgid "Monitor source"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2402
-msgid "Motion transitions"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:852
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:897
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:1370
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:1415
 msgid "NERV AI generated cover"
 msgstr ""
 
@@ -1723,33 +1103,11 @@ msgstr ""
 msgid "NERV Author Signal"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:15
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:16
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1674
-msgid "NERV CONTROL"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3341
-msgid "NERV CONTROL Tab"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3525
-msgid "NERV CONTROL dashboard data could not be loaded."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3501
-msgid "NERV CONTROL tabs"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:270
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:273
 msgid "NERV COVER"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3487
-msgid "NERV DASHBOARD"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:897
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:901
 msgid "NERV FAQ"
 msgstr ""
 
@@ -1757,7 +1115,7 @@ msgstr ""
 msgid "NERV GEO SCORE"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:739
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:743
 msgid "NERV Key Points"
 msgstr ""
 
@@ -1765,145 +1123,136 @@ msgstr ""
 msgid "NERV METADATA"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:943
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3488
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:693
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3722
 msgid "NERV Terminal"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1714
-msgid "NERV Terminal visual shell is expected to be active."
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:279
+msgid "NERV主题 · AI供应商"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:532
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1316
+msgid "NERV主题 · GEO"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:850
+msgid "NERV主题 · SEO"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3134
+msgid "NERV主题 · 合作伙伴"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:510
+msgid "NERV主题 · 品牌"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3357
+msgid "NERV主题 · 工具"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1012
+msgid "NERV主题 · 文章"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2517
+msgid "NERV主题 · 特效"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2923
+msgid "NERV主题 · 社交"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1667
+msgid "NERV主题 · 移动端"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2778
+msgid "NERV主题 · 配色"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2041
+msgid "NERV主题 · 面板"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:536
 msgid "Name the next useful resource or action."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:661
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:665
 msgid "Next repair"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2055
-msgid "No AI crawler visits recorded yet."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2220
-msgid "No IndexNow events recorded yet."
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1863
+msgid "Night / Void"
 msgstr ""
 
 #: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/indexnow.php:158
 msgid "No URLs or host available."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:575
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:648
 msgid ""
 "No administrator/editor/author account was available for demo ownership."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1837
-msgid "No categories available yet."
 msgstr ""
 
 #: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:96
 msgid "No cover URL available."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2292
-msgid "No custom panels yet."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2194
-msgid "No partners available yet."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:117
-msgid "No records yet."
-msgstr ""
-
 #: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/meta-fields.php:109
 msgid "Nofollow"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:988
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1401
 msgid "Nominal headline"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:989
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1402
 msgid "Nominal subline"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:489
-msgid "None"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/partner-healthcheck.php:150
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/partner-healthcheck.php:153
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/partner-healthcheck.php:222
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/partner-healthcheck.php:225
 msgid "Not checked yet"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1657
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:180
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:446
 msgid "Not configured"
 msgstr ""
 
-#. translators: 1: online count, 2: slow count, 3: offline count, 4: total count.
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1730
-#, php-format
-msgid "ONLINE %1$d / SLOW %2$d / OFFLINE %3$d / TOTAL %4$d"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:201
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:274
 msgid ""
 "Official Theme Check is not loaded here. This panel is running the built-in "
 "release audit only."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3283
-msgid ""
-"Official Theme Check is used when available; otherwise this runs the built-"
-"in block-theme release audit."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:234
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:307
 msgid "Official Theme Check runner"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1546
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2085
 msgid "Online"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1499
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2031
 msgid "Open Brand"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3187
-msgid "Open Partner Tools"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1517
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2049
 msgid "Open Social"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:84
-msgid "Open Tab"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:846
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1222
 msgid "Open current settings forms"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2720
-msgid "Open external social links in a new tab"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:59
-msgid "Open step"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:577
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:581
 msgid "Open the Featured image control and set or generate a cover."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:526
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:530
 msgid "Open the NERV Entry Details panel and fill the subtitle field."
 msgstr ""
 
@@ -1912,159 +1261,88 @@ msgid ""
 "Open with a direct definition or answer sentence in the first paragraph."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:539
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:543
 msgid "Operational Context"
 msgstr ""
 
 #. translators: 1: category id, 2: tag count.
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:632
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:705
 #, php-format
 msgid "Operations category ID %1$d; %2$d tags ready."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2004
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2244
-msgid "Order"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3265
-msgid "PASS"
 msgstr ""
 
 #: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/geo-crawler-stats.php:349
 msgid "PERPLEXITY"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:851
-msgid "PWA Identity"
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:630
+msgid "PWA 图标图片"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:880
-msgid "PWA icon image"
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:444
+msgid "PWA 图标预览"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:698
-msgid "PWA icon preview"
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:657
+msgid "PWA 常用基础尺寸为 192px。"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3248
-msgid "Package not found in dist."
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:601
+msgid "PWA 身份"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3237
-msgid ""
-"Package status is only available from the local monorepo; this deployed wp-"
-"content copy keeps the CLI commands for reference."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2036
-msgid "Page"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2401
-msgid "Panel glow"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:403
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:676
 msgid "Panel settings are unavailable."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1917
-msgid "Panel settings could not be saved."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:487
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:760
 msgid "Panel settings saved."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:984
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:985
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:990
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:999
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1002
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1006
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1012
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1014
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1787
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1397
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1398
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1403
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1412
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1415
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1419
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1425
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1427
 msgid "Panel title"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2176
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cpt-partner.php:19
-msgid "Partner"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1721
-msgid "Partner CPT"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2062
-msgid "Partner Display"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2129
-msgid "Partner Health"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2172
-msgid "Partner Health Status"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3041
-msgid "Partner Health TEST"
 msgstr ""
 
 #: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/meta-fields.php:102
 msgid "Partner URL"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1582
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1725
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2138
 msgid "Partner health"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:718
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1086
 msgid "Partner health TEST completed."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1699
-msgid "Partner health TEST completed. See the partner status table below."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2898
-msgid "Partner health TEST could not be completed."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:710
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1078
 msgid "Partner health testing is unavailable."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:620
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:922
 msgid "Partner settings are unavailable."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2874
-msgid "Partner settings could not be saved."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:658
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:960
 msgid "Partner settings saved."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1092
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cpt-partner.php:18
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1505
 msgid "Partners"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:812
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1188
 msgid "Partners online"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:944
-msgid "Personal Portfolio"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1091
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1504
 msgid "Pilot / About"
 msgstr ""
 
@@ -2072,17 +1350,7 @@ msgstr ""
 msgid "Pilot title"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1910
-msgid ""
-"Ping search engines when public posts and projects are published or updated. "
-"Localhost runs are recorded as dry-run logs."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2747
-msgid "Platform"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:844
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:848
 msgid "Point"
 msgstr ""
 
@@ -2090,88 +1358,35 @@ msgstr ""
 msgid "Post is not available for GEO scoring."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/blocks.php:192
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/blocks.php:199
 msgid "Post not found."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2434
-msgid "Preset"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3297
-msgid "Preset JSON"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1668
-msgid "Preview MORE screen"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2808
-msgid "Preview Pilot Profile"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2308
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2616
-msgid "Preview homepage"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1165
-msgid "Preview latest article"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:575
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:648
 msgid "Primary and secondary demo author profiles were prepared."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2130
-msgid ""
-"Probe partner URLs and show ONLINE, SLOW, or OFFLINE status lights on the "
-"partner grid."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cpt-project.php:19
-msgid "Project"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1717
-msgid "Project CPT"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1090
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cpt-project.php:18
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1503
 msgid "Projects"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:301
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:305
 msgid "Prompt preview"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1878
-msgid "Prompt template"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1599
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1743
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2156
 msgid "Published"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1433
-msgid "Published and linked from machine-readable resources."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:986
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1399
 msgid "Purpose line"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2779
-msgid "QR image URL"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:949
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:953
 msgid "Question"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:900
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:904
 msgid "Question and answer block that emits FAQPage JSON-LD."
 msgstr ""
 
@@ -2183,43 +1398,31 @@ msgstr ""
 msgid "RSS"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:553
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3574
+msgid "React 页面外壳已就绪；可编辑控件会在后续从旧设置表单迁移。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:557
 msgid ""
 "Readers should understand the direct answer, context, and next action "
 "without scanning the whole page."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2030
-msgid "Recent AI Crawls"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1817
-msgid "Recent days"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1810
-msgid "Recent post"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:898
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1311
 msgid "Recent posts"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1405
-msgid "Recommended GEO Setup"
-msgstr ""
-
 #. translators: %d: warning count.
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:145
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:218
 #, php-format
 msgid "Recommended GEO setup completed with %d warnings."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:148
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:221
 msgid "Recommended GEO setup completed."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:743
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1117
 msgid "Recommended GEO setup is unavailable."
 msgstr ""
 
@@ -2227,290 +1430,133 @@ msgstr ""
 msgid "Recorded without external submission."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:926
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1339
 msgid "Red"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1767
-msgid "Refresh AI Policy Page"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3163
-msgid "Refresh Markdown Mirrors"
 msgstr ""
 
 #: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/geo-score.php:76
 msgid "Refresh the article so dateModified stays recent."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1722
-msgid "Registered as partners archive."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1718
-msgid "Registered as projects archive."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2789
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3014
 msgid "Rel"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3169
-msgid "Related Cache"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1772
-msgid "Related Entries"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:740
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1108
 msgid "Related cache flushing is unavailable."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1051
-msgid "Related engine disabled"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1051
-msgid "Related engine enabled"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1603
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2161
 msgid "Related entries"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:567
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:571
 msgid ""
 "Related resources: add two internal links to relevant posts, projects, or "
 "policy pages."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:61
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:71
 msgid "Related-entry cache flushed."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:54
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:64
 msgid "Related-entry cache tools are unavailable."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3233
-msgid "Release Packaging"
-msgstr ""
-
 #. translators: 1: pass count, 2: warning count, 3: failure count.
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:331
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:404
 #, php-format
 msgid "Release audit completed: %1$d pass, %2$d warnings, %3$d failures."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2131
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2259
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2799
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:860
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:864
 msgid "Remove"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:973
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:977
 msgid "Remove FAQ"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:652
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:656
 msgid "Repair"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:672
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:676
 msgid "Repair next item"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:888
-msgid "Replace icon"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:808
-msgid "Replace logo"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:240
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:313
 msgid "Required block-theme files"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:270
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:343
 msgid "Required theme headers are present."
 msgstr ""
 
 #. translators: 1: WordPress version requirement, 2: PHP version requirement.
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:306
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:379
 #, php-format
 msgid "Requires WordPress %1$s and PHP %2$s."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:719
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:723
 msgid "Restore defaults"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:969
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1382
 msgid "Rich text"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:966
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1379
 msgid "Right column"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1008
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1421
 msgid "Role"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1959
-msgid "Run IndexNow TEST"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2169
-msgid "Run Partner Health TEST"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3287
-msgid "Run Theme Check / Release Audit"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3261
-msgid "Run a local release audit before packaging the theme."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3042
-msgid ""
-"Run a manual HEAD probe for published partner links and refresh the status "
-"table."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2168
-msgid "Run a partner health TEST now and refresh the status lights."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3148
-msgid ""
-"Run safe WordPress maintenance actions and inspect local build/demo "
-"commands. Shell packaging stays in the local CLI instead of the browser "
-"admin surface."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:59
-msgid "Run step"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1452
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1982
 msgid "Run the release audit before packaging."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2579
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2682
 msgid "SCANLINES"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:287
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:668
+msgid "SEO settings saved."
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:834
+msgid "SEO 设置保存失败。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:831
+msgid "SEO 设置已保存。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:290
 msgid "SOURCE"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:949
-msgid "SYSTEM TIME"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:970
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1383
 msgid "Safe HTML"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1804
-msgid "Same category"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1904
-msgid "Save AI Service Settings"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:570
-msgid "Save AI Services"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1198
-msgid "Save Article Settings"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:976
-msgid "Save Brand Settings"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2002
-msgid "Save Crawler Monitor Settings"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2620
-msgid "Save Effect Settings"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1484
-msgid "Save GEO Settings"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1952
-msgid "Save IndexNow Settings"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1690
-msgid "Save Mobile App Settings"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1843
-msgid "Save NERV Settings"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2312
-msgid "Save Panel Settings"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2124
-msgid "Save Partner Display Settings"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2162
-msgid "Save Partner Health Settings"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3072
-msgid "Save Partner Settings"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2826
-msgid "Save Social Settings"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:730
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:734
 msgid "Save weights"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1865
-msgid "Saved; leave blank to keep current key."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1156
-msgid "Saving these settings flushes related-entry transients."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:570
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:976
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1198
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1484
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1690
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2312
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2620
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2826
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3072
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:730
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:734
 msgid "Saving..."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:686
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:690
 msgid "Scoring weights"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1093
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1506
 msgid "Search"
 msgstr ""
 
@@ -2518,36 +1564,10 @@ msgstr ""
 msgid "Search results"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3201
-msgid "Seed the local demo records used by homepage, archive, and GEO checks."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1536
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2068
 msgid ""
 "Seed the projects, posts, partner records, authors, taxonomy, and markdown "
 "mirrors used for validation."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:887
-msgid "Select PWA icon"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:807
-msgid "Select header logo"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:888
-msgid "Select icon"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:808
-msgid "Select logo"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1958
-msgid ""
-"Send a manual IndexNow TEST ping for the AI policy URL when available, "
-"otherwise the site home URL. Localhost remains dry-run only."
 msgstr ""
 
 #: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/geo-score.php:74
@@ -2555,63 +1575,35 @@ msgid ""
 "Set a featured image so the 5:2 and social cover pipeline has source media."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1500
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2032
 msgid ""
 "Set the public site name, terminal mark, logo, PWA color, and app icons."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3293
-msgid "Settings Preset JSON"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:752
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1126
 msgid "Settings preset export is unavailable."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:816
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:889
 msgid "Settings preset exported."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:837
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:910
 msgid "Settings preset import failed: invalid preset JSON."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:755
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1129
 msgid "Settings preset import is unavailable."
 msgstr ""
 
 #. translators: %d: imported option count.
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:863
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:936
 #, php-format
 msgid "Settings preset imported: %d option groups updated."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1807
-msgid "Shared tag"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:861
-msgid "Short name"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:971
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1384
 msgid "Shortcode"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3001
-msgid "Show allied-link application block on the partners page"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2088
-msgid "Show an allied-link application block on the partners page"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2071
-msgid "Show featured partners in the terminal footer"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2712
-msgid "Show global social links in Pilot Profile"
 msgstr ""
 
 #: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/meta-fields.php:115
@@ -2622,377 +1614,191 @@ msgstr ""
 msgid "Shown on the NERV author card below the display name."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1495
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2027
 msgid "Site identity"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2153
-msgid "Slow threshold"
+#. translators: 1: generated count, 2: skipped count, 3: failed count, 4: pending count.
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:97
+#, php-format
+msgid ""
+"Social WebP cover queue started: %1$d generated, %2$d already existed, %3$d "
+"failed, %4$d pending."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2983
-msgid "Slow threshold seconds"
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1111
+msgid "Social WebP cover refresh is unavailable."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1513
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:81
+msgid "Social WebP cover tools are unavailable."
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2045
 msgid "Social profile"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2702
-msgid "Social profile disabled"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2702
-msgid "Social profile enabled"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:277
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:429
 msgid "Social settings are unavailable."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2682
-msgid "Social settings could not be saved."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:299
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:451
 msgid "Social settings saved."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3060
-msgid "Standard"
+#. translators: %s: file path.
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/image-optimizer.php:136
+#, php-format
+msgid "Source file is missing: %s"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2114
-msgid "State"
+#. translators: %s: file path.
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/image-optimizer.php:143
+#, php-format
+msgid "Source file is not readable by PHP: %s"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:987
+#. translators: %s: file path.
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/image-optimizer.php:178
+#, php-format
+msgid "Source image cannot be decoded: %s"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1400
 msgid "State line"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/blocks.php:52
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/blocks.php:59
 msgid "State the main answer in one clear sentence."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1777
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1914
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1970
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2134
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2177
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2204
-msgid "Status"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1884
-msgid "Status rows"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1889
-msgid "Status source"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1459
-msgid ""
-"Submit the AI policy URL when available; localhost remains dry-run only."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1000
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1003
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1007
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1013
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1015
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1413
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1416
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1420
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1426
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1428
 #: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/geo-score.php:68
 #: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/meta-fields.php:97
 msgid "Subtitle"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:524
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:528
 msgid "Subtitle field focused. Add a compact alternative headline."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:760
-msgid "TAB 01 · Brand"
+#. translators: %s: directory path.
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/image-optimizer.php:153
+#, php-format
+msgid "Target directory is not writable: %s"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1933
-msgid "TAB 02 · Panels"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1554
-msgid "TAB 03 · Mobile App"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2698
-msgid "TAB 04 · Social"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1047
-msgid "TAB 05 · Articles"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1290
-msgid "TAB 06 · GEO"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2414
-msgid "TAB 07 · Effects"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3141
-msgid "TAB 08 · Tools"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:450
-msgid "TAB 09 · AI Services"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2914
-msgid "TAB 10 · Partners"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3494
-msgid "THEME"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1624
-msgid "Target"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1504
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2036
 msgid "Terminal style"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3238
-msgid ""
-"The spec requires split and bundle packages. Build any missing package from "
-"the monorepo root."
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/image-optimizer.php:168
+msgid "The PHP GD imagewebp function is unavailable."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3260
-msgid "Theme Check / Release Audit"
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/image-optimizer.php:171
+msgid "The WordPress image editor API is unavailable."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:195
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:268
 msgid "Theme Check plugin code appears to be loaded in this WordPress runtime."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:869
-msgid "Theme color"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1713
-msgid "Theme layer"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:353
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:426
 msgid "Theme package"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:749
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1123
 msgid "Theme release audit is unavailable."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:279
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:352
 msgid "Theme text domain"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1708
-msgid ""
-"These server-rendered forms remain the authoritative save surface while the "
-"React control center is expanded tab by tab."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3342
-msgid ""
-"This React tab shell is ready; its editable controls will be migrated from "
-"the current settings forms in a later pass."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:546
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:550
 msgid ""
 "This article defines the core operating context, key terms, and recommended "
 "next actions for readers and AI systems."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:464
-msgid "This month"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2034
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2203
-msgid "Time"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1133
-msgid "Time Windows"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1815
-msgid "Time windows"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2144
-msgid "Timeout"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2972
-msgid "Timeout seconds"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:832
-msgid "Timezone badge"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:763
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1137
 msgid "Tool action completed."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3125
-msgid "Tool action could not be completed."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3145
-msgid "Tools Ready"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2011
-msgid "Total"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1988
-msgid "Tracked bots"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1508
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2040
 msgid "Tune Effects"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1054
-msgid ""
-"Tune article semantic linking, visible related-entry panels, cache behavior, "
-"and GEO hidden related links from the React control surface."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2421
-msgid ""
-"Tune terminal presentation effects for the frontend shell. Reduced-motion "
-"visitors still get the browser-level motion override."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1773
-msgid ""
-"Tune the semantic link engine used by article pages and hidden GEO resource "
-"links."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3206
-msgid "UPDATED"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2770
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2995
 msgid "URL"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2206
-msgid "URLs"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:771
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1145
 msgid "Unavailable"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:758
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1132
 msgid "Unknown tool action."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:300
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:362
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:412
+#. translators: %s: mime type.
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/image-optimizer.php:163
+#, php-format
+msgid "Unsupported media type for WebP conversion: %s"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:569
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:704
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:782
 msgid "Unsupported post."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2008
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2248
-msgid "Up"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:582
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:586
 msgid "Update the article content and save to refresh the modified date."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:622
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:626
 msgid "Updated"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:181
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:447
 msgid ""
 "Upload and SVG fallback covers remain active until API settings are "
 "completed."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:295
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:299
 msgid "Upload covers and SVG fallback are available."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:711
-msgid "Uploaded icon with current crop controls."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:354
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:358
 msgid "Use"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:541
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:911
 msgid ""
 "Use structured headings, internal links, and FAQ content to strengthen GEO "
 "visibility."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:602
-msgid "Use this image"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2782
-msgid "Used for WeChat QR popups; leave empty for normal social links."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2037
-msgid "User Agent"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:881
-msgid "Using generated SVG fallback."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:801
-msgid "Using text mark fallback."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:354
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:358
 msgid "Using..."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2093
-msgid "Value"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3033
-msgid "View archive"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1001
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1414
 msgid "View-all label"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:979
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1392
 msgid "Visitor title"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3266
-msgid "WARN"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:198
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:271
 msgid ""
 "WP-CLI runtime is active; run the official Theme Check command from the "
 "shell for the full rule set."
@@ -3004,20 +1810,24 @@ msgid ""
 "description for review."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1018
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1431
 msgid "Warning IP"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1016
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1429
 msgid "Warning level"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1017
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1430
 msgid "Warning text"
 msgstr ""
 
 #: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/social-store.php:21
 msgid "WeChat"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3409
+msgid "WebP 图片优化"
 msgstr ""
 
 #: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/author-profile.php:18
@@ -3029,32 +1839,29 @@ msgstr ""
 msgid "Weibo"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/blocks.php:79
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/blocks.php:86
 msgid "What should readers remember first?"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:553
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:557
 msgid "What should readers understand first?"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:761
-msgid "White-label active"
 msgstr ""
 
 #: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/geo-score.php:73
 msgid "Word count"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:596
-msgid "WordPress media library is unavailable."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:904
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:910
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1317
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1323
 msgid "WordPress probes"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:620
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:342
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:790
+msgid "WordPress 媒体库不可用。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/blocks.js:624
 msgid "Words"
 msgstr ""
 
@@ -3069,7 +1876,7 @@ msgstr ""
 msgid "X / Twitter"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:416
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:786
 msgid "You are not allowed to generate KEY POINTS for this post."
 msgstr ""
 
@@ -3077,11 +1884,11 @@ msgstr ""
 msgid "You are not allowed to generate the AI policy page."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:304
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:573
 msgid "You are not allowed to generate this cover."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:366
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/cover-pipeline.php:708
 msgid "You are not allowed to restore this cover."
 msgstr ""
 
@@ -3089,8 +1896,12 @@ msgstr ""
 msgid "You are not allowed to test IndexNow."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/partner-healthcheck.php:194
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/partner-healthcheck.php:266
 msgid "You are not allowed to test partner health."
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/update.php:358
+msgid "You do not have permission to refresh NERV updates."
 msgstr ""
 
 #: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/author-profile.php:16
@@ -3098,76 +1909,1468 @@ msgstr ""
 msgid "YouTube"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:690
-msgid "baseline install"
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3485
+msgid "dist 中未找到包。"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1984
-msgid "days"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:637
-msgid "fit"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:960
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:753
 msgid "home"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:931
-msgid "iOS commonly uses 180px."
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:438
+msgid "iOS 主屏幕"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:692
-msgid "iOS home screen"
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:681
+msgid "iOS 常用尺寸为 180px。"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:1544
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2083
 msgid "llms.txt"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:966
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:759
 msgid "manifest"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:284
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:307
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:308
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:318
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:357
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:380
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:381
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:391
 msgid "missing"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3183
-msgid "partner records tracked."
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2148
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2157
-msgid "seconds"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:691
-msgid "store surface"
-msgstr ""
-
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:267
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:340
 msgid "style.css release headers"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:243
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:316
 msgid ""
 "style.css, theme.json, functions.php, templates, and template parts are "
 "present."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:298
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:371
 msgid "theme.json is missing or invalid JSON."
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:296
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:369
 msgid "theme.json parse"
 msgstr ""
 
-#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:298
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/tools.php:371
 msgid "theme.json parsed successfully."
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3411
+msgid "上传 JPEG/PNG 后自动生成 WebP，分享卡片优先使用真实媒体图。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2116
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2356
+msgid "上移"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:266
+msgid "上面的模型按钮会自动维护这个列表。顺序从上到下执行。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2121
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2361
+msgid "下移"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2048
+msgid ""
+"不用改代码即可控制终端面板：可见性、列、保存顺序、注册文案字段、实时行和自定"
+"义内容面板。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:694
+msgid "个人作品集"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:540
+msgid "中心标识"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:234
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:240
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:259
+msgid "主模型"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3728
+msgid "主题"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:854
+msgid "主题 Meta 已停用"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:854
+msgid "主题 Meta 已启用"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3721
+msgid "主题总览"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3759
+msgid "主题控制台数据加载失败。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3573
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3735
+msgid "主题控制页面"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3497
+msgid "主题检查 / 发布审计"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:619
+msgid "主题色"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3721
+msgid "主题设置页面"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3004
+msgid "二维码图片 URL"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1359
+msgid "仅试运行：记录日志但不向外提交"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:908
+msgid "优先使用文章封面，否则使用应用图标兜底。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:348
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:796
+msgid "使用这张图片"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:230
+msgid "供应商"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:301
+msgid "供应商名称"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:323
+msgid "保存 AI 供应商"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1602
+msgid "保存 GEO 设置"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:946
+msgid "保存 SEO 设置"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:323
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:769
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:946
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1163
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1602
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1803
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2420
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2723
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2850
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3051
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3293
+msgid "保存中..."
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3293
+msgid "保存合作伙伴设置"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:769
+msgid "保存品牌设置"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1163
+msgid "保存文章设置"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2723
+msgid "保存特效设置"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3051
+msgid "保存社交设置"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1803
+msgid "保存移动端设置"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1121
+msgid "保存这些设置会刷新相关文章缓存。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2850
+msgid "保存配色设置"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2420
+msgid "保存面板设置"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2201
+msgid "值"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1302
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1507
+msgid "停止"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3629
+msgid "健康信号"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/inc/admin-page.php:2116
+msgid "入口：NERV主题 · GEO 顶部的“旧文章链接 GEO 化”。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:291
+msgid "全部供应商模型加入备用"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:248
+msgid "全部加入备用"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2390
+msgid "内容"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2335
+msgid "内容类型"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:293
+msgid "减少复制粘贴；保存前仍可在下方调整顺序。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2127
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2318
+msgid "列位置"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:300
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2239
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2367
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3024
+msgid "删除"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1567
+msgid "刷新 AI 政策页"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3379
+msgid "刷新 Markdown 镜像"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2382
+msgid "副标题"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2505
+msgid "动效过渡"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1156
+msgid "勾选的分类会从相关文章评分和兜底查询中排除。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1391
+msgid "勾选的机器人会被监控并在 robots.txt 中放行；未勾选的会被阻止。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3474
+msgid ""
+"包状态只能从本地 monorepo 读取；部署到 wp-content 的副本只保留 CLI 命令供参"
+"考。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1335
+msgid "发布/更新时启用 IndexNow 推送"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3470
+msgid "发布打包"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3475
+msgid "发布要求同时有拆分包和整合包；缺失包请在 monorepo 根目录构建。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1433
+msgid "发现需要优化的文章 slug。生成建议后进入文章 meta，等待审阅。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2691
+msgid "只导出/导入特效设置。导入 JSON 会先更新表单，确认预览后再保存。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:280
+msgid ""
+"可以添加多个 OpenAI 兼容供应商。文本模型和图片模型分开设置，模型列表获取后会"
+"缓存到对应供应商。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:712
+msgid "可填写 Google Fonts、Bunny Fonts 或自托管字体 CSS 地址。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:316
+msgid "可用占位符：{title}、{subtitle}、{excerpt}、{category}。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3520
+msgid "可用时使用官方 Theme Check；否则运行内置区块主题发布审计。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3182
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3397
+msgid "合作伙伴健康"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3261
+msgid "合作伙伴健康测试"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3115
+msgid "合作伙伴健康测试已完成。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3118
+msgid "合作伙伴健康测试未能完成。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3150
+msgid "合作伙伴展示"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3094
+msgid "合作伙伴设置保存失败。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3091
+msgid "合作伙伴设置已保存。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1062
+msgid "同分类"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1073
+msgid "同标签"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1298
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1503
+msgid "启动挂机改链接"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1373
+msgid "启用 AI 爬虫监控和 robots 策略输出"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:321
+msgid "启用 KEY POINTS AI 生成"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1685
+msgid "启用 MORE 标签路由"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:868
+msgid "启用主题生成的 SEO Meta 标签"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:304
+msgid "启用供应商"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3640
+msgid "启用向导"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3184
+msgid "启用定时合作伙伴健康检查"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3609
+msgid "启用步骤已完成。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3612
+msgid "启用步骤未能完成。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1030
+msgid "启用相关文章面板和 GEO 相关链接"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1677
+msgid "启用移动端应用外壳和固定 Tab Bar"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2552
+msgid "启用终端特效"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2102
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2308
+msgid "启用面板"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:532
+msgid "品牌副标题"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:524
+msgid "品牌标题"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:494
+msgid "品牌设置保存失败。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:491
+msgid "品牌设置已保存。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:511
+msgid "品牌设置已启用"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:437
+msgid "商店展示"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:646
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1720
+msgid "图标"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:315
+msgid "图片模型"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2937
+msgid "在 Pilot Profile 中显示全局社交链接"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3171
+msgid "在 llms.txt 收录合作伙伴"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3723
+msgid "在一个控制台管理 GEO、AI 服务、爬虫可见性、合作伙伴和主题运维。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3221
+msgid "在合作伙伴页面显示申请区块"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1422
+msgid "在线"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3152
+msgid "在终端页脚显示推荐伙伴"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:436
+msgid "基础安装"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:263
+msgid "备用模型"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:247
+msgid "备用模型选择"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:263
+msgid "备用模型顺序（可手动微调）"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2945
+msgid "外部社交链接在新窗口打开"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:284
+msgid "外部调用"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3444
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3504
+msgid "失败"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:709
+msgid "字体 CSS URL"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:669
+msgid "安装图标常用尺寸为 512px。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:392
+msgid "完整显示"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1343
+msgid "密钥"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3462
+msgid "导入 / 刷新演示内容"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2712
+msgid "导入特效 JSON"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3553
+msgid "导入预设 JSON"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3438
+msgid "导入首页、归档和 GEO 检查使用的本地演示记录。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3531
+msgid "导出或导入白名单内的主题/控制台设置；不会包含 API 密钥。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2707
+msgid "导出特效 JSON"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3548
+msgid "导出预设 JSON"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:285
+msgid "封面 / 要点"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:316
+msgid "封面 Prompt 模板"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3361
+msgid "工具就绪"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3338
+msgid "工具操作已完成。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3341
+msgid "工具操作未能完成。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:457
+msgid "已上传图标，并使用当前裁切设置。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2167
+msgid "已不同于默认值。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2521
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3386
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3410
+msgid "已停用"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3442
+msgid "已创建"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1551
+msgid "已发布，并已从机器可读资源链接。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1702
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2045
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2521
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2962
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3386
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3410
+msgid "已启用"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:135
+msgid "已把全部供应商缓存模型加入文本和图片备用模型。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:154
+msgid "已把文本模型配置复制到图片模型，可再按需微调。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3443
+msgid "已更新"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:883
+msgid "已检测到 SEO 插件。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:307
+msgid "已缓存模型数量："
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2972
+msgid "平台"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1284
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1489
+msgid "并发线程"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1541
+msgid "应用 GEO 默认设置"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1524
+msgid ""
+"应用上线安全默认值：IndexNow 试运行、AI 爬虫可见、AI 政策页和刷新 Markdown 镜"
+"像。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:603
+msgid "应用名称"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1668
+msgid "应用外壳已停用"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1668
+msgid "应用外壳已启用"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2562
+msgid "强度"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:893
+msgid "当 WordPress 副标题为空且当前页面没有摘要时使用。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:551
+msgid "当前使用文字标识兜底。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:631
+msgid "当前使用自动生成的 SVG 兜底图标。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:457
+msgid "当前显示自动生成的 SVG 兜底预览；生产环境建议上传正方形位图图标。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:290
+msgid "快捷配置"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2533
+msgid "总开关"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1301
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1506
+msgid "恢复"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3203
+msgid "慢速阈值秒数"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3262
+msgid "手动探测已发布的合作伙伴链接并刷新状态表。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3498
+msgid "打包主题前运行本地发布审计。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3403
+msgid "打开合作伙伴工具"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control-utils.js:51
+msgid "打开步骤"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control-utils.js:51
+msgid "执行步骤"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1265
+msgid "批量多线程改文章链接"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1266
+msgid ""
+"把中文、过长或不可读的旧文章 slug 批量改成适合 SEO/GEO 的英文链接；保留旧链"
+"接 301 跳转，并在 429/5xx 时自动重拾。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2091
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2297
+msgid "拖动排序"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2112
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2352
+msgid "排序"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3280
+msgid "推荐"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1523
+msgid "推荐 GEO 设置"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1536
+msgid "推荐 GEO 设置已完成。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1381
+msgid "数据保留天数"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:314
+msgid "文本模型"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:292
+msgid "文本模型复制到图片模型"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1126
+msgid "文章库存"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:996
+msgid "文章设置保存失败。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:993
+msgid "文章设置已保存。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:311
+msgid "新增供应商"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3252
+msgid "新增合作伙伴"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2002
+msgid "日志来源"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1990
+msgid "日志行"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1264
+msgid "旧文章链接 GEO 化"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:582
+msgid "时区徽标"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:572
+msgid "时钟条"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:574
+msgid "时钟标签"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1098
+msgid "时间窗口"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3280
+msgid "普通"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1300
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1505
+msgid "暂停"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1154
+msgid "暂无可用分类。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3285
+msgid "暂无合作伙伴。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control-utils.js:120
+msgid "暂无记录。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:558
+msgid "替换 Logo"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:638
+msgid "替换图标"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:915
+msgid "替换图片"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3282
+msgid "最终 URL"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3653
+msgid "最近 AI 抓取"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1577
+msgid "有 AI 政策 URL 时提交；本地站点保持试运行。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:883
+msgid "未检测到支持的 SEO 插件。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:279
+msgid "未配置"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3472
+msgid "本地 dist 目录已有 bundle、主题和插件包。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:282
+msgid "本月"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3674
+msgid "机器可读资源"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1320
+msgid "机器可读资源已启用"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3399
+msgid "条合作伙伴记录已跟踪。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1046
+msgid "条目数量"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3491
+msgid "构建脚本是本地 monorepo 工具，不会部署进 wp-content。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3253
+msgid "查看归档"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1710
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2193
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2987
+msgid "标签"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:728
+msgid "标题字体栈"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2606
+msgid "桌面端启用特效"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2617
+msgid "桌面端强度"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2604
+msgid "桌面端覆盖"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:876
+msgid "检测到 SEO 插件时交给插件输出 Meta"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:185
+msgid "模型列表已获取并缓存。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:188
+msgid "模型列表获取失败。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3772
+msgid "正在加载主题控制台..."
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:306
+msgid "正在获取模型..."
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:719
+msgid "正文字体栈"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1273
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1478
+msgid "每批数量"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:266
+msgid "每行一个。主模型失败、429、超时或返回格式错误时会立即切换。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1433
+msgid "没有发现需要优化的文章 slug。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:320
+msgid "没有特色图时自动生成封面"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:590
+msgid "活动徽标"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3032
+msgid "添加社交链接"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2258
+msgid "添加自定义面板"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2185
+msgid "添加行"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3387
+msgid "清理加权相关文章引擎使用的 transient 缓存。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3391
+msgid "清理相关文章缓存"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:563
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:643
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:920
+msgid "清除"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3430
+msgid "演示内容"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3438
+msgid "演示记录可用于前台验证。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:399
+msgid "焦点 X"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:414
+msgid "焦点 Y"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2477
+msgid "特效设置保存失败。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2474
+msgid "特效设置已保存。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2579
+msgid "特效通道"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2690
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2693
+msgid "特效预设 JSON"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2497
+msgid "特效预设 JSON 导入失败。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2495
+msgid "特效预设 JSON 已导入，保存后应用到前台。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2486
+msgid "特效预设 JSON 已导出。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2222
+msgid "状态"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1997
+msgid "状态来源"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1992
+msgid "状态行"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:319
+msgid "生产密钥就绪前使用 AI 试运行"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1567
+msgid "生成 AI 政策页"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1449
+msgid "生成下一篇建议"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3424
+msgid "生成分享 WebP"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:315
+msgid "用于 AI 封面生成。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:314
+msgid "用于 KEY POINTS、GEO 标题、后续文本类 AI 功能。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3007
+msgid "用于微信二维码弹层；普通社交链接可留空。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3219
+msgid "申请区块"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3238
+msgid "申请文案"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3229
+msgid "申请邮箱"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2814
+msgid "白天 / 夜间模式"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2000
+msgid "监控来源"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1987
+msgid "监控行"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1737
+msgid "目标"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1028
+msgid "相关文章"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1016
+msgid "相关文章引擎已停用"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1016
+msgid "相关文章引擎已启用"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3385
+msgid "相关文章缓存"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:611
+msgid "短名称"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3415
+msgid "社交封面目录不可用。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2927
+msgid "社交档案已停用"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2927
+msgid "社交档案已启用"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2907
+msgid "社交设置保存失败。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2904
+msgid "社交设置已保存。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:903
+msgid "社交预览图"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2650
+msgid "移动端"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2636
+msgid "移动端启用特效"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2663
+msgid "移动端强度"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2634
+msgid "移动端覆盖"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1651
+msgid "移动端设置保存失败。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1648
+msgid "移动端设置已保存。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1299
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1504
+msgid "立即跑一批"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:888
+msgid "站点描述"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1351
+msgid "端点"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:737
+msgid "等宽/界面字体栈"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2209
+msgid "等级"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1060
+msgid "算法权重"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1323
+msgid ""
+"管理 AI 可读发布层：IndexNow 推送、爬虫可见性、robots 策略和机器可读资源状"
+"态。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3251
+msgid "管理合作伙伴"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:699
+msgid "系统时间"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1111
+msgid "缓存小时"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3375
+msgid "缓存目录不可用。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1422
+msgid "缺失"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1551
+msgid "缺失；上线前请生成政策页。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2502
+msgid "背景网格"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1471
+msgid "自动批量处理不适合 SEO/GEO 的旧文章链接，支持失败重试与批次推进。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1752
+msgid "自定义 URL"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:707
+msgid "自定义字体"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1931
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1932
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2254
+msgid "自定义面板"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:306
+msgid "获取模型列表并缓存"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3419
+msgid "补齐媒体 WebP"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:393
+msgid "裁切铺满"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3503
+msgid "警告"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2930
+msgid ""
+"设置 Pilot Profile 面板和机器可读身份信号使用的全局社交链接；作者卡片仍可从用"
+"户资料单独覆盖。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:857
+msgid ""
+"设置主题生成的描述、Open Graph 图片、SEO 插件接管和 Markdown 镜像索引策略。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3141
+msgid "设置合作伙伴链接展示、申请文案、llms.txt 收录和健康探测阈值。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1670
+msgid ""
+"设置固定移动端 Tab Bar、MORE 页面内容和应用式导航；建议启用 3 到 5 个适合拇指"
+"操作的标签。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1019
+msgid "设置文章语义链接、可见相关文章面板、缓存行为和 GEO 隐藏相关链接。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3530
+msgid "设置预设 JSON"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:513
+msgid "设置首屏品牌标识、页头时钟标签和终端外壳使用的 PWA 安装信息。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3485
+msgid "请从本地 monorepo 的 dist 目录检查包文件。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2524
+msgid "调整前台终端外壳的展示特效；偏好减少动效的访客仍会使用浏览器级降级。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3192
+msgid "超时秒数"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1593
+msgid "运行 IndexNow 测试"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3524
+msgid "运行主题检查 / 发布审计"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3267
+msgid "运行合作伙伴健康测试"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3364
+msgid ""
+"运行安全的 WordPress 维护操作，并检查本地构建/演示命令；打包仍保留在本地 "
+"CLI，不放进浏览器后台。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1100
+msgid "近期天数"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1084
+msgid "近期文章"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:135
+msgid "还没有可用的缓存模型，请先获取模型列表。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:307
+msgid "还没有缓存模型列表。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2400
+msgid "还没有自定义面板。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:383
+msgid "适配"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:558
+msgid "选择 Logo"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:637
+msgid "选择 PWA 图标"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:236
+msgid "选择主模型"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2781
+msgid "选择前台配色和白天/夜间模式；区块编辑器保持白底黑字，方便写作。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:638
+msgid "选择图标"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:915
+msgid "选择图片"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:557
+msgid "选择页头 Logo"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:795
+msgid "选择默认社交图"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3502
+msgid "通过"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2790
+msgid "配色方案"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2762
+msgid "配色设置保存失败。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2759
+msgid "配色设置已保存。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1038
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2374
+msgid "面板标题"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2025
+msgid "面板设置保存失败。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2022
+msgid "面板设置已保存。"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2504
+msgid "面板辉光"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:550
+msgid "页头 Logo 图片"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:522
+msgid "页头品牌"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:692
+msgid "页头预览"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3160
+msgid "页脚数量"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1781
+msgid "预览 MORE 页面"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3033
+msgid "预览 Pilot Profile"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2837
+msgid "预览令牌"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:1130
+msgid "预览最新文章"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2416
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2719
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2846
+msgid "预览首页"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:2537
+msgid "预设"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:3534
+msgid "预设 JSON"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:907
+msgid "默认 Open Graph 图片"
+msgstr ""
+
+#: /workspace/我的作品/theme/nerv-terminal-monorepo/plugin/assets/js/admin-control.js:890
+msgid "默认描述"
 msgstr ""
