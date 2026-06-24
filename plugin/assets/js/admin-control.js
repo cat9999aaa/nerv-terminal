@@ -87,68 +87,112 @@
 		}
 
 		function featureFallbackText( feature ) {
-			return ( feature.fallback_models || [] ).join( '\n' );
+			const routeLines = ( feature.fallback_routes || [] ).map( function ( route ) {
+				return String( route.provider_id || route.providerId || '' ) + '::' + String( route.model || '' );
+			} ).filter( function ( line ) {
+				return line !== '::';
+			} );
+			return routeLines.concat( feature.fallback_models || [] ).join( '\n' );
 		}
 
 		function setFeatureFallbackText( featureKey, value ) {
-			updateFeature( featureKey, 'fallback_models', String( value || '' ).split( /[\r\n,]+/ ).map( function ( item ) {
+			const routes = [];
+			const legacyModels = [];
+			String( value || '' ).split( /[\r\n,]+/ ).map( function ( item ) {
 				return item.trim();
-			} ).filter( Boolean ) );
-		}
-
-		function toggleFallbackModel( featureKey, model ) {
-			const feature = form[ featureKey ];
-			const current = feature.fallback_models || [];
-			const next = current.indexOf( model ) >= 0 ? current.filter( function ( item ) { return item !== model; } ) : current.concat( [ model ] );
-			updateFeature( featureKey, 'fallback_models', next );
-		}
-
-		function addCacheToFallbacks( featureKey, models ) {
-			const feature = form[ featureKey ];
-			const next = ( feature.fallback_models || [] ).slice();
-			models.forEach( function ( model ) {
-				if ( model !== feature.model && next.indexOf( model ) < 0 ) {
-					next.push( model );
+			} ).filter( Boolean ).forEach( function ( item ) {
+				const parts = item.split( '::' );
+				if ( parts.length >= 2 && parts[0] && parts.slice( 1 ).join( '::' ) ) {
+					routes.push( { provider_id: parts[0], model: parts.slice( 1 ).join( '::' ) } );
+				} else {
+					legacyModels.push( item );
 				}
 			} );
-			updateFeature( featureKey, 'fallback_models', next );
+			setField( featureKey, Object.assign( {}, form[ featureKey ], {
+				fallback_models: legacyModels,
+				fallback_routes: uniqueFallbackRoutes( routes ),
+			} ) );
 		}
 
-		function allCachedModels() {
-			const models = [];
+		function fallbackRouteKey( route ) {
+			return String( route.provider_id || route.providerId || '' ) + '::' + String( route.model || '' );
+		}
+
+		function uniqueFallbackRoutes( routes ) {
+			const seen = {};
+			return ( routes || [] ).filter( function ( route ) {
+				const key = fallbackRouteKey( route );
+				if ( key === '::' || seen[ key ] ) {
+					return false;
+				}
+				seen[ key ] = true;
+				return true;
+			} ).map( function ( route ) {
+				return { provider_id: route.provider_id || route.providerId, model: route.model };
+			} );
+		}
+
+		function isPrimaryRoute( feature, providerId, model ) {
+			return feature.provider_id === providerId && feature.model === model;
+		}
+
+		function toggleFallbackRoute( featureKey, providerId, model ) {
+			const feature = form[ featureKey ];
+			if ( isPrimaryRoute( feature, providerId, model ) ) {
+				return;
+			}
+			const current = uniqueFallbackRoutes( feature.fallback_routes || [] );
+			const key = providerId + '::' + model;
+			const exists = current.some( function ( route ) { return fallbackRouteKey( route ) === key; } );
+			updateFeature( featureKey, 'fallback_routes', exists ? current.filter( function ( route ) { return fallbackRouteKey( route ) !== key; } ) : current.concat( [ { provider_id: providerId, model: model } ] ) );
+		}
+
+		function addProviderCacheToFallbacks( featureKey, provider ) {
+			const feature = form[ featureKey ];
+			const routes = uniqueFallbackRoutes( feature.fallback_routes || [] );
+			( provider.modelCache || [] ).forEach( function ( model ) {
+				if ( ! isPrimaryRoute( feature, provider.id, model ) ) {
+					routes.push( { provider_id: provider.id, model: model } );
+				}
+			} );
+			updateFeature( featureKey, 'fallback_routes', uniqueFallbackRoutes( routes ) );
+		}
+
+		function allCachedRoutes() {
+			const routes = [];
 			form.providers.forEach( function ( provider ) {
 				( provider.modelCache || [] ).forEach( function ( model ) {
-					if ( models.indexOf( model ) < 0 ) {
-						models.push( model );
-					}
+					routes.push( { provider_id: provider.id, model: model } );
 				} );
 			} );
-			return models;
+			return uniqueFallbackRoutes( routes );
 		}
 
 		function addAllProviderCachesToFallbacks() {
-			const models = allCachedModels();
+			const routes = allCachedRoutes();
 			setForm( Object.assign( {}, form, {
-				textFeature: featureWithFallbacks( form.textFeature, models ),
-				imageFeature: featureWithFallbacks( form.imageFeature, models ),
+				textFeature: featureWithFallbackRoutes( form.textFeature, routes ),
+				imageFeature: featureWithFallbackRoutes( form.imageFeature, routes ),
 			} ) );
-			setNotice( models.length ? __( '已把全部供应商缓存模型加入文本和图片备用模型。', 'nerv-core' ) : __( '还没有可用的缓存模型，请先获取模型列表。', 'nerv-core' ) );
+			setNotice( routes.length ? __( '已把全部供应商缓存模型加入文本和图片备用模型。', 'nerv-core' ) : __( '还没有可用的缓存模型，请先获取模型列表。', 'nerv-core' ) );
 		}
 
-		function featureWithFallbacks( feature, models ) {
-			const next = ( feature.fallback_models || [] ).slice();
-			models.forEach( function ( model ) {
-				if ( model !== feature.model && next.indexOf( model ) < 0 ) {
-					next.push( model );
+		function featureWithFallbackRoutes( feature, routes ) {
+			const next = uniqueFallbackRoutes( feature.fallback_routes || [] );
+			routes.forEach( function ( route ) {
+				const providerId = route.provider_id || route.providerId;
+				if ( ! isPrimaryRoute( feature, providerId, route.model ) ) {
+					next.push( { provider_id: providerId, model: route.model } );
 				}
 			} );
-			return Object.assign( {}, feature, { fallback_models: next } );
+			return Object.assign( {}, feature, { fallback_routes: uniqueFallbackRoutes( next ) } );
 		}
 
 		function copyTextModelToImage() {
 			setForm( Object.assign( {}, form, {
 				imageFeature: Object.assign( {}, form.textFeature, {
 					fallback_models: ( form.textFeature.fallback_models || [] ).slice(),
+					fallback_routes: uniqueFallbackRoutes( form.textFeature.fallback_routes || [] ),
 				} ),
 			} ) );
 			setNotice( __( '已把文本模型配置复制到图片模型，可再按需微调。', 'nerv-core' ) );
@@ -220,7 +264,10 @@
 			const feature = form[ featureKey ];
 			const provider = findProvider( feature.provider_id );
 			const cache = provider.modelCache || [];
-			const fallbackModels = feature.fallback_models || [];
+			const fallbackRoutes = uniqueFallbackRoutes( feature.fallback_routes || [] );
+			const providerCaches = form.providers.filter( function ( item ) {
+				return item.enabled !== false && item.modelCache && item.modelCache.length;
+			} );
 			return el(
 				'div',
 				{ className: 'nerv-control-fieldset' },
@@ -242,28 +289,39 @@
 					__next40pxDefaultSize: true,
 					onChange: function ( value ) { updateFeature( featureKey, 'model', value ); },
 				} ),
-				cache.length ? el( 'div', { className: 'nerv-control-model-picker' },
+				providerCaches.length ? el( 'div', { className: 'nerv-control-model-picker' },
 					el( 'div', { className: 'nerv-control-model-picker__head' },
 						el( 'strong', null, __( '备用模型选择', 'nerv-core' ) ),
-						el( Button, { variant: 'secondary', onClick: function () { addCacheToFallbacks( featureKey, cache ); } }, __( '全部加入备用', 'nerv-core' ) )
+						el( Button, { variant: 'secondary', onClick: function () { addAllProviderCachesToFallbacks(); } }, __( '全部供应商加入备用', 'nerv-core' ) )
 					),
-					el( 'div', { className: 'nerv-control-model-chip-list' }, cache.slice( 0, 80 ).map( function ( model ) {
-						const selected = fallbackModels.indexOf( model ) >= 0;
-						const isMain = feature.model === model;
-						return el( 'button', {
-							type: 'button',
-							className: 'nerv-control-model-chip' + ( selected ? ' is-selected' : '' ) + ( isMain ? ' is-main' : '' ),
-							key: featureKey + '-fallback-' + model,
-							disabled: isMain,
-							onClick: function () { toggleFallbackModel( featureKey, model ); },
-						}, isMain ? __( '主模型', 'nerv-core' ) + ' · ' + model : model );
-					} ) )
+					providerCaches.map( function ( cacheProvider ) {
+						return el(
+							'div',
+							{ className: 'nerv-control-model-picker__provider', key: featureKey + '-cache-' + cacheProvider.id },
+							el( 'div', { className: 'nerv-control-model-picker__provider-head' },
+								el( 'span', null, cacheProvider.name || cacheProvider.id ),
+								el( Button, { variant: 'tertiary', onClick: function () { addProviderCacheToFallbacks( featureKey, cacheProvider ); } }, __( '本供应商全选', 'nerv-core' ) )
+							),
+							el( 'div', { className: 'nerv-control-model-chip-list' }, cacheProvider.modelCache.slice( 0, 80 ).map( function ( model ) {
+								const routeKey = cacheProvider.id + '::' + model;
+								const selected = fallbackRoutes.some( function ( route ) { return fallbackRouteKey( route ) === routeKey; } );
+								const isMain = isPrimaryRoute( feature, cacheProvider.id, model );
+								return el( 'button', {
+									type: 'button',
+									className: 'nerv-control-model-chip' + ( selected ? ' is-selected' : '' ) + ( isMain ? ' is-main' : '' ),
+									key: featureKey + '-fallback-' + routeKey,
+									disabled: isMain,
+									onClick: function () { toggleFallbackRoute( featureKey, cacheProvider.id, model ); },
+								}, isMain ? __( '主模型', 'nerv-core' ) + ' · ' + model : model );
+							} ) )
+						);
+					} )
 				) : null,
 				el( TextareaControl, {
 					label: cache.length ? __( '备用模型顺序（可手动微调）', 'nerv-core' ) : __( '备用模型', 'nerv-core' ),
 					value: featureFallbackText( feature ),
 					rows: 4,
-					help: cache.length ? __( '上面的模型按钮会自动维护这个列表。顺序从上到下执行。', 'nerv-core' ) : __( '每行一个。主模型失败、429、超时或返回格式错误时会立即切换。', 'nerv-core' ),
+					help: providerCaches.length ? __( '格式为 供应商ID::模型名。顺序从上到下执行，旧版每行模型名仍会按当前供应商兜底。', 'nerv-core' ) : __( '每行一个。主模型失败、429、超时或返回格式错误时会立即切换。', 'nerv-core' ),
 					__nextHasNoMarginBottom: true,
 					onChange: function ( value ) { setFeatureFallbackText( featureKey, value ); },
 				} )

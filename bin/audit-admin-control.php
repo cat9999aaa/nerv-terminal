@@ -22,6 +22,8 @@ $css = is_file( $css_file ) ? file_get_contents( $css_file ) : '';
 $js = is_file( $js_file ) ? file_get_contents( $js_file ) : '';
 $utils_js = is_file( $utils_js_file ) ? file_get_contents( $utils_js_file ) : '';
 $admin = is_file( $admin_file ) ? file_get_contents( $admin_file ) : '';
+$cover_pipeline_file = $root . '/plugin/inc/cover-pipeline.php';
+$cover_pipeline = is_file( $cover_pipeline_file ) ? file_get_contents( $cover_pipeline_file ) : '';
 $tools = is_file( $tools_file ) ? file_get_contents( $tools_file ) : '';
 $image_optimizer = is_file( $image_optimizer_file ) ? file_get_contents( $image_optimizer_file ) : '';
 $geo_slug_batch = is_file( $root . '/plugin/inc/geo-slug-batch.php' ) ? file_get_contents( $root . '/plugin/inc/geo-slug-batch.php' ) : '';
@@ -39,7 +41,8 @@ add_check( $checks, 'slug batch controls', str_contains( $admin_js_all, '每批�
 add_check( $checks, 'slug batch primary entry', str_contains( $admin_js_all, '旧文章链接 GEO 化' ) && str_contains( $admin_js_all, '批量多线程改文章链接' ) && str_contains( (string) $css, '.nerv-control-primary-task' ), 'GEO slug batch is promoted as a visible primary task on the GEO settings page.' );
 add_check( $checks, 'slug batch runtime lock', str_contains( (string) $geo_slug_batch, 'nerv_core_geo_slug_acquire_lock' ) && str_contains( (string) $geo_slug_batch, '已有 GEO slug 批次运行中' ), 'GEO slug batch has a runtime lock to prevent overlapping cron/manual batches.' );
 add_check( $checks, 'slug batch token release', str_contains( (string) $geo_slug_batch, 'nerv_core_geo_slug_release_lock( string $token )' ) && str_contains( (string) $geo_slug_batch, '(string) ( $lock[\'token\'] ?? \'\' ) !== $token' ), 'GEO slug batch only releases the lock token it acquired.' );
-add_check( $checks, 'model chip fallback picker', str_contains( $admin_js_all, 'nerv-control-model-chip' ) && str_contains( $admin_js_all, '全部加入备用' ), 'AI fallback models can be selected from cached model chips.' );
+add_check( $checks, 'model chip fallback picker', str_contains( $admin_js_all, 'nerv-control-model-chip' ) && str_contains( $admin_js_all, '全部供应商加入备用' ) && str_contains( $admin_js_all, 'fallback_routes' ), 'AI fallback models can be selected from cached cross-provider model chips.' );
+add_check( $checks, 'cross-provider fallback runtime', str_contains( (string) $cover_pipeline, 'nerv_core_ai_request_chain' ) && str_contains( (string) $cover_pipeline, 'nerv_core_ai_sanitize_fallback_routes' ) && str_contains( (string) $cover_pipeline, 'nerv_core_ai_endpoint_for_feature( $base_url, $feature )' ), 'AI runtime can switch provider endpoint and model when primary requests fail.' );
 add_check( $checks, 'ai bulk fallback actions', str_contains( $admin_js_all, '全部供应商模型加入备用' ) && str_contains( $admin_js_all, '文本模型复制到图片模型' ) && str_contains( (string) $css, '.nerv-control-ai-quick-actions' ), 'AI providers expose one-click fallback setup and text-to-image model copy actions.' );
 add_check( $checks, 'admin visible copy localized', ! preg_match( '/Theme Settings Page|This month|External calls|Tools Ready|Partner Display|Color Palette|Day \/ Night Mode|Save [A-Za-z ]+ Settings/', $admin_js_all ), 'Previously mixed English admin labels are localized in the React control surface.' );
 add_check( $checks, 'partner redirect data', str_contains( (string) $admin, "'redirects'" ) && str_contains( (string) $admin, "'finalUrl'" ), 'Partner health rows expose redirect count and final URL.' );

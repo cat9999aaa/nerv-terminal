@@ -15,6 +15,7 @@ function nerv_core_cover_default_options(): array {
 		'api_key'          => '',
 		'model'            => '',
 		'fallback_models'  => array(),
+		'fallback_routes'  => array(),
 		'model_cache'      => array(),
 		'model_cache_time' => '',
 		'prompt_template'  => __( 'Create an original {ratio_label} editorial cover for "{title}". Use a refined retro terminal interface mood, crisp typography space, no logos, no franchise references, no triangles. Subtitle: {subtitle}. Category: {category}. Excerpt: {excerpt}.', 'nerv-core' ),
@@ -45,11 +46,13 @@ function nerv_core_ai_default_options(): array {
 				'provider_id'     => 'default',
 				'model'           => '',
 				'fallback_models' => array(),
+				'fallback_routes' => array(),
 			),
 			'image' => array(
 				'provider_id'     => 'default',
 				'model'           => '',
 				'fallback_models' => array(),
+				'fallback_routes' => array(),
 			),
 		),
 	);
@@ -107,6 +110,7 @@ function nerv_core_ai_options(): array {
 			'provider_id'     => sanitize_key( (string) ( $row['provider_id'] ?? 'default' ) ),
 			'model'           => sanitize_text_field( (string) ( $row['model'] ?? ( $legacy['model'] ?? '' ) ) ),
 			'fallback_models' => nerv_core_ai_sanitize_model_list( $row['fallback_models'] ?? ( $legacy['fallback_models'] ?? array() ) ),
+			'fallback_routes' => nerv_core_ai_sanitize_fallback_routes( $row['fallback_routes'] ?? $row['fallbackRoutes'] ?? array() ),
 		);
 	}
 
@@ -167,6 +171,7 @@ function nerv_core_ai_sanitize_options( $input ): array {
 			'provider_id'     => sanitize_key( (string) ( $row['provider_id'] ?? $row['providerId'] ?? 'default' ) ),
 			'model'           => sanitize_text_field( (string) ( $row['model'] ?? '' ) ),
 			'fallback_models' => nerv_core_ai_sanitize_model_list( $row['fallback_models'] ?? $row['fallbackModels'] ?? array() ),
+			'fallback_routes' => nerv_core_ai_sanitize_fallback_routes( $row['fallback_routes'] ?? $row['fallbackRoutes'] ?? array() ),
 		);
 	}
 
@@ -184,6 +189,7 @@ function nerv_core_cover_options(): array {
 	$options['api_key'] = nerv_core_cover_decrypt_secret( (string) ( $options['api_key'] ?? '' ) );
 	$options['model'] = sanitize_text_field( (string) ( $options['model'] ?? '' ) );
 	$options['fallback_models'] = nerv_core_ai_sanitize_model_list( $options['fallback_models'] ?? array() );
+	$options['fallback_routes'] = nerv_core_ai_sanitize_fallback_routes( $options['fallback_routes'] ?? array() );
 	$options['model_cache'] = nerv_core_ai_sanitize_model_list( $options['model_cache'] ?? array() );
 	$options['model_cache_time'] = sanitize_text_field( (string) ( $options['model_cache_time'] ?? '' ) );
 	$options['prompt_template'] = sanitize_textarea_field( (string) ( $options['prompt_template'] ?? '' ) );
@@ -215,6 +221,7 @@ function nerv_core_cover_sanitize_options( $input ): array {
 		'api_key'          => $api_key,
 		'model'            => sanitize_text_field( (string) ( $input['model'] ?? '' ) ),
 		'fallback_models'  => nerv_core_ai_sanitize_model_list( $input['fallback_models'] ?? array() ),
+		'fallback_routes'  => nerv_core_ai_sanitize_fallback_routes( $input['fallback_routes'] ?? ( $old_raw['fallback_routes'] ?? array() ) ),
 		'model_cache'      => nerv_core_ai_sanitize_model_list( $input['model_cache'] ?? ( $old_raw['model_cache'] ?? array() ) ),
 		'model_cache_time' => sanitize_text_field( (string) ( $input['model_cache_time'] ?? ( $old_raw['model_cache_time'] ?? '' ) ) ),
 		'prompt_template'  => sanitize_textarea_field( (string) ( $input['prompt_template'] ?? '' ) ),
@@ -301,6 +308,36 @@ function nerv_core_ai_sanitize_model_list( $models ): array {
 	return $clean;
 }
 
+function nerv_core_ai_sanitize_fallback_routes( $routes ): array {
+	if ( ! is_array( $routes ) ) {
+		return array();
+	}
+
+	$clean = array();
+	$seen  = array();
+	foreach ( $routes as $route ) {
+		if ( ! is_array( $route ) ) {
+			continue;
+		}
+		$provider_id = sanitize_key( (string) ( $route['provider_id'] ?? $route['providerId'] ?? '' ) );
+		$model       = sanitize_text_field( (string) ( $route['model'] ?? '' ) );
+		if ( '' === $provider_id || '' === $model ) {
+			continue;
+		}
+		$key = $provider_id . '::' . $model;
+		if ( isset( $seen[ $key ] ) ) {
+			continue;
+		}
+		$seen[ $key ] = true;
+		$clean[] = array(
+			'provider_id' => $provider_id,
+			'model'       => $model,
+		);
+	}
+
+	return $clean;
+}
+
 function nerv_core_ai_model_chain( array $options ): array {
 	return nerv_core_ai_sanitize_model_list(
 		array_merge(
@@ -308,6 +345,62 @@ function nerv_core_ai_model_chain( array $options ): array {
 			(array) ( $options['fallback_models'] ?? array() )
 		)
 	);
+}
+
+function nerv_core_ai_request_chain( array $options, string $feature ): array {
+	$chain = array();
+	$base = array(
+		'endpoint'    => (string) ( $options['endpoint'] ?? '' ),
+		'api_key'     => (string) ( $options['api_key'] ?? '' ),
+		'model'       => sanitize_text_field( (string) ( $options['model'] ?? '' ) ),
+		'provider_id' => sanitize_key( (string) ( $options['provider_id'] ?? '' ) ),
+	);
+	if ( '' !== $base['model'] ) {
+		$chain[] = $base;
+	}
+
+	foreach ( nerv_core_ai_sanitize_fallback_routes( $options['fallback_routes'] ?? array() ) as $route ) {
+		$provider = nerv_core_ai_provider_by_id( (string) $route['provider_id'] );
+		if ( ! $provider || empty( $provider['enabled'] ) ) {
+			continue;
+		}
+		$base_url = (string) ( $provider['base_url'] ?? '' );
+		if ( '' === $base_url ) {
+			continue;
+		}
+		$chain[] = array(
+			'endpoint'    => nerv_core_ai_endpoint_for_feature( $base_url, $feature ),
+			'api_key'     => (string) ( $provider['api_key'] ?? '' ),
+			'model'       => (string) $route['model'],
+			'provider_id' => sanitize_key( (string) ( $provider['id'] ?? '' ) ),
+		);
+	}
+
+	$legacy_fallbacks = nerv_core_ai_model_chain(
+		array(
+			'model'           => '',
+			'fallback_models' => $options['fallback_models'] ?? array(),
+		)
+	);
+	foreach ( $legacy_fallbacks as $model ) {
+		$chain[] = array_merge( $base, array( 'model' => $model ) );
+	}
+
+	$clean = array();
+	$seen  = array();
+	foreach ( $chain as $route ) {
+		if ( '' === (string) ( $route['endpoint'] ?? '' ) || '' === (string) ( $route['model'] ?? '' ) ) {
+			continue;
+		}
+		$key = (string) ( $route['endpoint'] ?? '' ) . '::' . (string) ( $route['model'] ?? '' );
+		if ( isset( $seen[ $key ] ) ) {
+			continue;
+		}
+		$seen[ $key ] = true;
+		$clean[] = $route;
+	}
+
+	return $clean;
 }
 
 function nerv_core_ai_provider_by_id( string $provider_id ): array {
@@ -345,6 +438,7 @@ function nerv_core_ai_feature_options( string $feature ): array {
 		'api_key'         => (string) ( $provider['api_key'] ?? ( $legacy['api_key'] ?? '' ) ),
 		'model'           => $model,
 		'fallback_models' => nerv_core_ai_sanitize_model_list( $row['fallback_models'] ?? ( $legacy['fallback_models'] ?? array() ) ),
+		'fallback_routes' => nerv_core_ai_sanitize_fallback_routes( $row['fallback_routes'] ?? $row['fallbackRoutes'] ?? array() ),
 		'provider_id'     => sanitize_key( (string) ( $provider['id'] ?? '' ) ),
 	);
 }
@@ -952,19 +1046,20 @@ function nerv_core_key_points_request( string $prompt, array $options ) {
 }
 
 function nerv_core_ai_chat_request( string $system, string $user, array $options, array $args = array() ) {
-	$models = nerv_core_ai_model_chain( $options );
-	if ( ! $models ) {
+	$routes = nerv_core_ai_request_chain( $options, 'text' );
+	if ( ! $routes ) {
 		return new WP_Error( (string) ( $args['error_prefix'] ?? 'nerv_ai' ) . '_no_model', __( 'AI model is not configured.', 'nerv-core' ) );
 	}
 
 	$last_error = null;
-	foreach ( $models as $index => $model ) {
+	$primary = (string) ( $routes[0]['model'] ?? '' );
+	foreach ( $routes as $index => $route ) {
 		$request_options = $options;
-		$request_options['model'] = $model;
+		$request_options = array_merge( $request_options, $route );
 		$response = nerv_core_ai_chat_request_model( $system, $user, $request_options, $args );
 		if ( ! is_wp_error( $response ) ) {
 			if ( $index > 0 ) {
-				nerv_core_ai_fallback_log( (string) ( $args['service'] ?? 'chat' ), $models[0], $model, $last_error );
+				nerv_core_ai_fallback_log( (string) ( $args['service'] ?? 'chat' ), $primary, (string) $route['model'], $last_error );
 			}
 			return $response;
 		}
@@ -1087,19 +1182,20 @@ function nerv_core_ai_response_output_text( array $output ): string {
 }
 
 function nerv_core_cover_request_image( string $prompt, array $options, string $ratio = '5x2' ) {
-	$models = nerv_core_ai_model_chain( $options );
-	if ( ! $models ) {
+	$routes = nerv_core_ai_request_chain( $options, 'image' );
+	if ( ! $routes ) {
 		return new WP_Error( 'nerv_cover_no_model', __( 'AI model is not configured.', 'nerv-core' ) );
 	}
 
 	$last_error = null;
-	foreach ( $models as $index => $model ) {
+	$primary = (string) ( $routes[0]['model'] ?? '' );
+	foreach ( $routes as $index => $route ) {
 		$request_options = $options;
-		$request_options['model'] = $model;
+		$request_options = array_merge( $request_options, $route );
 		$response = nerv_core_cover_request_image_model( $prompt, $request_options, $ratio );
 		if ( ! is_wp_error( $response ) ) {
 			if ( $index > 0 ) {
-				nerv_core_ai_fallback_log( 'cover', $models[0], $model, $last_error );
+				nerv_core_ai_fallback_log( 'cover', $primary, (string) $route['model'], $last_error );
 			}
 			return $response;
 		}

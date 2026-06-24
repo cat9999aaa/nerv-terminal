@@ -141,6 +141,7 @@
 			provider_id: source.provider_id || source.providerId || 'default',
 			model: source.model || '',
 			fallback_models: Array.isArray( source.fallback_models ) ? source.fallback_models : ( Array.isArray( source.fallbackModels ) ? source.fallbackModels : [] ),
+			fallback_routes: Array.isArray( source.fallback_routes ) ? source.fallback_routes : ( Array.isArray( source.fallbackRoutes ) ? source.fallbackRoutes : [] ),
 		};
 	}
 
@@ -151,8 +152,8 @@
 		} ) : [ Object.assign( aiProviderDefaults( 0 ), { id: 'default', name: '默认供应商', baseUrl: source.endpoint || '', modelCache: source.modelCache || [], modelCacheTime: source.modelCacheTime || '', hasApiKey: !! source.hasApiKey } ) ];
 		return {
 			providers: providers,
-			textFeature: cloneAiFeature( source.textFeature || { provider_id: providers[0].id, model: source.model || '', fallback_models: source.fallbackModels || [] } ),
-			imageFeature: cloneAiFeature( source.imageFeature || { provider_id: providers[0].id, model: source.model || '', fallback_models: source.fallbackModels || [] } ),
+			textFeature: cloneAiFeature( source.textFeature || { provider_id: providers[0].id, model: source.model || '', fallback_models: source.fallbackModels || [], fallback_routes: source.fallbackRoutes || [] } ),
+			imageFeature: cloneAiFeature( source.imageFeature || { provider_id: providers[0].id, model: source.model || '', fallback_models: source.fallbackModels || [], fallback_routes: source.fallbackRoutes || [] } ),
 			endpoint: source.endpoint || '',
 			apiKey: '',
 			model: source.model || '',

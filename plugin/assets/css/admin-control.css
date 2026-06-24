@@ -2552,6 +2552,31 @@
 	gap: 8px;
 }
 
+.nerv-control-model-picker__provider {
+	display: grid;
+	gap: 8px;
+	padding-top: 8px;
+	border-top: 1px solid #dcdcde;
+}
+
+.nerv-control-model-picker__provider:first-of-type {
+	padding-top: 0;
+	border-top: 0;
+}
+
+.nerv-control-model-picker__provider-head {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px;
+}
+
+.nerv-control-model-picker__provider-head span {
+	color: #1d2327;
+	font-weight: 600;
+}
+
 .nerv-control-action-pair--inputs {
 	justify-content: flex-start;
 	align-items: flex-end;
@@ -2683,6 +2708,138 @@
 
 .nerv-control-command-row--stack {
 	align-items: start;
+}
+
+.nerv-control-wrap {
+	--nerv-admin-surface: #fff;
+	--nerv-admin-muted-surface: #f6f7f7;
+	--nerv-admin-selected-surface: #f0f6fc;
+	--nerv-admin-border: #dcdcde;
+	--nerv-admin-text: #1d2327;
+	--nerv-admin-muted: #50575e;
+	--nerv-admin-accent: #2271b1;
+	--nerv-admin-success: #00a32a;
+	--nerv-admin-danger: #d63638;
+}
+
+.nerv-control-wrap :where(
+	.nerv-control-app,
+	.nerv-control-shell,
+	.nerv-control-hero,
+	.nerv-control-tabs,
+	.nerv-control-metrics,
+	.nerv-control-panel,
+	.nerv-control-fieldset,
+	.nerv-control-switches,
+	.nerv-control-health__item,
+	.nerv-control-steps li,
+	.nerv-control-activity li,
+	.nerv-control-links a,
+	.nerv-control-provider-card,
+	.nerv-control-model-cache,
+	.nerv-control-model-picker,
+	.nerv-control-ai-quick-actions,
+	.nerv-control-ai-usage,
+	.nerv-control-ai-usage div,
+	.nerv-control-command-row,
+	.nerv-control-tool-card,
+	.nerv-control-social-row,
+	.nerv-control-partner-row,
+	.nerv-control-panel-row,
+	.nerv-control-mobile-tab-row,
+	.nerv-control-bot,
+	.nerv-control-effect-preset-box,
+	.nerv-control-effects-preview,
+	.nerv-control-build-box,
+	.nerv-control-themecheck-box,
+	.nerv-control-brand-preview,
+	.nerv-control-pwa-preview,
+	.nerv-control-pwa-preview figure,
+	.nerv-control-media-field,
+	.nerv-control-appearance-preview,
+	.nerv-control-mode-card,
+	.nerv-control-palette-swatch
+) {
+	border-color: var(--nerv-admin-border);
+	background: var(--nerv-admin-surface);
+	background-image: none;
+	color: var(--nerv-admin-text);
+	box-shadow: none;
+}
+
+.nerv-control-wrap :where(
+	.nerv-control-hero,
+	.nerv-control-tab,
+	.nerv-control-metric,
+	.nerv-control-model-chip,
+	.nerv-control-ai-quick-actions,
+	.nerv-control-switches,
+	.nerv-control-appearance-preview,
+	.nerv-control-mode-card,
+	.nerv-control-palette-swatch
+) {
+	background: var(--nerv-admin-muted-surface);
+	color: var(--nerv-admin-text);
+}
+
+.nerv-control-wrap :where(
+	.nerv-control-tab.is-selected,
+	.nerv-control-tab--active,
+	.nerv-control-page-nav a.is-current,
+	.nerv-control-model-chip.is-selected,
+	.nerv-control-palette-swatch.is-selected,
+	.nerv-control-mode-card.is-selected
+) {
+	border-color: var(--nerv-admin-accent);
+	background: var(--nerv-admin-selected-surface);
+	color: #135e96;
+	outline: 0;
+	box-shadow: none;
+}
+
+.nerv-control-wrap :where(h1, h2, h3, h4, strong, label, .components-base-control__label, .nerv-control-panel h3, .nerv-control-fieldset h4, .nerv-control-mode-card strong, .nerv-control-identity strong, .nerv-control-metric strong, .nerv-control-ai-usage strong) {
+	color: var(--nerv-admin-text);
+	font-family: inherit;
+	text-transform: none;
+	letter-spacing: 0;
+}
+
+.nerv-control-wrap :where(p, span, small, em, .nerv-control-kicker, .nerv-control-tab em, .nerv-control-form-note, .components-base-control__help, .nerv-control-empty, .nerv-control-health p, .nerv-control-steps small, .nerv-control-activity span, .nerv-control-activity small, .nerv-control-ai-usage span) {
+	color: var(--nerv-admin-muted);
+	font-family: inherit;
+	text-transform: none;
+}
+
+.nerv-control-wrap :where(input, textarea, select, .nerv-control-panel--form input, .nerv-control-panel--form textarea) {
+	border-color: #8c8f94;
+	background: #fff;
+	color: var(--nerv-admin-text);
+}
+
+.nerv-control-wrap :where(.nerv-control-status-pill, .nerv-control-status-pill--green, .nerv-control-status-pill--red) {
+	border-color: var(--nerv-admin-border);
+	background: #fff;
+	color: var(--nerv-admin-muted);
+	font-family: inherit;
+	text-transform: none;
+}
+
+.nerv-control-wrap .nerv-control-status-pill--green {
+	border-color: #8ed1a6;
+	color: #006800;
+}
+
+.nerv-control-wrap .nerv-control-status-pill--red {
+	border-color: #f0a5a5;
+	color: #8a2424;
+}
+
+.nerv-control-wrap :where(.nerv-control-panel a, .nerv-control-links a) {
+	color: var(--nerv-admin-accent);
+}
+
+.nerv-control-wrap .nerv-control-light {
+	box-shadow: none;
 }
 
 @media (max-width: 782px) {
